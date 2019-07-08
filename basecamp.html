@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+      /* Document
+         ========================================================================== */
+
+      /**
+       * 1. Correct the line height in all browsers.
+       * 2. Prevent adjustments of font size after orientation changes in iOS.
+       */
+
+      html {
+        line-height: 1.15; /* 1 */
+        -webkit-text-size-adjust: 100%; /* 2 */
+      }
+
+      /* Sections
+         ========================================================================== */
+
+      /**
+       * Remove the margin in all browsers.
+       */
+
+      body {
+        margin: 0;
+      }
+
+      /**
+       * Render the `main` element consistently in IE.
+       */
+
+      main {
+        display: block;
+      }
+
+      /**
+       * Correct the font size and margin on `h1` elements within `section` and
+       * `article` contexts in Chrome, Firefox, and Safari.
+       */
+
+      h1 {
+        font-size: 2em;
+        margin: 0.67em 0;
+      }
+
+      /* Grouping content
+         ========================================================================== */
+
+      /**
+       * 1. Add the correct box sizing in Firefox.
+       * 2. Show the overflow in Edge and IE.
+       */
+
+      hr {
+        box-sizing: content-box; /* 1 */
+        height: 0; /* 1 */
+        overflow: visible; /* 2 */
+      }
+
+      /**
+       * 1. Correct the inheritance and scaling of font size in all browsers.
+       * 2. Correct the odd `em` font sizing in all browsers.
+       */
+
+      pre {
+        font-family: monospace, monospace; /* 1 */
+        font-size: 1em; /* 2 */
+      }
+
+      /* Text-level semantics
+         ========================================================================== */
+
+      /**
+       * Remove the gray background on active links in IE 10.
+       */
+
+      a {
+        background-color: transparent;
+      }
+
+      /**
+       * 1. Remove the bottom border in Chrome 57-
+       * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+       */
+
+      abbr[title] {
+        border-bottom: none; /* 1 */
+        text-decoration: underline; /* 2 */
+        text-decoration: underline dotted; /* 2 */
+      }
+
+      /**
+       * Add the correct font weight in Chrome, Edge, and Safari.
+       */
+
+      b,
+      strong {
+        font-weight: bolder;
+      }
+
+      /**
+       * 1. Correct the inheritance and scaling of font size in all browsers.
+       * 2. Correct the odd `em` font sizing in all browsers.
+       */
+
+      code,
+      kbd,
+      samp {
+        font-family: monospace, monospace; /* 1 */
+        font-size: 1em; /* 2 */
+      }
+
+      /**
+       * Add the correct font size in all browsers.
+       */
+
+      small {
+        font-size: 80%;
+      }
+
+      /**
+       * Prevent `sub` and `sup` elements from affecting the line height in
+       * all browsers.
+       */
+
+      sub,
+      sup {
+        font-size: 75%;
+        line-height: 0;
+        position: relative;
+        vertical-align: baseline;
+      }
+
+      sub {
+        bottom: -0.25em;
+      }
+
+      sup {
+        top: -0.5em;
+      }
+
+      /* Embedded content
+         ========================================================================== */
+
+      /**
+       * Remove the border on images inside links in IE 10.
+       */
+
+      img {
+        border-style: none;
+      }
+
+      /* Forms
+         ========================================================================== */
+
+      /**
+       * 1. Change the font styles in all browsers.
+       * 2. Remove the margin in Firefox and Safari.
+       */
+
+      button,
+      input,
+      optgroup,
+      select,
+      textarea {
+        font-family: inherit; /* 1 */
+        font-size: 100%; /* 1 */
+        line-height: 1.15; /* 1 */
+        margin: 0; /* 2 */
+      }
+
+      /**
+       * Show the overflow in IE.
+       * 1. Show the overflow in Edge.
+       */
+
+      button,
+      input { /* 1 */
+        overflow: visible;
+      }
+
+      /**
+       * Remove the inheritance of text transform in Edge, Firefox, and IE.
+       * 1. Remove the inheritance of text transform in Firefox.
+       */
+
+      button,
+      select { /* 1 */
+        text-transform: none;
+      }
+
+      /**
+       * Correct the inability to style clickable types in iOS and Safari.
+       */
+
+      button,
+      [type="button"],
+      [type="reset"],
+      [type="submit"] {
+        -webkit-appearance: button;
+      }
+
+      /**
+       * Remove the inner border and padding in Firefox.
+       */
+
+      button::-moz-focus-inner,
+      [type="button"]::-moz-focus-inner,
+      [type="reset"]::-moz-focus-inner,
+      [type="submit"]::-moz-focus-inner {
+        border-style: none;
+        padding: 0;
+      }
+
+      /**
+       * Restore the focus styles unset by the previous rule.
+       */
+
+      button:-moz-focusring,
+      [type="button"]:-moz-focusring,
+      [type="reset"]:-moz-focusring,
+      [type="submit"]:-moz-focusring {
+        outline: 1px dotted ButtonText;
+      }
+
+      /**
+       * Correct the padding in Firefox.
+       */
+
+      fieldset {
+        padding: 0.35em 0.75em 0.625em;
+      }
+
+      /**
+       * 1. Correct the text wrapping in Edge and IE.
+       * 2. Correct the color inheritance from `fieldset` elements in IE.
+       * 3. Remove the padding so developers are not caught out when they zero out
+       *    `fieldset` elements in all browsers.
+       */
+
+      legend {
+        box-sizing: border-box; /* 1 */
+        color: inherit; /* 2 */
+        display: table; /* 1 */
+        max-width: 100%; /* 1 */
+        padding: 0; /* 3 */
+        white-space: normal; /* 1 */
+      }
+
+      /**
+       * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+       */
+
+      progress {
+        vertical-align: baseline;
+      }
+
+      /**
+       * Remove the default vertical scrollbar in IE 10+.
+       */
+
+      textarea {
+        overflow: auto;
+      }
+
+      /**
+       * 1. Add the correct box sizing in IE 10.
+       * 2. Remove the padding in IE 10.
+       */
+
+      [type="checkbox"],
+      [type="radio"] {
+        box-sizing: border-box; /* 1 */
+        padding: 0; /* 2 */
+      }
+
+      /**
+       * Correct the cursor style of increment and decrement buttons in Chrome.
+       */
+
+      [type="number"]::-webkit-inner-spin-button,
+      [type="number"]::-webkit-outer-spin-button {
+        height: auto;
+      }
+
+      /**
+       * 1. Correct the odd appearance in Chrome and Safari.
+       * 2. Correct the outline style in Safari.
+       */
+
+      [type="search"] {
+        -webkit-appearance: textfield; /* 1 */
+        outline-offset: -2px; /* 2 */
+      }
+
+      /**
+       * Remove the inner padding in Chrome and Safari on macOS.
+       */
+
+      [type="search"]::-webkit-search-decoration {
+        -webkit-appearance: none;
+      }
+
+      /**
+       * 1. Correct the inability to style clickable types in iOS and Safari.
+       * 2. Change font properties to `inherit` in Safari.
+       */
+
+      ::-webkit-file-upload-button {
+        -webkit-appearance: button; /* 1 */
+        font: inherit; /* 2 */
+      }
+
+      /* Interactive
+         ========================================================================== */
+
+      /*
+       * Add the correct display in Edge, IE 10+, and Firefox.
+       */
+
+      details {
+        display: block;
+      }
+
+      /*
+       * Add the correct display in all browsers.
+       */
+
+      summary {
+        display: list-item;
+      }
+
+      /* Misc
+         ========================================================================== */
+
+      /**
+       * Add the correct display in IE 10+.
+       */
+
+      template {
+        display: none;
+      }
+
+      /**
+       * Add the correct display in IE 10.
+       */
+
+      [hidden] {
+        display: none;
+      }
+      
+      body {
+        background-color: #FFFFFA;
+        color: #40434E;
+      }
+      
+      h1, h2, h3, h4, h5, h6 {
+        color: #912F40;
+        font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif", "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+        line-height: 1.2em;
+      }
+      
+      h1, strong {
+        color: #64C6E3;
+      }
+      
+      a {
+        color: #4B95AB;
+      }
+      
+      #main {
+        margin: 3em auto;
+        width: 65%;
+        font-family: "Segoe UI", Candara, "Bitstream Vera Sans", "DejaVu Sans", "Bitstream Vera Sans", "Trebuchet MS", Verdana, "Verdana Ref", sans-serif;
+        quotes: "“" "”";
+        line-height: 1.3em;
+      }
+      
+      header {
+        padding: 3em 17.5% 1.5em;
+        background-color: #40434E;
+      }
+      
+      header h2 {
+        color: #4B95AB;
+      }
+      
+      p {
+        text-indent: 1.5em;
+      }
+      
+      blockquote p {
+        text-indent: 0;
+        margin-bottom: 0.5em;
+      }
+      
+      blockquote a:before {
+        content: open-quote;
+        display: inline-block;
+        font-size: 120%;
+      }
+      
+      blockquote a:after {
+        content: close-quote;
+        display: inline-block;
+        font-size: 120%;
+      }
+      
+      blockquote em {
+        margin-left: 0.5em;
+      }
+      
+      cite {
+        padding-left: 1em;
+      }
+      
+      cite:before {
+        content:  "\2014 \0020";
+      }
+      
+      #playlist {
+        width: 400px;
+        display: block;
+        margin: 1em auto;
+      }
+      
+      @media(max-width: 615px) {
+        #playlist {
+          margin: 0;
+          width: auto;
+          transform: rotate(90deg);
+        }
+      }
+
+    </style>
+    <title>
+      Hi Basecamp, I'm Ronan!
+    </title>
+  </head>
+  <body>
+    <header>
+      <h1 id="hibasecamp">
+        Hi, Basecamp!
+      </h1>
+      <h2 id="imronan">
+        I’m Ronan, and I’d love to join your security/<wbr>infrastructure/<wbr>performance team! <small>(Even though its name is quite a mouthful…)</small>
+      </h2>
+    </header>
+    <article id="main">
+      <p>
+        Introducing one's self is not as easy at it sounds. As Alain De Botton <a href="https://www.alaindebotton.com/status/">brilliantly</a> <a href="https://youtu.be/OoShQEhl1ek?t=265">explained</a>, <em>“What do you do?”</em> is an innocuous question with high stakes. When I was 16, I wanted to be a writer. When I was 20, I wanted to be a musician. In the end, I’ve become a programmer, and I’m incredibly happy with this. Years on, programming keeps on giving me joy – and absolutely no status anxiety.
+      </p>
+      <h3 id="whybasecampandwhyme">
+        Why Basecamp, and why me?
+      </h3>
+      <p>
+        There are two reasons why I’d love to join your team, and the main one is Basecamp (the company) itself. I don’t want to sound too fanboyish, but Basecamp has been one of my main influences for the last 14 years or so. Back in 2005, 37signals was, to me, the home of the two smartest pieces of technology I had ever seen: Prototype and Rails. They set the young self-taught, LAMP-and-HTML developer that I was on an enlightening path. I owe a lot to DHH and Sam Stephenson (as well as Douglas Crockford, Dave Thomas and Andy Hunt) for what I’ve learned about good code and intelligent design – no, not the one mentionned <a href="https://www.youtube.com/watch?v=1te01rfEF0g">here</a>.
+      </p>
+      <p>
+        As my career progressed, I naturally got interested in the human side of crafting software: how to decide on the job to be done, how to lead projects, how to make people work together and communicate with one another. <em>Getting real</em> and <em>Rework</em> have had a significant impact on me, in part because of the ideas and advice they contain, in part because, reading them, I felt validated in my own beliefs about how people should work: in a sane and efficient manner. Naturally, when my managing duties grew (as the CTO of a B2B-focused company for the last 7 years, I’ve been leading a team that’s now 10 people strong), I turned to Basecamp for advice – be it through <em>Signal vs Noise</em>, <em>The Watercooler</em>, or <em>Know Your Company</em>/<em>Know Your Team</em>. And our playbook draws heavily on Basecamp’s.
+      </p>
+      <p>
+        <strong>TL;DR: I love what the programmers at Basecamp do, and I love even more the way Basecamp itself works.</strong>
+      </p>
+      <p>
+        The other reason why I’m applying is, of course, the position itself. Even though my current job requires me to do more than programming – managing, hiring, and advising – I’m still mostly a programmer. More specifically, during the last 18 months, I’ve handed over our main app to my trusted senior programmers, and focused on building internal tools, putting out fires, and helping everyone improve our codebase. The job that my small sub-team is doing sounds like what the Security/Infrastructure/Performance team does. And I love what we’re doing.
+      </p>
+      <h3 id="whatilove">
+        What I love
+      </h3>
+      <p>
+        I love writing code. I love writing code for the low-level, clever scientific puzzles to be solved, but even more for the high-level, human-facing ideas to be expressed and shared almost as literature. I love writing code in collaboration with other programmers, the way great songs are written by talented musicians riffing off each other, or by a fellow producer arranging someone’s else good material into something awesome.
+      </p>
+      <p>
+        I love Ruby. I love Ruby for itself, as a language, but even more for its community. Sharing, caring, benevolent, yet also highly technical, demanding, and still fun and excentric. I don’t care if Rubyists should be 10x developers, but I known that those I’ve met were 10x human beings.
+      </p>
+      <p>
+        I love to share my love for programming and for Ruby. Which is why I enjoy attending and giving talks at various meetups, why I’ve set up two Rails Girls week-ends, and dabbled in podcasting.
+      </p>
+      <p>
+        I love my current position and my current company. It's a place packed with great people whom I feel close to. I've been lucky enough to be trusted to a key position, and in return, I've helped the company grow from four people in a single room to what <a href="https://www.keycoopt.com">it</a> <a href="https://www.keycooptsystem.com">is</a> today. I hold a satisfying and rewarding position, and yet, I didn't hesitate when I read about this opening. I did sleep a few nights on it, though, but my mind hasn't changed: I really believe that this job is the right one for me, and that I'm the right person to do it.
+      </p>
+      <h3 id="thingsialwayssay">
+        Things I always say
+      </h3>
+      <p>
+        I also love speaking in quotes. Here are some of my favorites.
+      </p>
+      <blockquote>
+        <p>
+          <a href="http://wiki.c2.com/?MakeItWorkMakeItRightMakeItFast">Make it work, make it right, then make it fast.</a>
+        </p>
+        <footer>
+          <cite>
+            Kent Beck
+          </cite>
+        </footer>
+      </blockquote>
+      <blockquote>
+        <p>
+          <a href="https://music.apple.com/fr/album/innerspace/1146014243?i=1146014258">Nothing lasts forever but the certainty of change.</a>
+        </p>
+        <footer>
+          <cite>
+            Bruce Dickinson
+          </cite>
+        </footer>
+      </blockquote>
+      <blockquote>
+        <p>
+          <a href="https://www.nicolas-poussin.com">Ce qui vaut la peine d’être fait mérite d’être bien fait.</a><br>
+          <em>(Anything worth doing, is worth doing right)</em>
+        </p>
+        <footer>
+          <cite>
+            Nicolas Poussin
+          </cite>
+        </footer>
+      </blockquote>
+      <blockquote>
+        <p>
+          <a href="https://music.apple.com/fr/album/no-ones-gonna-do-it-for-you/14333029?i=14333017">No-one’s gonna do it for you</a>
+        </p>
+        <footer>
+          <cite>
+            The Hellacopters
+          </cite>
+        </footer>
+      </blockquote>
+      <blockquote>
+        <p>
+          <a href="https://www.espacefrancais.com/nicolas-boileau/">Ce qui ce conçoit bien s’énonce clairement, et les mots pour le dire viennent aisément</a><br>
+          <em>(Whatever is well conceived is clearly said, and the words to say it flow with ease)</em>
+        </p>
+        <footer>
+          <cite>
+            Nicolas Boileau
+          </cite>
+        </footer>
+      </blockquote>
+      <h3 id="reasonsnottohireme">
+        Reasons <em>not</em> to hire me
+      </h3>
+      <p>
+        There are obviously no good reasons not to hire me, but should you decide to welcome someone else (lucky them!), here are a few excuses that you could use to spare my feelings:
+      </p>
+      <ul>
+        <li>
+          I’m a Frenchman living in France. Fortunately, the clichés about <a href="https://www.pinterest.fr/MegaLoopGeek/super-dupont/">chauvinistic berets</a>, <a href="https://www.youtube.com/watch?v=82ja806BSik">intrusive seducing</a> and <a href="https://www.youtube.com/watch?v=R8n9NN7sAi0">questionnable hygiene</a> are not true; however, working for a US-based company would mean <a href="https://www.cnfe-urssaf.eu/index.php/en/you-are-an-enterprise/my-administrative-procedures/i-am-recruiting-staff-in-france">extra paperwork</a>. I can help you with that, though.
+        </li>
+        <li>
+          <a href="https://github.com/r3trofitted">I’m not a great open source contributor</a>. I contribute whenever I can; however, most of my work has been on proprietary software. However, I did give back to Rails <a href="https://github.com/rails/rails/pull/34417">once</a> (obviously the highlight of my career).
+        </li>
+        <li>I keep dressing like I’m 17 and it’s <a href="https://www.youtube.com/watch?v=F0Fe6M6Bw_M">1993</a>, even though back then I was dressing like it was <a href="https://www.youtube.com/watch?v=9RIeycixkK8">1989</a>.
+        </li>
+        <li>I snore. A lot. It drives my girlfriend mad.
+        </li>
+      </ul>
+      <h3 id="3">
+        &lt;3
+      </h3>
+      <p>
+        Thank you for taking the time to read this and for basically giving me the opportunity to write about things that I love (and about me, which is always a pleasant, if narcissistic, excercice). I hope it’s been an entertaining read, and I <em>really</em> hope that it made you want to get to know me a bit more.
+      </p>
+      <p>
+        Anyway, since this application is basically a love letter, and because I’m a bit of a <a href="https://www.youtube.com/watch?v=2msCS8dvSok">Rob Fleming</a>, <a href="https://music.apple.com/fr/playlist/b-i-g/pl.u-vxorjFa2B0d">here is a playlist</a> (aka a mixtape of our age) to thank you for your time. I hope you’ll like it!
+      </p>
+      <a id="playlist" href="https://music.apple.com/fr/playlist/b-i-g/pl.u-vxorjFa2B0d">
+        <img src="playlist.png" alt="https://music.apple.com/fr/playlist/b-i-g/pl.u-vxorjFa2B0d" height="266" width="400">
+      </a>
+    </article>
+  </body>
+</html>
