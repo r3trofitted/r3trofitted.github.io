@@ -1,0 +1,52 @@
+---
+layout: default
+---
+
+<div class="home">
+  {%- if page.title -%}
+  <h1 class="page-heading">{{ page.title }}</h1>
+  {%- endif -%}
+
+  {{ content }}
+
+  {%- if site.posts.size > 0 -%}
+  <h2 class="homepage-list-heading">Posts</h2>
+  <ul class="posts-list homepage-list">
+    {%- for post in site.posts -%}
+    <li class="post-list-item">
+      <a class="post-link" href="{{ post.url | relative_url }}">{{ post.title | escape }}</a>
+      <time datetime="{{ post.date | date: "%Y-%m-%d" }}" class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</time>
+      {%- if post.categories.size > 0 -%}
+      <ul class="post-categories">
+        {%- for category in post.categories -%}
+        <li>
+          <span class="post-category-link category" data-category="{{ category }}">
+            <span>{{ category }}</span>
+          </span>
+        </li>
+        {%- endfor -%}
+      </ul>
+      {%- endif -%}
+    </li>
+    {%- endfor -%}
+  </ul>
+  {%- endif -%}
+  
+  {%- assign named_series = site.collections | where_exp: "collection", "collection.series_title" -%}
+  {%- if named_series.size > 0 -%}
+  <h2 class="homepage-list-heading">Series</h2>
+  <dl class="series-list homepage-list">
+    {%- for series in named_series -%}
+    <dt class="series-list-title">
+      <a class="post-link" href="{{ series.docs | first | url | relative_url }}">{{ series.series_title | escape }}</a>
+    </dt>
+    <dd class="series-lede">{{ series.lede | escape }}</dd>
+    <dd class="series-parts">
+      {%- for part in series.docs -%}
+      <a href="{{ part.url | relative_url }}">Part {{ forloop.index }}</a>
+      {%- endfor -%}
+    </dd>
+    {%- endfor -%}
+  </ul>
+  {%- endif -%}
+</div>

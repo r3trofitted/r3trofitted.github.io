@@ -1,0 +1,70 @@
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/spectral-bold-webfont.woff2') format('woff2'),
+       url('../assets/spectral-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/spectral-bolditalic-webfont.woff2') format('woff2'),
+       url('../assets/spectral-bolditalic-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/spectral-italic-webfont.woff2') format('woff2'),
+       url('../assets/spectral-italic-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/spectral-medium-webfont.woff2') format('woff2'),
+       url('../assets/spectral-medium-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/spectral-mediumitalic-webfont.woff2') format('woff2'),
+       url('../assets/spectral-mediumitalic-webfont.woff') format('woff');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Spectral';
+  src: url('../assets/spectral-regular-webfont.woff2') format('woff2'),
+       url('../assets/spectral-regular-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Syncopate';
+  src: url('../assets/syncopate-bold-webfont.woff2') format('woff2'),
+       url('../assets/syncopate-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Syncopate';
+  src: url('../assets/syncopate-regular-webfont.woff2') format('woff2'),
+       url('../assets/syncopate-regular-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SaxMono';
+  src: url('../assets/saxmono-webfont.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}

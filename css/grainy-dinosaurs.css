@@ -1,0 +1,401 @@
+@import url("fonts.css");
+@import url("rouge.css");
+
+:root {
+  --clr-neutral-100: #fbfcfd;
+  --clr-neutral-300: #eae5d8;
+  --clr-neutral-400: #b3ab97;
+  --clr-neutral-900: #181108;
+  --clr-primary-400: #f29f05;
+  --clr-secondary-400: #953f08;
+
+  --fs-200: 0.7rem;
+  --fs-300: 0.9rem;
+  --fs-400: 1.1rem;
+  --fs-600: 1.35rem;
+  --fs-900: 2rem;
+}
+
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+body {
+  --body-margin: 1em;
+
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
+  font-family: Spectral, serif;
+  font-size: var(--fs-400);
+
+  margin: 0 var(--body-margin);
+
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Syncopate;
+  text-transform: uppercase;
+  margin-bottom: 0.5em;
+}
+
+:is(h1, h2, h3, h4, h5, h6)::first-letter {
+  text-decoration: underline;
+}
+
+:is(h1, h2, h3, h4, h5, h6) + p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: var(--fs-900);
+}
+
+h2 {
+  font-size: var(--fs-600);
+}
+
+a {
+  color: var(--clr-primary-400);
+}
+
+pre, code {
+  font-family: "SaxMono", monospace;
+  font-size: 90%; /* adjusting for SaxMono's rather large glyphs */
+  color: var(--clr-secondary-400);
+  overflow-x: auto;
+}
+
+p > img {
+  width: 100%;
+  margin: 0;
+}
+
+blockquote {
+  margin-inline: 0;
+  padding-inline: 4ch;
+  position: relative;
+}
+
+blockquote::before {
+  content: open-quote;
+  position: absolute;
+  left: 0;
+  top: -0.25em;
+  font-size: 4em;
+  color: var(--clr-secondary-400);
+}
+
+blockquote::after {
+  content: no-close-quote;
+}
+
+div[class*="language-"] figure,
+figure:has(div[class*="language-"]) {
+  margin-inline: 0;
+  background-color: #f6f8fa;
+}
+
+div[class*="language-"] figcaption,
+figure:has(div[class*="language-"]) figcaption {
+  font-family: "SaxMono", monospace;
+  font-size: var(--fs-200);
+  text-align: right;
+  border-top: 1px dashed var(--clr-primary-400);
+}
+
+@media screen and (min-width: 500px) {
+  body {
+    max-width: 700px;
+    margin-inline: auto;
+  }
+}
+
+/* Categories icons (used as masks on the logo or replacement icons for posts links) */  
+body:has(.post[data-category='books']) .site-header-logo, .post-category-link[data-category='books'] {
+  --category-icon: url(../assets/book.svg);
+}
+
+body:has(.post[data-category='games']) .site-header-logo, .post-category-link[data-category='games'] {
+  --category-icon: url(../assets/controller.svg);
+}
+
+body:has(.post[data-category='movies']) .site-header-logo, .post-category-link[data-category='movies'] {
+  --category-icon: url(../assets/film.svg);
+}
+
+body:has(.post[data-category='music']) .site-header-logo, .post-category-link[data-category='music'] {
+  --category-icon: url(../assets/vinyl-fill.svg);
+}
+
+body:has(.post[data-category='podcasts']) .site-header-logo, .post-category-link[data-category='podcasts'] {
+  --category-icon: url(../assets/mic-fill.svg);
+}
+
+body:has(.post[data-category='programming']) .site-header-logo, .post-category-link[data-category='programming'] {
+  --category-icon: url(../assets/code-slash.svg);
+}
+
+body:has(.post[data-category='ttrpg']) .site-header-logo, .post-category-link[data-category='ttrpg'] {
+  --category-icon: url(../assets/dice-6-fill.svg);
+}
+
+body:has(.post[data-category='tv']) .site-header-logo, .post-category-link[data-category='tv'] {
+  --category-icon: url(../assets/tv-fill.svg);
+}
+
+/* Header */
+.site-header {
+  position: relative;
+}
+
+.site-header-title {
+  margin: 0;
+  padding: 0.5em;
+  color: var(--clr-neutral-100);
+  text-align: center;
+}
+
+.site-header-tagline {
+  color: var(--clr-neutral-400);
+  display: none;
+}
+
+.site-header-logo-container {
+  position: absolute;
+  top: 0;
+  left: calc(var(--body-margin) * -1);        /* offsetting to the left… */
+  width: calc(100% + 2 * var(--body-margin)); /* … and stretching to offset to the right too */
+  height: 100%;
+  z-index: -1;
+  border-bottom: 1px solid var(--clr-neutral-400);
+  overflow: hidden;
+}
+
+.site-header-logo {
+  --inline-offset: 30px; /* to hide the fade-out borders */
+  --block-offset: -90px; /* to hide the image's lower part */
+  
+  object-fit: cover;
+  object-position: calc(-50% - var(--inline-offset)) var(--block-offset); 
+  height: 100%;
+  width: calc(100% + var(--inline-offset) * 2);
+}
+
+@media screen and (min-width: 500px) {
+  .site-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0 1em;
+    align-items: center;
+    margin-top: 2em;
+  }
+
+  .site-header-title {
+    color: var(--clr-primary-400);
+    align-self: end;
+    white-space: nowrap;
+    text-align: left;
+    padding: 0;
+  }
+
+  .site-header-tagline {
+    display: initial;
+    margin: 0;
+    align-self: start;
+  }
+
+  .site-header-logo-container {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+
+    position: initial;
+    margin: initial;
+    border: 0;
+    z-index: initial;
+    overflow: unset;
+  }
+  
+  .site-header-logo {
+    object-fit: initial;
+    object-position: initial;
+    height: 100px;
+    width: auto;
+  }
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--clr-neutral-300);
+  color: var(--clr-neutral-400);
+  font-size: var(--fs-300);
+}
+
+.footer-links {
+  list-style: none;
+  padding-inline-start: 0;
+  text-align: end;
+  display: flex;
+  justify-content: start;
+  gap: 0.5em;
+}
+
+.footer-links a {
+  color: currentcolor;
+}
+
+.footer-links a:is(:hover, :active) .bi-github {
+  fill: #24292f;
+}
+
+.footer-links a:is(:hover, :active) .bi-linkedin {
+  fill: #0077B5;
+}
+
+.footer-links a:is(:hover, :active) .bi-rss-fill {
+  fill: url(#rss-gradient);
+}
+
+@media screen and (min-width: 320px) {
+  .site-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-links {
+    justify-self: end;
+  }
+}
+
+/* Homepage */
+.homepage-list {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-inline: auto;
+}
+
+/* Posts lists */
+.post-list-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.post-link {
+  grid-column: 1 / -1;
+}
+
+.post-categories {
+  align-self: center;
+  list-style: none;
+  padding-inline-start: 0;
+  display: flex;
+  gap: 0.25em;
+}
+
+.post-link {
+  color: var(--clr-neutral-900);
+}
+
+.post-category-link {
+  color: var(--clr-primary-400);
+  font-family: Syncopate;
+  font-size: var(--fs-200);
+  vertical-align: text-top;
+}
+
+.post-meta {
+  font-size: var(--fs-300);
+  color: var(--clr-neutral-400);
+}
+
+.post-category-link:is([data-category="books"], [data-category="games"], [data-category="movies"], [data-category="music"], [data-category="podcasts"], [data-category="programming"], [data-category="ttrpg"], [data-category="tv"]) span {
+  display: none;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.post-category-link:is([data-category="books"], [data-category="games"], [data-category="movies"], [data-category="music"], [data-category="podcasts"], [data-category="programming"], [data-category="ttrpg"], [data-category="tv"])::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  width: 1.25em;
+  aspect-ratio: 1;
+  background-color: var(--clr-primary-400);
+  mask: var(--category-icon) center / contain;
+}
+
+.series-list-title {
+  color: var(--clr-neutral-900);
+}
+
+.series-list dd {
+  margin: unset;
+}
+
+.series-lede {
+  font-size: var(--fs-300);
+  color: var(--clr-neutral-400);
+  margin-bottom: 0.5em;
+}
+
+.series-parts {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25em;
+  
+  color: var(--clr-primary-400);
+  font-family: Syncopate;
+  font-size: var(--fs-200);
+}
+
+
+@media screen and (min-width: 500px) {
+  .homepage-list-heading {
+    text-align: center;
+  }
+
+  .post-category-link:is([data-category="books"], [data-category="games"], [data-category="movies"], [data-category="music"], [data-category="podcasts"], [data-category="programming"], [data-category="ttrpg"], [data-category="tv"]) span {
+    display: inline;
+    width: auto;
+    height: auto;
+    position: unset;
+  }
+
+  .post-category-link:is([data-category="books"], [data-category="games"], [data-category="movies"], [data-category="music"], [data-category="podcasts"], [data-category="programming"], [data-category="ttrpg"], [data-category="tv"])::before {
+    content: none;
+  }
+}
+
+/* Post page */
+body:has(.post[data-category]) .site-header-logo {
+  mask: var(--category-icon) 0/100% no-repeat; /* the mask property will be ignored if the --category-icon custom prop hasn't been defined */
+}
+
+.post-header {
+  margin-block: 2em 1em;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.post-title {
+  margin-block: 0;
+}
+
+.post-header .post-meta {
+  margin-block: 0;
+  align-self: center;
+}
+
+.series-title {
+  font-family: Syncopate;
+  text-transform: uppercase;
+  font-size: var(--fs-400);
+  margin-block: 0;
+  grid-column: 1 / -1;
+}
