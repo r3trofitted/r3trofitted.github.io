@@ -2,6 +2,7 @@
 layout: post
 title: Markdown the pits of madness
 date: 2023-05-01 18:21 +0200
+category: programming
 ---
 
 _In the annals of human history, there are tales of journeys that have driven men to the brink 
@@ -39,7 +40,7 @@ a `<pre>` and a `<code>` elements, wrapped in two `<div>`'s:
 ```html
 <div class="language-ruby highlighter-rouge">
   <div class="highlight">
-    <pre>
+    <pre class="highlight">
       <code>
         …
       </code>
