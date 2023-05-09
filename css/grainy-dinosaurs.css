@@ -64,11 +64,17 @@ a {
   color: var(--clr-primary-400);
 }
 
+pre.highlight {
+  overflow-x: auto;
+  max-width: 40ch;
+  margin-block: 0;
+  margin-inline: auto;
+}
+
 pre, code {
   font-family: "SaxMono", monospace;
   font-size: 90%; /* adjusting for SaxMono's rather large glyphs */
   color: var(--clr-secondary-400);
-  overflow-x: auto;
 }
 
 p > img {
@@ -113,6 +119,10 @@ figure:has(div[class*="language-"]) figcaption {
   body {
     max-width: 700px;
     margin-inline: auto;
+  }
+  
+  pre.highlight {
+    max-width: calc(700px - 2ch);
   }
 }
 
