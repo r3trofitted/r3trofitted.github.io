@@ -24,6 +24,7 @@ description: >-
   The perfect match, if you ask me, is between the Cosmo woman and the fourteen-year-old boy.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://2-45.pm" # the base hostname & protocol for your site, e.g. http://example.com
+mastodon_domain_and_username: "@ruby.social/@r3trofitted"
 github_username:  r3trofitted
 linkedin_username: r3trofitted
 

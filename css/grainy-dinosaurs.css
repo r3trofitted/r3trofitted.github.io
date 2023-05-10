@@ -263,6 +263,10 @@ body:has(.post[data-category='tv']) .site-header-logo, .post-category-link[data-
   color: currentcolor;
 }
 
+.footer-links a:is(:hover, :active) .bi-mastodon {
+  fill: url(#mastodon-gradient);
+}
+
 .footer-links a:is(:hover, :active) .bi-github {
   fill: #24292f;
 }
