@@ -24,18 +24,21 @@
 }
 
 body {
-  --body-margin: 1em;
-
   background-color: var(--clr-neutral-100);
   color: var(--clr-neutral-900);
   font-family: Spectral, serif;
   font-size: var(--fs-400);
 
-  margin: 0 var(--body-margin);
+  margin: 0;
 
   min-height: 100svh;
   display: grid;
   grid-template-rows: auto 1fr auto;
+}
+
+#container {
+  width: min(70ch, calc(100vw - 2em));
+  margin-inline: auto;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -66,9 +69,6 @@ a {
 
 pre.highlight {
   overflow-x: auto;
-  max-width: 40ch;
-  margin-block: 0;
-  margin-inline: auto;
 }
 
 pre, code {
@@ -115,16 +115,6 @@ figure:has(div[class*="language-"]) figcaption {
   border-top: 1px dashed var(--clr-primary-400);
 }
 
-@media screen and (min-width: 500px) {
-  body {
-    max-width: 700px;
-    margin-inline: auto;
-  }
-  
-  pre.highlight {
-    max-width: calc(700px - 2ch);
-  }
-}
 /* Categories icons (used as masks on the logo or replacement icons for posts links) */
 /* (note: the rules with the :has() pseudo-selector are on their own because of FF (https://connect.mozilla.org/t5/discussions/when-is-has-css-selector-going-to-be-fully-implemented-in/m-p/26839/highlight/true#M10662)) */
 body:has(.post[data-category='books']) .site-header-logo { --category-icon: url(../assets/book.svg); }
@@ -156,7 +146,10 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
 
 /* Header */
 .site-header {
-  position: relative;
+  position: relative;  
+
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
 }
 
 .site-header-title {
@@ -174,8 +167,6 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
 .site-header-logo-container {
   position: absolute;
   top: 0;
-  left: calc(var(--body-margin) * -1);        /* offsetting to the left… */
-  width: calc(100% + 2 * var(--body-margin)); /* … and stretching to offset to the right too */
   height: 100%;
   z-index: -1;
   border-bottom: 1px solid var(--clr-neutral-400);
@@ -192,13 +183,17 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
   width: calc(100% + var(--inline-offset) * 2);
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 70ch) {
   .site-header {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 0 1em;
     align-items: center;
     margin-top: 2em;
+    
+    width: unset;
+    margin-left: unset;
+    
   }
 
   .site-header-title {
