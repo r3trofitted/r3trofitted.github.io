@@ -24,7 +24,7 @@ Noel has [gathered the results](https://gist.github.com/noelrappin/a046996a3e9e5
 and they show an interesting diversity of styles. Some are very naive, but also easy to understand, 
 even without any knowledge of Ruby (I believe). Others are much more cryptic.
 
-Overall, if I was looking for a production-safe, solution, I'd go with option 4:
+Overall, if I was looking for a production-safe solution, I'd go with option 4:
 
 <figure markdown="1">
 ```ruby
