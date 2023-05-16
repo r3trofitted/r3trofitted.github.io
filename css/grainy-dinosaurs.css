@@ -125,43 +125,34 @@ figure:has(div[class*="language-"]) figcaption {
     max-width: calc(700px - 2ch);
   }
 }
+/* Categories icons (used as masks on the logo or replacement icons for posts links) */
+/* (note: the rules with the :has() pseudo-selector are on their own because of FF (https://connect.mozilla.org/t5/discussions/when-is-has-css-selector-going-to-be-fully-implemented-in/m-p/26839/highlight/true#M10662)) */
+body:has(.post[data-category='books']) .site-header-logo { --category-icon: url(../assets/book.svg); }
+.post-category-link[data-category='books']               { --category-icon: url(../assets/book.svg); }
 
-/* Categories icons (used as masks on the logo or replacement icons for posts links) */  
-body:has(.post[data-category='books']) .site-header-logo, .post-category-link[data-category='books'] {
-  --category-icon: url(../assets/book.svg);
-}
+body:has(.post[data-category='games']) .site-header-logo { --category-icon: url(../assets/controller.svg); }
+.post-category-link[data-category='games']               { --category-icon: url(../assets/controller.svg); }
 
-body:has(.post[data-category='games']) .site-header-logo, .post-category-link[data-category='games'] {
-  --category-icon: url(../assets/controller.svg);
-}
+body:has(.post[data-category='miscellanea']) .site-header-logo { --category-icon: url(../assets/bookmarks.svg); }
+.post-category-link[data-category='miscellanea']               { --category-icon: url(../assets/bookmarks.svg); }
 
-body:has(.post[data-category='miscellanea']) .site-header-logo, .post-category-link[data-category='miscellanea'] {
-  --category-icon: url(../assets/bookmarks.svg);
-}
+body:has(.post[data-category='movies']) .site-header-logo { --category-icon: url(../assets/film.svg); }
+.post-category-link[data-category='movies']               { --category-icon: url(../assets/film.svg); }
 
-body:has(.post[data-category='movies']) .site-header-logo, .post-category-link[data-category='movies'] {
-  --category-icon: url(../assets/film.svg);
-}
+body:has(.post[data-category='music']) .site-header-logo { --category-icon: url(../assets/vinyl-fill.svg); }
+.post-category-link[data-category='music']               { --category-icon: url(../assets/vinyl-fill.svg); }
 
-body:has(.post[data-category='music']) .site-header-logo, .post-category-link[data-category='music'] {
-  --category-icon: url(../assets/vinyl-fill.svg);
-}
+body:has(.post[data-category='podcasts']) .site-header-logo { --category-icon: url(../assets/mic-fill.svg); }
+.post-category-link[data-category='podcasts']               { --category-icon: url(../assets/mic-fill.svg); }
 
-body:has(.post[data-category='podcasts']) .site-header-logo, .post-category-link[data-category='podcasts'] {
-  --category-icon: url(../assets/mic-fill.svg);
-}
+body:has(.post[data-category='programming']) .site-header-logo { --category-icon: url(../assets/code-slash.svg); }
+.post-category-link[data-category='programming']               { --category-icon: url(../assets/code-slash.svg); }
 
-body:has(.post[data-category='programming']) .site-header-logo, .post-category-link[data-category='programming'] {
-  --category-icon: url(../assets/code-slash.svg);
-}
+body:has(.post[data-category='ttrpg']) .site-header-logo { --category-icon: url(../assets/dice-6-fill.svg); }
+.post-category-link[data-category='ttrpg']               { --category-icon: url(../assets/dice-6-fill.svg); }
 
-body:has(.post[data-category='ttrpg']) .site-header-logo, .post-category-link[data-category='ttrpg'] {
-  --category-icon: url(../assets/dice-6-fill.svg);
-}
-
-body:has(.post[data-category='tv']) .site-header-logo, .post-category-link[data-category='tv'] {
-  --category-icon: url(../assets/tv-fill.svg);
-}
+body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../assets/tv-fill.svg); }
+.post-category-link[data-category='tv']               { --category-icon: url(../assets/tv-fill.svg); }
 
 /* Header */
 .site-header {
@@ -392,6 +383,7 @@ body:has(.post[data-category='tv']) .site-header-logo, .post-category-link[data-
 
 /* Post page */
 body:has(.post[data-category]) .site-header-logo {
+  -webkit-mask: var(--category-icon) 0/100% no-repeat;
   mask: var(--category-icon) 0/100% no-repeat; /* the mask property will be ignored if the --category-icon custom prop hasn't been defined */
 }
 
