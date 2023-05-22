@@ -2,7 +2,7 @@
 layout: post
 title: 'No milk, no sugar #1'
 date: 2023-05-08 09:27 +0200
-category: miscellanea
+categories: programming miscellanea
 ---
 ### [Web3's fake version of Web history](https://davekarpf.substack.com/p/web3s-fake-version-of-the-history)
 

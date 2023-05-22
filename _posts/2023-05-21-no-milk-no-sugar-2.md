@@ -2,7 +2,7 @@
 layout: post
 title: 'No milk, no sugar #2'
 date: 2023-05-21 20:48 +0200
-category: miscellanea
+category: programming
 ---
 ### [Zenspider/warnings double loads and fixes](https://github.com/rouge-ruby/rouge/pull/1962)
 

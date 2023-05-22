@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" data-category="{{ page.categories | first }}">
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" data-category="{{ page | canonical_category }}">
   <header class="post-header">
     {%- assign series = site.collections | where: "label", page.collection | first -%}
     {%- if series.series_title -%}
