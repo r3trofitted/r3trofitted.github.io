@@ -13,7 +13,7 @@ abstraction that I encountered, have left me forever scarred, and driven me to t
 And yet, I must tell this story, for the world must know of the darkness that lies beyond the veil of 
 our static site generators, waiting to consume us all._
 
-### A nice little coding project
+## A nice little coding project
 
 So, here's the thing. I am currently writing a series of tutorials with a lot of code excerpts, taken 
 from several different files. To make the context of each code sample obvious, I've been starting each 
@@ -70,7 +70,7 @@ The `<div>`’s are a bit redundant, but fine; what I wanted was for either them
 Jekyll is said to be easy to extend, so what could be hard in writing some kind of plugin to enhance the rendering of 
 fenced code blocks? On a fateful whim, I decided to embark on this journey…
 
-### Preparations
+## Preparations
 
 _I gathered my supplies and made the necessary arrangements, all the while feeling an ominous dread lurking within my very soul._
 
@@ -110,7 +110,7 @@ And indeed, the resulting HTML was not what I wanted (and rendered poorly):
 Confident that `<figure>`‘s and `<figcaption>`‘s would indeed look good, but could not be generated without some 
 tinkering, I set sails to the high seas of Jekyll plugins, Markdown converters, and syntax highlighters.
 
-### Syntax highlighting for code blocks in Jekyll
+## Syntax highlighting for code blocks in Jekyll
 
 _The world of programming had long been my refuge from the terrors that lurked within the shadows. But as I delved 
 deeper into the secrets of my static site generator, I realized that the very laws of OOP were nothing but a fragile 
@@ -148,7 +148,7 @@ and tell Kramdown to use it, so that Jekyll's conversion from Markdown would gen
 only missing ring in this chain of delegations was configuring Kramdown, but Jekyll makes this 
 [rather trivial](https://jekyllrb.com/docs/configuration/markdown/#kramdown-processor).
 
-### The dive starts
+## The dive starts
 
 _With trepidation, I began my experiments, seeking to unlock the mysteries of this nerdy CMS and uncover the dark truths that lay hidden within_
 
@@ -254,7 +254,7 @@ fully available as the `lang` argument – but had to be passed along the other 
 the formatter. Which meant using a custom Kramdown syntax highlighter, on top of a custom Rouge 
 formatter.
 
-### Going further down, one layer at a time
+## Going further down, one layer at a time
 
 _Despite the warnings of my runtime, I pressed on, driven by a maddening curiosity to control what lay beyond the threshold of Markdown parsing._
 
@@ -387,7 +387,7 @@ Now everything was in place – after hours of sorting through arcane code, I ha
 a custom Kramdown syntax highlighter, both made available as Jekyll plugins. I only had to check the results:  
 ![Unsuccessful rendering using a custom Rouge formatter along a custom Kramdown syntax highlighter](/assets/2023-05-01-markdown-the-pits-of-madness-going-further-down-one-layer-at-a-time.png)
 
-### Dispair, madness and losing one's way
+## Dispair, madness and losing one's way
 
 _As I gazed upon the accursed web page, its blasphemously unformatted code sections seemed to writhe and twist before my eyes, 
 revealing truths that my mortal mind could never comprehend, and in that moment, my sanity was forever lost to the abyss…_
@@ -434,7 +434,7 @@ At that point, I stopped and reconsidered my plan. From a custom Rouge formatter
 Kramdown syntax highlighter, had read through more metaprogramming-rich code that I could stay sane with, and was about to 
 code a third custom component, this time a custom GFM-to-HTML converter for Kramdown. Was it really necessary? Worth it?
 
-### Back on the bridge
+## Back on the bridge
 
 _As I delved deeper into the ancient tome, my eyes fell upon a cursed passage, that would lead me to a fate worse than death_
 
@@ -468,7 +468,7 @@ end
 
 ````
 
-### The call of the depths
+## The call of the depths
 
 _Blinded by my own hubris, I ignored the signs of impending doom and continued my quest for forbidden rendering._
 
@@ -538,7 +538,7 @@ semantically correct fashion:
 However, the cosmic forces that govern us are nothing but cruel masters, and on their whim I decided to look again, 
 more closely, at Kramdown's documentation.
 
-### Back home, forever changed
+## Back home, forever changed
 
 _As I gazed upon the tangled mess of code before me, I realized with a sinking feeling that I had come full circle, 
 my cursed journey through the labyrinthine world of cyclopean programming having led me back to the very beginning._
@@ -577,7 +577,7 @@ Now I could get rid of all my work – the custom Rouge formatter, Kramdown synt
 converter and renderer. All these were useless, since what I wanted had been available from the start – all was needed was 
 an extra HTML attribute. As the documentation explained.
 
-### Unspeakable learnings
+## Unspeakable learnings
 
 _Through my journey into the abyss of four different gems, I learned that the arcane secrets of the universe are not 
 meant for mortal minds, and that the price of forbidden knowledge is a terrible and eternal damnation, not to mention 
@@ -613,7 +613,7 @@ myself the whole trip down the code of 4 different gems if I had taken the time 
 
 But, on the other hand, it was a funny trip, and I brought back interesting souvenirs.
 
-### Artefacts on the library's shelves
+## Artefacts on the library's shelves
 
 _The eldritch relics I brought back from my journey now sit locked away, their very presence a reminder of the horrors that lie beyond the veil of our reality._
 

@@ -64,6 +64,14 @@ h2 {
   font-size: var(--fs-600);
 }
 
+h3 {
+  font-size: var(--fs-300);
+}
+
+h4, h5, h6 {
+  font-size: var(--fs-200);
+}
+
 a {
   color: var(--clr-primary-400);
 }
@@ -410,9 +418,4 @@ body:has(.post[data-category]) .site-header-logo {
   font-size: var(--fs-400);
   margin-block: 0;
   grid-column: 1 / -1;
-}
-
-/* Post page (miscellanea category) */
-.post[data-category="miscellanea"] h3 {
-  font-size: var(--fs-300);
 }

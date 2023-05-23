@@ -32,6 +32,9 @@ linkedin_username: r3trofitted
 plugins:
   - jekyll-feed
 
+kramdown:
+  header_offset: 1
+
 collections:
   steel_vellum:
     output: true
