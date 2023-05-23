@@ -1,0 +1,4 @@
+myExtraExcludes = "_site,.DS_Store"
+excludeInFileChooser  = "{$excludeInFileChooser,$myExtraExcludes}"
+excludeInFolderSearch = "{$excludeInFolderSearch,$myExtraExcludes}"
+excludeInBrowser      = "{$excludeInBrowser,$myExtraExcludes}"
