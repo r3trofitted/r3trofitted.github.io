@@ -29,6 +29,7 @@ github_username:  r3trofitted
 linkedin_username: r3trofitted
 
 # Build settings
+permalink: /:year/:month/:day/:title:output_ext
 plugins:
   - jekyll-feed
 
