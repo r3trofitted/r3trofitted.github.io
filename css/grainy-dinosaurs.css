@@ -5,6 +5,7 @@
   --clr-neutral-100: #fbfcfd;
   --clr-neutral-300: #eae5d8;
   --clr-neutral-400: #b3ab97;
+  --clr-neutral-700: #564F41;
   --clr-neutral-900: #181108;
   --clr-primary-400: #f29f05;
   --clr-secondary-400: #953f08;
@@ -75,6 +76,12 @@ pre, code {
   font-family: "SaxMono", monospace;
   font-size: 90%; /* adjusting for SaxMono's rather large glyphs */
   color: var(--clr-secondary-400);
+}
+
+p.intro {
+  font-style: italic;
+  margin-bottom: 2em;
+  color: var(--clr-neutral-700);
 }
 
 p > img {

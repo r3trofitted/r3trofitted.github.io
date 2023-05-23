@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: no_milk_no_sugar
 title: 'No milk, no sugar #2'
 date: 2023-05-21 20:48 +0200
 category: programming
