@@ -42,9 +42,13 @@ layout: default
     </dt>
     <dd class="series-lede">{{ series.lede | escape }}</dd>
     <dd class="series-parts">
-      {%- for part in series.docs -%}
-      <a href="{{ part.url | relative_url }}">Part {{ forloop.index }}</a>
-      {%- endfor -%}
+      <ul class="post-categories">
+        {%- for part in series.docs -%}
+        <li>
+          <a href="{{ part.url | relative_url }}">Part {{ forloop.index }}</a>
+        </li>
+        {%- endfor -%}
+      </ul>
     </dd>
     {%- endfor -%}
   </ul>

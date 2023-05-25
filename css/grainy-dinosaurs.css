@@ -373,7 +373,6 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
   font-size: var(--fs-200);
 }
 
-
 @media screen and (min-width: 500px) {
   .homepage-list-heading {
     text-align: center;
@@ -388,6 +387,16 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
 
   .post-category-link:is([data-category="books"], [data-category="games"], [data-category="miscellanea"], [data-category="movies"], [data-category="music"], [data-category="podcasts"], [data-category="programming"], [data-category="ttrpg"], [data-category="tv"])::before {
     content: none;
+  }
+  
+  .post-categories li:not(:last-of-type) .post-category-link::after {
+    content: ",";
+    margin-left: -0.25em;
+  }
+  
+  .series-parts li:not(:last-of-type)::after {
+    content: " · ";
+    font-weight: bold;
   }
 }
 
