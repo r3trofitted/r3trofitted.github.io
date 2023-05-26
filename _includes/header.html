@@ -2,7 +2,7 @@
   <h1 class="site-header-title">
     <a href="{{ '/' | absolute_url }}">Grainy Dinosaurs</a>
   </h1>
-  <p class="site-header-tagline">{{ site.description }}</p>
+  <p class="site-header-tagline">{{ site.data.taglines | sample }}</p>
   <div class="site-header-logo-container">
     <img class="site-header-logo" src="{{ '/assets/logo.jpg' | relative_url }}">
   </div>

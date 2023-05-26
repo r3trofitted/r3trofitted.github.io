@@ -21,7 +21,9 @@
 title: Grainy dinosaurs
 email: ronan@2-45.pm
 description: >-
-  The perfect match, if you ask me, is between the Cosmo woman and the fourteen-year-old boy.
+  The personal blog of a forty-something nerdy teenager with a career in software development. 
+  Expect posts about Ruby, tabletop RPGs, heavy metal and the nuisance of all these kids who 
+  cannot keep themselves off my lawn.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://2-45.pm" # the base hostname & protocol for your site, e.g. http://example.com
 mastodon_domain_and_username: "@ruby.social/@r3trofitted"
