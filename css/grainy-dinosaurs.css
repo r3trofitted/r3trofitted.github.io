@@ -2,6 +2,8 @@
 @import url("rouge.css");
 
 :root {
+  color-schema: light dark;
+
   --clr-neutral-100: #fbfcfd;
   --clr-neutral-300: #eae5d8;
   --clr-neutral-400: #b3ab97;
@@ -15,6 +17,18 @@
   --fs-400: 1.1rem;
   --fs-600: 1.35rem;
   --fs-900: 2rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-neutral-100: #181108;
+    --clr-neutral-300: #564F41;
+    --clr-neutral-400: #b3ab97;
+    --clr-neutral-700: #eae5d8;
+    --clr-neutral-900: #fbfcfd;
+    --clr-primary-400: #f29f05;
+    --clr-secondary-400: #953f08;
+  }  
 }
 
 *,
