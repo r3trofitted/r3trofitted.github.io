@@ -1,8 +1,15 @@
 GIT
-  remote: https://github.com/r3trofitted/rouge.git
-  revision: 1b16496d7b958d12dd0ede0b2287c065b7f1d8de
+  remote: https://github.com/r3trofitted/parser-gfm.git
+  revision: 2111ffce5daeb01055b05e796197e95dbb4045f2
   specs:
-    rouge (4.1.0)
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
+
+GIT
+  remote: https://github.com/rouge-ruby/rouge.git
+  revision: 9d7ce06140b79b59123f022ec33c4344e667ded3
+  specs:
+    rouge (4.1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -57,8 +64,6 @@ GEM
       listen (~> 3.0)
     kramdown (2.4.0)
       rexml
-    kramdown-parser-gfm (1.1.0)
-      kramdown (~> 2.0)
     liquid (4.0.4)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -97,6 +102,7 @@ DEPENDENCIES
   jekyll-compose (~> 0.12.0)
   jekyll-feed (~> 0.12)
   jekyll-seo-tag (~> 2.1)
+  kramdown-parser-gfm!
   rouge!
   tzinfo (>= 1, < 3)
   tzinfo-data

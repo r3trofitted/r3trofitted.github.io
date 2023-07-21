@@ -39,6 +39,7 @@ plugins:
 
 kramdown:
   header_offset: 1
+  syntax_highlighter: rouge_with_caption
 
 collections:
   steel_vellum:

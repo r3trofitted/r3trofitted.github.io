@@ -10,7 +10,8 @@ source "https://rubygems.org"
 gem "jekyll", "~> 4.3.2"
 gem "debug"
 
-gem "rouge", github: "r3trofitted/rouge"
+gem "rouge", github: "rouge-ruby/rouge" # need the yet unreleased change from https://github.com/rouge-ruby/rouge/pull/1943
+gem "kramdown-parser-gfm", github: "r3trofitted/parser-gfm"
 
 # If you want to use GitHub Pages, remove the "gem "jekyll"" above and
 # uncomment the line below. To upgrade, run `bundle update github-pages`.
