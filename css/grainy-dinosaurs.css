@@ -102,6 +102,7 @@ a {
 
 pre.highlight {
   overflow-x: auto;
+  margin: 1em;
 }
 
 pre, code {
@@ -123,15 +124,17 @@ p > img {
 
 blockquote {
   margin-inline: 0;
-  padding-inline: 4ch;
+  padding: 0.125em 4ch;
   position: relative;
+  background-color: var(--clr-neutral-300);
+  border: 1px solid var(--clr-neutral-400);
 }
 
 blockquote::before {
   content: open-quote;
   position: absolute;
   left: 0;
-  top: -0.25em;
+  top: -0.1em;
   font-size: 4em;
   color: var(--clr-secondary-400);
 }
@@ -144,6 +147,7 @@ div[class*="language-"] figure,
 figure:has(div[class*="language-"]) {
   margin-inline: 0;
   background-color: #f6f8fa;
+  border: 1px solid var(--clr-neutral-400);
 }
 
 div[class*="language-"] figcaption,
@@ -451,4 +455,9 @@ body:has(.post[data-category]) .site-header-logo {
   font-size: var(--fs-400);
   margin-block: 0;
   grid-column: 1 / -1;
+}
+
+/* Extras for Rouge */
+.highlight .gp {
+  color: var(--clr-primary-400);
 }
