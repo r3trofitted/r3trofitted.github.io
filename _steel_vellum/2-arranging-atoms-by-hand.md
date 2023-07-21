@@ -48,84 +48,80 @@ enough for me.
 
 Now that we have a name, we can create the files and folder that we need:
 
-```shell
-$ mkdir -p steel_vellum/lib
-$ touch steel_vellum/lib/steel_vellum.rb
-$ touch steel_vellum/steel_vellum.gemspec
-```
+  ```console?prompt=𝄢
+  𝄢 mkdir -p steel_vellum/lib
+  𝄢 touch steel_vellum/lib/steel_vellum.rb
+  𝄢 touch steel_vellum/steel_vellum.gemspec
+  ```
 
 According to [the documentation](https://guides.rubygems.org/specification-reference/), the gemspec file must contain 
 the gem's specifications – a lot of them can be defined, but only 5 are required: a name, a version number, the list 
 of files that constitute the library, a short description and a list of authors. So let's add these to the 
 `steel_vellum.gemspec` file.
 
-```ruby?caption=steel_vellum.gemspec
-# frozen_string_literal: true
-
-Gem::Specification.new do |s|
-  s.name    = "steel_vellum"
-  s.version = "0.1.0"
-  s.files   = ["lib/steel_vellum.rb"]
-  s.summary = "A D&D 5e character creation library"
-  s.authors = ["Ronan Limon Duparcmeur"]
-end
-```
+  ```ruby?caption=steel_vellum.gemspec
+  Gem::Specification.new do |s|
+    s.name    = "steel_vellum"
+    s.version = "0.1.0"
+    s.files   = ["lib/steel_vellum.rb"]
+    s.summary = "A D&D 5e character creation library"
+    s.authors = ["Ronan Limon Duparcmeur"]
+  end
+  ```
 
 As for the code of the libary itself, let's do the very bare minimum for now, and only provide a module. We could leave 
 it empty, but let's also add a version number in the form of a constant – just to have something to try out the gem with:
 
-```ruby?caption=lib/steel_vellum.rb
-# frozen_string_literal: true
-
-module SteelVellum
-  VERSION = "0.1.0"
-end
-```
+  ```ruby?caption=lib/steel_vellum.rb
+  module SteelVellum
+    VERSION = "0.1.0"
+  end
+  ```
 
 It is enough? Will it work? Let's see if we can build the gem – i.e. package it into a `.gem` file – and install it.
 
-```shell
-$ cd steel_vellum
-$ gem build
+  ```console?prompt=𝄢
+  𝄢 cd steel_vellum
+  𝄢 gem build
+  
+  WARNING:  licenses is empty, but is recommended.  Use a license identifier from
+  http://spdx.org/licenses or 'Nonstandard' for a nonstandard license.
+  WARNING:  no homepage specified
+  WARNING:  See https://guides.rubygems.org/specification-reference/ for help
+    Successfully built RubyGem
+    Name: steel_vellum
+    Version: 0.1.0
+    File: steel_vellum-0.1.0.gem
 
-WARNING:  licenses is empty, but is recommended.  Use a license identifier from
-http://spdx.org/licenses or 'Nonstandard' for a nonstandard license.
-WARNING:  no homepage specified
-WARNING:  See https://guides.rubygems.org/specification-reference/ for help
-  Successfully built RubyGem
-  Name: steel_vellum
-  Version: 0.1.0
-  File: steel_vellum-0.1.0.gem
+  $ gem install steel_vellum-0.1.0.gem
 
-$ gem install steel_vellum-0.1.0.gem
-
-Successfully installed steel_vellum-0.1.0
-1 gem installed
-```
+  Successfully installed steel_vellum-0.1.0
+  1 gem installed
+  ```
 
 RubyGems gave us a few warnings when it built the gem (and we'll address them later), but so far, everything seems fine. 
 Let's check it out in a Ruby console:
 
-```irb
->> require "steel_vellum"
-=> true
->> SteelVellum::VERSION
-=> "0.1.0"
-```
+  ```irb
+  >> require "steel_vellum"
+  => true
+  >> SteelVellum::VERSION
+  => "0.1.0"
+  ```
 
 It works! And we can see that the metadata we've added to our gem is indeed used:
 
-```shell
-$ gem info steel_vellum
+  ```console?prompt=𝄢
+  𝄢 gem info steel_vellum
 
-*** LOCAL GEMS ***
+  *** LOCAL GEMS ***
 
-steel_vellum (0.1.0)
-    Author: Ronan Limon Duparcmeur
-    Installed at: /Users/ronan/.gem/ruby/3.2.2
+  steel_vellum (0.1.0)
+      Author: Ronan Limon Duparcmeur
+      Installed at: /Users/ronan/.gem/ruby/3.2.2
 
-    A D&D 5e character creation library
-```
+      A D&D 5e character creation library
+  ```
 
 (Note that the actual installation path will vary according to your Ruby installation.)
 
@@ -141,55 +137,51 @@ even if you can miss the syntactic sugar, sometimes. Plus, like RubyGems, Minite
 However, even though Minitest doesn't need to be _installed_ (normally), it still needs to be declared as a _dependency_ of 
 our gem. This is done through the gemspec file:
 
-```ruby?caption=steel_vellum.gemspec
-# frozen_string_literal: true
+  ```ruby?caption=steel_vellum.gemspec
+  Gem::Specification.new do |s|
+    s.name    = "steel_vellum"
+    s.version = "0.1.0"
+    s.files   = ["lib/steel_vellum.rb"]
+    s.summary = "A D&D 5e character creation library"
+    s.authors = ["Ronan Limon Duparcmeur"]
+    
+    s.add_development_dependency "minitest"
+  end
+  ```
 
-Gem::Specification.new do |s|
-  s.name    = "steel_vellum"
-  s.version = "0.1.0"
-  s.files   = ["lib/steel_vellum.rb"]
-  s.summary = "A D&D 5e character creation library"
-  s.authors = ["Ronan Limon Duparcmeur"]
-  
-  s.add_development_dependency "minitest"
-end
-```
-
-```shell
-$ mkdir test
-$ touch test/steel_vellum_test.rb
-```
+  ```console?prompt=𝄢
+  𝄢 mkdir test
+  𝄢 touch test/steel_vellum_test.rb
+  ```
 
 The file itself only needs to require Minitest, but we'll add a placeholder test to ensure that everything works well:
 
-```ruby?caption=test/steel_vellum_test.rb
-# frozen_string_literal: true
-
-require "minitest/autorun"
-require "steel_vellum"
-
-class SteelVellumTest < Minitest::Test
-  def test_it_works
-    assert_equal "0.1.0", SteelVellum::VERSION
+  ```ruby?caption=test/steel_vellum_test.rb
+  require "minitest/autorun"
+  require "steel_vellum"
+  
+  class SteelVellumTest < Minitest::Test
+    def test_it_works
+      assert_equal "0.1.0", SteelVellum::VERSION
+    end
   end
-end
-```
+  ```
 
 To run the test, when only need to run this file – but we need to make sure that the `lib/` directory will be included 
 in [Ruby's `$LOAD_PATH`](https://docs.ruby-lang.org/en/master/Kernel.html#method-i-load).
 
-```shell
-$ ruby -Ilib test/steel_vellum_test.rb
-Run options: --seed 11645
+  ```console?prompt=𝄢
+  𝄢 ruby -Ilib test/steel_vellum_test.rb
+  Run options: --seed 11645
 
-# Running:
+  # Running:
 
-.
+  .
 
-Finished in 0.001717s, 582.4112 runs/s, 582.4112 assertions/s.
+  Finished in 0.001717s, 582.4112 runs/s, 582.4112 assertions/s.
 
-1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
-```
+  1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+  ```
 
 Our test suite – with its single test – runs fine. But typing the name of every single test file to run will eventually 
 become tedious, so ([as suggested in the documentation](http://docs.seattlerb.org/minitest/README_rdoc.html#label-Running+Your+Tests)), 
@@ -197,90 +189,81 @@ let's add a Rake task to run the whole suite for us. This is very easy, since Mi
 to set it as the default Rake task for our project. And because we've stuck to the conventions when namimg files and 
 directories, we need almost nothing: 
 
-```ruby?caption=Rakefile
-# frozen_string_literal: true
-
-require "minitest/test_task"
-
-Minitest::TestTask.create
-task default: :test
-```
+  ```ruby?caption=Rakefile
+  require "minitest/test_task"
+  
+  Minitest::TestTask.create
+  task :default => :test
+  ```
 
 And that's it! Now, executing `rake` without specifying a Rake task will run the whole test suite:
 
-```shell
-$ rake
-Run options: --seed 36531
+  ```console?prompt=𝄢
+  𝄢 rake
+  Run options: --seed 36531
 
-# Running:
+  # Running:
 
-.
+  .
 
-Finished in 0.000540s, 1851.8521 runs/s, 1851.8521 assertions/s.
+  Finished in 0.000540s, 1851.8521 runs/s, 1851.8521 assertions/s.
 
-1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
-```
+  1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+  ```
 
 ### Final touches
 And so, we have the basis for our Steel Vellum library, written with its tests and distributable as a gem. Let's wrap 
 things up by smoothing the rough edges of this scaffold. We have a few warnings to fix, and our test runner could 
 benefit from a more colorful output. More importantly, the gem's version number is currently written twice, which 
-means extra maintenance – or potential inconsitencies. Let's fix all that…
+means extra maintenance – or potential inconsitencies. Let's fix all that by removing the `VERSION` declaration from 
+the main library file……
 
-```ruby?caption=lib/steel_vellum.rb
-# frozen_string_literal: true
-
-module SteelVellum
-end
-```
-
-… by removing the `VERSION` declaration from the main library file…
-
-```ruby?caption=lib/steel_vellum/version.rb
-# frozen_string_literal: true
-
-module SteelVellum
-  VERSION = "0.1.0"
-end
-```
+  ```ruby?caption=lib/steel_vellum.rb
+  module SteelVellum
+  end
+  ```
 
 … and placing it in its own file…
 
-```ruby?caption=steel_vellum.gemspec
-# frozen_string_literal: true
+  ```ruby?caption=lib/steel_vellum/version.rb
+  module SteelVellum
+    VERSION = "0.1.0"
+  end
+  ```
 
-require_relative "lib/steel_vellum/version"
+… which can then be required directly in the gemspec file:
 
-Gem::Specification.new do |s|
-  s.name     = "steel_vellum"
-  s.version  = SteelVellum::VERSION
-  s.summary  = "A D&D 5e character creation library"
-  s.authors  = ["Ronan Limon Duparcmeur"]
-  s.files    = Dir["lib/**/*.rb"]
-  s.license  = "MIT"
-  s.homepage = "https://github.com/r3trofitted/steel_vellum"
+  ```ruby?caption=steel_vellum.gemspec
+  require_relative "lib/steel_vellum/version"
   
-  s.add_development_dependency "minitest"
-  s.add_development_dependency "minitest-reporters"
-end
-```
+  Gem::Specification.new do |s|
+    s.name     = "steel_vellum"
+    s.version  = SteelVellum::VERSION
+    s.summary  = "A D&D 5e character creation library"
+    s.authors  = ["Ronan Limon Duparcmeur"]
+    s.files    = Dir["lib/**/*.rb"]
+    s.license  = "MIT"
+    s.homepage = "https://github.com/r3trofitted/steel_vellum"
+    
+    s.add_development_dependency "minitest"
+    s.add_development_dependency "minitest-reporters"
+  end
+  ```
 
-… which can then be required directly in the gemspec file. Note that said file features new declarations, including a 
+Note that said gemspec file features new declarations, including a 
 [globbing approach](https://ruby-doc.org/3.2.2/Dir.html#method-c-glob) to list files, and a development dependency on 
 [minitest-reporters](https://github.com/minitest-reporters/minitest-reporters), a Minitest plugin that improves the 
-tests output, even when sticking to the defaults:
+tests output, even when sticking to the defaults, like so:
 
-```ruby?caption=test/steel_vellum_test.rb
-# frozen_string_literal: true
-
-require "minitest/autorun"
-require "minitest/reporters"
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
-
-class SteelVellumTest < Minitest::Test
-  # Let's add some!
-end
-```
+  ```ruby?caption=test/steel_vellum_test.rb
+  require "minitest/autorun"
+  require "minitest/reporters"
+  Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
+  
+  class SteelVellumTest < Minitest::Test
+    # Let's add some!
+  end
+  ```
 
 And _now_, we're [good to go](https://music.apple.com/fr/album/good-to-go/520098624)! Our detour is over and we're 
 back on the road – see you in part 3!

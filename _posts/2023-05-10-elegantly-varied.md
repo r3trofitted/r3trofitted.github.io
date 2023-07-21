@@ -26,29 +26,23 @@ even without any knowledge of Ruby (I believe). Others are much more cryptic.
 
 Overall, if I was looking for a production-safe solution, I'd go with option 4:
 
-<figure markdown="1">
-```ruby
-def move_target_to_end(arr, target)
-  result = arr.dup
-  result.delete(target) ? result.push(target) : result
-end
-```
-<figcaption><a href="https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L52">https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8</a></figcaption>
-</figure>
+  ```ruby?caption=[https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8](https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L52)
+  def move_target_to_end(arr, target)
+    result = arr.dup
+    result.delete(target) ? result.push(target) : result
+  end
+  ```
 
 It is short and legible, doesn't mutate the array (a nice courtesy), and is a bit more sophisticated than non-idiomatic 
 techniques that would rely on `#include?` or `#index`.
 
 However, I have a certain fondness for more showy solutions, like option 8:
 
-<figure markdown="1">
-```ruby
-def move_target_to_end(arr, target)
-  arr.tap { arr.delete(target) && arr.push(target }
-end
-```
-<figcaption><a href="https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L77">https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8</a></figcaption>
-</figure>
+  ```ruby?caption=[https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8](https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L77)
+  def move_target_to_end(arr, target)
+    arr.tap { arr.delete(target) && arr.push(target }
+  end
+  ```
 
 I've seen `#tap` being (in my opinion) misused, but here, combined with the `&&` operator, it is very clever. I love 
 this, even if it's basically hiding a conditional (because _shortening_ it with a ternary operator is not enough!)
@@ -57,25 +51,19 @@ Do note that _complicated_ is not necessarily _clever_. I find the option 6, for
 pretty naive in its approach – the simplicity of the algorithm is just hidden behind a ternary operator and nested 
 method calls:
 
-<figure markdown="1">
-```ruby
-def move_target_to_end(arr, target)
-  arr.include?(target) ? arr.push(arr.delete(target)) : arr
-end
-```
-<figcaption><a href="https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L65">https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8</a></figcaption>
-</figure>
+  ```ruby?caption=[https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8](https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L65)
+  def move_target_to_end(arr, target)
+    arr.include?(target) ? arr.push(arr.delete(target)) : arr
+  end
+  ```
 
 Overall, my favorite solution is the one submitted by [Henrik Nyh](https://thepugautomatic.com):
 
-<figure markdown="1">
-```ruby
-def move_target_to_end(arr, target)
-  arr.partition { _1 != t }.flatten
-end
-```
-<figcaption><a href="https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L97">https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8</a></figcaption>
-</figure>
+  ```ruby?caption=[https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8](https://gist.github.com/noelrappin/a046996a3e9e5d5034533f5a37b349b8#file-ruby_versions-L97)
+  def move_target_to_end(arr, target)
+    arr.partition { _1 != t }.flatten
+  end
+  ```
 
 It is everything I love in Ruby: a bit weird and very smart at the same time (because it repurposes a little-used method, 
 `#partition`), concise, and yet legible. It makes you scratch your head, but only for a few seconds, and then you admire 

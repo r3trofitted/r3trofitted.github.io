@@ -5,9 +5,9 @@ date: 2023-04-15 14:45 +0200
 categories: programming
 ---
 Sometimes, I just want to code something – anything. Like many (if not all) developpers, I have a 
-virtual drawer full of half-finished apps, of repos left untouched for years whose last commit message 
-is an unhelpful "WIP", and of domain names still parked long after their initial pun 
-stopped making sense. Today, I'd like to pick one of those unfinished projects and revisit it.
+virtual drawer full of half-finished apps, repos left untouched for years whose last commit message 
+is an unhelpful "WIP", and domain names still parked long after their initial pun stopped making sense. 
+Today, I'd like to pick one of those unfinished projects and revisit it.
 
 Back around 2016, I started a Rails app cryptically named _Ankran Nembo_; it was supposedly 
 a character creation app for the D&D campaign I had started, but more importantly, it was a toy 
@@ -33,7 +33,7 @@ And please, don't be an Architecture Astronaut.
 Still, let's pretent that we have very good reasons for going for a library instead of an application. A "library" 
 can be as simple as a `require`’d Ruby file, but the most common way to package and distribute a librairy is by 
 organizing it into a [gem](https://rubygems.org). So let's do that – let's build a gem, which will provide 
-a character creation engine for Donjons & Dragons, 5th edition. It will give us Ruby classes and methods to create a 
+a character creation engine for Dungeons & Dragons, 5th edition. It will give us Ruby classes and methods to create a 
 new character, set its game characteristics (such as race, class, attributes, etc.), and maybe even handle game 
 mechanics such as dice rolls or experience points.
 

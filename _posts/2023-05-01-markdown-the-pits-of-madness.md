@@ -19,16 +19,16 @@ So, here's the thing. I am currently writing a series of tutorials with a lot of
 from several different files. To make the context of each code sample obvious, I've been starting each 
 code block with a comment indicating the name of the relevant file, like so:
 
-```ruby
-# locations/innsmouth.rb
-module Locations
-  class Innsmouth
-    def self.visit
-      raise "Don't!"
+  ```ruby
+  # locations/innsmouth.rb
+  module Locations
+    class Innsmouth
+      def self.visit
+        raise "Don't!"
+      end
     end
   end
-end
-```
+  ```
 
 This works well, but frustrates my obsession with semantic HTML. The name of the file is not _really_ 
 part of the code sample; it is rather its _caption_. And there are HTML elements for such things: `<caption>` 
@@ -37,35 +37,35 @@ for adding captions to tables, and `<figcaption>` to add them to, well, any othe
 By default, Jekyll renders [fenced code blocks](https://www.markdownguide.org/extended-syntax#fenced-code-blocks) with 
 a `<pre>` and a `<code>` elements, wrapped in two `<div>`'s:
 
-```html
-<div class="language-ruby highlighter-rouge">
-  <div class="highlight">
-    <pre class="highlight">
-      <code>
-        …
-      </code>
-    </pre>
-  </div>
-</div>
-```
-
-The `<div>`’s are a bit redundant, but fine; what I wanted was for either them or the `<pre>` element to be wrapped in a 
-`<figure>`, alongside a `<figcaption>`. For example, having Jekyll generate this would have been great:
-
-```html
-<div class="language-ruby highlighter-rouge">
-  <div class="highlight">
-    <figure>
-      <pre>
+  ```html
+  <div class="language-ruby highlighter-rouge">
+    <div class="highlight">
+      <pre class="highlight">
         <code>
           …
         </code>
       </pre>
-      <figcaption>locations/innsmouth.rb</figcaption>
-    </figure>
+    </div>
   </div>
-</div>
-```
+  ```
+
+The `<div>`’s are a bit redundant, but fine; what I wanted was for either them or the `<pre>` element to be wrapped in a 
+`<figure>`, alongside a `<figcaption>`. For example, having Jekyll generate this would have been great:
+
+  ```html
+  <div class="language-ruby highlighter-rouge">
+    <div class="highlight">
+      <figure>
+        <pre>
+          <code>
+            …
+          </code>
+        </pre>
+        <figcaption>locations/innsmouth.rb</figcaption>
+      </figure>
+    </div>
+  </div>
+  ```
 
 Jekyll is said to be easy to extend, so what could be hard in writing some kind of plugin to enhance the rendering of 
 fenced code blocks? On a fateful whim, I decided to embark on this journey…
@@ -89,20 +89,20 @@ is quite clear:
 
 To be sure, I tried it anyway:
 
-````
-<figure>
-  ```ruby
-  module Locations
-    class Innsmouth
-      def self.visit
-        raise "Don't!"
+  ````
+  <figure>
+    ```ruby
+    module Locations
+      class Innsmouth
+        def self.visit
+          raise "Don't!"
+        end
       end
     end
-  end
-  ```
-  <figcaption>locations/innsmouth.rb</figcaption>
-</figure>
-````
+    ```
+    <figcaption>locations/innsmouth.rb</figcaption>
+  </figure>
+  ````
 
 And indeed, the resulting HTML was not what I wanted (and rendered poorly):  
 ![Unsuccessful renderering mixing Markdown within an HTML block element](/assets/2023-05-01-markdown-the-pits-of-madness-preparations-2.png)
@@ -154,45 +154,39 @@ _With trepidation, I began my experiments, seeking to unlock the mysteries of th
 
 To put this plan to the test, I started with a dummy formatter:
 
-<figure markdown="1">
-```ruby
-require "rouge"
+  ```ruby?caption=_plugins/nameless_codex_formatter.rb
+  require "rouge"
 
-module Rouge
-  module Formatters
-    class NamelessCodex < HTML
-      def stream(tokens, &block)
-        puts "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn."
-        super
+  module Rouge
+    module Formatters
+      class NamelessCodex < HTML
+        def stream(tokens, &block)
+          puts "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn."
+          super
+        end
       end
     end
   end
-end
-```
-<figcaption>_plugins/nameless_codex_formatter.rb</figcaption>
-</figure>
+  ```
 
 I then adjusted the configuration so that this dummy formatter would be used:
 
-<figure markdown="1">
-```yaml
-kramdown:
-  syntax_highlighter_opts:
-    formatter: NamelessCodex
-```
-<figcaption>_config.yml (extract)</figcaption>
-</figure>
+  ```yaml?caption=_config.yml
+  kramdown:
+    syntax_highlighter_opts:
+      formatter: NamelessCodex
+  ```
 
 And, sure enough, everything seemed to work fine:
 
-```console
-$ jekyll build -q
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-```
+  ```console?prompt=𝄢
+  𝄢 jekyll build -q
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  ```
 
 Gaining confidence, I went to add extra markup to the formatted output – and then realized that I 
 hadn't thought about _how to pass the caption to the formatter_.
@@ -203,48 +197,41 @@ where the language is specified. I had seen it being used to pass extra options 
 [such as the console lexer](https://github.com/rouge-ruby/rouge/blob/aa1a1240e1dfcad633cb80c8ef67fba68c35ef87/lib/rouge/lexers/console.rb#L26). 
 My plan was to use the same trick, with a `caption` option:
 
-````
-```
-ruby?caption=locations/innsmouth.rb
-module Locations
- # …
-end
-```
-````
+  ````
+  ```ruby?caption=locations/innsmouth.rb
+  module Locations
+   # …
+  end
+  ```
+  ````
 
 However, only then did I realise that the info string was indeed passed to the lexers, but not to 
 the renderer! And yet, the base class for formatters _does_ [accept options](https://github.com/rouge-ruby/rouge/blob/aa1a1240e1dfcad633cb80c8ef67fba68c35ef87/lib/rouge/formatter.rb#L49):
 
-<figure markdown="1">
-```ruby
-module Rouge
-  class Formatter
-    def initiatize(opts={})
-      # pass
+  ```ruby?caption=rouge/formatter.rb
+  module Rouge
+    class Formatter
+      def initiatize(opts={})
+        # pass
+      end
     end
   end
-end
-```
-<figcaption>rouge/formatter.rb (extract)</figcaption>
-</figure>
+  ```
 
 And, indeed, Kramdown _does_ pass options to the formatter, but unfortunately, they don't include 
 the target language, as I gathered by the arguments in this method:
 
-<figure markdown="1">
-```ruby
-module Kramdown::Converter::SyntaxHighlighter
-  module Rouge
-    def self.call(converter, text, lang, type, call_opts)
-      opts = options(converter, type)
-      # …
-      formatter = formatter_class(opts).new(opts)
+  ```ruby?caption=kramdown/converter/syntax_highlighter/rouge.rb
+  module Kramdown::Converter::SyntaxHighlighter
+    module Rouge
+      def self.call(converter, text, lang, type, call_opts)
+        opts = options(converter, type)
+        # …
+        formatter = formatter_class(opts).new(opts)
+      end
     end
-  end
-end 
-```
-<figcaption>kramdown/converter/syntax_highlighter/rouge.rb (extract)</figcaption>
-</figure>
+  end 
+  ```
 
 As you can see, the `opts` object is derived from the `converter` and `type` arguments, but not `lang`.
 
@@ -262,33 +249,27 @@ Like with the Rouge formatter, I wanted to start with a dummy syntax highlighter
 the basic highlighter does. Unfortunately, Kramdown highlighters are modules, not classes, so they cannot be inherited 
 from, but I could still limit my own module to the bare minimum.
 
-<figure markdown="1">
-```ruby
-require "kramdown/converter/syntax_highlighter/rouge"
+  ```ruby?caption=_plugins/rouge_out_of_space.rb
+  require "kramdown/converter/syntax_highlighter/rouge"
 
-module RougeOutOfSpace
-  def self.call(...)
-    puts "Iä! Iä! Cthulhu fhtagn!"
-    Kramdown::Converter::SyntaxHighlighter::Rouge.call(...)
+  module RougeOutOfSpace
+    def self.call(...)
+      puts "Iä! Iä! Cthulhu fhtagn!"
+      Kramdown::Converter::SyntaxHighlighter::Rouge.call(...)
+    end
   end
-end
-```
-<figcaption>_plugins/rouge_out_of_space.rb</figcaption>
-</figure>
+  ```
 
 Before I could try this out, though, I had to tell Jekyll to tell Kramdown to use this syntax highlighter instead of 
 Rouge (or rather, instead of Kramdown's wrapper around Rouge…) Unfortunately, even though Kramdown does have a 
 configuration option to swap the syntax highlighter, it wasn't enough to simply set it:
 
-<figure markdown="1">
-```yaml
-kramdown:
-  syntax_highligher: RougeOutOfSpace
-  syntax_highlighter_opts:
-    formatter: NamelessCodex
-```
-<figcaption>_config.yml (extract)</figcaption>
-</figure>
+  ```yaml?caption=_config.yml
+  kramdown:
+    syntax_highligher: RougeOutOfSpace
+    syntax_highlighter_opts:
+      formatter: NamelessCodex
+  ```
 
 That is because, unlike for the Rouge formatter, Kramdown doesn't look for the relevant object 
 by searching for a constant within a given module (for example, `Kramdown::Converter::SyntaxHighlighter`). 
@@ -296,92 +277,80 @@ Instead, it keeps its own registry of "configurable stuff", including a list of 
 stuff"" has to be added to this registry to be available later on. Understanding all this took me some time and 
 meanderings in the seaweeds of Kramdown's metaprogramming, but I eventually came up with something that worked:
 
-<figure markdown="1">
-```ruby
-require "kramdown/converter/syntax_highlighter/rouge"
+  ```ruby?caption=_plugins/rouge_out_of_space.rb
+  require "kramdown/converter/syntax_highlighter/rouge"
 
-module RougeOutOfSpace
-  def self.call(...)
-    puts "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn."
-    Kramdown::Converter::SyntaxHighlighter::Rouge.call(...)
+  module RougeOutOfSpace
+    def self.call(...)
+      puts "Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn."
+      Kramdown::Converter::SyntaxHighlighter::Rouge.call(...)
+    end
   end
-end
 
-Kramdown::Converter.add_syntax_highlighter :rouge_out_of_space, RougeOutOfSpace
-```
-<figcaption>_plugins/rouge_out_of_space.rb</figcaption>
-</figure>
+  Kramdown::Converter.add_syntax_highlighter :rouge_out_of_space, RougeOutOfSpace
+  ```
 
-<figure markdown="1">
-```yaml
-kramdown:
-  syntax_highligher: rouge_out_of_space
-  syntax_highlighter_opts:
-    formatter: NamelessCodex
-```
-<figcaption>_config.yml (extract)</figcaption>
-</figure>
+  ```yaml?caption=_config.yml
+  kramdown:
+    syntax_highligher: rouge_out_of_space
+    syntax_highlighter_opts:
+      formatter: NamelessCodex
+  ```
 
-```console
-$ jekyll build -q
-Iä! Iä! Cthulhu fhtagn!
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Iä! Iä! Cthulhu fhtagn!
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Iä! Iä! Cthulhu fhtagn!
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Iä! Iä! Cthulhu fhtagn!
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-Iä! Iä! Cthulhu fhtagn!
-Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
-```
+  ```console?prompt=𝄢
+  𝄢 jekyll build -q
+  Iä! Iä! Cthulhu fhtagn!
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Iä! Iä! Cthulhu fhtagn!
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Iä! Iä! Cthulhu fhtagn!
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Iä! Iä! Cthulhu fhtagn!
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  Iä! Iä! Cthulhu fhtagn!
+  Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+  ```
 
 Finally, I could implement a syntax highlighter that would extract the caption from the info string, and pass it to the 
 formatter. Which, for the former, unfortunately meant some copy-pasting from the original module – but I was still pleased 
 with the end result.
 
-<figure markdown="1">
-```ruby
-class NamelessCodex < HTML
-  def initialize(opts = {})
-    @caption = opts[:caption]
-  end
+  ```ruby?caption=_plugins/nameless_codex_formatter.rb
+  class NamelessCodex < HTML
+    def initialize(opts = {})
+      @caption = opts[:caption]
+    end
   
-  def stream(tokens, &block)
-    yield "<figure>"
-    super
-    yield "<figcaption>#{escape_special_html_chars @caption}</figcaption>" if @caption
-    yield "</figure>"
+    def stream(tokens, &block)
+      yield "<figure>"
+      super
+      yield "<figcaption>#{escape_special_html_chars @caption}</figcaption>" if @caption
+      yield "</figure>"
+    end
+  ```
+
+  ```ruby?caption=_plugins/rouge_out_of_space.rb
+  require "kramdown/converter/syntax_highlighter/rouge"
+
+  module RougeOutOfSpace
+    def self.call(converter, text, lang, type, call_opts)
+      opts = Kramdown::Converter::SyntaxHighlighter::Rouge.options(converter, type)
+
+      # extracting the :caption option from the "lang" (actually the fence string) for the formatter
+      opts[:caption] = /caption=([^&]*)/.match(lang) { |md| md.captures.first }
+    
+      call_opts[:default_lang] = opts[:default_lang]
+      return nil unless lang || opts[:default_lang] || opts[:guess_lang]
+    
+      lexer = ::Rouge::Lexer.find_fancy(lang || opts[:default_lang], text)
+      return nil if opts[:disable] || !lexer || (lexer.tag == "plaintext" && !opts[:guess_lang])
+    
+      opts[:css_class] ||= 'highlight' # For backward compatibility when using Rouge 2.0
+      formatter = Kramdown::Converter::SyntaxHighlighter::Rouge.formatter_class(opts).new(opts)
+      formatter.format(lexer.lex(text))
+    end
   end
-```
-<figcaption>_plugins/nameless_codex_formatter.rb</figcaption>
-</figure>
-
-<figure markdown="1">
-```ruby
-require "kramdown/converter/syntax_highlighter/rouge"
-
-module RougeOutOfSpace
-  def self.call(converter, text, lang, type, call_opts)
-    opts = Kramdown::Converter::SyntaxHighlighter::Rouge.options(converter, type)
-
-    # extracting the :caption option from the "lang" (actually the fence string) for the formatter
-    opts[:caption] = /caption=([^&]*)/.match(lang) { |md| md.captures.first }
-    
-    call_opts[:default_lang] = opts[:default_lang]
-    return nil unless lang || opts[:default_lang] || opts[:guess_lang]
-    
-    lexer = ::Rouge::Lexer.find_fancy(lang || opts[:default_lang], text)
-    return nil if opts[:disable] || !lexer || (lexer.tag == "plaintext" && !opts[:guess_lang])
-    
-    opts[:css_class] ||= 'highlight' # For backward compatibility when using Rouge 2.0
-    formatter = Kramdown::Converter::SyntaxHighlighter::Rouge.formatter_class(opts).new(opts)
-    formatter.format(lexer.lex(text))
-  end
-end
-```
-<figcaption>_plugins/rouge_out_of_space.rb</figcaption>
-</figure>
+  ```
 
 Now everything was in place – after hours of sorting through arcane code, I had a custom Rouge formatter, used by 
 a custom Kramdown syntax highlighter, both made available as Jekyll plugins. I only had to check the results:  
@@ -395,26 +364,26 @@ revealing truths that my mortal mind could never comprehend, and in that moment,
 It didn't work! Though the caption was there, the code was not highlighted – it wasn't even formatted. Looking at the 
 source, I realized that some elements, most significantly the `<pre>` and `<code>`, were missing:
 
-```html
-<div class="language-ruby highlighter-rouge_out_of_space">
-  <figure>
-    <span class="k">module</span>
-    <span class="nn">Locations</span>
-    <span class="k">class</span>
-    <span class="nc">Innsmouth</span>
-    <span class="k">def</span>
-    <span class="nc">self</span>
-    <span class="o">.</span>
-    <span class="nf">visit</span>
-    <span class="k">raise</span>
-    <span class="s2">"Don't!"</span>
-    <span class="k">end</span>
-    <span class="k">end</span>
-    <span class="k">end</span>
-    <figcaption>locations/innsmouth.rb</figcaption>
-  </figure>
-</div>
-```
+  ```html
+  <div class="language-ruby highlighter-rouge_out_of_space">
+    <figure>
+      <span class="k">module</span>
+      <span class="nn">Locations</span>
+      <span class="k">class</span>
+      <span class="nc">Innsmouth</span>
+      <span class="k">def</span>
+      <span class="nc">self</span>
+      <span class="o">.</span>
+      <span class="nf">visit</span>
+      <span class="k">raise</span>
+      <span class="s2">"Don't!"</span>
+      <span class="k">end</span>
+      <span class="k">end</span>
+      <span class="k">end</span>
+      <figcaption>locations/innsmouth.rb</figcaption>
+    </figure>
+  </div>
+  ```
 
 And this is where, I confess, I lost my way. Re-reading Rouge's source code, and especially the `Formatters::HTML` class  
 which as far as I understood was the formatter normally used by Kramdown, and from which my custom formatter inherited, I 
@@ -455,18 +424,18 @@ I understood why after reading closely the [CommonMark spec](https://spec.common
 For my HTML/CommonMark mix to be properly converted to HTML, I needed to add a blank line at the end of the HTML part, like 
 so:
 
-````
-<figure>
+  ````
+  <figure>
   
-```ruby
-module Locations
-  …
-end
-```
-<figcaption>locations/innsmouth.rb</figcaption>
-</figure>
+  ```ruby
+  module Locations
+    …
+  end
+  ```
+  <figcaption>locations/innsmouth.rb</figcaption>
+  </figure>
 
-````
+  ````
 
 ## The call of the depths
 
@@ -483,49 +452,46 @@ it. I put my sanity at risk by trying to come up with clever regexes, only to re
 a custom _converter_, which would make use of my custom renderer. I felt caught in a time loop. Still, I persevered 
 and came up with something that worked:
 
-<figure markdown="1">
-```ruby
-require "commonmarker"
+  ```ruby?caption=_plugins/necronomicon.rb
+  require "commonmarker"
 
-class Jekyll::Converters::Markdown::Necronomicon < Jekyll::Converters::Markdown::CommonMark
-  def convert(content)
-    CursedHtmlRenderer.new(options: @render_options, extensions: @extensions).render(
-      CommonMarker.render_doc(content, @parse_options, @extensions)
-    )
-  end
+  class Jekyll::Converters::Markdown::Necronomicon < Jekyll::Converters::Markdown::CommonMark
+    def convert(content)
+      CursedHtmlRenderer.new(options: @render_options, extensions: @extensions).render(
+        CommonMarker.render_doc(content, @parse_options, @extensions)
+      )
+    end
   
-  class CursedHtmlRenderer < Jekyll::Converters::Markdown::CommonMark::HtmlRenderer
-    def code_block(node)
-      block do
-        lang, *options = node.fence_info.scan(/(?:(\A\w+)\??)|(?:(\w+)=([^&]+)&?)/).flatten.compact
-        options = Hash[*options]
+    class CursedHtmlRenderer < Jekyll::Converters::Markdown::CommonMark::HtmlRenderer
+      def code_block(node)
+        block do
+          lang, *options = node.fence_info.scan(/(?:(\A\w+)\??)|(?:(\w+)=([^&]+)&?)/).flatten.compact
+          options = Hash[*options]
 
-        out('<div class="')
-        out("language-", lang, " ") if lang
-        out('highlighter-rouge"><div class="highlight">')
-        out("<figure>")
-        out("<pre", sourcepos(node), ' class="highlight"')
+          out('<div class="')
+          out("language-", lang, " ") if lang
+          out('highlighter-rouge"><div class="highlight">')
+          out("<figure>")
+          out("<pre", sourcepos(node), ' class="highlight"')
 
-        if option_enabled?(:GITHUB_PRE_LANG)
-          out_data_attr(lang)
-          out("><code>")
-        else
-          out("><code")
-          out_data_attr(lang)
-          out(">")
+          if option_enabled?(:GITHUB_PRE_LANG)
+            out_data_attr(lang)
+            out("><code>")
+          else
+            out("><code")
+            out_data_attr(lang)
+            out(">")
+          end
+          out(render_with_rouge(node.string_content, lang))
+          out("</code></pre>")
+          out("<figcaption>#{options['caption']}</figcaption>") if options.has_key? "caption"
+          out("</figure>")
+          out("</div></div>")
         end
-        out(render_with_rouge(node.string_content, lang))
-        out("</code></pre>")
-        out("<figcaption>#{options['caption']}</figcaption>") if options.has_key? "caption"
-        out("</figure>")
-        out("</div></div>")
       end
     end
   end
-end
-```
-<figcaption>_plugins/necronomicon.rb</figcaption>
-</figure>
+  ```
 
 The custom converter (`Necronomicon`) is only there to ensure that the custom renderer (`Necronomicon::CursedHtmlRenderer`) 
 is used; it has to be placed in the `Jekyll::Converters::Markdown` namespace because 
@@ -555,20 +521,20 @@ a blank line necessary in Kramdow, too? I found the answer further down the docu
 
 I wasn't sure what “the default mechanism” was, but I gave it a try:
 
-````
-<figure markdown="1">
-  ```ruby
-  module Locations
-    class Innsmouth
-      def self.visit
-        raise "Don't!"
+  ````
+  <figure markdown="1">
+    ```ruby
+    module Locations
+      class Innsmouth
+        def self.visit
+          raise "Don't!"
+        end
       end
     end
-  end
-  ```
-  <figcaption>locations/innsmouth.rb</figcaption>
-</figure>
-````
+    ```
+    <figcaption>locations/innsmouth.rb</figcaption>
+  </figure>
+  ````
 
 And, to my relief and despair, it worked perfectly:  
 ![Success renderering using Kramdown's syntax for HTML blocks](/assets/2023-05-01-markdown-the-pits-of-madness-back-home-forever-changed.png)
@@ -637,17 +603,16 @@ So that's my trade-off for now: going with Kramdown's syntax instead of the simp
 the benefits of a good rendering and a good writing experience. But the more I think about it, the more I'd like 
 try moving the syntax-highlighting to the client side, so that I could get rid of the code fences altogether:
 
-```
-Lorem ipsum dolor sit amet.
+  ```
+  Lorem ipsum dolor sit amet.
 
-<figure><pre><code lang="ruby">
-# frozen_string_literal: true
-class Consectetur
-  def adipisicing(elit)
+  <figure><pre><code lang="ruby">
+  class Consectetur
+    def adipisicing(elit)
+    end
   end
-end
-<figcaption>sed do eiusmod tempor incididunt</figcaption>
-</code></pre></figure>
-```
+  <figcaption>sed do eiusmod tempor incididunt</figcaption>
+  </code></pre></figure>
+  ```
 
 I'm still on the (code) fence as to wether it makes the text less legible or not. We'll see.
