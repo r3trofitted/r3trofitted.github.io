@@ -2,6 +2,7 @@
 layout: post
 title: De Vermis Mysteriis — solvuntur
 category: programming
+date: 2023-06-24 21:42 +0200
 ---
 I have previously [told of my adventures]({% post_url 2023-05-01-markdown-the-pits-of-madness %}) trying to enrich 
 Jekyll's Markdown parsing abilities to allow for the wrapping of code samples in `<figure>` element. My first attempt 
@@ -11,12 +12,16 @@ finish the work — as useless as it may be now.
 
 ### The situation where I left it
 
-I had decided to write a custom _formatter_ for Rouge. (In Rouge, the formatter is the component that generates HTML 
-from a series of _tokens_, themselves extracted from the code sample to be highlighted.) The original formatter used 
-by Kramdown is `Rouge::Formatters::HTMLLegacy`, but this formatter is more of a [facade](https://en.wikipedia.org/wiki/Facade_pattern) 
-in front of 4 different formatters: `HTML`, `HTMLInline`, `HTMLTable` and `HTMLPygments`.
+When Jekyll publishes a post, it calls upon Kramdown to _convert_ the Markdown to HTML, and Kramdown in turn calls upon 
+Rouge to _highlight_ (i.e. replace with complex HTML) the code samples it encounters. Rouge offers different _formatters_ 
+to be used, depending on the kind of syntax highlighting needed. 
 
-The custom formatter that I wrote inherited from `HTML`, ignoring the other 3 formatters:
+The original formatter used by Kramdown is `Rouge::Formatters::HTMLLegacy`, but actually it is more of a 
+[facade](https://en.wikipedia.org/wiki/Facade_pattern) in front of four different formatters: `HTML`, `HTMLInline`, 
+`HTMLTable` and `HTMLPygments`.
+
+To wrap the Rouge-generated HTML in `<figure>` elements, I had decided to write a custom _formatter_ for Rouge. My 
+formatter inherited from `HTML`, ignoring the other three:
 
   ```ruby
   require "rouge"
@@ -39,7 +44,8 @@ The custom formatter that I wrote inherited from `HTML`, ignoring the other 3 fo
   ```
 
 Unfortunately, this formatter didn't render the HTML code I was expecting: the `<figure>` and `<figcaption>` elements 
-were there, as was the highlighted code, but the later was not wrapped in `<pre>` and `<code>` elements.
+were there, as was the highlighted code, but the later was not wrapped in `<pre>` and `<code>` elements, as it should 
+have.
 
 This issue didn't happen with the `HTMLLegacy` formatter, so I took a quick look at its code:
 
@@ -95,7 +101,7 @@ without taking the time to figure out the problem first.
         def initialize(opts = {})
           @caption = opts[:caption]
         end
-  
+
         def stream(tokens, &block)
           yield "<figure>"
           yield %Q{<pre class="highlight"><code>#{super}</code></pre>}
@@ -259,9 +265,8 @@ the Markdown specification is quite explicit as to how code blocks should be _co
 > Markdown wraps a code block in both <pre> and <code> tags.
 
 So, relying on the syntax highlighter do the wrapping seems like a mistake in the first place. Put differently, when 
-converting a Markdown code block to HTML, the code should always end up wrapped in a `<pre>` and `<code>` elements — and, 
-in our case, said elements should themselves be wrapped in a `<figure>` —, even if there is no code highlighting being 
-done.
+converting a Markdown code block to HTML, the code should always end up wrapped in a `<pre>` and `<code>` elements, 
+even if there is no code highlighting being done.
 
 In fact, this is exactly was Kramdown does _when there is no highlighting_:
 
@@ -282,32 +287,33 @@ In fact, this is exactly was Kramdown does _when there is no highlighting_:
   end
   ```
 
-If the code has been highlighted, it is wrapped in a `<div>`; if not, it is wrapped in the mandatory <pre> and <code> elements.
+If the code has been highlighted, it is wrapped in a `<div>`; if not, it is wrapped in the mandatory `<pre>` and `<code>` 
+elements.
   
-I can only speculate as to why Kramdown behaves so — my guess is that Rouge initially introduced this over-zealous behavior, 
-which Kramdown then had to take into account, and this adjustment was not removed even after Rouge fixed its rendering, 
-probably because other systems now depend on it.
+I can only speculate as to why Kramdown behaves so — my guess is that Rouge initially took upon itself to do the wrapping 
+in `<pre>` and `<code>` elements, and Kramdown then had to take this over-zealous behaviour into account, and stay like 
+this even after Rouge fixed its rendering, probably because other systems now depend on it.
 
-In any case, we could either use a custom converter for Kramdown, or change its `Converter::HMTL` converter. Both 
-options seem daunting.
+In any case, we could either use a custom converter for Kramdown (one that would _not_ rely on Rouge for the wrapping), 
+or change the way its `Converter::HMTL` converter works. Both options seem daunting.
 
-Kramdown is very modular and configurable, but has no mechanism to allow the swapping of a converter for a given 
-output – Kramdown relies on metaprogramming to require the relevant converter based on the name of the method 
-called for the conversion, so that `#to_html` would use a `Converter::Html` converter, and so on. To use a different 
-HTML converter, we would have to either pretend that it converts to a different format (and somehome have Jekyll 
-call `#to_custom_html` instead…) or hijack Kramdown's converter-fetch logic. Both options are way more intrusive 
-than monkey-patching Rouge's `HTMLLegacy` formatter.
+Kramdown is very modular and configurable, but has no mechanism to allow the swapping of converters – Kramdown relies 
+on metaprogramming to require the relevant converter based on the name of the method called for the conversion, so that 
+`#to_html` instantiates a `Converter::Html` converter, and so on. To use a different HTML converter, we would have to 
+either pretend that it converts to a different format (and somehome have Jekyll call `#to_custom_html` instead…) or 
+hijack Kramdown's converter-instantiating logic. Both options are way more intrusive than monkey-patching Rouge's 
+`HTMLLegacy` formatter.
 
 ### The intricacy of open source
 
-But if relying on the syntax highlight to add the `<pre>` and `<code>`elements is indeed a mistake, why not contribute to 
-Kramdown and submit a fix? In short: because I'm not too fond of Kramdown in the first place.
+But if relying on the syntax highlight to add the `<pre>` and `<code>`elements is a mistake in the first place, why not 
+contribute to Kramdown and submit a fix? In short: because I'm not too fond of Kramdown as a project.
 
-I love contributing to open source – in fact, I consider that is it a privilege to be able to do so, and duty to _actually_ 
-contribute if you can. However, I also consider that any contribution, even the smallest, is a form of commitment to 
-the project.
+I love contributing to open source – in fact, I consider that is it a privilege to be able to do so, and a duty to 
+actually contribute if you can. However, I also consider that any contribution, even the smallest, is a form of commitment 
+to the project.
 
-Open source maintainers deserve respect; they (usually) accept contributions, but in my opinion, the least one can 
+Open source maintainers deserve respect; they (usually) welcome contributions, but in my opinion, the least one can 
 do when contributing is to have regard for the the maintainers' leadership, opinions, choices, and the overall direction 
 they want to give their project. In other words: when contributing to Rome, do as the Roman senators do.
 
@@ -321,7 +327,7 @@ about, and that is exactly the case here.
 
 I've complained about the complexity of Kramdown's code base (and yes, I know how easy it is to criticise), but in itself 
 this would not be enough to keep me from opening a small PR. However, to get a feel of the project, I took a look at 
-the _other_ PRs and the conversations around them, and didn't really like what I saw. No major red flag, just a tone 
+the other PRs and the conversations around them, and didn't really like what I saw. No major red flag, just a tone 
 not to my liking.
 
 And so, since neither the technical nor human aspects of this project vibe with me, I'd rather not get involved. It's 
@@ -330,7 +336,7 @@ as simple as that.
 ### Done beats perfect
 
 I enjoy pursuing the best solution to a given problem – within reason. From my perspective – and I may well be wrong! – 
-the _best_ solution would be to move the responsibility of wrapping code blocks in `<pre>` and `<code>` elements to 
+the _best_ solution would be to move the responsibility of wrapping code blocks in `<pre>` and `<code>` elements 
 from the syntax highligher (Rouge) to the converter (Kramdown), and while we're at it to _also_ make the converter 
 be responsible for adding the `<figure>` elements around the converted code block. However, this would require working 
 on Kramdown, which is something I don't want to do.
@@ -338,5 +344,4 @@ on Kramdown, which is something I don't want to do.
 And so, the second-best approach is the one I'll go with – keep the wrapping of the highlighted code in `<figure>`, 
 `<pre>` and `<code>` elements under the responsibility of Rouge, implemented through a small monkey-patch. It may not 
 be ideal or perfect, but it will work, for a reasonable cost.
-
 
