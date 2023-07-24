@@ -24,10 +24,10 @@ of course, but given Mustaine's reputation, I was expecting a lot worse.
 
 ## Dice Men: the origin story of Games Workshop
 
-My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy book or 
+My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy books or 
 [Talisman](http://www.harris-authors.com/talisman_history.html), for years my favorite board game[^2]. And I always say 
 that the success stories (and drama!) of the first RPG companies of the late seventies are scaled-down versions of those 
-in the tech industry. So, of course I had read this account of the founding of Games Workshop.
+in the tech industry. So, of course I had to read this account of the founding of Games Workshop.
 
 My only issue with this book is its format: it's too tall for my shelves. However, its size allows the inclusion of 
 numerous documents in high quality: flyers, fanzine covers, gorgeous illustrations, and _a lot_ of pictures. There is 
