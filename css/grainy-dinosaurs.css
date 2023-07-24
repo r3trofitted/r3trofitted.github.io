@@ -100,6 +100,10 @@ a {
   color: var(--clr-primary-400);
 }
 
+a.footnote {
+  font-size: 80%;
+}
+
 pre.highlight {
   overflow-x: auto;
   margin: 1em;
@@ -455,6 +459,33 @@ body:has(.post[data-category]) .site-header-logo {
   font-size: var(--fs-400);
   margin-block: 0;
   grid-column: 1 / -1;
+}
+
+hr:has(+ div.footnotes) {
+  border: none;
+  margin: 2em 0 0;
+}
+
+hr:has(+ div.footnotes):after {
+  content: '***';
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+}
+
+div.footnotes {
+  font-size: var(--fs-300);
+  color: var(--clr-neutral-700);
+}
+
+div.footnotes ol {
+  margin-block: 0;
+  padding-left: 3ch;
+/*  list-style-position: inside;*/
+}
+
+div.footnotes li p {
+  margin-block: 0.25em;
 }
 
 /* Extras for Rouge */

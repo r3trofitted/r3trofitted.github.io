@@ -11,7 +11,7 @@ sunny outdoors, but let's face it: it's mostly Zelda's fault. Still, I did enjoy
 
 For some reason, I keep reading autobiographies of rock stars, even though after Billy Idol, Peter Hook, Bruce Dickinson 
 and Travis Barker, I know quite well what to expect: the account of a talented, hard-working, self-important artist spending 
-their time having drug orgies, sex orgies, and fighting with their band mates<sup>[1](#fn1)</sup>. About Mustaine's, the 
+their time having drug orgies, sex orgies, and fighting with their band mates[^1]. About Mustaine's, the 
 only peculiarity I was expecting was a constant grudge against Metallica.
 
 Well, the backcover features the typical sex-and-drugs rock star checklist, while the two words that open the book are 
@@ -24,10 +24,10 @@ of course, but given Mustaine's reputation, I was expecting a lot worse.
 
 ## Dice Men: the origin story of Games Workshop
 
-My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy book or Talisman, 
-for years my favorite board game<sup>[2](#fn2)</sup>. And I always say that the success stories (and drama!) of the first RPG 
-companies of the late seventies are scaled-down versions of those in the tech industry. So, of course I had read this 
-account of the founding of Games Workshop.
+My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy book or 
+[Talisman](http://www.harris-authors.com/talisman_history.html), for years my favorite board game[^2]. And I always say 
+that the success stories (and drama!) of the first RPG companies of the late seventies are scaled-down versions of those 
+in the tech industry. So, of course I had read this account of the founding of Games Workshop.
 
 My only issue with this book is its format: it's too tall for my shelves. However, its size allows the inclusion of 
 numerous documents in high quality: flyers, fanzine covers, gorgeous illustrations, and _a lot_ of pictures. There is 
@@ -35,8 +35,8 @@ relatively little text, but tons of material. It's a trip in time, back to the l
 it's great.
 
 The story of GW's rise itself is rather typical: focused and organised people building a successful retail business. It 
-sounds common enough, and yet, constrasts strongly with TSR'story, as told in 
-[Game Wizards](https://direct.mit.edu/books/book/5224/Game-WizardsThe-Epic-Battle-for-Dungeons-amp) or 
+sounds common enough, and yet, constrasts strongly with the amateurism and lack of focus that transpires from TSR'story, 
+as told in [Game Wizards](https://direct.mit.edu/books/book/5224/Game-WizardsThe-Epic-Battle-for-Dungeons-amp) or 
 [Of Dice and Men](https://www.goodreads.com/book/show/15803047-of-dice-and-men).
 
 ## Sorayama, complete masterworks
@@ -52,8 +52,8 @@ and flesh, pleasure and pain, or pop culture and cultural heritage, among others
 corpus; it's doesn't lend itself well to binging. I'm glad to have this book as a reference, but next time, I'll go 
 see an exihibition instead.
 
-## Footnotes
+---
+[^1]: The exception being Bruce Dickinson, whose bio is the story of a talented, hard-working, 
+    self-important artist spending his time being a Renaissance man, flying planes, and politely disagreeing with Steve Harris.
 
-*   <a name="fn1">1</a>: The exception being Bruce Dickinson, whose bio is the story of a talented, hard-working, 
-self-important artist spending his time being a Renaissance man, flying planes, and politely disagreeing with Steve Harris.
-*   <a name="fn2">2</a>: I still own a first (French) edition, probably the most precious thing I'll bequeath my son.
+[^2]: I still own a first (French) edition, probably the most precious thing I'll bequeath my son.
