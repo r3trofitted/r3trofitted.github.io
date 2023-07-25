@@ -147,19 +147,20 @@ blockquote::after {
   content: no-close-quote;
 }
 
-div[class*="language-"] figure,
-figure:has(div[class*="language-"]) {
+div[class*="language-"] figure {
   margin-inline: 0;
   background-color: #f6f8fa;
   border: 1px solid var(--clr-neutral-400);
 }
 
-div[class*="language-"] figcaption,
-figure:has(div[class*="language-"]) figcaption {
+div[class*="language-"] figcaption {
   font-family: var(--ff-code);
   font-size: var(--fs-200);
   text-align: right;
   border-top: 1px dashed var(--clr-primary-400);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-left: 3ch;
 }
 
 /* Categories icons (used as masks on the logo or replacement icons for posts links) */
