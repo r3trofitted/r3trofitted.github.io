@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Back in business"
-date:   2023-02-01 14:45:00 +0100
+date:   2023-04-01 14:45:00 +0100
 ---
 In my early tweenties, back when I half-seriously planned on becoming a professional musician, I wrote a 
 few songs. (The couple of 4-track demos and rehearsal recordings where they featured  are long gone, but they were nothing 

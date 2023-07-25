@@ -1,7 +1,7 @@
 ---
 layout: no_milk_no_sugar
 title: 'No milk, no sugar #3'
-date: 2023-05-26 20:43 +0200
+date: 2023-05-29 20:43 +0200
 categories: ttrpg programming music
 ---
 ## [Hajime Sorayama](http://sorayama.jp/works/)

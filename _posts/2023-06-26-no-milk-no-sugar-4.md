@@ -1,7 +1,7 @@
 ---
 layout: no_milk_no_sugar
 title: 'No milk, no sugar #4'
-date: 2023-05-30 20:50 +0200
+date: 2023-06-26 20:50 +0200
 categories: programming miscellanea
 ---
 ## [Attenborough Lore](https://www.youtube.com/@AttenboroughLore/about)
