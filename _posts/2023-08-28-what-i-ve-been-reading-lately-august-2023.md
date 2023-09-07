@@ -1,6 +1,6 @@
 ---
 layout: post
-title: What I've been reading lately (august 2023)
+title: What I've been reading lately (August 2023)
 date: 2023-08-28 08:34 +0200
 categories: books
 ---

@@ -11,10 +11,10 @@ Cargo cult programming is one of the worst things that can happen to a software 
 when what I've learned turns against you instead of helping you. Having strong opinions and hardcoded knowledge is fine, 
 until said opinions and knowledge turn out to be false, or even worse, out-of-date.
 
-Case in point: the `frozen-string-litteral` feature in Ruby.
+Case in point: the `frozen-string-literal` feature in Ruby.
 
 Back in 2015, I learned that Ruby 3 would make `String` objects _frozen_ by default, and as a transitional measure, 
-a new magic comment had been introduced: `#frozen_string_litteral: true`. Add it to your Ruby 2.3 file, and its 
+a new magic comment had been introduced: `#frozen_string_literal: true`. Add it to your Ruby 2.3 file, and its 
 (non-interpolated) strings would be frozen, as they should eventually be in Ruby 3.
 
 As a diligent rubyist trying to stay on the edge, I started adding this magic comment scrupulously at the top of all my 
@@ -32,7 +32,7 @@ my nose started twitching again.
 
 I trust my tools of choice, and the people who make them. Which means that I trust Ruby to do be at its best by default. 
 Magic comments are file-specific configuration options; by definition, they are an exception to the defaults. So, if a 
-an option like `frozen-string-litteral` is that important, why isn't it on by default?
+an option like `frozen-string-literal` is that important, why isn't it on by default?
 
 And, by the way, wasn't it supposed to be the case in Ruby 3 in the first place?
 

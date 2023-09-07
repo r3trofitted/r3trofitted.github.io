@@ -7,7 +7,7 @@ categories: books
 Not many books read recently, I admit. I could blame the engulfing bliss of coding again, or my time spent enjoying the 
 sunny outdoors, but let's face it: it's mostly Zelda's fault. Still, I did enjoy some reading:
 
-## Mustaine: a life in metal
+## Mustaine: a life in metal (Dave Mustaine and Joe Layden, 2010)
 
 For some reason, I keep reading autobiographies of rock stars, even though after Billy Idol, Peter Hook, Bruce Dickinson 
 and Travis Barker, I know quite well what to expect: the account of a talented, hard-working, self-important artist spending 
@@ -22,7 +22,7 @@ well-written (I suspect thanks to Joe Layden), interesting, and strangely enough
 a guy sincerely tring to be nice and amend. There are still a few cheap shots and several cases of self-justifications, 
 of course, but given Mustaine's reputation, I was expecting a lot worse.
 
-## Dice Men: the origin story of Games Workshop
+## Dice Men: the origin story of Games Workshop (Ian Livingstone and Steve Jackson, 2023)
 
 My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy books or 
 [Talisman](http://www.harris-authors.com/talisman_history.html), for years my favorite board game[^2]. And I always say 
@@ -39,7 +39,7 @@ sounds common enough, and yet, constrasts strongly with the amateurism and lack 
 as told in [Game Wizards](https://direct.mit.edu/books/book/5224/Game-WizardsThe-Epic-Battle-for-Dungeons-amp) or 
 [Of Dice and Men](https://www.goodreads.com/book/show/15803047-of-dice-and-men).
 
-## Sorayama, complete masterworks
+## Sorayama, complete masterworks (Isabella Catalina and Hajime Sorayama, 2022)
 
 I [only recently]({% post_url 2023-05-29-no-milk-no-sugar-3 %}) became aware of this artist, and I wanted to fill this 
 gap in my culture. I was expecting sexy robots with a retro sci-fi vibe; I wasn't prepared for the photorealistic 
