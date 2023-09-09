@@ -47,6 +47,11 @@ collections:
     series_title: "Steel Vellum"
     lede: >-
       Building a Ruby gem without a clear goal, but with a method.
+  z80asm:
+    output: truw
+    series_title: "Jurassic Stack"
+    lede: >-
+      "Hello, World!" in Z80 assembly.
 
 # Exclude from processing.
 # The following items will not be processed, by default.
