@@ -27,7 +27,8 @@ description: >-
   cannot keep themselves off my lawn.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://2-45.pm" # the base hostname & protocol for your site, e.g. http://example.com
-mastodon_domain_and_username: "@ruby.social/@r3trofitted"
+mastodon_domain: "@ruby.social"
+mastodon_username: "r3trofitted"
 github_username:  r3trofitted
 linkedin_username: r3trofitted
 
