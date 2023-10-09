@@ -1,0 +1,113 @@
+:root {
+  color-schema: light dark;
+
+  --clr-neutral-100:white;
+  --clr-neutral-900: black;
+  --clr-primary-400: orangered;
+  /* --clr-secondary-400: TODO; */
+
+  --fs-200: 0.563rem;
+  --fs-300: 0.75rem;
+  --fs-400: 1rem;
+  --fs-600: 1.777rem;
+  --fs-900: 4.209rem;
+
+  /* System font stacks courtesy of https://modernfontstacks.com */
+  --ff-body: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  --ff-heading: 'Nimbus Mono PS', 'Courier New', monospace;
+  --ff-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+}
+
+/* TODO: use an image instead? */
+@font-face {
+  font-family: "PragRoman";
+  src: url('../assets/PragRoman.ttf');
+}
+
+h1 {
+  font-family: "PragRoman";
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-neutral-100: black;
+    --clr-neutral-900: white;
+    /* --clr-primary-400: TODO; */
+    /* --clr-secondary-400: TODO; */
+  }  
+}
+
+*,
+:after,
+:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  font-size: 150%;
+}
+
+body {
+  background-color: var(--clr-neutral-100);
+  color: var(--clr-neutral-900);
+  font-family: var(--ff-body);
+  font-size: var(--fs-400);
+
+  margin: 0;
+
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
+p {
+  padding: 1em;
+  max-width: 70ch;
+  margin: auto;
+  text-align: center;
+}
+
+#people {
+  margin-block: 2em;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  justify-items: center;
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  
+  & img {
+    border-radius: 50%;
+    border: 8px solid var(--clr-primary-400);
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 1;
+  }
+  
+  &:nth-of-type(2) img {
+    transform: scaleX(-1)
+  }
+}
+
+
+div.footnotes {
+  font-size: var(--fs-300);
+  color: var(--clr-neutral-700);
+}
+
+div.footnotes ol {
+  margin-block: 0;
+  padding-left: 3ch;
+/*  list-style-position: inside;*/
+}
+
+div.footnotes li p {
+  text-align: left;
+  margin-block: 0.25em;
+}
