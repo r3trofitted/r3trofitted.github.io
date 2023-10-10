@@ -3,10 +3,11 @@ layout: post
 title: "Meet Bruenor"
 date: 2023-04-26 14:45 +0200
 categories: programming
-published: false
 ---
 We now have a project, a structure for its code, and a configured test runner. It's time to start coding, which means 
 that it's time to start writing actual tests!
+
+### First test, big loop
 
 Following the principle of the **double loop**, we want to start with some kind of outside-in, 
 behaviour-describing test. For a proper application, this would be a use case of interacting with the UI; 
@@ -56,6 +57,8 @@ Converted to a test, this section could thus look like this:
   end
   ```
 
+### The Goldilocks of API design
+
 A few things are interesting here. First of all, unsurprisingly, we are writing tests for things that don't exist yet: 
 there is no `CharacterCreation` class, no `#choose_race` method, etc. We are writing the code we wish we had, not the 
 code we have (obviously, since we have none).
@@ -103,7 +106,7 @@ of our library, as can be seen in the full test:
   module SteelVellum
     class CreatingBruenorTest < Minitest::Test
       def test_1_choose_a_race
-        creation = CharacterCreation.new  
+        creation = CharacterCreation.new
     
         creation.choose_race Races::MountainDwarf
         creation.pick_proficiency :smiths_tools, from: :artisans_tools
@@ -244,11 +247,12 @@ the `CharacterCreation` class, with a first test for the `#choose_race` method �
   end
   ```
 
-Before writing the test, let's take a short break to clean up the code organization. Our new test 
-suite is about the `CharacterCreation` class, and ideally, we shouldn't need any other class to run it. By specifically 
-requiring a `steel_vellum/character_creation` file, instead of loading the whole library or relying on an autoloader, we 
-ensure that dependencies will be obvious, should they arise – because we would then need to add new `require` directives. 
-But for this to work, we need to actually move the `CharacterCreation` class definition to its own file.
+Why put a placeholder and stop now? Because, before writing the test, I'd like us to take a short break and clean up the 
+code organization. Our new test suite is about the `CharacterCreation` class, and ideally, we shouldn't need any other 
+class to run it. By specifically requiring a `steel_vellum/character_creation` file, instead of loading the whole library 
+or relying on an autoloader, we ensure that dependencies will be obvious, should they arise – because we would then 
+need to add new `require` directives. But for this to work, we need to actually move the `CharacterCreation` class 
+definition to its own file.
 
   ```ruby?caption=lib/steel_vellum/character_creation.rb
   module SteelVellum
@@ -298,4 +302,59 @@ test instead:
   end
   ```
 
-Is this excessive and capricious? Certainly. 
+Is this excessive and capricious? Certainly. Does it have significant repercussion on our overall architecture? Definitely[^1]. 
+Will we still do it, because it's more fun? You bet.
+
+However, as written above, our unit test would still be a little too much coupled to implementation details – or, rather, 
+to the details of the library's ”business logic”.
+
+As much as I like my integration tests to be as realistic as possible, with realistic or even actual data, rules, classes, 
+etc., I like my unit tests to be as abstract as possible – only caring about the bare minimum, and using at little of 
+the actual application (or, in this case, library) as possible.
+
+Concretely, in this example, using a specific race class (`Races::MountainDwarf`) seems a little to specific. We want 
+our character creation object to be able to handle _any_ class, so the more generic, the better. Let's see how the test 
+could look like with a generic `Race` class instead of a specific one.
+
+  ```ruby?caption=test/character_creation_test.rb
+  require_relative "test_helper"
+  require "./lib/steel_vellum/character_creation"
+  require "./lib/steel_vellum/race"
+  
+  module SteelVellum
+    class CharacterCreationTest < Minitest::Test
+      def test_choosing_a_race
+        creation = CharacterCreation.new
+        race     = Race.new
+        
+        creation.choose_race race
+        
+        assert_kind_of race, creation.character
+      end
+    end
+  end
+  ```
+
+Now, we could go even further and use a _stub_ instead of a `Race` instance – something like `race = Object.new` for 
+example. This would be closer to the ”London school” of testing, but honestly, in such as situation, I would find stubbing 
+overkill. It's a matter of balance: using a stub would reduce the coupling (as hinted by the necessary of adding a 
+`require` at the top of the file), but also add an extra layer of abstraction between the test and the implementation. 
+And if for some reason we'd eventually add constraints to the argument to pass the `Race#choose_race` method, then 
+our stub would have to respect them – in other words, it would have to [quack like a duck](http://wiki.c2.com/?DuckTyping). 
+Given how central to the library I expect the `Race` class to be, I anticipate a lot of quacking and a lot of stubbing, 
+if we were to go this route. So, instead, let's use the actual class – even if it doesn't exist yet and would have 
+to be _slimed_[^2].
+
+### Wrapping it up
+
+The real value of BDD and TDD is not the tests, it's the _driving of the design by the tests_. So far, we have written 
+two tests: an integration test for the ”big loop”, which drove the design of the library's API, and a unit test for 
+the first ”small loop”, which drove the design of a specific part of the library's architecture (namely, the relationship 
+between character objects and race objects). Let's end this part here, and move on the part 4 for the first actual 
+business code of this project!
+
+---
+
+[^1]: If you know your OOP, you'll recognize a case of favoring inheritance over composition, which is often a mistake.
+[^2]: _Sliming_ is a term I've borrowed from [Gary Bernhardt](https://www.destroyallsoftware.com), and basically means 
+      ”cheating temporarily by writing whatever implementation makes the test pass”.
