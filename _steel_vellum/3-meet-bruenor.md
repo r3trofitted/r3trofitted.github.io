@@ -82,7 +82,7 @@ Second, note that we could have gone with another API. For example, with a block
   ```
 
 Ruby makes it easy to hide implementation details – the objects we create and manipulate – behind a friendly DSL, but I 
-think that it would be unwise to go this way, at least for now. Yes, we're aiming for a great API, just like we'd be 
+think that it would be unwise to go this far, at least for now. Yes, we're aiming for a great API, just like we'd be 
 aiming for a great UI if we were building an app, but we should try to start with simple things. The block form would 
 only be an extra indirection around the creation and subsequent use of a `CharacterCreation` object; the argument-less 
 block form would only hide said object behind `instance_eval`‘s, etc. These layers of syntactic sugar would surely taste 
@@ -94,10 +94,10 @@ but works well here, since our test is also meant to try out the API we're desig
 
 ### More assertions, more discoveries
 
-When the example says “all the racial traits of dwarves”, it skips over the details. If we were to _actually_ 
-copy the relevant traits on our character sheet, we'd see that there are quite a few of them. Interestingly, 
-one of these traits requires the player to make a choice among a list of options, which reveals another requirement 
-of our library, as can be seen in the full test:
+When the example says “all the racial traits of dwarves”, it skips over the details. If we were to copy all the relevant 
+traits on our character sheet, we'd see that there are quite a few of them. Interestingly, one of these traits requires 
+the player to make a choice among a list of options, which reveals another requirement of our library, as can be seen 
+in the full test, with all the traits asserted for:
 
   ```ruby?caption=test/creating_bruenor_test.rb
   require "minitest/autorun"
@@ -308,13 +308,13 @@ Will we still do it, because it's more fun? You bet.
 However, as written above, our unit test would still be a little too much coupled to implementation details – or, rather, 
 to the details of the library's ”business logic”.
 
-As much as I like my integration tests to be as realistic as possible, with realistic or even actual data, rules, classes, 
-etc., I like my unit tests to be as abstract as possible – only caring about the bare minimum, and using at little of 
+As much as I like my integration tests to be as realistic as possible, with plausible or even actual data, rules, classes, 
+etc., I like my unit tests to be as abstract as possible – only caring about the bare minimum, and using as little of 
 the actual application (or, in this case, library) as possible.
 
-Concretely, in this example, using a specific race class (`Races::MountainDwarf`) seems a little to specific. We want 
-our character creation object to be able to handle _any_ class, so the more generic, the better. Let's see how the test 
-could look like with a generic `Race` class instead of a specific one.
+Concretely, in this example, using a specific race class (`Races::MountainDwarf`) seems a little _too_ specific. We want 
+our character creation object to be able to handle anything that represents a character race, so the more generic, the 
+better. Let's see how the test could look like with a generic `Race` class instead of a specific one.
 
   ```ruby?caption=test/character_creation_test.rb
   require_relative "test_helper"
@@ -335,15 +335,17 @@ could look like with a generic `Race` class instead of a specific one.
   end
   ```
 
-Now, we could go even further and use a _stub_ instead of a `Race` instance – something like `race = Object.new` for 
-example. This would be closer to the ”London school” of testing, but honestly, in such as situation, I would find stubbing 
-overkill. It's a matter of balance: using a stub would reduce the coupling (as hinted by the necessary of adding a 
-`require` at the top of the file), but also add an extra layer of abstraction between the test and the implementation. 
-And if for some reason we'd eventually add constraints to the argument to pass the `Race#choose_race` method, then 
+Now, we could go even further and use a _stub_ instead of a `Race` instance – something like `Object.new` instead of 
+`Race.new` for example[^2]. This would be closer to the ”London school” of testing, but honestly, in such as situation, 
+I would find stubbing overkill. It's a matter of balance: using a stub would reduce the coupling (as hinted by the 
+necessary of adding a `require` at the top of the file), but also add an extra layer of abstraction between the test and 
+the implementation. 
+
+And if for some reason we'd eventually add constraints to the argument expected by the `Race#choose_race` method, then 
 our stub would have to respect them – in other words, it would have to [quack like a duck](http://wiki.c2.com/?DuckTyping). 
 Given how central to the library I expect the `Race` class to be, I anticipate a lot of quacking and a lot of stubbing, 
 if we were to go this route. So, instead, let's use the actual class – even if it doesn't exist yet and would have 
-to be _slimed_[^2].
+to be _slimed_[^3].
 
 ### Wrapping it up
 
@@ -356,5 +358,7 @@ business code of this project!
 ---
 
 [^1]: If you know your OOP, you'll recognize a case of favoring inheritance over composition, which is often a mistake.
-[^2]: _Sliming_ is a term I've borrowed from [Gary Bernhardt](https://www.destroyallsoftware.com), and basically means 
+[^2]: Vigilant readers would spot a problem with using `Object.new` here – but let's ignore it for now, we'll come back 
+      to this in the next part…
+[^3]: _Sliming_ is a term I've borrowed from [Gary Bernhardt](https://www.destroyallsoftware.com), and basically means 
       ”cheating temporarily by writing whatever implementation makes the test pass”.

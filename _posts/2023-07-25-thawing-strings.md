@@ -30,7 +30,7 @@ even in my own pet projects.
 However, there is something smelly in ubiquitous “best practices”, and now that I'm back to coding (and coding for fun!), 
 my nose started twitching again.
 
-I trust my tools of choice, and the people who make them. Which means that I trust Ruby to do be at its best by default. 
+I trust my tools of choice, and the people who make them. Which means that I trust Ruby to be at its best by default. 
 Magic comments are file-specific configuration options; by definition, they are an exception to the defaults. So, if a 
 an option like `frozen-string-literal` is that important, why isn't it on by default?
 
@@ -50,7 +50,7 @@ So I went back to the [Ruby bug tracker](https://bugs.ruby-lang.org/projects/rub
 > 
 > Matz.
 
-I had somehow missed the announcement that Ruby.3 had dropped the idea of freezing the strings by default! And for my 
+I had somehow missed the announcement that Ruby 3 had dropped the idea of freezing the strings by default! And for my 
 least favorite reason in computer science: retrocompatibility (the weight that drags progress down). So there was 
 a reason to systematically use this ugly magic comment, after all.
 
