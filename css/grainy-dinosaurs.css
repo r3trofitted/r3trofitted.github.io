@@ -150,6 +150,7 @@ blockquote::after {
 div[class*="language-"] figure {
   margin-inline: 0;
   background-color: #f6f8fa;
+  color: var(--clr-primary-400);
   border: 1px solid var(--clr-neutral-400);
 }
 
