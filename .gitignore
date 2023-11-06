@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/jekyll
 # Edit at https://www.toptal.com/developers/gitignore?templates=jekyll
 
+.nova/
+
 ### Jekyll ###
 _site/
 .sass-cache/
