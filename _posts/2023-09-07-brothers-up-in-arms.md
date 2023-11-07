@@ -25,10 +25,11 @@ immature. Which means that these reactions must be logical and consistent _from 
 there is a gap, somewhere, between the way I (and others, I hope) see the world, and how these people see the world[^2]. 
 And this pains me _a lot_.
 
-I also echoes the recent kerfuffle over Justin Searl's [blog post] on generational divides between programmers, or 
-this funny piece in the NY Times about [the youngsters' scorn for Gen-Xers](https://www.nytimes.com/2023/08/25/style/gen-x-generation-discourse.html). 
-So far, I've never had any issue connecting with people 5 years, 10 years, or 15 years younger than me; but now it seems 
-like the people I'm sharing the world with just don't see it the way I do, and vice versa. It worries me a lot.
+It also echoes the recent kerfuffle over Justin Searl's [blog post](https://blog.testdouble.com/posts/2023-07-12-the-looming-demise-of-the-10x-developer/) 
+on generational divides between programmers, or this funny piece in the NY Times about 
+[the youngsters' scorn for Gen-Xers](https://www.nytimes.com/2023/08/25/style/gen-x-generation-discourse.html). So far, 
+I've never had any issue connecting with people 5 years, 10 years, or 15 years younger than me; but now it seems like 
+the people I'm sharing the world with just don't see it the way I do, and vice versa. It worries me.
 
 I will probably take a break from social media, and go re-read [God Is Not Great](https://www.hachettebookgroup.com/titles/christopher-hitchens/god-is-not-great/9780446697965/?lens=twelve) 
 instead.
