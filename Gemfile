@@ -4,3 +4,5 @@ source "https://rubygems.org"
 
 gem "zenweb"
 gem "webrick"
+gem "rouge"
+gem "kramdown"

@@ -16,6 +16,7 @@ GEM
       rake (>= 0.9.2, < 15)
     rake (13.1.0)
     rexml (3.2.6)
+    rouge (4.2.0)
     webrick (1.8.1)
     zenweb (3.11.0)
       coderay (~> 1.0)
@@ -30,6 +31,8 @@ PLATFORMS
   arm64-darwin-23
 
 DEPENDENCIES
+  kramdown
+  rouge
   webrick
   zenweb
 

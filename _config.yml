@@ -1,5 +1,12 @@
 exclude:
 - bin
+- zenweb
 - Gemfile
 - Gemfile.lock
 - Rakefile
+kramdown:
+  header_offset: 1
+  syntax_highlighter: rouge_with_caption
+  syntax_highlighter_opts:
+    tab_width: 2
+no_line_numbers: true
