@@ -1,0 +1,26 @@
+---
+layout: blog
+...
+
+<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" data-category="<%= page.canonical_category %>">
+  <header class="post-header">
+    <% if page.config.key? :series %>
+    <p class="series-title">
+      <%= page[:series] %>, part <%= page.title[/^\d+/] %>:
+    </p>
+    <% end %>
+
+    <h2 class="post-title p-name" itemprop="name headline">
+      <%= page.title %>
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="<%= page.date.iso8601 %>" itemprop="datePublished">
+        <%= page.date.strftime "%b %-d, %Y" %>
+      </time>
+
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <%= content %>
+  </div>
+</article>
