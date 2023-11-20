@@ -1,7 +1,7 @@
 @import url("rouge.css");
 
 :root {
-  color-schema: light dark;
+  /* color-schema: light dark; */
 
   --clr-neutral-100: #fbfcfd;
   --clr-neutral-300: #eae5d8;
@@ -26,7 +26,7 @@
   --ff-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --clr-neutral-100: #181108;
     --clr-neutral-300: #564F41;
@@ -36,7 +36,7 @@
     --clr-primary-400: #f29f05;
     --clr-secondary-400: #953f08;
   }  
-}
+} */
 
 *,
 :after,
