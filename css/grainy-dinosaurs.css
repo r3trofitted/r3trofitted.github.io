@@ -11,11 +11,14 @@
   --clr-primary-400: #f29f05;
   --clr-secondary-400: #953f08;
 
-  --fs-200: 0.8rem;
-  --fs-300: 0.9rem;
-  --fs-400: 1.1rem;
-  --fs-600: 1.35rem;
-  --fs-900: 2rem;
+  --fs-200: 0.9rem;
+  --fs-300: 1rem;
+  --fs-400: 1.125rem;
+  --fs-500: 1.553rem;
+  --fs-600: 1.953rem;
+  --fs-700: 2.441rem;
+  --fs-800: 3.052rem;
+  --fs-900: 3.815rem;
 
   /* System font stacks courtesy of https://modernfontstacks.com */
   --ff-body: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
