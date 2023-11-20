@@ -1,8 +1,8 @@
 ---
 layout: post
 title: De Vermis Mysteriis — solvuntur
-categories: programming
 date: 2023-06-24 21:42 +0200
+lede: Following up on my cursed attempt at making writing Markdown in Jekyll friendlier.
 ...
 
 I have previously [told of my adventures]({% post_url 2023-05-01-markdown-the-pits-of-madness %}) trying to enrich 

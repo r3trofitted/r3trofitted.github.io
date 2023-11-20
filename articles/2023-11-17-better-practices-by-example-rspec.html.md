@@ -2,7 +2,7 @@
 layout: post
 title: 'Better practices by example: RSpec'
 date: 2023-11-14 23:03 +0100
-categories: programming
+lede: Improving an RSpec suite.
 ...
 
 Some time ago, I stumbled upon [an interesting technical test]({% link _posts/2023-11-02-humility-check.md %}). However, 

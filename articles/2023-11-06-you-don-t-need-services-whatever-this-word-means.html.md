@@ -2,7 +2,7 @@
 layout: post
 title: You don't need services (whatever this word means)
 date: 2023-11-06 13:27 +0100
-categories: programming
+lede: "Among my pet peeves: “services” of all kinds."
 ...
 
 Last Sunday, I had the pleasure to attend one of [Jason Swett](https://www.codewithjason.com)'s online meetups. This 

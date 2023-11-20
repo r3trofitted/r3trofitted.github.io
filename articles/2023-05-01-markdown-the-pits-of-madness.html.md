@@ -2,7 +2,7 @@
 layout: post
 title: Markdown the pits of madness
 date: 2023-05-01 18:21 +0200
-categories: programming
+lede: Figuring out a way to customize the Markdown rendering in Jekyll.
 ...
 
 _In the annals of human history, there are tales of journeys that have driven men to the brink 

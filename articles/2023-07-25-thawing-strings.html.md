@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Thawing strings
-categories: programming
 date: 2023-07-25 10:52 +0200
+lede: "It's 2023 and we're using Ruby 3.2, do we really need <code>#frozen-string-literal</code>?"
 ...
 
 As a staunch atheist, I reject all cults (except maybe for Ian Astbury's). And yet, there's one I'm always wary of, for 

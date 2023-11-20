@@ -384,6 +384,7 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
 }
 
 .series-list-title {
+  margin-top: 0.5em;
   color: var(--clr-neutral-900);
 }
 
@@ -394,7 +395,6 @@ body:has(.post[data-category='tv']) .site-header-logo { --category-icon: url(../
 .series-lede {
   font-size: var(--fs-300);
   color: var(--clr-neutral-400);
-  margin-bottom: 0.5em;
 }
 
 .series-parts {
