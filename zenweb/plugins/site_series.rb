@@ -6,7 +6,7 @@ class Zenweb::Site
   def dashes_of_milk
     categories
       .blog
-      .select { |p| p.config["series"] == "dash_of_milk" }
+      .select { |p| p.path.include? "a-dash-of-milk/" }
       .sort_by { |p| [-p.date.to_i, p.title] }
   end
 end
