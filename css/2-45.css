@@ -455,7 +455,17 @@ footer {
 
 /* individual post */
 article.post {
-  counter-reset: headings;
+  --ornement-margin: .3ch;
+  
+  &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
+  &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
+  &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
+  &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
+  &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
+  &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
+  &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
+  &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
+  &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
   
   & header {
     margin-block: 2em 1em;
@@ -466,11 +476,35 @@ article.post {
   .post-title {
     flex-grow: 1;
     
+    position: relative;
+    
     text-transform: uppercase;
     font-weight: normal;
     letter-spacing: .05em;
 
     margin-block: 0;
+    
+    &::after {
+      position: absolute;
+      
+      display: block;
+      content: '';
+      aspect-ratio: 1;
+      height: 1lh;
+      
+      top: 0;
+      transform: translateX(calc(-100% - var(--ornement-margin)));
+      
+      background-color: var(--clr-primary-400);
+      mask: var(--category-icon) center / contain;
+    }
+    
+    @container main (width < 80ch) {
+      &::after {
+        display: unset;
+        content: unset;
+      }
+    }
   }
   
   .post-meta {
@@ -504,10 +538,10 @@ article.post {
     position: absolute;
     
     width: var(--width);
-    height: 40%;
+    height: calc(1lh * 0.4);
     
     top: 10%;
-    left: calc(-1*(var(--width) + 0.3ch));
+    transform: translateX(calc(-100% - var(--ornement-margin)));
     
     background: repeating-linear-gradient(
       to right,
@@ -518,15 +552,17 @@ article.post {
     );
   }
   
-  /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
   @container main (width < 80ch) {
+    /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
     & h3::after {
       --base-width: 2ch;
+      --height: 10%;
       
-      left: initial;
+      transform: unset;
       top: initial;
-      bottom: -30%;
-      height: 10%;
+      
+      bottom: calc(-1 * var(--height));
+      height: var(--height);
     }
   }
   
