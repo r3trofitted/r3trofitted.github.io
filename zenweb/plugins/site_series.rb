@@ -9,4 +9,8 @@ class Zenweb::Site
       .select { |p| p.path.include? "a-dash-of-milk/" }
       .sort_by { |p| [-p.date.to_i, p.title] }
   end
+  
+  def regular_articles
+    categories.articles - Zenweb::SeriesPage.all.flat_map { _2.pages }
+  end
 end

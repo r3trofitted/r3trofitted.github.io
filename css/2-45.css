@@ -8,7 +8,9 @@
   --clr-neutral-400: #b3ab97;
   --clr-neutral-700: #564F41;
   --clr-neutral-900: #181108;
+  
   --clr-primary-400: #f29f05;
+  
   --clr-secondary-400: #953f08;
 
   --fs-200: 0.9rem;
@@ -604,6 +606,16 @@ footer {
       }
     }
     
+    .series-title {
+      flex-basis: 100%;
+      align-self: end;
+      margin-bottom: 0;
+      
+      font-family: var(--ff-heading);
+      text-transform: uppercase;
+      font-size: var(--fs-400);
+    }
+    
     .post-meta {
       margin-block: 0;
       align-self: end;
@@ -660,6 +672,18 @@ footer {
         
         bottom: calc(-2 * var(--height));
         height: var(--height);
+      }
+    }
+    
+    & .series-next {
+      font-size: var(--fs-300);
+      text-align: right;
+      font-weight: bold;
+      
+      &::after {
+        content: "➧";
+        vertical-align: top;
+        font-size: var(--fs-400);
       }
     }
     

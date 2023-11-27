@@ -20,17 +20,18 @@ layout: 2-45
   
   <h2 class="heading">Series</h2>
   <dl class="series-list homepage-list">
-    <% site.series.each do |name, parts| %>
+    <%# site.series.each do |name, parts| %>
+    <% Zenweb::SeriesPage.all.each do |name, index| %>
     <dt class="series-list-title">
-      <a class="post-link" href="<%= parts.first.url %>"><%= name %></a>
-      <%= "<i>[in progress]</i>" if parts.first.config["in_progress"] %>
+      <a class="post-link" href="<%= index.pages.first.url %>"><%= name %></a>
+      <%= "<i>[in progress]</i>" if index.pages.first.config["in_progress"] %>
     </dt>
     <dd class="series-lede">
-      <%= parts.first.config["lede"] %>
+      <%= index.pages.first.config["lede"] %>
     </dd>
       <dd class="series-parts">
         <ul class="post-categories">
-          <% parts.each_with_index do |part, n| %>
+          <% index.pages.reverse.each_with_index do |part, n| %>
           <li>
             <a href="<%= part.url %>">Part <%= n + 1 %></a>
           </li>
