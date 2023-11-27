@@ -368,11 +368,31 @@ footer {
     margin-top: 0;
   }
   
-  /* & :is(h1, h2, h3, h4, h5, h6) + p {
-    margin-top: 0;
-  } */
+  & blockquote {
+    position: relative;
+    
+    margin: 0;
+    padding: 0.125em 4ch;
+    
+    font-style: italic;
+  }
+  
+  & blockquote::before {
+    content: open-quote;
+    
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    
+    font-size: 4em;
+    font-style: italic;
+    color: var(--clr-secondary-400);
+  }
+  
+  & blockquote::after {
+    content: no-close-quote;
+  }
 }
-
 
 .posts-list {
   list-style: none;
@@ -490,7 +510,7 @@ article.post {
       display: block;
       content: '';
       aspect-ratio: 1;
-      height: 1lh;
+      height: 1em;
       
       top: 0;
       transform: translateX(calc(-100% - var(--ornement-margin)));
@@ -509,7 +529,7 @@ article.post {
   
   .post-meta {
     margin-block: 0;
-    align-self: center;
+    align-self: end;
     color: var(--clr-primary-400);
   }
   
