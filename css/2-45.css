@@ -193,6 +193,10 @@ footer {
   border-top: 1px solid var(--clr-neutral-300);
   color: var(--clr-neutral-400);
   font-size: var(--fs-300);
+  
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .footer-links {
@@ -224,7 +228,7 @@ footer {
   fill: url(#rss-gradient);
 }
 
-@media screen and (min-width: 320px) {
+/* @media screen and (min-width: 320px) {
   .site-footer {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -233,10 +237,7 @@ footer {
   .footer-links {
     justify-self: end;
   }
-}
-
-
-
+} */
 
 #contact-links {
   --list-gap: 2em;
@@ -266,7 +267,6 @@ footer {
     fill: url(#rss-gradient);
   }
 
-  
   & svg {
     width: 100%;
     height: 100%;
