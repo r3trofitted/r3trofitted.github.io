@@ -360,6 +360,14 @@ footer {
      }
   }
   
+  & :is(h3, h4, h5, h6):has(+ p) {
+    margin-block: 1.25em .25em;
+  }
+  
+  :is(h3, h4, h5, h6) + p {
+    margin-top: 0;
+  }
+  
   /* & :is(h1, h2, h3, h4, h5, h6) + p {
     margin-top: 0;
   } */
@@ -451,15 +459,21 @@ article.post {
   
   & header {
     margin-block: 2em 1em;
-    display: grid;
-    grid-template-columns: 1fr auto;
+    display: flex;
+    flex-wrap: wrap;
   }
   
   .post-title {
+    flex-grow: 1;
+    
+    text-transform: uppercase;
+    font-weight: normal;
+    letter-spacing: .05em;
+
     margin-block: 0;
   }
   
-  .post-header .post-meta {
+  .post-meta {
     margin-block: 0;
     align-self: center;
     color: var(--clr-primary-400);
@@ -542,6 +556,23 @@ article.post {
   
   & div.footnotes li p {
     margin-block: 0.25em;
+  }
+}
+
+/** 
+  A “dash of milk” post is basically a regular one, with slight changes 
+  to balance the design since all h3 subtitles are also links (and thus 
+  colored)
+**/
+article.dash-of-milk {
+  & .post-meta {
+    color: currentcolor;
+  }
+  
+  /* no ornament */
+  & h3::after {
+    content: unset;
+    display: unset;
   }
 }
 
