@@ -89,7 +89,7 @@ is quite clear:
 
 To be sure, I tried it anyway:
 
-````
+````html
 <figure>
   ```ruby
   module Locations
@@ -197,7 +197,7 @@ where the language is specified. I had seen it being used to pass extra options 
 [such as the console lexer](https://github.com/rouge-ruby/rouge/blob/aa1a1240e1dfcad633cb80c8ef67fba68c35ef87/lib/rouge/lexers/console.rb#L26). 
 My plan was to use the same trick, with a `caption` option:
 
-````
+````ruby
 ```ruby?caption=locations/innsmouth.rb
 module Locations
  # …
@@ -424,7 +424,7 @@ I understood why after reading closely the [CommonMark spec](https://spec.common
 For my HTML/CommonMark mix to be properly converted to HTML, I needed to add a blank line at the end of the HTML part, like 
 so:
 
-````
+````html?caption=(notice the blank line)
 <figure>
 
 ```ruby
@@ -521,7 +521,7 @@ a blank line necessary in Kramdow, too? I found the answer further down the docu
 
 I wasn't sure what “the default mechanism” was, but I gave it a try:
 
-````
+````html
 <figure markdown="1">
   ```ruby
   module Locations
@@ -603,7 +603,7 @@ So that's my trade-off for now: going with Kramdown's syntax instead of the simp
 the benefits of a good rendering and a good writing experience. But the more I think about it, the more I'd like 
 try moving the syntax-highlighting to the client side, so that I could get rid of the code fences altogether:
 
-```
+```markdown
 Lorem ipsum dolor sit amet.
 
 <figure><pre><code lang="ruby">

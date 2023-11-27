@@ -55,6 +55,5 @@ see an exihibition instead.
 
 ---
 [^1]: The exception being Bruce Dickinson, whose bio is the story of a talented, hard-working, 
-    self-important artist spending his time being a Renaissance man, flying planes, and politely disagreeing with Steve Harris.
-
+      self-important artist spending his time being a Renaissance man, flying planes, and politely disagreeing with Steve Harris.
 [^2]: I still own a first (French) edition, probably the most precious thing I'll bequeath my son.

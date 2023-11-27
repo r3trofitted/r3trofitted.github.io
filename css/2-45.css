@@ -378,6 +378,7 @@ footer {
     font-family: var(--ff-code);
     font-size: 90%; /* compensating for the large glyphs that fonts in the monospace stack tend to have */
     color: var(--clr-secondary-400);
+    line-height: initial;
   }
   
   & pre.highlight {
@@ -420,6 +421,7 @@ footer {
     background-color: #f6f8fa;
     color: var(--clr-primary-400);
     border: 1px solid var(--clr-neutral-400);
+    line-height: initial;
   }
   
   & div[class*="language-"] figcaption {
