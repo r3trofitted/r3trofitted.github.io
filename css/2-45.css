@@ -1,3 +1,5 @@
+@import url("rouge.css");
+
 :root {
   /* TODO: color-schema: light dark; */
 
@@ -340,6 +342,8 @@ footer {
 }
 
 #grainy-dinosaur {
+  --ornement-margin: .3ch;
+  
   gap: 1rem; /* override */
   
   & main {
@@ -350,8 +354,10 @@ footer {
   }
   
   & .heading {
-     letter-spacing: .05em;
+     font-weight: normal;
      text-transform: uppercase;
+     letter-spacing: .05em;
+     
      margin-bottom: 0.5em;
      text-align: center;
      
@@ -364,10 +370,26 @@ footer {
     margin-block: 1.25em .25em;
   }
   
-  :is(h3, h4, h5, h6) + p {
+  /* & :is(h3, h4, h5, h6) + p {
     margin-top: 0;
+  } */
+  
+  & :is(pre, code) {
+    font-family: var(--ff-code);
+    font-size: 90%; /* compensating for the large glyphs that fonts in the monospace stack tend to have */
+    color: var(--clr-secondary-400);
   }
   
+  & pre.highlight {
+    overflow-x: auto;
+    margin: 1em;
+  }
+  
+  & p > img {
+    width: 100%;
+    margin: 0;
+  }
+
   & blockquote {
     position: relative;
     
@@ -392,247 +414,301 @@ footer {
   & blockquote::after {
     content: no-close-quote;
   }
-}
-
-.posts-list {
-  list-style: none;
-  padding-inline-start: 0;
-  margin-inline: auto;
   
-  /* should also be .post.list-item */
-  & > li {
-    display: grid;
-    grid-template-columns: 1fr auto;
+  & div[class*="language-"] figure {
+    margin-inline: 0;
+    background-color: #f6f8fa;
+    color: var(--clr-primary-400);
+    border: 1px solid var(--clr-neutral-400);
   }
-}
-
-.post-categories {
-  --gap: 0.25em;
   
-  align-self: center;
-  list-style: none;
-  padding-inline-start: 0;
-  display: flex;
-  gap: var(--gap);
-  
-  /* add commas between categories on large enough screens */
-  @container main (width > 400px) {
-    & li:not(:last-of-type):has(> .post-category-link) .post-category-link::after {
-      content: ",";
-      margin-left: calc(-1*var(--gap));
-    }
+  & div[class*="language-"] figcaption {
+    font-family: var(--ff-code);
+    font-size: var(--fs-200);
+    text-align: right;
+    border-top: 1px dashed var(--clr-primary-400);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 3ch;
   }
-}
 
-.post-link {
-  grid-column: 1 / -1;
-  
-  color: var(--clr-neutral-900);
-}
-
-.post-category-link {
-  &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
-  &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
-  &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
-  &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
-  &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
-  &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
-  &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
-  &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
-  &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
-  
-  color: var(--clr-primary-400);
-  font-family: var(--ff-heading);
-  font-size: var(--fs-200);
-  vertical-align: text-top;
-  
-  @container main (width < 400px) {
-    /* hide the category's name */
-    &:is([data-category]) span {
-      display: none;
-      width: 0;
-      height: 0;
-      position: absolute;
-    }
+  & .posts-list {
+    list-style: none;
+    padding-inline-start: 0;
+    margin-inline: auto;
     
-    /* add a category icon */
-    &:is([data-category])::before {
-      content: '';
-      display: inline-block;
-      vertical-align: middle;
-      width: 1.25em;
-      aspect-ratio: 1;
-      background-color: var(--clr-primary-400);
-      mask: var(--category-icon) center / contain;
+    /* should also be .post.list-item */
+    & > li {
+      display: grid;
+      grid-template-columns: 1fr auto;
     }
   }
-}
-
-.post-meta {
-  font-size: var(--fs-300);
-  color: var(--clr-neutral-400);
-}
-
-/* individual post */
-article.post {
-  --ornement-margin: .3ch;
   
-  &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
-  &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
-  &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
-  &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
-  &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
-  &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
-  &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
-  &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
-  &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
-  
-  & header {
-    margin-block: 2em 1em;
+  & .post-categories {
+    --gap: 0.25em;
+    
+    align-self: center;
+    list-style: none;
+    padding-inline-start: 0;
     display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .post-title {
-    flex-grow: 1;
+    gap: var(--gap);
     
-    position: relative;
-    
-    text-transform: uppercase;
-    font-weight: normal;
-    letter-spacing: .05em;
-
-    margin-block: 0;
-    
-    &::after {
-      position: absolute;
-      
-      display: block;
-      content: '';
-      aspect-ratio: 1;
-      height: 1em;
-      
-      top: 0;
-      transform: translateX(calc(-100% - var(--ornement-margin)));
-      
-      background-color: var(--clr-primary-400);
-      mask: var(--category-icon) center / contain;
-    }
-    
-    @container main (width < 80ch) {
-      &::after {
-        display: unset;
-        content: unset;
+    /* add commas between categories on large enough screens */
+    @container main (width > 400px) {
+      & li:not(:last-of-type):has(> .post-category-link) .post-category-link::after {
+        content: ",";
+        margin-left: calc(-1*var(--gap));
       }
     }
   }
   
-  .post-meta {
-    margin-block: 0;
-    align-self: end;
+  & .post-link {
+    grid-column: 1 / -1;
+    
+    color: var(--clr-neutral-900);
+  }
+  
+  & .post-category-link {
+    &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
+    &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
+    &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
+    &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
+    &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
+    &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
+    &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
+    &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
+    &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
+    
     color: var(--clr-primary-400);
-  }
-  
-  & h3 {
-    position: relative;
-  }
-  
-  & h3:nth-last-of-type(1)  { --n: 1 }
-  & h3:nth-last-of-type(2)  { --n: 2 }
-  & h3:nth-last-of-type(3)  { --n: 3 }
-  & h3:nth-last-of-type(4)  { --n: 4 }
-  & h3:nth-last-of-type(5)  { --n: 5 }
-  & h3:nth-last-of-type(6)  { --n: 6 }
-  & h3:nth-last-of-type(7)  { --n: 7 }
-  & h3:nth-last-of-type(8)  { --n: 8 }
-  & h3:nth-last-of-type(9)  { --n: 9 }
-  & h3:nth-last-of-type(10) { --n: 10 }
-  
-  & h3::after {
-    --gap: 0.125ch;
-    --base-width: 0.25ch;
-    --width: calc(var(--n, 0) * (var(--base-width) + var(--gap)));
+    font-family: var(--ff-heading);
+    font-size: var(--fs-200);
+    vertical-align: text-top;
     
-    display: block;
-    content: '';
-    position: absolute;
-    
-    width: var(--width);
-    height: calc(1lh * 0.4);
-    
-    top: 10%;
-    transform: translateX(calc(-100% - var(--ornement-margin)));
-    
-    background: repeating-linear-gradient(
-      to right,
-      var(--clr-primary-400),
-      var(--clr-primary-400) var(--base-width),
-      transparent var(--base-width),
-      transparent calc(var(--base-width) + var(--gap))
-    );
-  }
-  
-  @container main (width < 80ch) {
-    /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
-    & h3::after {
-      --base-width: 2ch;
-      --height: 10%;
+    @container main (width < 400px) {
+      /* hide the category's name */
+      &:is([data-category]) span {
+        display: none;
+        width: 0;
+        height: 0;
+        position: absolute;
+      }
       
-      transform: unset;
-      top: initial;
-      
-      bottom: calc(-1 * var(--height));
-      height: var(--height);
+      /* add a category icon */
+      &:is([data-category])::before {
+        content: '';
+        display: inline-block;
+        vertical-align: middle;
+        width: 1.25em;
+        aspect-ratio: 1;
+        background-color: var(--clr-primary-400);
+        mask: var(--category-icon) center / contain;
+      }
     }
   }
   
-  & hr:has(+ div.footnotes) {
-    border: none;
-    margin: 2em 0 0;
-  }
-  
-  & hr:has(+ div.footnotes):after {
-    content: '⧸⧸⧸⧸⧸';
-    display: block;
-    text-align: start;
-    vertical-align: middle;
-    color: var(--clr-primary-400);
-    font-weight: bold;
-  }
-  
-  & div.footnotes {
+  & .post-meta {
     font-size: var(--fs-300);
+    color: var(--clr-neutral-400);
+  }
+  
+  & .section-lede {
+    margin-bottom: 1.5em;
+    
+    font-style: italic;
     color: var(--clr-neutral-700);
   }
   
-  & div.footnotes ol {
-    margin-block: 0;
-    padding-left: 3ch;
+  & .series-list-title {
+    margin-top: 0.5em;
+    color: var(--clr-neutral-900);
+    
+    & i {
+      font-family: var(--ff-code);
+      font-style: normal;
+      font-size: var(--fs-200);
+      color: var(--clr-secondary-400);
+    }
   }
   
-  & div.footnotes li p {
-    margin-block: 0.25em;
-  }
-}
-
-/** 
-  A “dash of milk” post is basically a regular one, with slight changes 
-  to balance the design since all h3 subtitles are also links (and thus 
-  colored)
-**/
-article.dash-of-milk {
-  & .post-meta {
-    color: currentcolor;
+  & .series-list dd {
+    margin: unset;
   }
   
-  /* no ornament */
-  & h3::after {
-    content: unset;
-    display: unset;
+  & .series-lede {
+    font-size: var(--fs-300);
+    color: var(--clr-neutral-400);
   }
-}
-
-/* Extras for Rouge */
-.highlight .gp {
-  color: var(--clr-primary-400);
+  
+  & .series-parts {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.25em;
+    
+    color: var(--clr-primary-400);
+    font-family: var(--ff-heading);
+    font-size: var(--fs-200);
+    
+    & li:not(:last-of-type)::after {
+      content: " · ";
+      font-weight: bold;
+    }
+  }
+  
+  /* individual post */
+  & article.post {
+    &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
+    &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
+    &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
+    &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
+    &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
+    &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
+    &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
+    &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
+    &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
+    
+    & header {
+      margin-block: 2em 1em;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    
+    .post-title {
+      flex-grow: 1;
+      
+      position: relative;
+  
+      margin-block: 0;
+      
+      &::after {
+        position: absolute;
+        
+        display: block;
+        content: '';
+        aspect-ratio: 1;
+        height: 1em;
+        
+        top: 0;
+        transform: translateX(calc(-100% - var(--ornement-margin)));
+        
+        background-color: var(--clr-primary-400);
+        mask: var(--category-icon) center / contain;
+      }
+      
+      @container main (width < 80ch) {
+        &::after {
+          display: unset;
+          content: unset;
+        }
+      }
+    }
+    
+    .post-meta {
+      margin-block: 0;
+      align-self: end;
+      color: var(--clr-primary-400);
+    }
+    
+    & h3 {
+      position: relative;
+    }
+    
+    & h3:nth-last-of-type(1)  { --n: 1 }
+    & h3:nth-last-of-type(2)  { --n: 2 }
+    & h3:nth-last-of-type(3)  { --n: 3 }
+    & h3:nth-last-of-type(4)  { --n: 4 }
+    & h3:nth-last-of-type(5)  { --n: 5 }
+    & h3:nth-last-of-type(6)  { --n: 6 }
+    & h3:nth-last-of-type(7)  { --n: 7 }
+    & h3:nth-last-of-type(8)  { --n: 8 }
+    & h3:nth-last-of-type(9)  { --n: 9 }
+    & h3:nth-last-of-type(10) { --n: 10 }
+    
+    & h3::after {
+      --gap: 0.2ch;
+      --base-width: 0.3ch;
+      --width: calc(var(--n, 0) * (var(--base-width) + var(--gap)));
+      
+      display: block;
+      content: '';
+      position: absolute;
+      
+      width: var(--width);
+      height: calc(1lh * 0.4);
+      
+      top: 10%;
+      transform: translateX(calc(-100% - var(--ornement-margin)));
+      
+      background: repeating-linear-gradient(
+        to right,
+        var(--clr-primary-400),
+        var(--clr-primary-400) var(--base-width),
+        transparent var(--base-width),
+        transparent calc(var(--base-width) + var(--gap))
+      );
+    }
+    
+    @container main (width < 80ch) {
+      /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
+      & h3::after {
+        --base-width: 2ch;
+        --height: 10%;
+        
+        transform: unset;
+        top: initial;
+        
+        bottom: calc(-2 * var(--height));
+        height: var(--height);
+      }
+    }
+    
+    & hr:has(+ div.footnotes) {
+      border: none;
+      margin: 2em 0 0;
+    }
+    
+    & hr:has(+ div.footnotes):after {
+      content: '⧸⧸⧸⧸⧸';
+      display: block;
+      text-align: start;
+      vertical-align: middle;
+      color: var(--clr-primary-400);
+      font-weight: bold;
+    }
+    
+    & div.footnotes {
+      font-size: var(--fs-300);
+      color: var(--clr-neutral-700);
+    }
+    
+    & div.footnotes ol {
+      margin-block: 0;
+      padding-left: 3ch;
+    }
+    
+    & div.footnotes li p {
+      margin-block: 0.25em;
+    }
+  }
+  
+  /** 
+    A “dash of milk” post is basically a regular one, with slight changes 
+    to balance the design since all h3 subtitles are also links (and thus 
+    colored)
+  **/
+  & article.dash-of-milk {
+    & .post-meta {
+      color: currentcolor;
+    }
+    
+    /* no ornament */
+    & h3::after {
+      content: unset;
+      display: unset;
+    }
+  }
+  
+  /* Extras for Rouge */
+  & .highlight .gp {
+    color: var(--clr-primary-400);
+  }
 }
