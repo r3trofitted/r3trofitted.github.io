@@ -3,14 +3,33 @@ layout: blog
 ...
 
 <div class="home">
-  <h2 class="homepage-list-heading">Articles</h2>
+  <h2 class="gd-list-heading">Articles</h2>
   <p>A collection of articles on technical topics.</p>
   <dl class="series-list homepage-list">
-    <% for post in site.categories.articles.reverse %>
+    <% for post in site.regular_articles.reverse %>
     <dt class="series-list-title">
       <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
     </dt>
     <dd class="series-lede"><%= post["lede"] %></dd>
+    <% end %>
+  </dl>
+  
+  <h2 class="gd-list-heading">Series</h2>
+  <dl class="series-list homepage-list">
+    <% site.series.each do |name, parts| %>
+    <dt class="series-list-title">
+      <a class="post-link" href="<%= parts.first.url %>"><%= name %></a>
+    </dt>
+    <dd class="series-lede"><%= parts.first.config["lede"] %></dd>
+      <dd class="series-parts">
+        <ul class="post-categories">
+          <% parts.each_with_index do |part, n| %>
+          <li>
+            <a href="<%= part.url %>">Part <%= n + 1 %></a>
+          </li>
+          <% end %>
+        </ul>
+      </dd>
     <% end %>
   </dl>
 </div>

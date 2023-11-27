@@ -1,12 +1,12 @@
 :root {
-  /* color-schema: light dark; */
+  /* TODO: color-schema: light dark; */
 
   --clr-neutral-100: #fbfcfd;
   --clr-neutral-300: #eae5d8;
   --clr-neutral-400: #b3ab97;
   --clr-neutral-700: #564F41;
   --clr-neutral-900: #181108;
-  --clr-primary-400: #6a53b6;
+  --clr-primary-400: #f29f05;
   --clr-secondary-400: #953f08;
 
   --fs-200: 0.9rem;
@@ -22,8 +22,8 @@
   --ff-body: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio L', P052, serif;
   --ff-heading: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
   --ff-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-  --ff-test: Rockwell, 'Rockwell Nova', 'Roboto Slab', 'DejaVu Serif', 'Sitka Small', serif;
-  --ff-test2: Bahnschrift, 'DIN Alternate', 'Franklin Gothic Medium', 'Nimbus Sans Narrow', sans-serif-condensed, sans-serif;
+  
+  --link-color: var(--clr-primary-400);
 }
 
 *,
@@ -58,6 +58,7 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--ff-heading);
   line-height: 1.1;
   color: var(--clr-neutral-900);
+  text-wrap: balance;
 }
 
 h1 {
@@ -72,12 +73,34 @@ h3 {
   font-size: var(--fs-500);
 }
 
-a {
-  color: currentcolor;
+p {
+  text-wrap: pretty;
 }
 
-header {
+a {
+  color: var(--link-color)
+}
+
+a.footnote {
+  font-size: 80%;
+}
+
+pre.highlight {
+  overflow-x: auto;
+  margin: 1em;
+}
+
+pre, code {
+  font-family: var(--ff-code);
+  font-size: 90%; /* compensating for the large glyphs that fonts in the monospace stack tend to have */
+  color: var(--clr-secondary-400);
+}
+
+
+body > header {
   --slant-width: 1em;
+  --background: var(--clr-neutral-900);
+  --link-color: currentcolor;
   
   position: relative;
   isolation: isolate;
@@ -104,7 +127,7 @@ header {
   
   & nav {
     padding: var(--slant-width);
-    background: var(--clr-primary-400);
+    background: var(--background);
     
     clip-path: polygon(
       0% 0%,
@@ -120,28 +143,13 @@ header {
     justify-content: space-evenly;
   }
   
-  & li {
-    position: relative;
-  }
-  
-  & li:hover:after {
-    content: "grainy dinosaurs";
-    position: absolute;
-    z-index: -1;
-    color: var(--clr-neutral-300);
-    left: 50%;
-    transform: translateX(-50%) translateY(1lh);
-    width: max-content;
-    font-family: 'Segoe Print', 'Bradley Hand', Chilanka, TSCu_Comic, casual, cursive;
-  }
-  
   &:after {
     content: '';
     position: absolute;
     inset: 0 0 var(--slant-width);
     
     z-index: -1;
-    background: var(--clr-primary-400);
+    background: var(--background);
   }
 }
 
@@ -161,23 +169,74 @@ main {
     object-fit: cover;
     
     display: block;
-    
-    /* border: 1px solid var(--clr-neutral-300); */
   }
   
   & img {
     display: block;
   }
   
-  & em > strong {
-    font-size: var(--fs-700);
-  }
-  
-  & em {
+  & em.spotlight {
     color: var(--clr-primary-400);
     font-style: normal;
+    white-space: nowrap;
+    
+    > strong {
+      font-size: var(--fs-700);
+    }
   }
 }
+
+/* Footer */
+footer {
+  grid-column: 1 / -1;
+  
+  border-top: 1px solid var(--clr-neutral-300);
+  color: var(--clr-neutral-400);
+  font-size: var(--fs-300);
+}
+
+.footer-links {
+  list-style: none;
+  padding-inline-start: 0;
+  text-align: end;
+  display: flex;
+  justify-content: start;
+  gap: 0.5em;
+}
+
+.footer-links a {
+  color: currentcolor;
+}
+
+.footer-links a:is(:hover, :active) .bi-mastodon {
+  fill: url(#mastodon-gradient);
+}
+
+.footer-links a:is(:hover, :active) .bi-github {
+  fill: #24292f;
+}
+
+.footer-links a:is(:hover, :active) .bi-linkedin {
+  fill: #0077B5;
+}
+
+.footer-links a:is(:hover, :active) .bi-rss-fill {
+  fill: url(#rss-gradient);
+}
+
+@media screen and (min-width: 320px) {
+  .site-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-links {
+    justify-self: end;
+  }
+}
+
+
+
 
 #contact-links {
   --list-gap: 2em;
@@ -258,7 +317,7 @@ main {
   }
   
   &:after {
-    --small-cutoff-width: calc(var(--cutoff-width) - (var(--border-width) * 0.4142)); /* .04142 = tan(45 / 2) */
+    --small-cutoff-width: calc(var(--cutoff-width) - (var(--border-width) * tan(22.5deg)));
     
     position: absolute;
     content: '';
@@ -278,4 +337,215 @@ main {
       0% var(--small-cutoff-width)
     );
   }
+}
+
+#grainy-dinosaur {
+  gap: 1rem; /* override */
+  
+  & main {
+    grid-template-columns: minmax(35ch, 70ch);
+    justify-content: center;
+    
+    container: main / inline-size;
+  }
+  
+  & .heading {
+     letter-spacing: .05em;
+     text-transform: uppercase;
+     margin-bottom: 0.5em;
+     text-align: center;
+     
+     @container main (width < 400px) {
+       text-align: left;
+     }
+  }
+  
+  /* & :is(h1, h2, h3, h4, h5, h6) + p {
+    margin-top: 0;
+  } */
+}
+
+
+.posts-list {
+  list-style: none;
+  padding-inline-start: 0;
+  margin-inline: auto;
+  
+  /* should also be .post.list-item */
+  & > li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+}
+
+.post-categories {
+  --gap: 0.25em;
+  
+  align-self: center;
+  list-style: none;
+  padding-inline-start: 0;
+  display: flex;
+  gap: var(--gap);
+  
+  /* add commas between categories on large enough screens */
+  @container main (width > 400px) {
+    & li:not(:last-of-type):has(> .post-category-link) .post-category-link::after {
+      content: ",";
+      margin-left: calc(-1*var(--gap));
+    }
+  }
+}
+
+.post-link {
+  grid-column: 1 / -1;
+  
+  color: var(--clr-neutral-900);
+}
+
+.post-category-link {
+  &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
+  &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
+  &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
+  &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
+  &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
+  &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
+  &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
+  &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
+  &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
+  
+  color: var(--clr-primary-400);
+  font-family: var(--ff-heading);
+  font-size: var(--fs-200);
+  vertical-align: text-top;
+  
+  @container main (width < 400px) {
+    /* hide the category's name */
+    &:is([data-category]) span {
+      display: none;
+      width: 0;
+      height: 0;
+      position: absolute;
+    }
+    
+    /* add a category icon */
+    &:is([data-category])::before {
+      content: '';
+      display: inline-block;
+      vertical-align: middle;
+      width: 1.25em;
+      aspect-ratio: 1;
+      background-color: var(--clr-primary-400);
+      mask: var(--category-icon) center / contain;
+    }
+  }
+}
+
+.post-meta {
+  font-size: var(--fs-300);
+  color: var(--clr-neutral-400);
+}
+
+/* individual post */
+article.post {
+  counter-reset: headings;
+  
+  & header {
+    margin-block: 2em 1em;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+  
+  .post-title {
+    margin-block: 0;
+  }
+  
+  .post-header .post-meta {
+    margin-block: 0;
+    align-self: center;
+    color: var(--clr-primary-400);
+  }
+  
+  & h3 {
+    position: relative;
+  }
+  
+  & h3:nth-last-of-type(1)  { --n: 1 }
+  & h3:nth-last-of-type(2)  { --n: 2 }
+  & h3:nth-last-of-type(3)  { --n: 3 }
+  & h3:nth-last-of-type(4)  { --n: 4 }
+  & h3:nth-last-of-type(5)  { --n: 5 }
+  & h3:nth-last-of-type(6)  { --n: 6 }
+  & h3:nth-last-of-type(7)  { --n: 7 }
+  & h3:nth-last-of-type(8)  { --n: 8 }
+  & h3:nth-last-of-type(9)  { --n: 9 }
+  & h3:nth-last-of-type(10) { --n: 10 }
+  
+  & h3::after {
+    --gap: 0.125ch;
+    --base-width: 0.25ch;
+    --width: calc(var(--n, 0) * (var(--base-width) + var(--gap)));
+    
+    display: block;
+    content: '';
+    position: absolute;
+    
+    width: var(--width);
+    height: 40%;
+    
+    top: 10%;
+    left: calc(-1*(var(--width) + 0.3ch));
+    
+    background: repeating-linear-gradient(
+      to right,
+      var(--clr-primary-400),
+      var(--clr-primary-400) var(--base-width),
+      transparent var(--base-width),
+      transparent calc(var(--base-width) + var(--gap))
+    );
+  }
+  
+  /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
+  @container main (width < 80ch) {
+    & h3::after {
+      --base-width: 2ch;
+      
+      left: initial;
+      top: initial;
+      bottom: -30%;
+      height: 10%;
+    }
+  }
+  
+  & hr:has(+ div.footnotes) {
+    border: none;
+    margin: 2em 0 0;
+  }
+  
+  & hr:has(+ div.footnotes):after {
+    content: '⧸⧸⧸⧸⧸';
+    display: block;
+    text-align: start;
+    vertical-align: middle;
+    color: var(--clr-primary-400);
+    font-weight: bold;
+  }
+  
+  & div.footnotes {
+    font-size: var(--fs-300);
+    color: var(--clr-neutral-700);
+  }
+  
+  & div.footnotes ol {
+    margin-block: 0;
+    padding-left: 3ch;
+  }
+  
+  & div.footnotes li p {
+    margin-block: 0.25em;
+  }
+}
+
+/* Extras for Rouge */
+.highlight .gp {
+  color: var(--clr-primary-400);
 }

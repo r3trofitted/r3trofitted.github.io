@@ -1,51 +1,51 @@
 ---
-layout: blog
+layout: 2-45
 ...
 
 <div class="home">
   <% if site.regular_posts.any? %>
-  <h2 class="homepage-list-heading">Posts</h2>
-  <ul class="posts-list homepage-list">
-    <% for post in site.regular_posts %>
-    <li class="post-list-item">
-      <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
-      <time datetime="<%= post.date.date %>" class="post-meta"><%= post.date.date %></time>
-      <% if post.config.key? :categories %>
-      <ul class="post-categories">
-        <% for category in post.categories %>
-        <li>
-          <span class="post-category-link category" data-category="<%= category %>">
-            <span><%= category %></span>
-          </span>
+    <h2 class="heading">Posts</h2>
+    <ul class="posts-list">
+      <% for post in site.regular_posts %>
+        <li class="post list-item">
+          <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
+          <time datetime="<%= post.date.date %>" class="post-meta"><%= post.date.date %></time>
+          <% if post.config.key? :categories %>
+            <ul class="post-categories">
+              <% for category in post.categories %>
+                <li>
+                  <span class="post-category-link category" data-category="<%= category %>">
+                    <span><%= category %></span>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </li>
-        <% end %>
-      </ul>
       <% end %>
-    </li>
-    <% end %>
-  </ul>
+    </ul>
   <% end %>
   
   <% if site.dashes_of_milk.any? %>
-  <h2 class="homepage-list-heading">A Dash of Milk</h2>
-  <ul class="posts-list homepage-list">
-    <% for post in site.dashes_of_milk %>
-    <li class="post-list-item">
-      <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
-      <time datetime="<%= post.date.date %>" class="post-meta"><%= post.date.date %></time>
-      <% if post.config.key? :categories %>
-      <ul class="post-categories">
-        <% for category in post.categories %>
-        <li>
-          <span class="post-category-link category" data-category="<%= category %>">
-            <span><%= category %></span>
-          </span>
+    <h2 class="heading">A Dash of Milk</h2>
+    <ul class="posts-list">
+      <% for post in site.dashes_of_milk %>
+        <li class="post list-item">
+          <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
+          <time datetime="<%= post.date.date %>" class="post-meta"><%= post.date.date %></time>
+          <% if post.config.key? :categories %>
+            <ul class="post-categories">
+              <% for category in post.categories %>
+                <li>
+                  <span class="post-category-link category" data-category="<%= category %>">
+                    <span><%= category %></span>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         </li>
-        <% end %>
-      </ul>
       <% end %>
-    </li>
-    <% end %>
-  </ul>
+    </ul>
   <% end %>
 </div>
