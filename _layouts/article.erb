@@ -25,14 +25,15 @@ layout: 2-45
 
   </header>
 
-  <div class="post-content e-content" itemprop="articleBody">
+  <div class="article-content e-content" itemprop="articleBody">
     <%= content %>
+    
+    <%# FIXME: put _above_ the footnotes %>  
+    <% if page.next_part %>
+      <p class="series-next">
+        Next: <a href="<%= page.next_part.clean_url %>"><%= page.next_part.title %></a>
+      </p>
+    <% end %>
   </div>
 
-  <%# FIXME: put _above_ the footnotes %>  
-  <% if page.next_part %>
-    <p class="series-next">
-      Next: <a href="<%= page.next_part.clean_url %>"><%= page.next_part.title %></a>
-    </p>
-  <% end %>
 </article>

@@ -687,34 +687,44 @@ footer {
     }
     
     & .series-next {
+      --border-margin-top: 0%;
+      --cutoff-width: .75em;
+      
+      float: right;
+      
+      padding: .5em 1em;
+      width: max-content;
+      
       font-size: var(--fs-300);
       text-align: right;
       font-weight: bold;
       
-      &::after {
-        content: "➧";
-        vertical-align: top;
-        font-size: var(--fs-400);
-      }
+      background-color: var(--clr-neutral-300);
+      
+      clip-path: polygon(
+        0% var(--border-margin-top),
+        calc(100% - var(--cutoff-width)) var(--border-margin-top),
+        100% calc(var(--cutoff-width) + var(--border-margin-top)),
+        100% 100%,
+        var(--cutoff-width) 100%,
+        0% calc(100% - var(--cutoff-width))
+      );
     }
     
     & hr:has(+ div.footnotes) {
-      border: none;
-      margin: 2em 0 0;
-    }
-    
-    & hr:has(+ div.footnotes):after {
-      content: '⧸⧸⧸⧸⧸';
-      display: block;
-      text-align: start;
-      vertical-align: middle;
-      color: var(--clr-primary-400);
-      font-weight: bold;
+      display: none;
     }
     
     & div.footnotes {
+      --margin: 2em;
+      --border: 1px solid var(--clr-neutral-300);
+      
+      margin-top: var(--margin);
+      
       font-size: var(--fs-300);
       color: var(--clr-neutral-700);
+      
+      border-top: var(--border);
     }
     
     & div.footnotes ol {
@@ -724,6 +734,11 @@ footer {
     
     & div.footnotes li p {
       margin-block: 0.25em;
+    }
+    
+    & div.footnotes:has(+ .series-next) {
+      margin-bottom: var(--margin);
+      border-bottom: var(--border);
     }
   }
   
