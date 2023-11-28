@@ -737,6 +737,11 @@ footer {
       color: currentcolor;
     }
     
+    & h2::after {
+      background-color: currentcolor !important;
+      translate: 0 -20%; /* the mug icon looks weird otherwise */
+    }
+    
     /* no ornament */
     & h3::after {
       content: unset;

@@ -3,17 +3,12 @@ layout: 2-45
 ...
 
 <article
-  class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" 
+  itemscope itemtype="http://schema.org/BlogPosting" 
+  class="post h-entry <%= "dash-of-milk" if page.dash_of_milk? %>"
   data-category="<%= page.canonical_category %>"
   <%= page.icon_style_attribute %>
   >
   <header class="post-header">
-    <% if page.series %>
-    <p class="series-title">
-      <%= page.series %>, part <%= page.part %>:
-    </p>
-    <% end %>
-
     <h2 class="post-title p-name" itemprop="name headline">
       <%= page.title %>
     </h2>
@@ -27,10 +22,4 @@ layout: 2-45
   <div class="post-content e-content" itemprop="articleBody">
     <%= content %>
   </div>
-  
-  <% if page.next_part %>
-    <p class="series-next">
-      Next: <a href="<%= page.next_part.clean_url %>"><%= page.next_part.title %></a>
-    </p>
-  <% end %>
 </article>

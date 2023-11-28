@@ -7,6 +7,7 @@ task :extra_wirings do
   
   # generate virtual index pages for the article series; they can be used to create links to articles in each series
   Zenweb::SeriesPage.generate_all(site, "articles", site.categories.articles)
+  Zenweb::SeriesPage.generate_all(site, "blog", site.categories.blog)
   
   site.pages["articles/feed.xml.erb"].  depends_on site.categories.articles
   site.pages["articles/index.html.erb"].depends_on site.categories.articles

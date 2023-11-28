@@ -11,6 +11,10 @@ class Zenweb::Page
     series_page.pages.find { |p| p.part == part.next } if series_page
   end
   
+  def dash_of_milk?
+    path.include? "/a-dash-of-milk/"
+  end
+  
   def icon_style_attribute
     %Q{style="--category-icon: url(/assets/icons/#{config["icon"]}.svg)"} if config.key? "icon"
   end

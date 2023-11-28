@@ -1,12 +1,17 @@
 ---
-layout: blog
+layout: 2-45
 ...
 
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" data-category="<%= page.canonical_category %>">
+<article
+  itemscope itemtype="http://schema.org/Article" 
+  class="post h-entry"
+  data-category="<%= page.canonical_category %>"
+  <%= page.icon_style_attribute %>
+  >
   <header class="post-header">
-    <% if page.config.key? :series %>
+    <% if page.series %>
     <p class="series-title">
-      <%= page[:series] %>, part <%= page.title[/^\d+/] %>:
+      <%= page.series %>, part <%= page.part %>:
     </p>
     <% end %>
 
@@ -23,4 +28,10 @@ layout: blog
   <div class="post-content e-content" itemprop="articleBody">
     <%= content %>
   </div>
+  
+  <% if page.next_part %>
+    <p class="series-next">
+      Next: <a href="<%= page.next_part.clean_url %>"><%= page.next_part.title %></a>
+    </p>
+  <% end %>
 </article>
