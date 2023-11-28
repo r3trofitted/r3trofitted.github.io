@@ -28,6 +28,17 @@
   --ff-code: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
   
   --link-color: var(--clr-primary-400);
+  
+  --icon-default: url(/assets/icons/circle-solid.svg);
+  --icon-books: url(/assets/icons/book.svg);
+  --icon-games: url(/assets/icons/controller.svg);
+  --icon-miscellanea: url(/assets/icons/bookmarks.svg);
+  --icon-movies: url(/assets/icons/film.svg);
+  --icon-music: url(/assets/icons/vinyl-fill.svg);
+  --icon-podcasts: url(/assets/icons/mic-fill.svg);
+  --icon-programming: url(/assets/icons/code-slash.svg);
+  --icon-ttrpg: url(/assets/icons/dice-6-fill.svg);
+  --icon-tv: url(/assets/icons/tv-fill.svg);
 }
 
 *,
@@ -473,15 +484,15 @@ footer {
   }
   
   & .post-category-link {
-    &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
-    &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
-    &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
-    &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
-    &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
-    &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
-    &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
-    &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
-    &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
+    &[data-category='books']       { --category-icon: var(--icon-books); }
+    &[data-category='games']       { --category-icon: var(--icon-games); }
+    &[data-category='miscellanea'] { --category-icon: var(--icon-miscellanea); }
+    &[data-category='movies']      { --category-icon: var(--icon-movies); }
+    &[data-category='music']       { --category-icon: var(--icon-music); }
+    &[data-category='podcasts']    { --category-icon: var(--icon-podcasts); }
+    &[data-category='programming'] { --category-icon: var(--icon-programming); }
+    &[data-category='ttrpg']       { --category-icon: var(--icon-ttrpg); }
+    &[data-category='tv']          { --category-icon: var(--icon-tv); }
     
     color: var(--clr-primary-400);
     font-family: var(--ff-heading);
@@ -505,7 +516,7 @@ footer {
         width: 1.25em;
         aspect-ratio: 1;
         background-color: var(--clr-primary-400);
-        mask: var(--category-icon) center / contain;
+        mask: var(--category-icon, var(--icon-default)) left center / contain no-repeat;
       }
     }
   }
@@ -560,15 +571,15 @@ footer {
   
   /* individual post */
   & article.post {
-    &[data-category='books']       { --category-icon: url(../assets/blog/book.svg); }
-    &[data-category='games']       { --category-icon: url(../assets/blog/controller.svg); }
-    &[data-category='miscellanea'] { --category-icon: url(../assets/blog/bookmarks.svg); }
-    &[data-category='movies']      { --category-icon: url(../assets/blog/film.svg); }
-    &[data-category='music']       { --category-icon: url(../assets/blog/vinyl-fill.svg); }
-    &[data-category='podcasts']    { --category-icon: url(../assets/blog/mic-fill.svg); }
-    &[data-category='programming'] { --category-icon: url(../assets/blog/code-slash.svg); }
-    &[data-category='ttrpg']       { --category-icon: url(../assets/blog/dice-6-fill.svg); }
-    &[data-category='tv']          { --category-icon: url(../assets/blog/tv-fill.svg); }
+    &[data-category='books']       { --category-icon: var(--icon-books); }
+    &[data-category='games']       { --category-icon: var(--icon-games); }
+    &[data-category='miscellanea'] { --category-icon: var(--icon-miscellanea); }
+    &[data-category='movies']      { --category-icon: var(--icon-movies); }
+    &[data-category='music']       { --category-icon: var(--icon-music); }
+    &[data-category='podcasts']    { --category-icon: var(--icon-podcasts); }
+    &[data-category='programming'] { --category-icon: var(--icon-programming); }
+    &[data-category='ttrpg']       { --category-icon: var(--icon-ttrpg); }
+    &[data-category='tv']          { --category-icon: var(--icon-tv); }
     
     & header {
       margin-block: 2em 1em;
@@ -589,13 +600,13 @@ footer {
         display: block;
         content: '';
         aspect-ratio: 1;
-        height: 1em;
+        height: 1lh;
         
         top: 0;
         transform: translateX(calc(-100% - var(--ornement-margin)));
         
         background-color: var(--clr-primary-400);
-        mask: var(--category-icon) center / contain;
+        mask: var(--category-icon, var(--icon-default)) left center / contain no-repeat;
       }
       
       @container main (width < 80ch) {

@@ -2,7 +2,11 @@
 layout: 2-45
 ...
 
-<article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" data-category="<%= page.canonical_category %>">
+<article
+  class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting" 
+  data-category="<%= page.canonical_category %>"
+  <%= page.icon_style_attribute %>
+  >
   <header class="post-header">
     <% if page.series %>
     <p class="series-title">

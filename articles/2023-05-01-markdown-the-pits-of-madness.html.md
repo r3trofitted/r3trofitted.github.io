@@ -3,6 +3,7 @@ layout: post
 title: Markdown the pits of madness
 date: 2023-05-01 18:21 +0200
 lede: Figuring out a way to customize the Markdown rendering in Jekyll.
+icon: markdown
 ...
 
 _In the annals of human history, there are tales of journeys that have driven men to the brink 
@@ -78,7 +79,7 @@ We experienced developers know better than to rush into a coding project without
 and that this goal can only be reached by coding (more on that later). So, before anything, I used Safari's web inspector to 
 try out the HTML above, ensuring that it would be valid, and that it would look good with some CSS. I was pleased with 
 the results:  
-![Successful rendering using the web inspector to tinker with the HTML and CSS](/assets/blog/markdown-the-pits-of-madness/preparations.png)
+![Successful rendering using the web inspector to tinker with the HTML and CSS](/assets/markdown-the-pits-of-madness/preparations.png)
 
 Next, not being a n00b, I made sure the markup I had set upon could not be obtained by simply adding the extra HTML tags 
 to the Markdown content. Unfortunately, the [Markdown specification](https://daringfireball.net/projects/markdown/syntax#html) 
@@ -105,7 +106,7 @@ To be sure, I tried it anyway:
 ````
 
 And indeed, the resulting HTML was not what I wanted (and rendered poorly):  
-![Unsuccessful rendering mixing Markdown within an HTML block element](/assets/blog/markdown-the-pits-of-madness/preparations-2.png)
+![Unsuccessful rendering mixing Markdown within an HTML block element](/assets/markdown-the-pits-of-madness/preparations-2.png)
 
 Confident that `<figure>`‘s and `<figcaption>`‘s would indeed look good, but could not be generated without some 
 tinkering, I set sails to the high seas of Jekyll plugins, Markdown converters, and syntax highlighters.
@@ -354,7 +355,7 @@ end
 
 Now everything was in place – after hours of sorting through arcane code, I had a custom Rouge formatter, used by 
 a custom Kramdown syntax highlighter, both made available as Jekyll plugins. I only had to check the results:  
-![Unsuccessful rendering using a custom Rouge formatter along a custom Kramdown syntax highlighter](/assets/blog/markdown-the-pits-of-madness/going-further-down-one-layer-at-a-time.png)
+![Unsuccessful rendering using a custom Rouge formatter along a custom Kramdown syntax highlighter](/assets/markdown-the-pits-of-madness/going-further-down-one-layer-at-a-time.png)
 
 ## Dispair, madness and losing one's way
 
@@ -414,7 +415,7 @@ Kramdown with another processor, [`jekyll-commonmark`](https://github.com/jekyll
 
 Once again, this is [documented](https://jekyllrb.com/docs/configuration/markdown/#commonmark) and easy to do. 
 Unfortunately, a first try with my sample didn't seem to work:  
-![Unsuccessful rendering using CommonMark without a blank line after the HTML tag](/assets/blog/markdown-the-pits-of-madness/back-on-the-bridge.png)
+![Unsuccessful rendering using CommonMark without a blank line after the HTML tag](/assets/markdown-the-pits-of-madness/back-on-the-bridge.png)
 
 I understood why after reading closely the [CommonMark spec](https://spec.commonmark.org/0.30/):
 
@@ -499,7 +500,7 @@ is used; it has to be placed in the `Jekyll::Converters::Markdown` namespace bec
 
 And so, in exchange for a little more of my sanity, I now had a second way to render code blocks in an elegant and 
 semantically correct fashion:  
-![Successful rendering using customized renderer and converter for jekyll-commonmark](/assets/blog/markdown-the-pits-of-madness/call-of-the-depths.png)
+![Successful rendering using customized renderer and converter for jekyll-commonmark](/assets/markdown-the-pits-of-madness/call-of-the-depths.png)
 
 However, the cosmic forces that govern us are nothing but cruel masters, and on their whim I decided to look again, 
 more closely, at Kramdown's documentation.
@@ -537,7 +538,7 @@ I wasn't sure what “the default mechanism” was, but I gave it a try:
 ````
 
 And, to my relief and despair, it worked perfectly:  
-![Success renderering using Kramdown's syntax for HTML blocks](/assets/blog/markdown-the-pits-of-madness/back-home-forever-changed.png)
+![Success renderering using Kramdown's syntax for HTML blocks](/assets/markdown-the-pits-of-madness/back-home-forever-changed.png)
 
 Now I could get rid of all my work – the custom Rouge formatter, Kramdown syntax highlighter, and jekyll-commonmark 
 converter and renderer. All these were useless, since what I wanted had been available from the start – all was needed was 

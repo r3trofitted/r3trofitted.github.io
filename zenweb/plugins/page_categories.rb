@@ -11,6 +11,10 @@ class Zenweb::Page
     series_page.pages.find { |p| p.part == part.next } if series_page
   end
   
+  def icon_style_attribute
+    %Q{style="--category-icon: url(/assets/icons/#{config["icon"]}.svg)"} if config.key? "icon"
+  end
+  
   def categories
     cs = []
     cs.concat Array(config[:categories].split) if config.key? :categories
@@ -21,6 +25,10 @@ class Zenweb::Page
   def canonical_category
     if categories.one?
       categories.first
+    elsif config.key? "icon"
+      config["icon"]
+    elsif series_page
+      "series"
     else
       "miscellanea"
     end
