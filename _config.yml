@@ -4,6 +4,10 @@ exclude:
 - Gemfile
 - Gemfile.lock
 - Rakefile
+title: "2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire"
+description: "I'm Ronan; I help companies build great apps and great teams."
+author: "Ronan Limon Duparcmeur"
+root_url: "https://2-45.pm"
 kramdown:
   header_offset: 1
   syntax_highlighter: rouge_with_caption
