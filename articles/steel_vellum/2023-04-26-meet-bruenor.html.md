@@ -1,7 +1,6 @@
 ---
 title: "Meet Bruenor"
 date: 2023-04-26 14:45 +0200
-series: Steel Vellum
 part: 3
 ...
 

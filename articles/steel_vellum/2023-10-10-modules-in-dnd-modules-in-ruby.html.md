@@ -1,7 +1,6 @@
 ---
 title: "Modules in D&D, modules in Ruby"
 date: 2023-10-10 21:50 +0200
-series: "Steel Vellum"
 part: 4
 ...
 

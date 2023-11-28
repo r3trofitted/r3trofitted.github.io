@@ -1,7 +1,6 @@
 ---
 title: "Arranging atoms by hand"
 date: 2023-04-22 14:45 +0200
-series: Steel Vellum
 part: 2
 ...
 

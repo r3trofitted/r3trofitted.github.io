@@ -1,7 +1,6 @@
 ---
 title: "The worst way to build software"
 date: 2023-04-15 14:45 +0200
-series: Steel Vellum
 part: 1
 ...
 
