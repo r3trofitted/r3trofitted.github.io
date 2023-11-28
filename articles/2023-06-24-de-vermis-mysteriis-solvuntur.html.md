@@ -11,7 +11,7 @@ built upon [Rouge](https://github.com/rouge-ruby/rouge) and [Kramdown](https://k
 until I hit a roadblock I couldn't figure out. Fortunately, a fresh eye was all it took to realise my mistakes and 
 finish the work — as useless as it may be now.
 
-### The situation where I left it
+## The situation where I left it
 
 When Jekyll publishes a post, it calls upon Kramdown to _convert_ the Markdown to HTML, and Kramdown in turn calls upon 
 Rouge to _highlight_ (i.e. replace with complex HTML) the code samples it encounters. Rouge offers different _formatters_ 
@@ -124,7 +124,7 @@ me nowhere; in part because Kramdown's source was only part of the actual code i
 code blocks (Jekyll also loads up [kramwdown-parser-gfm](https://github.com/kramdown/parser-gfm)), but mostly because 
 there is no such code in the first place!
 
-### Solving the mystery
+## Solving the mystery
 
 Lost in a dead end, I gave up and tried a different approach, with a different Markdown converter. But what had I missed 
 back then?
@@ -187,7 +187,7 @@ So there it was. In spite of its name, `HTMLPygments` is the real deal. (Interes
 different pattern than subclassing `Rouge::Formatters::HTML`, as [the README suggests](https://github.com/rouge-ruby/rouge#writing-your-own-html-formatter); 
 instead, `HTMLPygments` is a [decorator](https://en.wikipedia.org/wiki/Decorator_pattern) of the selected base formatter.)
 
-### Searching for a proper solution
+## Searching for a proper solution
 
 Let's recap. Kramdown's converter calls up Rouge to turn a code block into a collection of specifically-crafted `<span>` 
 elements. Because the expected result can vary, Rouge offers several formatters to craft these elements, and optionnally 
@@ -256,7 +256,7 @@ backward-compatibility with Rouge 1.x. It would be better if Kramdown wasn't usi
 (Note that Jekyll, for its `highlight` Liquid tag, does the right thing and instantiates the right formatter directly, 
 instead of relying on this transitional prop.)
 
-### The subtleties of software design
+## The subtleties of software design
 
 Instead, let's consider the other two options. The first one makes the Markdown converter responsible for adding the 
 `<pre>` and `<code>` tags, while the second keeps this responsibility at the syntax highlighter level. As it happens, 
@@ -305,7 +305,7 @@ either pretend that it converts to a different format (and somehome have Jekyll 
 hijack Kramdown's converter-instantiating logic. Both options are way more intrusive than monkey-patching Rouge's 
 `HTMLLegacy` formatter.
 
-### The intricacy of open source
+## The intricacy of open source
 
 But if relying on the syntax highlight to add the `<pre>` and `<code>`elements is a mistake in the first place, why not 
 contribute to Kramdown and submit a fix? In short: because I'm not too fond of Kramdown as a project.
@@ -334,7 +334,7 @@ not to my liking.
 And so, since neither the technical nor human aspects of this project vibe with me, I'd rather not get involved. It's 
 as simple as that.
 
-### Done beats perfect
+## Done beats perfect
 
 I enjoy pursuing the best solution to a given problem – within reason. From my perspective – and I may well be wrong! – 
 the _best_ solution would be to move the responsibility of wrapping code blocks in `<pre>` and `<code>` elements 
