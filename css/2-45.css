@@ -262,6 +262,8 @@ footer {
   & a {
     display: block;
     
+    color: var(--clr-neutral-700);
+    
     width: 3em;
     height: 3em;
   }
