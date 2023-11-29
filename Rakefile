@@ -18,4 +18,15 @@ task :extra_wirings do
 
   # site.pages["blog/feed.xml.erb"].  depends_on site.categories.blog
   site.pages["blog/index.html.erb"].depends_on site.categories.blog
+  
+  # 301s - a bit hackish but that will do for now, it's only temporary (meaning it will still be here in 10 years).
+  # These are the 2 pages visited in the last 30 days – no need to do the whole blog.
+  %w(
+    2023-11-06-you-don-t-need-services-whatever-this-word-means
+    2023-11-14-better-practices-by-example-rspec
+  ).each { |p| site.pages["#{p}.html.erb"].depends_on site.pages["articles/#{p}.html.md"] }
+  
+  %w(
+    2023-11-05-humility-check
+  ).each { |p| site.pages["#{p}.html.erb"].depends_on site.pages["blog/#{p}.html.md"] }
 end
