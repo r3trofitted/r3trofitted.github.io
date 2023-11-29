@@ -12,7 +12,7 @@
       <priority>1.0</priority>
     </url>
 
-    <% for page in site.html_pages.values %>
+    <% for page in site.html_pages %>
     <url>
       <loc><%= page.canonical_url %></loc>
       <lastmod><%= page.date.date %></lastmod>
