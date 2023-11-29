@@ -540,6 +540,13 @@ footer {
         width: 1.25em;
         aspect-ratio: 1;
         background-color: var(--clr-primary-400);
+        
+        /* Chrome support <120 */
+        -webkit-mask-image: var(--category-icon, var(--icon-default));
+        -webkit-mask-position: left center / contain;
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        
         mask: var(--category-icon, var(--icon-default)) left center / contain no-repeat;
       }
     }
@@ -624,12 +631,20 @@ footer {
         display: block;
         content: '';
         aspect-ratio: 1;
+        height: 1.1em; /* For Firefox */
         height: 1lh;
         
         top: 0;
         transform: translateX(calc(-100% - var(--ornement-margin)));
         
         background-color: var(--clr-primary-400);
+        
+        /* Chrome <120 */
+        -webkit-mask-image: var(--category-icon, var(--icon-default));
+        -webkit-mask-position: left center;
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+
         mask: var(--category-icon, var(--icon-default)) left center / contain no-repeat;
       }
       
@@ -682,6 +697,7 @@ footer {
       position: absolute;
       
       width: var(--width);
+      height: calc(1.1em * 0.4); /* FF */
       height: calc(1lh * 0.4);
       
       top: 10%;
