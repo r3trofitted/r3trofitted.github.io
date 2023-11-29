@@ -1,0 +1,45 @@
+---
+rss_length: 15
+title: "2-45.pm – main feed"
+...
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <% 
+     feed_entries = site
+                      .categories
+                      .values_at("blog", "articles")
+                      .flatten
+                      .reject { _1.kind_of? Zenweb::GeneratedIndex }
+                      .sort_by { [-_1.date.to_i, _1.title] }
+                      .first(rss_length)
+  %>
+
+  <id><%= root_url %>/</id>
+  <title><%= title %></title>
+  <updated><%= feed_entries.first.date.iso8601 %></updated>
+
+  <author>
+    <name><%= author %></name>
+    <email><%= contact_email %></email>
+  </author>
+
+  <%= link_head href:canonical_url, rel:"self", type: "application/atom+xml" %>
+  <%= link_head href:root_url %>
+
+  <rights> © <%= author %> - <%= contact_email %> </rights>
+
+  <% for entry in feed_entries %>
+    <entry>
+      <id><%= entry.canonical_url %></id>
+      <title><%= h entry.title %></title>
+      <updated><%= entry.date.iso8601 %></updated>
+
+      <%= link_head rel:"alternate", href:entry.canonical_url %>
+
+      <published><%= entry.date.iso8601 %></published>
+      <content type="html">
+        <![CDATA[<%= entry.subrender %>]]>
+      </content>
+    </entry>
+  <% end %>
+</feed>

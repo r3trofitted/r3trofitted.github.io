@@ -1,0 +1,39 @@
+---
+layout: 2-45
+...
+
+<article
+  itemscope itemtype="http://schema.org/Article" 
+  class="post h-entry"
+  data-category="<%= page.canonical_category %>"
+  <%= page.icon_style_attribute %>
+  >
+  <header class="post-header">
+    <% if page.series %>
+    <p class="series-title">
+      <%= page.series %>, part <%= page.part %>:
+    </p>
+    <% end %>
+
+    <h2 class="post-title p-name" itemprop="name headline">
+      <%= page.title %>
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="<%= page.date.iso8601 %>" itemprop="datePublished">
+        <%= page.date.strftime "%b %-d, %Y" %>
+      </time>
+
+  </header>
+
+  <div class="article-content e-content" itemprop="articleBody">
+    <%= content %>
+    
+    <%# FIXME: put _above_ the footnotes %>
+    <% if page.next_part %>
+      <p class="series-next">
+        Next: <a href="<%= page.next_part.clean_url %>"><%= page.next_part.title %></a>
+      </p>
+    <% end %>
+  </div>
+
+</article>

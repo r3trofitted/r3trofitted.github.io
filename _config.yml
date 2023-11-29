@@ -1,76 +1,17 @@
-# Welcome to Jekyll!
-#
-# This config file is meant for settings that affect your whole blog, values
-# which you are expected to set up once and rarely edit after that. If you find
-# yourself editing this file very often, consider using Jekyll's data files
-# feature for the data you need to update frequently.
-#
-# For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'bundle exec jekyll serve'. If you change this file, please restart the server process.
-#
-# If you need help with YAML syntax, here are some quick references for you:
-# https://learn-the-web.algonquindesign.ca/topics/markdown-yaml-cheat-sheet/#yaml
-# https://learnxinyminutes.com/docs/yaml/
-#
-# Site settings
-# These are used to personalize your new site. If you look in the HTML files,
-# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
-# You can create any custom variable you would like, and they will be accessible
-# in the templates via {{ site.myvariable }}.
-
-title: Grainy dinosaurs
-tagline: The blog of a forty-something nerdy teenager
-email: ronan@2-45.pm
-description: >-
-  The personal blog of a forty-something nerdy teenager with a career in software development. 
-  Expect posts about Ruby, tabletop RPGs, heavy metal and the nuisance of all these kids who 
-  cannot keep themselves off my lawn.
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://2-45.pm" # the base hostname & protocol for your site, e.g. http://example.com
-mastodon_domain: "@ruby.social"
-mastodon_username: "r3trofitted"
-github_username:  r3trofitted
-linkedin_username: r3trofitted
-
-# Build settings
-permalink: /:year/:month/:day/:title:output_ext
-plugins:
-  - jekyll-feed
-  - jekyll-seo-tag
-  - jekyll-sitemap
-
+exclude:
+- bin
+- zenweb
+- Gemfile
+- Gemfile.lock
+- Rakefile
+title: "2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire"
+description: "I'm Ronan; I help companies build great apps and great teams."
+author: "Ronan Limon Duparcmeur"
+contact_email: contact@2-45.pm
+root_url: "https://2-45.pm"
 kramdown:
   header_offset: 1
   syntax_highlighter: rouge_with_caption
-
-collections:
-  steel_vellum:
-    output: true
-    series_title: "Steel Vellum"
-    lede: >-
-      Building a Ruby gem without a clear goal, but with a method.
-  z80asm:
-    output: truw
-    series_title: "Jurassic Stack"
-    lede: >-
-      "Hello, World!" in Z80 assembly.
-
-# Exclude from processing.
-# The following items will not be processed, by default.
-# Any item listed under the `exclude:` key here will be automatically added to
-# the internal "default list".
-#
-# Excluded items can be processed by explicitly listing the directories or
-# their entries' file path in the `include:` list.
-#
-# exclude:
-#   - .sass-cache/
-#   - .jekyll-cache/
-#   - gemfiles/
-#   - Gemfile
-#   - Gemfile.lock
-#   - node_modules/
-#   - vendor/bundle/
-#   - vendor/cache/
-#   - vendor/gems/
-#   - vendor/ruby/
+  syntax_highlighter_opts:
+    tab_width: 2
+no_line_numbers: true

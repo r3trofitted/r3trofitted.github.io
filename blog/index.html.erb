@@ -1,0 +1,56 @@
+---
+layout: 2-45
+...
+
+<div class="home">
+  <% if site.regular_posts.any? %>
+    <h2 class="heading">Posts</h2>
+    <ul class="posts-list">
+      <% for post in site.regular_posts %>
+        <li class="post list-item">
+          <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
+          <time datetime="<%= post.date.date %>" class="post-meta"><%= post.date.date %></time>
+          <% if post.config.key? :categories %>
+            <ul class="post-categories">
+              <% for category in post.categories %>
+                <li>
+                  <span class="post-category-link category" data-category="<%= category %>">
+                    <span><%= category %></span>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+  
+  <% if site.dashes_of_milk.any? %>
+    <h2 class="heading">A Dash of Milk</h2>
+    <p class="section-lede">
+      Bits and bobs I stumbled upon recently, in the spirit of the <a href="https://afreshcup.com">Double Shots</a> 
+      series by Mike Gunderloy, which I loved. Initially called <i>“No milk, no coffee”</i>, but I've changed my 
+      caffeine habits.
+    </p>
+    <ul class="posts-list">
+      <% for post in site.dashes_of_milk %>
+        <li class="post list-item">
+          <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
+          <time datetime="<%= post.date.date %>" class="post-meta"><%= post.date.date %></time>
+          <% if post.config.key? :categories %>
+            <ul class="post-categories">
+              <% for category in post.categories %>
+                <li>
+                  <span class="post-category-link category" data-category="<%= category %>">
+                    <span><%= category %></span>
+                  </span>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

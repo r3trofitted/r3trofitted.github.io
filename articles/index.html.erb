@@ -1,0 +1,43 @@
+---
+layout: 2-45
+...
+
+<div class="home">
+  <h2 class="heading">Articles</h2>
+  <p class="section-lede">
+    A collection of articles, and sometimes rants, on technical topics. Most are 
+    basically verbose blog posts, but if you enjoy programming, you may find them 
+    informative.
+  </p>
+  <dl class="series-list homepage-list">
+    <% for post in site.regular_articles.reverse %>
+    <dt class="series-list-title">
+      <a class="post-link" href="<%= post.url %>"><%= post.title %></a>
+    </dt>
+    <dd class="series-lede"><%= post["lede"] %></dd>
+    <% end %>
+  </dl>
+  
+  <h2 class="heading">Series</h2>
+  <dl class="series-list homepage-list">
+    <%# site.series.each do |name, parts| %>
+    <% Zenweb::SeriesPage.all.each do |name, index| %>
+    <dt class="series-list-title">
+      <a class="post-link" href="<%= index.pages.first.url %>"><%= name %></a>
+      <%= "<i>[in progress]</i>" if index.pages.first.config["in_progress"] %>
+    </dt>
+    <dd class="series-lede">
+      <%= index.pages.first.config["lede"] %>
+    </dd>
+      <dd class="series-parts">
+        <ul class="post-categories">
+          <% index.pages.reverse.each_with_index do |part, n| %>
+          <li>
+            <a href="<%= part.url %>">Part <%= n + 1 %></a>
+          </li>
+          <% end %>
+        </ul>
+      </dd>
+    <% end %>
+  </dl>
+</div>
