@@ -54,6 +54,14 @@ module Plugins
       end
     end
   end
+  
+  # Hack to prevent crashes when going through all the pages, e.g. when generating sitemaps
+  module SeriesPage
+    def content
+      ""
+    end
+  end
 end
 
 Zenweb::Page.include Plugins::Page
+Zenweb::SeriesPage.include Plugins::SeriesPage
