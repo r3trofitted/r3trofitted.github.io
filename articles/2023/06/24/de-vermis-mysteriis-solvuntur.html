@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/articles/2023/06/24/de-vermis-mysteriis-solvuntur.html" />
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/BlogPosting" 
+  class="post h-entry "
+  data-category="miscellanea"
+  
+  >
+  <header class="post-header">
+    <h2 class="post-title p-name" itemprop="name headline">
+      De Vermis Mysteriis — solvuntur
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-06-24T21:42:00+02:00" itemprop="datePublished">
+        Jun 24, 2023
+      </time>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I have previously <a href="{% post_url 2023-05-01-markdown-the-pits-of-madness %}">told of my adventures</a> trying to enrich 
+Jekyll&rsquo;s Markdown parsing abilities to allow for the wrapping of code samples in <code>&lt;figure&gt;</code> element. My first attempt 
+built upon <a href="https://github.com/rouge-ruby/rouge">Rouge</a> and <a href="https://kramdown.gettalong.org">Kramdown</a> and was going well, 
+until I hit a roadblock I couldn&rsquo;t figure out. Fortunately, a fresh eye was all it took to realise my mistakes and 
+finish the work — as useless as it may be now.</p>
+
+<h3 id="the-situation-where-i-left-it">The situation where I left it</h3>
+
+<p>When Jekyll publishes a post, it calls upon Kramdown to <em>convert</em> the Markdown to HTML, and Kramdown in turn calls upon 
+Rouge to <em>highlight</em> (i.e. replace with complex HTML) the code samples it encounters. Rouge offers different <em>formatters</em> 
+to be used, depending on the kind of syntax highlighting needed.</p>
+
+<p>The original formatter used by Kramdown is <code>Rouge::Formatters::HTMLLegacy</code>, but actually it is more of a 
+<a href="https://en.wikipedia.org/wiki/Facade_pattern">facade</a> in front of four different formatters: <code>HTML</code>, <code>HTMLInline</code>, 
+<code>HTMLTable</code> and <code>HTMLPygments</code>.</p>
+
+<p>To wrap the Rouge-generated HTML in <code>&lt;figure&gt;</code> elements, I had decided to write a custom <em>formatter</em> for Rouge. My 
+formatter inherited from <code>HTML</code>, ignoring the other three:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"rouge"</span>
+<span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">module</span> <span class="nn">Formatters</span>
+    <span class="k">class</span> <span class="nc">HTMLWithFigure</span> <span class="o">&lt;</span> <span class="no">HTML</span>
+      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span> <span class="o">=</span> <span class="p">{})</span>
+        <span class="vi">@caption</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:caption</span><span class="p">]</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">"&lt;figure&gt;"</span>
+        <span class="k">super</span>
+        <span class="k">yield</span> <span class="s2">"&lt;figcaption&gt;</span><span class="si">#{</span><span class="n">escape_special_html_chars</span> <span class="vi">@caption</span><span class="si">}</span><span class="s2">&lt;/figcaption&gt;"</span> <span class="k">if</span> <span class="vi">@caption</span>
+        <span class="k">yield</span> <span class="s2">"&lt;/figure&gt;"</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></figure></div>
+
+<p>Unfortunately, this formatter didn&rsquo;t render the HTML code I was expecting: the <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> elements 
+were there, as was the highlighted code, but the later was not wrapped in <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements, as it should 
+have.</p>
+
+<p>This issue didn&rsquo;t happen with the <code>HTMLLegacy</code> formatter, so I took a quick look at its code:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">module</span> <span class="nn">Formatters</span>
+    <span class="k">class</span> <span class="nc">HTMLLegacy</span> <span class="o">&lt;</span> <span class="no">Formatter</span>
+      <span class="c1"># @option opts [String] :css_class ('highlight')</span>
+      <span class="c1"># @option opts [true/false] :line_numbers (false)</span>
+      <span class="c1"># @option opts [Rouge::CSSTheme] :inline_theme (nil)</span>
+      <span class="c1"># @option opts [true/false] :wrap (true)</span>
+      <span class="c1">#</span>
+      <span class="c1"># Initialize with options.</span>
+      <span class="c1">#</span>
+      <span class="c1"># If `:inline_theme` is given, then instead of rendering the</span>
+      <span class="c1"># tokens as &lt;span&gt; tags with CSS classes, the styles according to</span>
+      <span class="c1"># the given theme will be inlined in "style" attributes.  This is</span>
+      <span class="c1"># useful for formats in which stylesheets are not available.</span>
+      <span class="c1">#</span>
+      <span class="c1"># Content will be wrapped in a tag (`div` if tableized, `pre` if</span>
+      <span class="c1"># not) with the given `:css_class` unless `:wrap` is set to `false`.</span>
+      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span><span class="o">=</span><span class="p">{})</span>
+        <span class="vi">@formatter</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:inline_theme</span><span class="p">]</span> <span class="p">?</span> <span class="no">HTMLInline</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">opts</span><span class="p">[:</span><span class="n">inline_theme</span><span class="p">])</span>
+                   <span class="p">:</span> <span class="no">HTML</span><span class="p">.</span><span class="nf">new</span>
+
+
+        <span class="vi">@formatter</span> <span class="o">=</span> <span class="no">HTMLTable</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="vi">@formatter</span><span class="p">,</span> <span class="n">opts</span><span class="p">)</span> <span class="k">if</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:line_numbers</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">opts</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:wrap</span><span class="p">,</span> <span class="kp">true</span><span class="p">)</span>
+          <span class="vi">@formatter</span> <span class="o">=</span> <span class="no">HTMLPygments</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="vi">@formatter</span><span class="p">,</span> <span class="n">opts</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:css_class</span><span class="p">,</span> <span class="s1">'codehilite'</span><span class="p">))</span>
+        <span class="k">end</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>rouge/lib/rouge/formatters/html_legacy.rb
+</figcaption></figure></div>
+
+<p>My first mistake was to skip over the comments (rookie mistake) and focus on the first line of the initializer, 
+leading me to believe that, indeed, <code>HTML</code> would be the formatter used in normal cases. Looking at their names, 
+<code>HTMLInline</code> was obviously for inline code samples, <code>HTMLTable</code> for the complex rendering with line numbers (as 
+hinted at by the conditional <code>if opts[:line_numbers]</code>), while <code>HTMLPygments</code> probably had something to do with a 
+legacy fallback for users of <a href="https://github.com/pygments/pygments.rb">Pygments</a>, the precursor to Rouge.</p>
+
+<p>I then tried to add the missing elements to my custom formatter, even though I couldn&rsquo;t quite understand why they 
+were missing in the first place. In retrospect, was my second mistake — I was trying to stumble my way to a solution 
+without taking the time to figure out the problem first.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"rouge"</span>
+<span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">module</span> <span class="nn">Formatters</span>
+    <span class="k">class</span> <span class="nc">HTMLWithFigure</span> <span class="o">&lt;</span> <span class="no">HTML</span>
+      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span> <span class="o">=</span> <span class="p">{})</span>
+        <span class="vi">@caption</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:caption</span><span class="p">]</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">"&lt;figure&gt;"</span>
+        <span class="k">yield</span> <span class="sx">%Q{&lt;pre class="highlight"&gt;&lt;code&gt;</span><span class="si">#{</span><span class="k">super</span><span class="si">}</span><span class="sx">&lt;/code&gt;&lt;/pre&gt;}</span>
+        <span class="k">yield</span> <span class="s2">"&lt;figcaption&gt;</span><span class="si">#{</span><span class="n">escape_special_html_chars</span> <span class="vi">@caption</span><span class="si">}</span><span class="s2">&lt;/figcaption&gt;"</span> <span class="k">if</span> <span class="vi">@caption</span>
+        <span class="k">yield</span> <span class="s2">"&lt;/figure&gt;"</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></figure></div>
+
+<p>Unsurprisingly, this didn&rsquo;t work. Yes, the code was preformatted thanks to the extra HTML elements, but so were simple 
+code spans – and those should <em>not</em> be wrapped in a <code>&lt;pre&gt;</code> element, only a <code>&lt;code&gt;</code> one.</p>
+
+<p>Faced with this problem, I made yet a third mistake: I concluded that, since the <code>HTML</code> formatter was not adding the 
+<code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements, they were under the responsibility of the Markdown converter (i.e. Kramdown), and not 
+the syntax highlighter. So I went looking for their handling in Kramdown&rsquo;s code, a code spelunking session that led 
+me nowhere; in part because Kramdown&rsquo;s source was only part of the actual code involved, especially when it comes to 
+code blocks (Jekyll also loads up <a href="https://github.com/kramdown/parser-gfm">kramwdown-parser-gfm</a>), but mostly because 
+there is no such code in the first place!</p>
+
+<h3 id="solving-the-mystery">Solving the mystery</h3>
+
+<p>Lost in a dead end, I gave up and tried a different approach, with a different Markdown converter. But what had I missed 
+back then?</p>
+
+<p>Contrary to my initial, half-backed conclusion, Kramdown <em>does</em> rely on Rouge to wrap the syntax-highlighted code in a 
+<code>&lt;code&gt;</code> and, if needed, a <code>&lt;pre&gt;</code> elements. Outputting the options passed from Kramdown to the formatter gave me a clue:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">HTMLWithFigure</span> <span class="o">&lt;</span> <span class="no">HTML</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="nb">puts</span> <span class="n">opts</span>
+    <span class="vi">@caption</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:caption</span><span class="p">]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>jekyll build <span class="nt">-q</span>
+<span class="go">{:formatter=&gt;"HTMLWithFigure", :default_lang=&gt;"plaintext", :guess_lang=&gt;true, :wrap=&gt;false, :caption=&gt;nil, :css_class=&gt;"highlight"}
+{:formatter=&gt;"HTMLWithFigure", :default_lang=&gt;"plaintext", :guess_lang=&gt;true, :caption=&gt;nil, :css_class=&gt;"highlight"}
+{:formatter=&gt;"HTMLWithFigure", :default_lang=&gt;"plaintext", :guess_lang=&gt;true, :wrap=&gt;false, :caption=&gt;"lorem ipsum dolor", :css_class=&gt;"highlight"}
+</span></code></pre></div></figure></div>
+
+<p>Along the expected options — including the caption — is one named <code>:wrap</code>. I remembered having seen it in the <code>HTMLLegacy</code> 
+initializer:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span><span class="o">=</span><span class="p">{})</span>
+  <span class="vi">@formatter</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:inline_theme</span><span class="p">]</span> <span class="p">?</span> <span class="no">HTMLInline</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">opts</span><span class="p">[</span><span class="ss">:inline_theme</span><span class="p">])</span> <span class="p">:</span> <span class="no">HTML</span><span class="p">.</span><span class="nf">new</span>
+  <span class="c1"># …</span>
+  <span class="k">if</span> <span class="n">opts</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:wrap</span><span class="p">,</span> <span class="kp">true</span><span class="p">)</span>
+    <span class="vi">@formatter</span> <span class="o">=</span> <span class="no">HTMLPygments</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="vi">@formatter</span><span class="p">,</span> <span class="n">opts</span><span class="p">.</span><span class="nf">fetch</span><span class="p">(</span><span class="ss">:css_class</span><span class="p">,</span> <span class="s1">'codehilite'</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></figure></div>
+
+<p>Could it be that this <code>HTMLPygments</code> was not just a legacy formatter for obscure backward-compatiblity edge cases? I had 
+a look:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">module</span> <span class="nn">Formatters</span>
+    <span class="k">class</span> <span class="nc">HTMLPygments</span> <span class="o">&lt;</span> <span class="no">Formatter</span>
+      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">inner</span><span class="p">,</span> <span class="n">css_class</span><span class="o">=</span><span class="s1">'codehilite'</span><span class="p">)</span>
+        <span class="vi">@inner</span> <span class="o">=</span> <span class="n">inner</span>
+        <span class="vi">@css_class</span> <span class="o">=</span> <span class="n">css_class</span>
+      <span class="k">end</span>
+
+      <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="sx">%(&lt;div class="highlight"&gt;&lt;pre class="</span><span class="si">#{</span><span class="vi">@css_class</span><span class="si">}</span><span class="sx">"&gt;&lt;code&gt;)</span>
+        <span class="vi">@inner</span><span class="p">.</span><span class="nf">stream</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">"&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;"</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></figure></div>
+
+<p>So there it was. In spite of its name, <code>HTMLPygments</code> is the real deal. (Interestingly, this piece of code shows a 
+different pattern than subclassing <code>Rouge::Formatters::HTML</code>, as <a href="https://github.com/rouge-ruby/rouge#writing-your-own-html-formatter">the README suggests</a>; 
+instead, <code>HTMLPygments</code> is a <a href="https://en.wikipedia.org/wiki/Decorator_pattern">decorator</a> of the selected base formatter.)</p>
+
+<h3 id="searching-for-a-proper-solution">Searching for a proper solution</h3>
+
+<p>Let&rsquo;s recap. Kramdown&rsquo;s converter calls up Rouge to turn a code block into a collection of specifically-crafted <code>&lt;span&gt;</code> 
+elements. Because the expected result can vary, Rouge offers several formatters to craft these elements, and optionnally 
+wrap them in containing HTML elements such as <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code>. However, Kramdown&rsquo;s converter doesn&rsquo;t really care 
+about chosing the right formatter; instead, it defers to a special one, <code>HTMLLegacy</code>, which does the selection for it, 
+based on a few options, such as <code>:wrap</code>.</p>
+
+<p>We want to use a custom formatter, but <em>only when expecting certain results</em> (namely: the rendering of a code <em>block</em>). 
+Ideally, we would like to keep Kramdown&rsquo;s normal behavior untouched, except for this addition of a <code>&lt;figure&gt;</code> element when 
+rendering a code block. So what is Kramdown&rsquo;s normal behavior?</p>
+
+<p>It is hidden behind quite a bit of indirection, but basically, all options defined in Kramdown&rsquo;s configuration for 
+Rouge are passed down to the <code>HTMLLegacy</code> initializer. Furthermore, these options can be specified twice: once for the 
+rendering of a code <code>block</code> and once for the rendering of a code <code>span</code>. This is a lot of behavior to preserve.</p>
+
+<ul>
+  <li>We could move the facade logic of <code>HTMLLegacy</code> to the converter, and have it chose the right formater (including our 
+custom one) based on the options passed, while respecting the configuration syntax (i.e. the differents options for 
+<code>span</code> and <code>block</code>).</li>
+  <li>We could copy-paste this facade logic from <code>HTMLLegacy</code> to our custom formatter. That would leave it behind should 
+<code>HTMLLegacy</code> evolve in a future Rouge upgrade, but this eventuality seems unlikely.</li>
+  <li>We could re-open or extend <code>HTMLLegacy</code> so that an extra decorator was added to the formatter used when a caption 
+is present (or, alternatively, every time a <em>block</em> is renderer).</li>
+</ul>
+
+<p>The last option would be the least intrusive, and also the most acrobatic, since it would involve monkey-patching Rouge. 
+It could look like this:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"rouge"</span>
+<span class="nb">require</span> <span class="s2">"cgi"</span>
+
+<span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">module</span> <span class="nn">Formatters</span>
+    <span class="k">class</span> <span class="nc">HTMLWithFigure</span> <span class="o">&lt;</span> <span class="no">Formatter</span>
+      <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">inner</span><span class="p">,</span> <span class="n">caption</span><span class="p">)</span>
+        <span class="vi">@inner</span><span class="p">,</span> <span class="vi">@caption</span> <span class="o">=</span> <span class="n">inner</span><span class="p">,</span> <span class="n">caption</span>
+      <span class="k">end</span>
+    
+      <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">"&lt;figure&gt;"</span>
+        <span class="vi">@inner</span><span class="p">.</span><span class="nf">stream</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+        <span class="k">yield</span> <span class="s2">"&lt;figcaption&gt;</span><span class="si">#{</span><span class="no">CGI</span><span class="p">.</span><span class="nf">escape_html</span> <span class="vi">@caption</span><span class="si">}</span><span class="s2">&lt;/figcaption&gt;"</span> <span class="k">if</span> <span class="vi">@caption</span>
+        <span class="k">yield</span> <span class="s2">"&lt;/figure&gt;"</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Rouge</span><span class="o">::</span><span class="no">Formatters</span><span class="o">::</span><span class="no">HTMLLegacy</span><span class="p">.</span><span class="nf">prepend</span> <span class="no">Module</span><span class="p">.</span><span class="nf">new</span> <span class="p">{</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span><span class="o">=</span><span class="p">{})</span>
+    <span class="k">super</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+  
+    <span class="k">if</span> <span class="n">caption</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:caption</span><span class="p">]</span>
+      <span class="vi">@formatter</span> <span class="o">=</span> <span class="no">Rouge</span><span class="o">::</span><span class="no">Formatters</span><span class="o">::</span><span class="no">HTMLWithFigure</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="vi">@formatter</span><span class="p">,</span> <span class="n">caption</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="p">}</span>
+</code></pre></div></figure></div>
+
+<p>I admit, I like this approach — but this is mostly my ego speaking. I don&rsquo;t get to use <code>Module#prepend</code> and anynomous module 
+that often, and monkey-patching is a bit exhilarating. Plus, it is indeed the least intrusive approach – it leaves the 
+inner workings of Rouge as they are, and the custom Kramdown syntax highlighter required is mostly a carbon copy of the 
+original (including the use of <code>HTMLLegacy</code>). However, monkey-patching is always risky, and more importantly, it 
+doesn&rsquo;t fix the underlying issue: <code>HTMLLegacy</code>, as its name implies, is a <em>legacy</em> formatter, introduced for 
+backward-compatibility with Rouge 1.x. It would be better if Kramdown wasn&rsquo;t using it in the first place.</p>
+
+<p>(Note that Jekyll, for its <code>highlight</code> Liquid tag, does the right thing and instantiates the right formatter directly, 
+instead of relying on this transitional prop.)</p>
+
+<h3 id="the-subtleties-of-software-design">The subtleties of software design</h3>
+
+<p>Instead, let&rsquo;s consider the other two options. The first one makes the Markdown converter responsible for adding the 
+<code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> tags, while the second keeps this responsibility at the syntax highlighter level. As it happens, 
+the Markdown specification is quite explicit as to how code blocks should be <em>converted</em>:</p>
+
+<blockquote>
+  <p>Rather than forming normal paragraphs, the lines of a code block are interpreted literally. 
+Markdown wraps a code block in both &lt;pre&gt; and <code> tags.</code></p>
+</blockquote>
+
+<p>So, relying on the syntax highlighter do the wrapping seems like a mistake in the first place. Put differently, when 
+converting a Markdown code block to HTML, the code should always end up wrapped in a <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements, 
+even if there is no code highlighting being done.</p>
+
+<p>In fact, this is exactly was Kramdown does <em>when there is no highlighting</em>:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">convert_codeblock</span><span class="p">(</span><span class="n">el</span><span class="p">,</span> <span class="n">indent</span><span class="p">)</span>
+  <span class="c1"># …</span>
+  <span class="n">highlighted_code</span> <span class="o">=</span> <span class="n">highlight_code</span><span class="p">(</span><span class="n">el</span><span class="p">.</span><span class="nf">value</span><span class="p">,</span> <span class="n">el</span><span class="p">.</span><span class="nf">options</span><span class="p">[</span><span class="ss">:lang</span><span class="p">]</span> <span class="o">||</span> <span class="n">lang</span><span class="p">,</span> <span class="ss">:block</span><span class="p">,</span> <span class="n">hl_opts</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">highlighted_code</span>
+    <span class="n">add_syntax_highlighter_to_class_attr</span><span class="p">(</span><span class="kp">attr</span><span class="p">,</span> <span class="n">lang</span> <span class="o">||</span> <span class="n">hl_opts</span><span class="p">[</span><span class="ss">:default_lang</span><span class="p">])</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="s1">' '</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}</span><span class="s2">&lt;div</span><span class="si">#{</span><span class="n">html_attributes</span><span class="p">(</span><span class="kp">attr</span><span class="p">)</span><span class="si">}</span><span class="s2">&gt;</span><span class="si">#{</span><span class="n">highlighted_code</span><span class="si">}#{</span><span class="s1">' '</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}</span><span class="s2">&lt;/div&gt;</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">else</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">escape_html</span><span class="p">(</span><span class="n">el</span><span class="p">.</span><span class="nf">value</span><span class="p">)</span>
+    <span class="c1"># …</span>
+    <span class="s2">"</span><span class="si">#{</span><span class="s1">' '</span> <span class="o">*</span> <span class="n">indent</span><span class="si">}</span><span class="s2">&lt;pre</span><span class="si">#{</span><span class="n">html_attributes</span><span class="p">(</span><span class="kp">attr</span><span class="p">)</span><span class="si">}</span><span class="s2">&gt;"</span> <span class="p">\</span>
+      <span class="s2">"&lt;code</span><span class="si">#{</span><span class="n">html_attributes</span><span class="p">(</span><span class="n">code_attr</span><span class="p">)</span><span class="si">}</span><span class="s2">&gt;</span><span class="si">#{</span><span class="n">result</span><span class="si">}</span><span class="se">\n</span><span class="s2">&lt;/code&gt;&lt;/pre&gt;</span><span class="se">\n</span><span class="s2">"</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>kramdown/lib/kramdown/converter/html.rb
+</figcaption></figure></div>
+
+<p>If the code has been highlighted, it is wrapped in a <code>&lt;div&gt;</code>; if not, it is wrapped in the mandatory <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> 
+elements.</p>
+
+<p>I can only speculate as to why Kramdown behaves so — my guess is that Rouge initially took upon itself to do the wrapping 
+in <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements, and Kramdown then had to take this over-zealous behaviour into account, and stay like 
+this even after Rouge fixed its rendering, probably because other systems now depend on it.</p>
+
+<p>In any case, we could either use a custom converter for Kramdown (one that would <em>not</em> rely on Rouge for the wrapping), 
+or change the way its <code>Converter::HMTL</code> converter works. Both options seem daunting.</p>
+
+<p>Kramdown is very modular and configurable, but has no mechanism to allow the swapping of converters – Kramdown relies 
+on metaprogramming to require the relevant converter based on the name of the method called for the conversion, so that 
+<code>#to_html</code> instantiates a <code>Converter::Html</code> converter, and so on. To use a different HTML converter, we would have to 
+either pretend that it converts to a different format (and somehome have Jekyll call <code>#to_custom_html</code> instead…) or 
+hijack Kramdown&rsquo;s converter-instantiating logic. Both options are way more intrusive than monkey-patching Rouge&rsquo;s 
+<code>HTMLLegacy</code> formatter.</p>
+
+<h3 id="the-intricacy-of-open-source">The intricacy of open source</h3>
+
+<p>But if relying on the syntax highlight to add the <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code>elements is a mistake in the first place, why not 
+contribute to Kramdown and submit a fix? In short: because I&rsquo;m not too fond of Kramdown as a project.</p>
+
+<p>I love contributing to open source – in fact, I consider that is it a privilege to be able to do so, and a duty to 
+actually contribute if you can. However, I also consider that any contribution, even the smallest, is a form of commitment 
+to the project.</p>
+
+<p>Open source maintainers deserve respect; they (usually) welcome contributions, but in my opinion, the least one can 
+do when contributing is to have regard for the the maintainers&rsquo; leadership, opinions, choices, and the overall direction 
+they want to give their project. In other words: when contributing to Rome, do as the Roman senators do.</p>
+
+<p>I may be overly cautious, but I&rsquo;m not too fond of opening a PR without being confident that it would be useful to the 
+project, and not only to me, and that it would be in line with whatever the project maintainers have in mind. In other 
+words, projects have a vibe, and I want to be in sync with it.</p>
+
+<p>This probably sounds like a lot of overthinking, or possibly an excuse not to contribute, but it&rsquo;s not. It&rsquo;s basically 
+a complicated way to say that I don&rsquo;t want to contribute to projects whose philosophy or leadership I don&rsquo;t feel good 
+about, and that is exactly the case here.</p>
+
+<p>I&rsquo;ve complained about the complexity of Kramdown&rsquo;s code base (and yes, I know how easy it is to criticise), but in itself 
+this would not be enough to keep me from opening a small PR. However, to get a feel of the project, I took a look at 
+the other PRs and the conversations around them, and didn&rsquo;t really like what I saw. No major red flag, just a tone 
+not to my liking.</p>
+
+<p>And so, since neither the technical nor human aspects of this project vibe with me, I&rsquo;d rather not get involved. It&rsquo;s 
+as simple as that.</p>
+
+<h3 id="done-beats-perfect">Done beats perfect</h3>
+
+<p>I enjoy pursuing the best solution to a given problem – within reason. From my perspective – and I may well be wrong! – 
+the <em>best</em> solution would be to move the responsibility of wrapping code blocks in <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements 
+from the syntax highligher (Rouge) to the converter (Kramdown), and while we&rsquo;re at it to <em>also</em> make the converter 
+be responsible for adding the <code>&lt;figure&gt;</code> elements around the converted code block. However, this would require working 
+on Kramdown, which is something I don&rsquo;t want to do.</p>
+
+<p>And so, the second-best approach is the one I&rsquo;ll go with – keep the wrapping of the highlighted code in <code>&lt;figure&gt;</code>, 
+<code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements under the responsibility of Rouge, implemented through a small monkey-patch. It may not 
+be ideal or perfect, but it will work, for a reasonable cost.</p>
+
+  </div>
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/articles/2023/11/06/you-don-t-need-services-whatever-this-word-means.html" />
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/BlogPosting" 
+  class="post h-entry "
+  data-category="miscellanea"
+  
+  >
+  <header class="post-header">
+    <h2 class="post-title p-name" itemprop="name headline">
+      You don't need services (whatever this word means)
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-11-06T13:27:00+01:00" itemprop="datePublished">
+        Nov 6, 2023
+      </time>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>Last Sunday, I had the pleasure to attend one of <a href="https://www.codewithjason.com">Jason Swett</a>&rsquo;s online meetups. This 
+time, Jason had put his consultant hat on, and was helping a cheerful developer, Duncan, fix his app. Having played 
+the role of the consultant myself quite often, watching someone else&rsquo;s approach was really interesting, so thank you 
+Jason for this opportunity.</p>
+
+<p>However, even more interesting was Duncan&rsquo;s problem, and tentative solution. The Rails app he works on has become a 
+bit too big, convoluted, a suffers from performance issues. To remedy this, Duncan and his teammates have started 
+extracting pieces of this monoliths to services.</p>
+
+<p>If you know me, you know that I tend to starting ranting when I hear the word <em>service</em>. Years of misplaced hype have 
+drained it of all meaning, but it is still everywhere – and, to me, its simple use is often a red flag. I&rsquo;ll keep the 
+rant for another post, but let&rsquo;s take a moment to consider that, in Duncan&rsquo;s case like in many others, “introducing 
+services to a Rails app” meant two different things:</p>
+
+<ul>
+  <li>Extracting pieces of logic from controllers and/or models<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> to another category of objects.</li>
+  <li>Extracting whole features to other applications.</li>
+</ul>
+
+<p>In my opinion, you very rarely need to do either one of these things, let alone both. Whatever your problem is, 
+introducing services is probably not the solution; in fact, it could make things even worse, while distracting you from 
+fixing the <em>real</em> issues you&rsquo;re facing.</p>
+
+<h3 id="services-as-a-category-of-objects">Services as a category of objects</h3>
+
+<p>Rails&rsquo; decision to organize files by their role in the MVC pattern was already critized by people 
+smarter than me <a href="https://youtu.be/WpkDN78P884">11 years ago</a>, but honestly I&rsquo;m personally fine with the layout 
+of the <code>/app</code> directory. However, I do believe that it trips newcomers up, by giving the impression that an object&rsquo;s 
+role in the system is extremely significant, and by conflating <em>role</em> and <em>type</em>. It makes you think in terms of 
+<em>place in the filesystem</em>, instead of <em>responsibilities in the running system</em>. The folder in which the source file 
+for an object doesn&rsquo;t matter; what matters is what the object does, and what it is in charge of. It&rsquo;s like job titles: 
+they mean little, so don&rsquo;t obsess over them.</p>
+
+<p>As an app grows, it does more and more, which means that there are more and more responsibilities to hand over to the 
+objects in its system. The natural tendency is to hand these extra responsibilities to the current objects in the 
+architecture, but then they become bigger, and so do their files. We tell developers to keep their controllers 
+thin, so they feed the extra stuff to the models – but then we tell them that the models should be thin, too. It&rsquo;s a 
+conundrum when the only two directories reasonably available are <code>app/controllers</code> and <code>app/models</code>; the natural solution 
+is to add a new directory, for a new role: <code>app/services</code>. And now you can have bloated objects with fuzzy 
+responsibilities, but feel good about it.</p>
+
+<p>The problem here is not that a new directory is added; it&rsquo;s that the underlying issue is not solved, only hidden behind 
+a small indirection. And now you have an hybrid architecture, an MSVC chimera that goes against the conventions of 
+a Rails app. Which is morally fine, but throws away the benefits of the convention-over-configuration principle. You 
+don&rsquo;t <em>have</em> to stay on the rails, but if you don&rsquo;t, you&rsquo;d better know what you&rsquo;re doing; and if you&rsquo;re blindly going for 
+services, you probably don&rsquo;t.</p>
+
+<p>Now, there are other justifications for introducing “service objects” into a Rails codebase, but I&rsquo;ll ignore them since 
+I&rsquo;m already three paragraphs in, and my advice is still the same for all of them: <strong>consider your object a simple model</strong>. 
+Not all models in a Rails app have to be ActiveRecord models; the definition of model has nothing to do with the 
+persistence in a database. In fact, by default, everything <em>is</em> a model. If your new object has no responsibility 
+related to the rendering, the routing, or the processing of an incoming request for a resource, then it is a model. Plain 
+and simple. Sometimes models need to store their data, sometimes they don&rsquo;t, but as long as they are in charge of 
+some business domain, they&rsquo;re models.</p>
+
+<p>Keeping in mind that everything is a model unless it&rsquo;s a view or a controller<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> is not (only) nitpicking on semantics; 
+it avoids the trap of letting a file&rsquo;s name skew the role we give to the object it defines. If anything is a model, 
+then an object being a model doesn&rsquo;t give you, the developer, any misleading hint on the responsibilities to give it. 
+You cannot just cram in random procedural code and feel confident in your architecture because your new object implements 
+a <code>.call</code> method.</p>
+
+<p>In other words: keeping controllers and models <em>thin</em> is a shortcut for <em>keeping them focused on a single responsibility</em>, 
+which is a shortcut for <em>keeping them focused on exposing or embodying a single resource</em>. When controllers and/or models 
+get fat, it usually means that somewhere, a new resource is trying to emerge; displacing the extra weight to a service 
+object alleviates the symptom but prevents this new resource to emerge.</p>
+
+<h3 id="services-as-splinters-of-a-monolith">Services as splinters of a monolith</h3>
+
+<p>When I don&rsquo;t hear teams talking about “service” as in <em>service layer</em>, it is usually in “<em>micro-service</em>”<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>. The idea 
+here is to remove a whole functionality of the application and reimplement it in a different application, which will be 
+called instead. Basically, it&rsquo;s trading complexity within a single application for complexity within a whole system, 
+with all the complications that come with replacing methods calls by HTTP requests.</p>
+
+<p>Interestingly, the initial rationale for this expensive design choice is performance, or rather <em>scalability</em>. The idea 
+is that, if your application is split into autonomous services, then the computing resources of the whole system could 
+be allocated more efficiently. If users suffer bad performance when authenticating but none after that, then you can 
+add more servers to the authentication service. This makes perfect sense – but it is a much rarer kind of issue than you 
+think, and you&rsquo;ll probably never encounter it. And even if you can pinpoint performance-drowning features in your 
+Rails monolith, but cannot fix the issue through code, I&rsquo;m confident that you can afford to scale vertically the 
+whole app anyways.</p>
+
+<p>In my experience – and in Duncan&rsquo;s presentation of the design choices – the rationale for services quickly shifts once 
+the decision has been made to introduce them. It&rsquo;s less about performance, and more about cooperation and onboarding. 
+Splitting the architecture leads to splitting the codebase, and smaller codebases are easier to comprehend, especially 
+for newcomers. Which, once again, is technically true, but comes with at a significant cost. Because, most of the times, 
+you need every developer to understand the whole system anyways – especially if you didn&rsquo;t manage to put correct 
+boundaries between the services. Yes, the codebase any given person will be working on at any given time will be 
+smaller, but the cognitive load will probably not be reduced by much, because <em>other</em> codebases will have to be kept 
+in mind. This is certainly not true for very large teams working on very large applications, but chances are that you&rsquo;re 
+not that big. And even then, <a href="https://stackshare.io/shopify/shopify">you don&rsquo;t need to split your Rails monolith</a>.</p>
+
+<p>However, there is a third benefit that a team can gain from splitting a Rails monolith to services. Not performance, 
+and not comprehensibility: comfort. Developers are people, and people have preferences – strong preferences, sometimes. 
+Extracting a feature to a service opens the door to replacing a tech stack with another, piece by piece. Once again, 
+this is paying a very high cost, but this time what you&rsquo;re buying is basically HR. Is this wise? Is this viable? I would 
+say “probably not”, but then again, I&rsquo;m not trying to hire developers or keep them from switching ship on a tech ocean 
+where the winds of hype blow strong.</p>
+
+<h3 id="railways-have-no-service-areas">Railways have no service (areas)</h3>
+
+<p>I may be wrong, but listening to Duncan, I felt like this third motivation for introducing services – a certain 
+discomfort with Rails – was bigger than he himself realized. And, quite frankly, this would be the best reason 
+for going this route, considering that this is a volunteers project. It&rsquo;s hard to work on something when you 
+don&rsquo;t especially like it, or the tools you have to use, and it&rsquo;s even more true when you&rsquo;re not payed to do so. But, still: 
+when it comes to Rails, if you enjoy it, then you&rsquo;ll probably enjoy it even more if you restrain from introducing 
+services, be it as a layer or as a system architecture.</p>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>In the code that Duncan showed us, it was from a controller, but I&rsquo;ve often seen services built from models.&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Or a job, a channel, a mailer or a mailbox… Let&rsquo;s stick to the M, V and C, ok?&nbsp;<a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>More and more, it is in “<em>macro-service</em>”; please don&rsquo;t get me started on this.&nbsp;<a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

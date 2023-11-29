@@ -1,0 +1,301 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    <url>
+      <loc>https://2-45.pm/</loc>
+      <lastmod>2023-11-29</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>1.0</priority>
+    </url>
+
+    
+    <url>
+      <loc>https://2-45.pm/2023/11/05/humility-check.html</loc>
+      <lastmod>2023-11-05</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/2023/11/06/you-don-t-need-services-whatever-this-word-means.html</loc>
+      <lastmod>2023-11-06</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/2023/11/14/better-practices-by-example-rspec.html</loc>
+      <lastmod>2023-11-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/</loc>
+      <lastmod>2023-11-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/work-with-me.html</loc>
+      <lastmod>2023-11-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/2023/05/01/markdown-the-pits-of-madness.html</loc>
+      <lastmod>2023-05-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/2023/06/24/de-vermis-mysteriis-solvuntur.html</loc>
+      <lastmod>2023-06-24</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/2023/07/25/thawing-strings.html</loc>
+      <lastmod>2023-07-25</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/2023/11/06/you-don-t-need-services-whatever-this-word-means.html</loc>
+      <lastmod>2023-11-06</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/2023/11/14/better-practices-by-example-rspec.html</loc>
+      <lastmod>2023-11-14</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/</loc>
+      <lastmod>2023-11-27</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/steel_vellum/2023/04/15/the-worst-way-to-build-software.html</loc>
+      <lastmod>2023-04-15</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/steel_vellum/2023/04/22/arranging-atoms-by-hand.html</loc>
+      <lastmod>2023-04-22</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/steel_vellum/2023/04/26/meet-bruenor.html</loc>
+      <lastmod>2023-04-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/steel_vellum/2023/10/10/modules-in-dnd-modules-in-ruby.html</loc>
+      <lastmod>2023-10-10</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/z80asm/2023/08/31/jurassic-stack.html</loc>
+      <lastmod>2023-08-31</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/04/01/back-in-business.html</loc>
+      <lastmod>2023-04-01</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/05/10/elegantly-varied.html</loc>
+      <lastmod>2023-05-10</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/05/25/what-i-ve-been-reading-lately.html</loc>
+      <lastmod>2023-05-25</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/06/19/what-i-ve-been-reading-lately-june-2023.html</loc>
+      <lastmod>2023-06-19</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/07/10/brighton-ruby-2023.html</loc>
+      <lastmod>2023-07-10</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/07/28/what-i-ve-been-reading-lately-july-2023.html</loc>
+      <lastmod>2023-07-28</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/08/04/2023-08-04-decaf-in-the-morning.html</loc>
+      <lastmod>2023-08-04</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/08/28/what-i-ve-been-reading-lately-august-2023.html</loc>
+      <lastmod>2023-08-28</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/09/07/brothers-up-in-arms.html</loc>
+      <lastmod>2023-09-07</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/09/07/tomorrow-people-tonight.html</loc>
+      <lastmod>2023-08-13</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/10/02/euruko-2023.html</loc>
+      <lastmod>2023-10-02</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/10/31/the-fall-of-the-house-of-usher.html</loc>
+      <lastmod>2023-10-31</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/2023/11/05/humility-check.html</loc>
+      <lastmod>2023-11-05</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/05/09/issue-1.html</loc>
+      <lastmod>2023-05-09</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/05/21/issue-2.html</loc>
+      <lastmod>2023-05-21</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/05/29/issue-3.html</loc>
+      <lastmod>2023-05-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/06/26/issue-4.html</loc>
+      <lastmod>2023-06-26</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/07/12/issue-5.html</loc>
+      <lastmod>2023-07-12</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/10/23/issue-6.html</loc>
+      <lastmod>2023-10-23</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/10/30/issue-7.html</loc>
+      <lastmod>2023-10-24</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2023/11/14/issue-8.html</loc>
+      <lastmod>2023-11-24</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/</loc>
+      <lastmod>2023-11-27</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/steel-vellum.html</loc>
+      <lastmod>2023-11-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/articles/z80-asm.html</loc>
+      <lastmod>2023-11-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk.html</loc>
+      <lastmod>2023-11-29</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+</urlset>

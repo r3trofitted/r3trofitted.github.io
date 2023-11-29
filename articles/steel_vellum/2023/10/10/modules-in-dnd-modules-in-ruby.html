@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/articles/steel_vellum/2023/10/10/modules-in-dnd-modules-in-ruby.html" />
+
+<link rel="prev" href="https://2-45.pm/articles/steel_vellum/2023/04/26/meet-bruenor.html" />
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/Article" 
+  class="post h-entry"
+  data-category="dungeon-solid"
+  style="--category-icon: url(/assets/icons/dungeon-solid.svg)"
+  >
+  <header class="post-header">
+    
+    <p class="series-title">
+      Steel Vellum, part 4:
+    </p>
+    
+
+    <h2 class="post-title p-name" itemprop="name headline">
+      Modules in D&D, modules in Ruby
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-10-10T21:50:00+02:00" itemprop="datePublished">
+        Oct 10, 2023
+      </time>
+
+  </header>
+
+  <div class="article-content e-content" itemprop="articleBody">
+    <p>We left our project with an integration test that doesn&rsquo;t pass (yet), and a unit test for the first piece of business 
+logic revealed by this integration test: the character races as “types” for our <code>Character</code> objects. It is now time to 
+make the unit test pass, which should drive us to an implementation of the <code>Race</code> class, and then move on to the next 
+encounter in our integration test.</p>
+
+<h3 id="ancestry-shenanigans">Ancestry shenanigans</h3>
+
+<p>Our unit test, at the moment, looks like this:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"test_helper"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/character_creation"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/race"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">CharacterCreationTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+    <span class="k">def</span> <span class="nf">test_choosing_a_race</span>
+      <span class="n">creation</span> <span class="o">=</span> <span class="no">CharacterCreation</span><span class="p">.</span><span class="nf">new</span>
+      <span class="n">race</span>     <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">creation</span><span class="p">.</span><span class="nf">choose_race</span> <span class="n">race</span>
+      
+      <span class="n">character</span> <span class="o">=</span> <span class="n">creation</span><span class="p">.</span><span class="nf">character</span>
+      <span class="n">assert_kind_of</span> <span class="n">race</span><span class="p">,</span> <span class="n">character</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/character_creation_test.rb
+</figcaption></figure></div>
+
+<p>And, as expected, it fails. More precisely, once we add a placeholder <code>Race</code> class to satisfy the <code>require</code> instruction, 
+it fails with this interesting error: <code>class or module required</code>.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">Race</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/race.rb
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/character_creation_test.rb
+<span class="go">
+</span><span class="c"># Running tests with run options --seed 26591:
+</span><span class="go">
+E
+
+Finished tests in 0.000418s, 2392.3449 tests/s, 0.0000 assertions/s.
+
+
+Error:
+SteelVellum::CharacterCreationTest#test_choosing_a_race:
+TypeError: class or module required
+    test/character_creation_test.rb:13:in `test_choosing_a_race'
+
+1 tests, 0 assertions, 0 failures, 1 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>Back in the previous chapter, I said that a true mockist would probably not use the <code>Race</code> class in the example, but 
+instead something simpler, like <code>Object</code>. Well, this wasn&rsquo;t completely accurate. Because we want whatever object
+is passed to <code>#choose_race</code> to define what a <code>Character</code> object <em>“is”</em>, this object has to be either a class or a module, 
+as the error message tells us.</p>
+
+<p>Let&rsquo;s pause for a second. Our test is driving our design. Writing it, we discovered that we want characters races 
+to be <em>instances</em> of some kind of <code>Race</code> class (<code>race=Race.new</code>). But, at the same time, our test lead us to a design 
+where these instances must be classes or modules themselves (<code>assert_kind_of race</code>, with <code>assert_kind_of</code> expecting 
+a class or a module). Can an instance also be a class (or a module)?</p>
+
+<p>Of course it can! This is one of the great (and elegant, and almost magical) things about Ruby: classes are instances, 
+too – namely, instances of the <code>Class</code> class. By the same principle, modules are instances of the <code>Module</code> class, or a 
+subclass of it. Therefore, we can move on to the next failure in our test by ensuring that <code>Race.new</code> returns either a 
+class or a module. The simplest way to do that would to make <code>Race</code> <em>inherit</em> from either one – except that Ruby doesn&rsquo;t 
+allow subclassing <code>Class</code>, so the only option left is to have <code>Race</code> inherit from <code>Module</code>, so that <code>Race.new</code> <em>returns</em> 
+a (new) module.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">Race</span> <span class="o">&lt;</span> <span class="no">Module</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/race.rb
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/character_creation_test.rb
+<span class="go">  
+</span><span class="c"># Running tests with run options --seed 60990:
+</span><span class="go">
+F
+
+Finished tests in 0.000311s, 3215.4337 tests/s, 3215.4337 assertions/s.
+
+
+Failure:
+SteelVellum::CharacterCreationTest#test_choosing_a_race [test/character_creation_test.rb:13]
+Minitest::Assertion: Expected #&lt;SteelVellum::Character:0x0000000103d0a490&gt; to be a kind of #&lt;SteelVellum::Race:0x00000001039a0700&gt;, not SteelVellum::Character.
+
+1 tests, 1 assertions, 1 failures, 0 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>We&rsquo;ve successfully failed – meaning that we&rsquo;ve successfully moved on to a different failure. But this one is a bit cryptic.
+And how could our object be both “a kind of” <code>Character</code> and “a kind of” <code>Race</code>? Object in Ruby can only be of a single 
+class, right?</p>
+
+<p>Without diving too deep in the (marvellous) object model of Ruby, let&rsquo;s make a slight detour. The <code>assert_kind_of</code> 
+matcher relies on <a href="https://docs.ruby-lang.org/en/3.2/Object.html#method-i-kind_of-3F"><code>Object#kind_of?</code></a>, which is defined 
+like so:</p>
+
+<blockquote>
+  <p><strong>kind_of?(class) → true or false</strong></p>
+
+  <p>Returns <code>true</code> if <em>class</em> is the class of <em>obj</em>, or if <em>class</em> is one of the superclasses of <em>obj</em> or modules 
+included in <em>obj</em>.</p>
+</blockquote>
+
+<p>This is very accurate but maybe a bit obscure, if you&rsquo;re not familiar with the way classes, modules and instances 
+work in Ruby. Another way to define <code>kind_of?</code> could be:</p>
+
+<blockquote>
+  <p>Returns <code>true</code> is <em>class</em> is among the ancestors of <em>obj</em>&rsquo;s [singleton] class.</p>
+</blockquote>
+
+<p>Let&rsquo;s ignore the word in brackets for now. In Ruby, we know that each object has a class; this class, like all 
+classes, <em>inherits</em> from another class, which itself inherits from another class, and so on until this chain of 
+<em>ancestors</em> reaches <code>BasicObject</code>, <a href="https://docs.ruby-lang.org/en/3.2/BasicObject.html#:~:text=BasicObject-,BasicObject,Ruby">“the parent class of all classes in Ruby”</a>. 
+We can check this out by looking at the ancestors of the class of the <code>character</code> object in our test. We know 
+that this object&rsquo;s class is <code>SteelVellum::Character</code>, so we can do it like this:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-I</span> lib <span class="nt">-r</span> steel_vellum/character_creation.rb <span class="nt">-e</span> <span class="s2">"print SteelVellum::Character.ancestors"</span>
+<span class="go">[SteelVellum::Character, Object, Kernel, BasicObject]
+</span></code></pre></div></figure></div>
+
+<p>Ignoring the first item in this array (which is the interrogated class itself), we see the list of classes<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> from 
+which <code>Character</code> inherits: <code>Object</code>, <code>Kernel</code> and, eventually, <code>BasicObject</code>. For our test to pass, and 
+our assertion <code>assert_kind_of race, character.character</code> to be true, we need to somehow add <code>race</code> to this list of 
+ancestors.</p>
+
+<p>We cannot do that by making our <code>race</code> object a parent of the <code>Character</code> class – first because it would make no sense 
+from a business logic perspective (characters are not character races), but more importantly because we&rsquo;ve already 
+established that <code>race</code> is a <code>Module</code>, and modules cannot be inherited from.</p>
+
+<p>However, like classes, Ruby modules can be part of the ancestors chain of a class – in fact, in the ancestors list 
+above, <code>Kernel</code> is actually a <a href="https://docs.ruby-lang.org/en/3.2/Kernel.html">module</a>, not a class. As explained in 
+the definition of <code>Object#kind_of?</code>, <em>included modules</em> also count as ancestors. But how could we include this <code>race</code> 
+module in the class of our <code>character</code> object?</p>
+
+<h3 id="a-single-use-class">A single-use class</h3>
+
+<p>Once again, the <code>character</code> object is an instance of <code>Character</code>. So, a naive way to have it also be “a kind of” <code>race</code> 
+would be to call <code>Character.include race</code>. But then, <em>all</em> instances of <code>Character</code> would also have <code>race</code> in their ancestors. 
+All characters would be of the same race, which is not what we want.<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup></p>
+
+<p>What we want is for this <code>race</code> module to be included in the class of our <code>character</code> instance, <strong>but only for this 
+instance</strong>. And we can do that thanks to <code>Module#extend</code> and the elegant magic of the <em>singleton class</em>.</p>
+
+<p>By <em>extending the instance</em> with the module instead of <em>including the module in the class</em>, we&rsquo;ll have what we want. To 
+see this in action, let&rsquo;s temporarily hack our test:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">test_choosing_a_race</span>
+  <span class="n">creation</span> <span class="o">=</span> <span class="no">CharacterCreation</span><span class="p">.</span><span class="nf">new</span>
+  <span class="n">race</span>     <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span>
+  
+  <span class="n">creation</span><span class="p">.</span><span class="nf">choose_race</span> <span class="n">race</span>
+  
+  <span class="n">character</span> <span class="o">=</span> <span class="n">creation</span><span class="p">.</span><span class="nf">character</span>
+  <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="n">race</span>
+  
+  <span class="n">assert_kind_of</span> <span class="n">race</span><span class="p">,</span> <span class="n">character</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/character_creation_test.rb (excerpt)
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/character_creation_test.rb
+<span class="go">
+</span><span class="c"># Running tests with run options --seed 19004:
+</span><span class="go">
+</span><span class="c">.
+</span><span class="go">
+Finished tests in 0.000345s, 2898.5521 tests/s, 2898.5521 assertions/s.
+
+
+1 tests, 1 assertions, 0 failures, 0 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>Or test passes! But how come?</p>
+
+<p>When we called <code>character.extend race</code>, Ruby did something clever. It created a <em>new</em> class, anonymous, and had it 
+inherit from <code>Character</code>. It also included <code>race</code> into this new class, and then had <code>character</code> inherit from it. Because 
+it inherits from <code>Character</code>, this anonymous class behaves exactly as <code>Character</code>, but it is specific to the <code>character</code> 
+object. (And it includes <code>race</code>, which is the whole point.)</p>
+
+<p>There is no formal name for this kind of object-specific, anonymous class. Some used to call it “eigenclass”, others 
+“ghost class”, but nowadays, it is most often named <em>singleton class</em><sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>. In fact, this class can be reached (and 
+created on-the-fly, if necessary) by calling <a href="https://docs.ruby-lang.org/en/3.2/Object.html#method-i-singleton_class"><code>Object#singleton_class</code></a>. 
+Let&rsquo;s launch an IRB console and compare the ancestors of this singleton class, for a given <code>Character</code> instance, before 
+and after extending a <code>Race</code> module:</p>
+
+<div class="language-irb highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;&gt;</span><span class="w"> </span><span class="no">Dir</span><span class="p">[</span><span class="n">__dir__</span> <span class="o">+</span> <span class="s2">"/lib/steel_vellum/**/*.rb"</span><span class="p">].</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="nb">require</span> <span class="n">f</span> <span class="p">};</span> <span class="kp">include</span> <span class="no">SteelVellum</span><span class="p">;</span>
+<span class="gp">&gt;&gt;</span><span class="w"> 
+</span><span class="gp">&gt;&gt;</span><span class="w"> </span><span class="n">c</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+<span class="p">=&gt;</span> <span class="kt">#&lt;</span><span class="no">SteelVellum</span><span class="o">::</span><span class="no">Character</span><span class="p">:</span><span class="mh">0x0000000109f1e320</span><span class="kt">&gt;</span>
+<span class="gp">&gt;&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="nf">singleton_class</span><span class="p">.</span><span class="nf">ancestors</span>
+<span class="p">=&gt;</span> 
+<span class="gp">[#&lt;Class:#&lt;SteelVellum::Character:0x0000000109f1e320&gt;&gt;</span><span class="p">,</span>
+<span class="go"> SteelVellum::Character,
+ Object,
+ SteelVellum,
+ Kernel,
+ BasicObject]
+</span><span class="gp">&gt;&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="nf">extend</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span>
+<span class="p">=&gt;</span> <span class="kt">#&lt;</span><span class="no">SteelVellum</span><span class="o">::</span><span class="no">Character</span><span class="p">:</span><span class="mh">0x0000000109f1e320</span><span class="kt">&gt;</span>
+<span class="gp">&gt;&gt;</span><span class="w"> </span><span class="n">c</span><span class="p">.</span><span class="nf">singleton_class</span><span class="p">.</span><span class="nf">ancestors</span>
+<span class="p">=&gt;</span> 
+<span class="gp">[#&lt;Class:#&lt;SteelVellum::Character:0x0000000109f1e320&gt;&gt;</span><span class="p">,</span>
+<span class="c"> #&lt;SteelVellum::Race:0x000000010abb3860&gt;,
+</span><span class="go"> SteelVellum::Character,
+ Object,
+ SteelVellum,
+ Kernel,
+ BasicObject]
+</span></code></pre></div></figure></div>
+
+<p>So, there you have it. Even though Ruby objects can only be instances of a single class, they can inherit traits from 
+any number of modules, and don&rsquo;t have to share these inheritances with any other object, thanks to the existence of a 
+singleton class.</p>
+
+<p>Now that we know how to have characters <em>be</em> of a given race, and why this is even possible in the first place, let&rsquo;s 
+remove the hack from our test and implement things properly:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"character"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">CharacterCreation</span>
+    <span class="k">def</span> <span class="nf">choose_race</span><span class="p">(</span><span class="n">race</span><span class="p">)</span>
+      <span class="vi">@race</span> <span class="o">=</span> <span class="n">race</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">character</span>
+      <span class="no">Character</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">tap</span> <span class="k">do</span> <span class="o">|</span><span class="n">c</span><span class="o">|</span>
+        <span class="n">c</span><span class="p">.</span><span class="nf">extend</span> <span class="vi">@race</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/character_creation.rb
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"test_helper"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/character_creation"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/race"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">CharacterCreationTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+    <span class="k">def</span> <span class="nf">test_choosing_a_race</span>
+      <span class="n">creation</span> <span class="o">=</span> <span class="no">CharacterCreation</span><span class="p">.</span><span class="nf">new</span>
+      <span class="n">race</span>     <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">creation</span><span class="p">.</span><span class="nf">choose_race</span> <span class="n">race</span>
+      
+      <span class="n">character</span> <span class="o">=</span> <span class="n">creation</span><span class="p">.</span><span class="nf">character</span>
+      <span class="n">assert_kind_of</span> <span class="n">race</span><span class="p">,</span> <span class="n">character</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/character_creation_test.rb
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/character_creation_test.rb
+<span class="go">
+</span><span class="c"># Running tests with run options --seed 60242:
+</span><span class="go">
+</span><span class="c">.
+</span><span class="go">
+Finished tests in 0.000328s, 3048.7789 tests/s, 3048.7789 assertions/s.
+
+
+1 tests, 1 assertions, 0 failures, 0 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<h3 id="back-to-the-outer-loop">Back to the outer loop…</h3>
+
+<p>Our unit test now passes – we&rsquo;ve closed the small loop. Let&rsquo;s go back to the big loop (the integration test) and 
+see where the next failure leads us.</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/creating_bruenor_test.rb
+<span class="go">
+</span><span class="c"># Running tests with run options --seed 19079:
+</span><span class="go">
+E
+
+Finished tests in 0.000429s, 2331.0023 tests/s, 0.0000 assertions/s.
+
+
+Error:
+SteelVellum::CreatingBruenorTest#test_1_choose_a_race:
+TypeError: wrong argument type Class (expected Module)
+    /Users/ronan/Dev/steel_vellum/lib/steel_vellum/character_creation.rb:14:in `extend'
+    /Users/ronan/Dev/steel_vellum/lib/steel_vellum/character_creation.rb:14:in `block in character'
+    &lt;internal:kernel&gt;:90:in `tap'
+    /Users/ronan/Dev/steel_vellum/lib/steel_vellum/character_creation.rb:13:in `character'
+    test/creating_bruenor_test.rb:17:in `test_1_choose_a_race'
+
+1 tests, 0 assertions, 0 failures, 1 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>This was to be expected – <code>CharacterCreation#choose_race</code> must be passed a module now, but <code>MountainDwarf</code> is still a 
+slimed class. Let&rsquo;s change that.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../race"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">module</span> <span class="nn">Races</span>
+    <span class="no">MountainDwarf</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/races/mountain_dwarf.rb
+</figcaption></figure></div>
+
+<p>Moving on, we can rerun the integration test and figure out what other missing piece of our library we should build now.</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/creating_bruenor_test.rb
+<span class="go">
+</span><span class="c"># Running tests with run options --seed 52522:
+</span><span class="go">
+F
+
+Finished tests in 0.000367s, 2724.7956 tests/s, 5449.5913 assertions/s.
+
+
+Failure:
+SteelVellum::CreatingBruenorTest#test_1_choose_a_race [test/creating_bruenor_test.rb:19]
+Minitest::Assertion: Expected: :medium
+  Actual: nil
+
+1 tests, 0 assertions, 0 failures, 1 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>This is a more interesting failure! According to the test, making Bruenor a Mountain Dwarf should automatically give him 
+a <code>:medium</code> size, but at the moment, <code>Character#size</code> always returns <code>nil</code> (since we didn&rsquo;t bother actually implementing 
+the method&rsquo;s body). Let&rsquo;s remedy that.</p>
+
+<p>Because this failure reveals a missing piece of business logic, we must start a new small loop, and design the 
+implementation of this unitary feature through one or more unit tests.</p>
+
+<h3 id="hooks-in-you">Hooks in you</h3>
+
+<p>For a start, let&rsquo;s simply isolate the failing assertion from the integration test into an unit test:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../test_helper"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/character"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/races/mountain_dwarf"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">Races::MountainDwarfTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+    <span class="k">def</span> <span class="nf">test_a_mountain_dwarf_character_has_a_medium_size</span>
+      <span class="n">character</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">size</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="no">Races</span><span class="o">::</span><span class="no">MountainDwarf</span>
+      
+      <span class="n">assert_equal</span> <span class="ss">:medium</span><span class="p">,</span> <span class="n">character</span><span class="p">.</span><span class="nf">size</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/races/mountain_dwarf_test.rb
+</figcaption></figure></div>
+
+<p>Covered by our unit test, let&rsquo;s think about a way to make it pass. The test tells us that, once a <code>Character</code> instance 
+is extended by the <code>MountainDwarf</code> module, its <code>#size</code> method should return <code>:medium</code> instead of <code>nil</code>. When a module 
+extends an object, the methods defined inside this module are added to the instance methods of the object&rsquo;s singleton 
+class, so one way to make our test pass would be to redefine <code>#size</code> in the <code>MountainDwarf</code> module:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../race"</span>
+  
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">module</span> <span class="nn">Races</span>
+    <span class="no">MountainDwarf</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="nf">size</span>
+        <span class="mi">25</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/races/mountain_dwarf.rb
+</figcaption></figure></div>
+
+<p>However, while perfectly fine in general, I&rsquo;m not too fond of this approach in this specific situation. That is because 
+a character&rsquo;s size is more <em>data</em> than <em>behavior</em>. I&rsquo;d rather store this information in an instance variable than have 
+it being returned by a method<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup>.</p>
+
+<p>Thankfully, Ruby gives us another trick to reach our goals: <em>hook methods</em>. These are methods that, if defined, 
+get called we certain events happen in an object&rsquo;s lifetime. For example, <code>#method_missing</code> is a well-known hook 
+method that is called when an object (or rather: a module or a class) receives a call to a method that neither 
+it not any of its ancestors define. In our case, we&rsquo;ll make use of the <a href="https://docs.ruby-lang.org/en/3.2/Module.html#method-i-extended"><code>#extended</code></a> 
+hook method.</p>
+
+<p>This method is called whenever a module extends an object. We can use it to change the value of the character&rsquo;s <code>@size</code> 
+instance variable – in practice, giving it a default value, which the <code>Character</code> instance will then be free to change, 
+if need be. (After all, our Dwarf could one day drink a magical potion and grow a size or two.) This is what using 
+the <code>#extended</code> hook looks like:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../race"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">module</span> <span class="nn">Races</span>
+    <span class="no">MountainDwarf</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">extended</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+        <span class="n">character</span><span class="p">.</span><span class="nf">size</span> <span class="o">=</span> <span class="ss">:medium</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/races/mountain_dwarf.fr
+</figcaption></figure></div>
+
+<p>Of course, for the <code>character.size = :medium</code> instruction to work, we need to give accessors to the <code>@size</code> instance 
+variable of <code>Character</code>:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">Character</span>
+    <span class="nb">attr_accessor</span> <span class="ss">:size</span>
+    
+    <span class="c1"># TODO: is this method really useful? It won't be used once the character creation is done</span>
+    <span class="k">def</span> <span class="nf">ability_score_increases</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">speed</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">darkvision</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">languages</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">has_advantage_on_saving_throws_against?</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">has_resistance_against?</span><span class="p">(</span><span class="n">type</span><span class="p">)</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">proficient_with?</span><span class="p">(</span><span class="n">proficiency</span><span class="p">)</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">special_traits</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/character.rb
+</figcaption></figure></div>
+
+<p>Now our test passes. We can close this small loop and go back, once again, to the big one by running (yet again) the 
+integration test. It now fails because of the next character trait that a race is supposed to give a default 
+value to:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/creating_bruenor_test.rb
+<span class="go">
+</span><span class="c"># Running tests with run options --seed 15813:
+</span><span class="go">
+F
+
+Finished tests in 0.000413s, 2421.3068 tests/s, 4842.6136 assertions/s.
+
+
+Failure:
+SteelVellum::CreatingBruenorTest#test_1_choose_a_race [test/creating_bruenor_test.rb:20]
+Minitest::Assertion: Expected: 25
+  Actual: nil
+
+1 tests, 2 assertions, 1 failures, 0 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>This time, it is <code>Character#speed</code> that doesn&rsquo;t return the expected value. We&rsquo;ll proceed as exactly like we have with 
+<code>#size</code> – adding a unit test, watching it fail, making it pass, and then moving back to the integration test. And after 
+that, we&rsquo;ll have <code>Character.darkvision</code> to fix. In the end, this is what our <code>MountainDwarf</code> class and its tests will be:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../race"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">module</span> <span class="nn">Races</span>
+    <span class="no">MountainDwarf</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">extended</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+        <span class="n">character</span><span class="p">.</span><span class="nf">size</span>       <span class="o">=</span> <span class="ss">:medium</span>
+        <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>      <span class="o">=</span> <span class="mi">25</span>
+        <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span> <span class="o">=</span> <span class="mi">60</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/races/mountain_dwarf.fr
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../test_helper"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/character"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/races/mountain_dwarf"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">Races::MountainDwarfTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+    <span class="k">def</span> <span class="nf">test_a_mountain_dwarf_character_has_a_medium_size</span>
+      <span class="n">character</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">size</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="no">Races</span><span class="o">::</span><span class="no">MountainDwarf</span>
+      
+      <span class="n">assert_equal</span> <span class="ss">:medium</span><span class="p">,</span> <span class="n">character</span><span class="p">.</span><span class="nf">size</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">test_a_mountain_dwarf_character_has_a_speed_of_25</span>
+      <span class="n">character</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="no">Races</span><span class="o">::</span><span class="no">MountainDwarf</span>
+      
+      <span class="n">assert_equal</span> <span class="mi">25</span><span class="p">,</span> <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">test_a_mountain_dwarf_character_has_darkvision_up_to_60_feet</span>
+      <span class="n">character</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="no">Races</span><span class="o">::</span><span class="no">MountainDwarf</span>
+      
+      <span class="n">assert_equal</span> <span class="mi">60</span><span class="p">,</span> <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/races/mountain_dwarf_test.rb
+</figcaption></figure></div>
+
+<h3 id="stepping-away-from-bdd">Stepping away from BDD</h3>
+
+<p>Normally, keeping with our back-and-forths between the integration tests and the unit tests, our next step should probably be 
+have to do with <code>ability_score_increases</code>. However, once again, I&rsquo;d like to take a step back and consider 
+our recent work.</p>
+
+<p>We&rsquo;ve implemented the behavior of the <code>Races::MountainDwarf</code> instanciated modules, because this is what our tests have 
+covered. But we know that other races will eventually be covered by the library, and we know that they, too, will 
+assign a size, a speed and a darkvision range to the characters. So, even though we don&rsquo;t have any test to <em>lead</em> us 
+there yet, we can safely assume that making this piece of business logic a bit more generic is valuable.</p>
+
+<p>In practice, this means that <em>any</em> subclass of <code>Race</code> should be able to assign values to a <code>Character</code>&rsquo;s <code>@size</code>, <code>@speed</code> 
+and <code>@darkvision</code> instance variables, and the assigned values would depend on the subclass itself. This is rather easy 
+to write tests for.</p>
+
+<p>First, we need to be able to define the values that a race will assign:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"test_helper"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/race"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/character"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">RaceTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+    <span class="k">def</span> <span class="nf">test_race_initialization</span>
+      <span class="n">race</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">speed: </span><span class="mi">30</span><span class="p">,</span> <span class="ss">size: :small</span><span class="p">,</span> <span class="ss">darkvision: </span><span class="mi">5</span><span class="p">)</span>
+      
+      <span class="n">assert_equal</span> <span class="mi">30</span><span class="p">,</span> <span class="n">race</span><span class="p">.</span><span class="nf">speed</span>
+      <span class="n">assert_equal</span> <span class="ss">:small</span><span class="p">,</span> <span class="n">race</span><span class="p">.</span><span class="nf">size</span>
+      <span class="n">assert_equal</span> <span class="mi">5</span><span class="p">,</span> <span class="n">race</span><span class="p">.</span><span class="nf">darkvision</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/race_test.rb
+</figcaption></figure></div>
+
+<p>Then, we need to ensure that using the race to extend a <code>Character</code> assigns these values. We can simply cannibalize 
+the tests for <code>MountainDwarf</code>; but for the sake of conciseness, we&rsquo;ll squash the 3 tests into a single one with 
+multiple assertions:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"test_helper"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/race"</span>
+<span class="nb">require</span> <span class="s2">"./lib/steel_vellum/character"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">class</span> <span class="nc">RaceTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+    <span class="k">def</span> <span class="nf">test_race_initialization</span>
+      <span class="n">race</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">speed: </span><span class="mi">30</span><span class="p">,</span> <span class="ss">size: :small</span><span class="p">,</span> <span class="ss">darkvision: </span><span class="mi">5</span><span class="p">)</span>
+      
+      <span class="n">assert_equal</span> <span class="mi">30</span><span class="p">,</span> <span class="n">race</span><span class="p">.</span><span class="nf">speed</span>
+      <span class="n">assert_equal</span> <span class="ss">:small</span><span class="p">,</span> <span class="n">race</span><span class="p">.</span><span class="nf">size</span>
+      <span class="n">assert_equal</span> <span class="mi">5</span><span class="p">,</span> <span class="n">race</span><span class="p">.</span><span class="nf">darkvision</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">test_extending_a_character_sets_default_for_their_traits</span>
+      <span class="n">race</span>      <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">speed: </span><span class="mi">25</span><span class="p">,</span> <span class="ss">size: :medium</span><span class="p">,</span> <span class="ss">darkvision: </span><span class="mi">60</span><span class="p">)</span>
+      <span class="n">character</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+      
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">size</span>
+      <span class="n">assert_nil</span> <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span>
+      
+      <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="n">race</span>
+      
+      <span class="n">assert_equal</span> <span class="mi">25</span><span class="p">,</span>      <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>
+      <span class="n">assert_equal</span> <span class="ss">:medium</span><span class="p">,</span> <span class="n">character</span><span class="p">.</span><span class="nf">size</span>
+      <span class="n">assert_equal</span> <span class="mi">60</span><span class="p">,</span>      <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/race_test.rb
+</figcaption></figure></div>
+
+<p>The implementation is pretty straightforward too, except for one subtlety:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="c1"># TODO: maybe add a DSL for defining races (e.g. +Race.new { size :medium }+)</span>
+  <span class="k">class</span> <span class="nc">Race</span> <span class="o">&lt;</span> <span class="no">Module</span>
+    <span class="nb">attr_accessor</span> <span class="ss">:speed</span><span class="p">,</span> <span class="ss">:size</span><span class="p">,</span> <span class="ss">:darkvision</span>
+    
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">speed: </span><span class="mi">30</span><span class="p">,</span> <span class="ss">size: :medium</span><span class="p">,</span> <span class="ss">darkvision: </span><span class="mi">0</span><span class="p">)</span>
+      <span class="vi">@speed</span><span class="p">,</span> <span class="vi">@size</span><span class="p">,</span> <span class="vi">@darkvision</span> <span class="o">=</span> <span class="n">speed</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">darkvision</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">extended</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">size</span>       <span class="o">=</span> <span class="vi">@size</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>      <span class="o">=</span> <span class="vi">@speed</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span> <span class="o">=</span> <span class="vi">@darkvision</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lbi/steel_vellum/race.rb
+</figcaption></figure></div>
+
+<p>The <code>#extended</code> hook method must be defined in the <em>class</em> (singleton or not) of the object on which it will be called. 
+This is why, when its definition was in the <code>MountainDwarf</code> class, it was sent to <code>self</code>. (In other words: <code>.extended</code> 
+was defined as a <em>class method</em> of <code>MountainDwarf</code>). However, since we&rsquo;re moving this definition up to the 
+<em>class</em> of all races modules, the <code>#extended</code> must now be defined as an <em>instance</em> method<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup> of <code>Race</code>.</p>
+
+<p>(Note also that we&rsquo;ve also added default values in the initializer, even though we didn&rsquo;t write tests for that, and therefore 
+have no idea if this is legitimate design or not – we&rsquo;re freewheeling! 🤘)</p>
+
+<h3 id="hidden-edge-cases">Hidden edge cases</h3>
+
+<p>Here is a secret about BDD: since it&rsquo;s about letting the <em>expected behavior</em> drive the design, edge cases – in other 
+words: <em>unexpected</em> behavior – can slip through. Which is why it is important to consider these edge cases when working 
+at the unit test level, where they are easier to think about.</p>
+
+<p>In our case, even though we&rsquo;ve kept saying that a character&rsquo;s race gives it <em>default</em> values for some traits, we haven&rsquo;t 
+tested for the (unlikely) situation where some would have already been defined <em>before</em> the race was assigned. So let&rsquo;s 
+add that. And while we&rsquo;re at it, let&rsquo;s cover another edge case: using a race module to extend an object which is not 
+an instance of the <code>Character</code> class.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">test_extending_a_character_doesnt_change_existing_traits</span>
+  <span class="n">race</span>      <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">speed: </span><span class="mi">25</span><span class="p">)</span>
+  <span class="n">character</span> <span class="o">=</span> <span class="no">Character</span><span class="p">.</span><span class="nf">new</span>
+  
+  <span class="n">character</span><span class="p">.</span><span class="nf">speed</span> <span class="o">=</span> <span class="mi">30</span>
+  <span class="n">character</span><span class="p">.</span><span class="nf">extend</span> <span class="n">race</span>
+  
+  <span class="n">assert_equal</span> <span class="mi">30</span><span class="p">,</span> <span class="n">character</span><span class="p">.</span><span class="nf">speed</span> <span class="c1"># hasn't changed to 25</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">test_extending_an_irrelevant_class_does_nothing</span>
+  <span class="n">race</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span>
+  <span class="n">obj</span>  <span class="o">=</span> <span class="no">Object</span><span class="p">.</span><span class="nf">new</span>
+
+  <span class="n">obj</span><span class="p">.</span><span class="nf">extend</span> <span class="n">race</span> <span class="c1"># should not raise nor do anything</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/race_test.rb (excerpt)
+</figcaption></figure></div>
+
+<p>The final implementation is quite easy:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="c1"># TODO: maybe add a DSL for defining races (e.g. +Race.new { size :medium }+)</span>
+  <span class="k">class</span> <span class="nc">Race</span> <span class="o">&lt;</span> <span class="no">Module</span>
+    <span class="nb">attr_accessor</span> <span class="ss">:speed</span><span class="p">,</span> <span class="ss">:size</span><span class="p">,</span> <span class="ss">:darkvision</span>
+    
+    <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="ss">speed: </span><span class="mi">30</span><span class="p">,</span> <span class="ss">size: :medium</span><span class="p">,</span> <span class="ss">darkvision: </span><span class="mi">0</span><span class="p">)</span>
+      <span class="vi">@speed</span><span class="p">,</span> <span class="vi">@size</span><span class="p">,</span> <span class="vi">@darkvision</span> <span class="o">=</span> <span class="n">speed</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">darkvision</span>
+    <span class="k">end</span>
+    
+    <span class="k">def</span> <span class="nf">extended</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+      <span class="n">assign_traits</span><span class="p">(</span><span class="n">o</span><span class="p">)</span> <span class="k">if</span> <span class="n">o</span><span class="p">.</span><span class="nf">kind_of?</span> <span class="no">Character</span>
+    <span class="k">end</span>
+    
+    <span class="kp">private</span>
+    
+    <span class="k">def</span> <span class="nf">assign_traits</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">size</span>       <span class="o">||=</span> <span class="vi">@size</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">speed</span>      <span class="o">||=</span> <span class="vi">@speed</span>
+      <span class="n">character</span><span class="p">.</span><span class="nf">darkvision</span> <span class="o">||=</span> <span class="vi">@darkvision</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/race.rb
+</figcaption></figure></div>
+
+<h3 id="final-cleanup">Final cleanup</h3>
+
+<p>Now that the logic for assigning default values to a character&rsquo;s racial traits is moved up to the <code>Race</code> class from 
+which <code>MountainDwarf</code> inherits, we can clean up our previous work, by deleting the now redundant unit tests in 
+<code>MountainDwarfTest</code>, and the logic from <code>MountainDwarf</code>:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"../race"</span>
+
+<span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="k">module</span> <span class="nn">Races</span>
+    <span class="no">MountainDwarf</span> <span class="o">=</span> <span class="no">Race</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">size: :medium</span><span class="p">,</span> <span class="ss">speed: </span><span class="mi">25</span><span class="p">,</span> <span class="ss">darkvision: </span><span class="mi">60</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/races/mountain_dwarf.rb
+</figcaption></figure></div>
+
+<p>And this is it (for now)! We&rsquo;ve successfully implemented the first actual piece of logic in our library, which is 
+actually quite a lot:</p>
+
+<ul>
+  <li>We can define a character race, or at least 3 of its traits for now.</li>
+  <li>These traits are automatically assigned to a character when their race is chosen during character creation.</li>
+  <li>For developers who&rsquo;ll eventually use our library, assigning a <code>Race</code> to a <code>Character</code> object gives it some kind 
+of “type”, which is probably a false good idea, but fun nonetheless.</li>
+</ul>
+
+<p>We can now return to our big loop, once again, and see what the DM of BDDing has for us in the next installment of 
+this series!</p>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Roughly speaking.&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Feel free to try this out in an IRB console: create 2 instances of <code>Character</code>, create a new <code>Race</code>, include it 
+  in <code>Character</code> with <code>Character.include the_new_race</code> and see that both the instances now “are” also of this race.&nbsp;<a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Don&rsquo;t be mistaken, this class has nothing to do with the <a href="https://archive.org/details/designpatternsel00gamm/page/126/mode/2up">singleton design pattern</a>, or the <a href="https://docs.ruby-lang.org/en/3.2/Singleton.html">Singleton</a> module!&nbsp;<a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Technically, even if store in an instance variable, the value will be returned by a method (namely, a reader accessor), but hopefully you see what I mean.&nbsp;<a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>As an exercice, can you guess what would happen, and why, if within the <code>Race</code> class we&rsquo;d write <code>def self.extended</code>?&nbsp;<a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+    
+    
+    
+  </div>
+
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

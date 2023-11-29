@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/articles/steel_vellum/2023/04/22/arranging-atoms-by-hand.html" />
+
+<link rel="prev" href="https://2-45.pm/articles/steel_vellum/2023/04/15/the-worst-way-to-build-software.html" />
+<link rel="next" href="https://2-45.pm/articles/steel_vellum/2023/04/26/meet-bruenor.html" />
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/Article" 
+  class="post h-entry"
+  data-category="dungeon-solid"
+  style="--category-icon: url(/assets/icons/dungeon-solid.svg)"
+  >
+  <header class="post-header">
+    
+    <p class="series-title">
+      Steel Vellum, part 2:
+    </p>
+    
+
+    <h2 class="post-title p-name" itemprop="name headline">
+      Arranging atoms by hand
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-04-22T14:45:00+02:00" itemprop="datePublished">
+        Apr 22, 2023
+      </time>
+
+  </header>
+
+  <div class="article-content e-content" itemprop="articleBody">
+    <p>Gems are cool. They are shiny, colorful, and worth up to 5000 gold pieces each, according to the Game Master&rsquo;s Guide. 
+In the Ruby world, though, gems are sometimes a bit mysterious – they are magical pieces of software 
+that do stuff for you once you&rsquo;ve invoked them. To make things even more complicated, nowadays we 
+don&rsquo;t even handle gems directly – most of the time, we let another tool, <a href="https://bundler.io">Bundler</a>, 
+do it for us. It&rsquo;s a shame, because understanding Ruby gems is also worth a lot. So, before we go on our journey, 
+let&rsquo;s take a detour to see how gems work and how to build one ourselves.</p>
+
+<h3 id="how-gems-work">How gems work</h3>
+<p><code>RubyGems</code>, first released in 2004, is &ldquo;just&rdquo; a Ruby library. But it is such an important one that it has been bundled 
+with Ruby since 2007 (and Ruby 1.9) When you install Ruby on a computer, RubyGems is installed, too; and when you run a 
+run a Ruby script or a REPL, RubyGems is automatically required for you.</p>
+
+<p>And when it is required, RubyGems &ldquo;hijacks&rdquo; the native <code>Kernel#require</code> method so that files are looked for in more places 
+than normal – including certain directories that RubyGems knows about, and where it can install specifically packaged 
+Ruby libraries, called <em>gems</em>.</p>
+
+<p>RubyGems also comes with an executable, <code>gem</code>, that can (among other things) fetch, unpack, and install gems in those 
+directories. Gems installed by the <code>gem</code> command will be found by the hijacked <code>require</code> method, and <em>voilà</em>: Ruby 
+programmers can enjoy a very easy way to distribute and integrate libraries in their Ruby programs.</p>
+
+<p>In order for RubyGems to be able to install it, a gem must follow certain specifications. They are rather light, and 
+well documented <a href="https://guides.rubygems.org/what-is-a-gem/">in the RubyGems guides</a>. The minimal setup for a gem is:</p>
+
+<ul>
+  <li>A <code>lib/</code> directory, which will contain the gem&rsquo;s code – at the very least, in a single file, which by convention is named after the gem.</li>
+  <li>A <em>gemspec</em> file, also named after the gem (but with the <code>.gemspec</code> extension)</li>
+</ul>
+
+<p>So, two files and one directory are enough for RubyGems to package everything into a single archive, or more importantly, 
+to unpack said archive and install the library&rsquo;s code in the right place.</p>
+
+<h3 id="creating-our-gem">Creating our gem</h3>
+<p>Several tools can generate a scaffolding for a new gem (such as <a href="bundler.io">Bundler</a> or <a href="https://alchemists.io/projects/gemsmith">Gemsmith</a>), 
+but we&rsquo;ll do it from scratch, both as a learning exercice and to keep things minimal. And the first step in creating our 
+gem is to name it.</p>
+
+<p>Finding a good name is hard. The RubyGems guides provide <a href="https://guides.rubygems.org/name-your-gem/">great advice on naming a gem</a>, 
+but they are more about conventions to follow (which we will!) than naming ideas. I like whimsical and colorful names, 
+so something boring like <code>dnd_character_creator</code> is out of the question. Instead, let&rsquo;s use our imagination. What 
+&ldquo;builds character&rdquo;, in a fantasy world? Conan would probably say that it&rsquo;s action and combat - or more poetically, 
+<a href="https://youtu.be/MKMG-FdCGtM">steel</a>. And we&rsquo;ll eventually write our character down on a character sheet – a piece of 
+paper, or in a fantasy world, vellum. So let&rsquo;s name our gem <em>Steel Vellum</em> – or rather, <code>steel_vellum</code>. It sounds D&amp;D-y 
+enough for me.</p>
+
+<p>Now that we have a name, we can create the files and folder that we need:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span><span class="nb">mkdir</span> <span class="nt">-p</span> steel_vellum/lib
+<span class="gp">𝄢</span><span class="w"> </span><span class="nb">touch </span>steel_vellum/lib/steel_vellum.rb
+<span class="gp">𝄢</span><span class="w"> </span><span class="nb">touch </span>steel_vellum/steel_vellum.gemspec
+</code></pre></div></figure></div>
+
+<p>According to <a href="https://guides.rubygems.org/specification-reference/">the documentation</a>, the gemspec file must contain 
+the gem&rsquo;s specifications – a lot of them can be defined, but only 5 are required: a name, a version number, the list 
+of files that constitute the library, a short description and a list of authors. So let&rsquo;s add these to the 
+<code>steel_vellum.gemspec</code> file.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">name</span>    <span class="o">=</span> <span class="s2">"steel_vellum"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">version</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">files</span>   <span class="o">=</span> <span class="p">[</span><span class="s2">"lib/steel_vellum.rb"</span><span class="p">]</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">summary</span> <span class="o">=</span> <span class="s2">"A D&amp;D 5e character creation library"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">authors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ronan Limon Duparcmeur"</span><span class="p">]</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>steel_vellum.gemspec
+</figcaption></figure></div>
+
+<p>As for the code of the libary itself, let&rsquo;s do the very bare minimum for now, and only provide a module. We could leave 
+it empty, but let&rsquo;s also add a version number in the form of a constant – just to have something to try out the gem with:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="no">VERSION</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum.rb
+</figcaption></figure></div>
+
+<p>It is enough? Will it work? Let&rsquo;s see if we can build the gem – i.e. package it into a <code>.gem</code> file – and install it.</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span><span class="nb">cd </span>steel_vellum
+<span class="gp">𝄢</span><span class="w"> </span>gem build
+<span class="go">
+WARNING:  licenses is empty, but is recommended.  Use a license identifier from
+http://spdx.org/licenses or 'Nonstandard' for a nonstandard license.
+WARNING:  no homepage specified
+WARNING:  See https://guides.rubygems.org/specification-reference/ for help
+  Successfully built RubyGem
+  Name: steel_vellum
+  Version: 0.1.0
+  File: steel_vellum-0.1.0.gem
+
+$ gem install steel_vellum-0.1.0.gem
+
+Successfully installed steel_vellum-0.1.0
+1 gem installed
+</span></code></pre></div></figure></div>
+
+<p>RubyGems gave us a few warnings when it built the gem (and we&rsquo;ll address them later), but so far, everything seems fine. 
+Let&rsquo;s check it out in a Ruby console:</p>
+
+<div class="language-irb highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;&gt;</span><span class="w"> </span><span class="nb">require</span> <span class="s2">"steel_vellum"</span>
+<span class="p">=&gt;</span> <span class="kp">true</span>
+<span class="gp">&gt;&gt;</span><span class="w"> </span><span class="no">SteelVellum</span><span class="o">::</span><span class="no">VERSION</span>
+<span class="p">=&gt;</span> <span class="s2">"0.1.0"</span>
+</code></pre></div></figure></div>
+
+<p>It works! And we can see that the metadata we&rsquo;ve added to our gem is indeed used:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>gem info steel_vellum
+<span class="go">
+*** LOCAL GEMS ***
+
+steel_vellum (0.1.0)
+    Author: Ronan Limon Duparcmeur
+    Installed at: /Users/ronan/.gem/ruby/3.2.2
+
+    A D&amp;D 5e character creation library
+</span></code></pre></div></figure></div>
+
+<p>(Note that the actual installation path will vary according to your Ruby installation.)</p>
+
+<h3 id="test-setup">Test setup</h3>
+<p>We now have the right foundations for our gem, and we could start adding code to the <code>lib/steel_vellum.rb</code> file. But we&rsquo;ve 
+decided to go tests-first as much as possible, so let&rsquo;s setup our project so that we can indeed write and run tests.</p>
+
+<p>RSpec is a popular and extremely complete testing framework, but I prefer <a href="https://rubygems.org/gems/minitest">Minitest</a> 
+– it&rsquo;s lean and fast, and does everything you need but nothing more, which means that it&rsquo;s hard to shoot yourself in 
+the foot (by abusing mocks or <a href="https://sandimetz.com/blog/2016/1/20/the-wrong-abstraction">over-DRYing</a>, for example), 
+even if you can miss the syntactic sugar, sometimes. Plus, like RubyGems, Minitest comes bundled with Ruby.</p>
+
+<p>However, even though Minitest doesn&rsquo;t need to be <em>installed</em> (normally), it still needs to be declared as a <em>dependency</em> of 
+our gem. This is done through the gemspec file:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">name</span>    <span class="o">=</span> <span class="s2">"steel_vellum"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">version</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">files</span>   <span class="o">=</span> <span class="p">[</span><span class="s2">"lib/steel_vellum.rb"</span><span class="p">]</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">summary</span> <span class="o">=</span> <span class="s2">"A D&amp;D 5e character creation library"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">authors</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"Ronan Limon Duparcmeur"</span><span class="p">]</span>
+  
+  <span class="n">s</span><span class="p">.</span><span class="nf">add_development_dependency</span> <span class="s2">"minitest"</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>steel_vellum.gemspec
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span><span class="nb">mkdir test</span>
+<span class="gp">𝄢</span><span class="w"> </span><span class="nb">touch test</span>/steel_vellum_test.rb
+</code></pre></div></figure></div>
+
+<p>The file itself only needs to require Minitest, but we&rsquo;ll add a placeholder test to ensure that everything works well:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"minitest/autorun"</span>
+<span class="nb">require</span> <span class="s2">"steel_vellum"</span>
+
+<span class="k">class</span> <span class="nc">SteelVellumTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+  <span class="k">def</span> <span class="nf">test_it_works</span>
+    <span class="n">assert_equal</span> <span class="s2">"0.1.0"</span><span class="p">,</span> <span class="no">SteelVellum</span><span class="o">::</span><span class="no">VERSION</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/steel_vellum_test.rb
+</figcaption></figure></div>
+
+<p>To run the test, when only need to run this file – but we need to make sure that the <code>lib/</code> directory will be included 
+in <a href="https://docs.ruby-lang.org/en/master/Kernel.html#method-i-load">Ruby&rsquo;s <code>$LOAD_PATH</code></a>.</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>ruby <span class="nt">-Ilib</span> <span class="nb">test</span>/steel_vellum_test.rb
+<span class="go">Run options: --seed 11645
+
+</span><span class="c"># Running:
+</span><span class="go">
+</span><span class="c">.
+</span><span class="go">
+Finished in 0.001717s, 582.4112 runs/s, 582.4112 assertions/s.
+
+1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<p>Our test suite – with its single test – runs fine. But typing the name of every single test file to run will eventually 
+become tedious, so (<a href="http://docs.seattlerb.org/minitest/README_rdoc.html#label-Running+Your+Tests">as suggested in the documentation</a>), 
+let&rsquo;s add a Rake task to run the whole suite for us. This is very easy, since Minitest provides one for us – we only need 
+to set it as the default Rake task for our project. And because we&rsquo;ve stuck to the conventions when namimg files and 
+directories, we need almost nothing:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"minitest/test_task"</span>
+
+<span class="no">Minitest</span><span class="o">::</span><span class="no">TestTask</span><span class="p">.</span><span class="nf">create</span>
+<span class="n">task</span> <span class="ss">:default</span> <span class="o">=&gt;</span> <span class="ss">:test</span>
+</code></pre></div><figcaption>Rakefile
+</figcaption></figure></div>
+
+<p>And that&rsquo;s it! Now, executing <code>rake</code> without specifying a Rake task will run the whole test suite:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>rake
+<span class="go">Run options: --seed 36531
+
+</span><span class="c"># Running:
+</span><span class="go">
+</span><span class="c">.
+</span><span class="go">
+Finished in 0.000540s, 1851.8521 runs/s, 1851.8521 assertions/s.
+
+1 runs, 1 assertions, 0 failures, 0 errors, 0 skips
+</span></code></pre></div></figure></div>
+
+<h3 id="final-touches">Final touches</h3>
+<p>And so, we have the basis for our Steel Vellum library, written with its tests and distributable as a gem. Let&rsquo;s wrap 
+things up by smoothing the rough edges of this scaffold. We have a few warnings to fix, and our test runner could 
+benefit from a more colorful output. More importantly, the gem&rsquo;s version number is currently written twice, which 
+means extra maintenance – or potential inconsitencies. Let&rsquo;s fix all that by removing the <code>VERSION</code> declaration from 
+the main library file……</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum.rb
+</figcaption></figure></div>
+
+<p>… and placing it in its own file…</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">SteelVellum</span>
+  <span class="no">VERSION</span> <span class="o">=</span> <span class="s2">"0.1.0"</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>lib/steel_vellum/version.rb
+</figcaption></figure></div>
+
+<p>… which can then be required directly in the gemspec file:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require_relative</span> <span class="s2">"lib/steel_vellum/version"</span>
+
+<span class="no">Gem</span><span class="o">::</span><span class="no">Specification</span><span class="p">.</span><span class="nf">new</span> <span class="k">do</span> <span class="o">|</span><span class="n">s</span><span class="o">|</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">name</span>     <span class="o">=</span> <span class="s2">"steel_vellum"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">version</span>  <span class="o">=</span> <span class="no">SteelVellum</span><span class="o">::</span><span class="no">VERSION</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">summary</span>  <span class="o">=</span> <span class="s2">"A D&amp;D 5e character creation library"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">authors</span>  <span class="o">=</span> <span class="p">[</span><span class="s2">"Ronan Limon Duparcmeur"</span><span class="p">]</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">files</span>    <span class="o">=</span> <span class="no">Dir</span><span class="p">[</span><span class="s2">"lib/**/*.rb"</span><span class="p">]</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">license</span>  <span class="o">=</span> <span class="s2">"MIT"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">homepage</span> <span class="o">=</span> <span class="s2">"https://github.com/r3trofitted/steel_vellum"</span>
+  
+  <span class="n">s</span><span class="p">.</span><span class="nf">add_development_dependency</span> <span class="s2">"minitest"</span>
+  <span class="n">s</span><span class="p">.</span><span class="nf">add_development_dependency</span> <span class="s2">"minitest-reporters"</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>steel_vellum.gemspec
+</figcaption></figure></div>
+
+<p>Note that said gemspec file features new declarations, including a 
+<a href="https://ruby-doc.org/3.2.2/Dir.html#method-c-glob">globbing approach</a> to list files, and a development dependency on 
+<a href="https://github.com/minitest-reporters/minitest-reporters">minitest-reporters</a>, a Minitest plugin that improves the 
+tests output, even when sticking to the defaults, like so:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"minitest/autorun"</span>
+<span class="nb">require</span> <span class="s2">"minitest/reporters"</span>
+<span class="no">Minitest</span><span class="o">::</span><span class="no">Reporters</span><span class="p">.</span><span class="nf">use!</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Reporters</span><span class="o">::</span><span class="no">DefaultReporter</span><span class="p">.</span><span class="nf">new</span>
+
+<span class="k">class</span> <span class="nc">SteelVellumTest</span> <span class="o">&lt;</span> <span class="no">Minitest</span><span class="o">::</span><span class="no">Test</span>
+  <span class="c1"># Let's add some!</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>test/steel_vellum_test.rb
+</figcaption></figure></div>
+
+<p>And <em>now</em>, we&rsquo;re <a href="https://music.apple.com/fr/album/good-to-go/520098624">good to go</a>! Our detour is over and we&rsquo;re 
+back on the road – see you in part 3!</p>
+
+    
+    
+    
+      <p class="series-next">
+        Next: <a href="/articles/steel_vellum/2023/04/26/meet-bruenor.html">Meet Bruenor</a>
+      </p>
+    
+  </div>
+
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

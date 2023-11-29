@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/2023/11/14/better-practices-by-example-rspec.html" />
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+    <meta http-equiv="refresh" content="0;url=https://2-45.pm/articles/2023/11/14/better-practices-by-example-rspec.html">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <p>Some time ago, I stumbled upon <a href="{% link _posts/2023-11-02-humility-check.md %}">an interesting technical test</a>. However, 
+the more I looked at the provided Rails app, the more issues I found with it, to the point that I find it good material 
+for an educational (hopefully) piece. But before I start, two disclaimers:</p>
+
+<ul>
+  <li><strong>This is not a rebuttal of the test itself.</strong> And I&rsquo;m certainly not trying to explain away my poor performance. The 
+test was fair and fine; it provided realistic and functioning<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> code, similar to a lot of things I&rsquo;ve seen in 
+actual applications. It just happens that the code, especially the specs, left room for improvement.</li>
+  <li><strong>The shortcomings in the code may be intentional</strong>. It is an assessment app, after all. Maybe its code is 
+suboptimal because making it better wasn&rsquo;t worth the effort. Or maybe the shortcomings are deliberate, to better 
+assess the candidates. But that&rsquo;s not important.</li>
+</ul>
+
+<p>What matters is not really where the following code comes from; the important thing is that it is a good example of 
+something that <em>works</em> but isn&rsquo;t quite <em>right</em>. And making it right is important in real life. (And fun, too.)</p>
+
+<h3 id="the-app-and-its-tests-code-here">The app and its tests (<a href="https://github.com/r3trofitted/pokebeep/tree/0_start_here"><code>code here</code></a>)</h3>
+
+<p>You can find the repo <a href="https://github.com/r3trofitted/pokebeep">here</a>. To avoid spoiling the original test, I&rsquo;ve changed 
+the app description and the names of the models, controllers and other resources; I&rsquo;ve also re-created the application 
+instead of starting from the initial codebase. But apart from that, everything is the same, especially the tests.</p>
+
+<p>And the tests are what I will focus on in this article. The application code doesn&rsquo;t matter, and could be anything, as 
+long as it makes the tests pass. The latter are made of two specs files, plus a support file:</p>
+
+<ul>
+  <li><code>/specs/api_spec.rb</code> contains specs for the two endpoints of the app&rsquo;s API, <code>POST /beeps</code> and 
+<code>GET /summaries/{id}/{from}/{to}</code>.</li>
+  <li><code>/specs/api_validation.rb</code> contains specs specific to the expected response when wrong parameters are sent to the API.</li>
+  <li><code>/specs/public_api.rb</code> contains a collection of helpers for the specs above.</li>
+</ul>
+
+<p>(Obviously, the testing framework used here is RSpec.)</p>
+
+<p>Overall, these specs work, in that they break if the implementation is wrong and pass when it is right (except for a 
+couple), but I have several issues with them nonetheless. Poor naming, poor organization, lack of idioms… None of these 
+issues is deal-breaking in itself, but taken all together, they are a bit much. If I was reviewing these specs in a pull 
+request, for example, I&rsquo;d ask for a series of fixes<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>:</p>
+
+<h3 id="1-thats-how-you-get-ants-code-here">1. That&rsquo;s how you get ants (<a href="https://github.com/r3trofitted/pokebeep/tree/1_ants"><code>code here</code></a>)</h3>
+
+<p>RSpec is very polite and never <em>demands</em> you to do anything (I believe that it is because its original author is Canadian). 
+This is especially true when it comes to organizing your spec files: by default, RSpec only asks for files ending in <code>_spec.rb</code> 
+in a <code>spec</code> directory, and even this <a href="http://rspec.info/documentation/3.12/rspec-core/RSpec/Core/Configuration.html">can be configured differently</a>.</p>
+
+<p><code>rspec-rails</code> is a little bit more structuring and suggests a canonical directory structure, in which files are placed 
+according to the type of spec they contain: <code>/spec/models</code> for model specs, <code>/spec/system</code> for system specs, etc. Even 
+if this organization is not mandatory<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>, it has at least two benefits. Being conventional, it makes the specs 
+easier to contextualize and the suite easier to navigate. Also, it removes the need for some metadata, since RSpec can 
+infer them from the layout.</p>
+
+<p>And so, we&rsquo;ll start by moving the files around. Both <code>api_spec.rb</code> and <code>api_validation_spec.rb</code> contain 
+<a href="http://rspec.info/features/6-0/rspec-rails/request-specs/request-spec/"><strong>request specs</strong></a>: specs that use the whole 
+stack, making actual<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> HTTP requests that go through the router, controllers, etc. (The only difference with system 
+specs is that the responses are not run by a browser, but asserted against as they are received.) The canonical place 
+for such specs is thus <code>/spec/requests/</code>, and because the configuration option <code>infer_spec_type_from_file_location!</code> is 
+on, we can remove the explicit declaration of the spec type by metadata, like so:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'public api'</span><span class="p">,</span> <span class="ss">type: :request</span> <span class="k">do</span>
+  <span class="c1"># …</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api_spec.rb (before)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'public api'</span> <span class="k">do</span>
+  <span class="c1"># …</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/requests/api_spec.rb (after)
+</figcaption></figure></div>
+
+<p>As for the helpers file, I would prefer to put it in a dedicated directory, too. Once again, this is not mandated by 
+RSpec, but by tradition support files go into a <code>/spec/support</code> directory, so this is where we&rsquo;ll 
+place the <code>public_api.rb</code> file. And while we&rsquo;re at it, we&rsquo;ll rename it <code>api_helpers</code>, which is more fitting.</p>
+
+<p>Having done so, we&rsquo;d better rename the module defined within this file <code>ApiHelpers</code> instead of <code>PublicApi</code>. But instead 
+of updating both the <code>api_spec.rb</code> and <code>api_validation_spec.rb</code> accordingly, we&rsquo;ll update RSpec&rsquo;s configuration.</p>
+
+<p>Because the helper module is used by both specs groups, and both groups are made of request specs, we can configure RSpec 
+to always include the module in any request spec. This is done by adding a line in the <code>rails_helper.rb</code> file, in 
+the configuration block:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">configure</span> <span class="k">do</span> <span class="o">|</span><span class="n">config</span><span class="o">|</span>
+  <span class="n">config</span><span class="p">.</span><span class="nf">include</span> <span class="no">ApiHelpers</span><span class="p">,</span> <span class="ss">type: :request</span>
+  <span class="c1"># …</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/rails_helper.rb
+</figcaption></figure></div>
+
+<p>However, for this module to be available, the file <code>support/api_helpers.rb</code> must first be required. The easiest way to do so
+ is to tell RSpec to preemptively require all the files in the <code>/spec/support</code> directory, which is as easy as uncommenting 
+a line in the generated <code>rails_helper.rb</code> file:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="no">Dir</span><span class="p">[</span><span class="no">Rails</span><span class="p">.</span><span class="nf">root</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="s1">'spec'</span><span class="p">,</span> <span class="s1">'support'</span><span class="p">,</span> <span class="s1">'**'</span><span class="p">,</span> <span class="s1">'*.rb'</span><span class="p">)].</span><span class="nf">sort</span><span class="p">.</span><span class="nf">each</span> <span class="p">{</span> <span class="o">|</span><span class="n">f</span><span class="o">|</span> <span class="nb">require</span> <span class="n">f</span> <span class="p">}</span>
+<span class="c1"># …</span>
+</code></pre></div><figcaption>/spec/rails_helper.rb
+</figcaption></figure></div>
+
+<p>And now, instead of updating the <code>require</code> and the <code>include</code> instructions in the spec files, we can remove them 
+altogether. For example, <code>api_spec.rb</code> now looks like this:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'public api'</span> <span class="k">do</span>
+  <span class="c1"># …</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/requests/api_spec.rb
+</figcaption></figure></div>
+
+<p>Functionally, we haven&rsquo;t changed anything, but our <code>/spec</code> directory is much more idiomatic now, and we&rsquo;ve trimmed 
+a little bit of boilerplate from our spec files. Besides, keeping things neat and tidy prevents all kinds of bugs.</p>
+
+<h3 id="2-phrasing-code-here">2. Phrasing! (<a href="https://github.com/r3trofitted/pokebeep/tree/2_phrasing"><code>code here</code></a>)</h3>
+
+<p>The main benefit of RSpec is arguably the ability to express your tests as <em>specifications</em>. I mean, it&rsquo;s in the name! You 
+don&rsquo;t <em>have</em> to give your tests meaningful titles, as if each one was the description of a notable part of the system, 
+but you lose half the value of RSpec if you don&rsquo;t. Which is why I love to run the suite with the option<br />
+<code>--format=documentation</code>. When the specs are well named, you get a good understanding of the system; if they&rsquo;re not, you see it right away. 
+Unfortunately, it is the case with the current output:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec <span class="nt">-fd</span>
+<span class="go">
+public api
+  generates summary based on beeps
+  rounds presence hours to two decimal places
+  discovers problematic date when there is no leave beep
+  discovers problematic date when there is skip day beep
+
+api validation
+  when posting beep with wrong request params
+    returns 400 status code
+    returns 400 status code
+    returns 400 status code
+    returns 400 status code
+    returns 400 status code
+    returns 400 status code
+    returns 400 status code
+  when getting summary with wrong request params
+    returns 400 status code
+    returns 400 status code
+    returns 400 status code
+
+Finished in 0.04608 seconds (files took 0.35083 seconds to load)
+14 examples, 0 failures
+</span></code></pre></div></figure></div>
+
+<p>The first part, about the public API, is not too bad; at least it reads properly. The part 
+on the API validation, though, tells very little. Or rather, it tells very little <em>directly</em>. 
+Indirectly, it hints that these tests were probably an after-thought, and because they read 
+more like the truncated descriptions of unit tests, rather than integration tests, they sound 
+like code smell. (Yes, programming can lead to synesthesia.)</p>
+
+<p>Without changing their code, let&rsquo;s rename the specs so that the output reads better, and 
+actually describes the behavior of the application, as a good specification document would.</p>
+
+<p>When it comes to APIs, the best way to describe them is usually to go endpoint by endpoint. So 
+let&rsquo;s start by grouping the examples by the endpoint they cover:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'public api'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:first_pokemon</span><span class="p">)</span> <span class="p">{</span> <span class="mi">1</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:second_pokemon</span><span class="p">)</span> <span class="p">{</span> <span class="mi">2</span> <span class="p">}</span>
+
+  <span class="n">it</span> <span class="s1">'generates summary based on beeps'</span> <span class="k">do</span>
+    <span class="c1"># …</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="s1">'rounds presence hours to two decimal places'</span> <span class="k">do</span>
+    <span class="c1"># …</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api_spec.rb (before)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'public api'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:first_pokemon</span><span class="p">)</span> <span class="p">{</span> <span class="mi">1</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:second_pokemon</span><span class="p">)</span> <span class="p">{</span> <span class="mi">2</span> <span class="p">}</span>
+  
+  <span class="n">describe</span> <span class="s1">'GET /summaries/{pokemon_id}/{from}/{to}'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'generates summary based on beeps'</span> <span class="k">do</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  
+    <span class="n">it</span> <span class="s1">'rounds presence hours to two decimal places'</span> <span class="k">do</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api_spec.rb (after)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'api validation'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+
+  <span class="n">context</span> <span class="s1">'when posting beep with wrong request params'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'returns 400 status code'</span> <span class="k">do</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+    
+    <span class="c1"># …</span>
+  <span class="k">end</span>
+  
+  <span class="n">context</span> <span class="s1">'when getting summary with wrong request params'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'returns 400 status code'</span> <span class="k">do</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+
+    <span class="c1"># …</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api_validation_spec.rb (before)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'api validation'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+  
+  <span class="n">describe</span> <span class="s1">'POST /beeps'</span> <span class="k">do</span>
+    <span class="n">context</span> <span class="s1">'when posting beep with wrong request params'</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'returns 400 status code'</span> <span class="k">do</span>
+        <span class="c1"># …</span>
+      <span class="k">end</span>
+      
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+  
+  <span class="n">describe</span> <span class="s1">'GET /summaries/{pokemon_id}/{from}/{to}'</span> <span class="k">do</span>
+    <span class="n">context</span> <span class="s1">'when getting summary with wrong request params'</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'returns 400 status code'</span> <span class="k">do</span>
+        <span class="c1"># …</span>
+      <span class="k">end</span>
+    
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api_validation_spec.rb (after)
+</figcaption></figure></div>
+
+<p>A very small change, really, but it does improve the output:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec <span class="nt">-fd</span>
+<span class="go">
+public api
+  GET /summaries/{pokemon_id}/{from}/{to}
+    generates summary based on beeps
+    rounds presence hours to two decimal places
+    discovers problematic date when there is no leave beep
+    discovers problematic date when there is skip day beep
+
+api validation
+  POST /beeps
+    when posting beep with wrong request params
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+  GET /summaries/{pokemon_id}/{from}/{to}
+    when getting summary with wrong request params
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+
+Finished in 0.04671 seconds (files took 0.51821 seconds to load)
+14 examples, 0 failures
+</span></code></pre></div></figure></div>
+
+<p>Not only is this output closer to a decent specification, it also points out that our suite is not very well organized, 
+since two different endpoints are featured in the same example group. More importantly, it also highlights holes in our 
+test coverage: two endpoints are covered for validations, but only one when it comes to actual behavior. In other words: 
+when we read these specs, we learn nothing about how the <code>POST /beeps</code> endpoint is supposed to work. And we have no 
+reason to believe that it is tested.</p>
+
+<p>To fix the first of these issues, let&rsquo;s move the examples around and replace the <code>api_spec.rb</code> and <code>api_validation_spec.rb</code> 
+with two new ones, one per endpoint: <code>beeps_api_spec.rb</code> and <code>summaries_api_spec.rb</code>:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Beeps API'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+
+  <span class="n">describe</span> <span class="s1">'POST /beeps'</span> <span class="k">do</span>
+    <span class="n">context</span> <span class="s1">'when posting beep with wrong request params'</span> <span class="k">do</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/beeps_api_spec.rb
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Summaries API'</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'GET /summaries/{pokemon_id}/{from}/{to}'</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:first_pokemon</span><span class="p">)</span> <span class="p">{</span> <span class="mi">1</span> <span class="p">}</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:second_pokemon</span><span class="p">)</span> <span class="p">{</span> <span class="mi">2</span> <span class="p">}</span>
+  
+    <span class="n">it</span> <span class="s1">'generates summary based on beeps'</span> <span class="k">do</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  
+    <span class="c1"># …</span>
+    
+    <span class="n">context</span> <span class="s1">'when getting summary with wrong request params'</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'returns 400 status code'</span> <span class="k">do</span>
+        <span class="c1"># …</span>
+      <span class="k">end</span>
+      
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/summaries_api_spec.rb
+</figcaption></figure></div>
+
+<p>Once again, we&rsquo;ve just moved code around, but once again the output is improved:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec <span class="nt">-fd</span>
+<span class="go">
+Summaries API
+  GET /summaries/{pokemon_id}/{from}/{to}
+    generates summary based on beeps
+    rounds presence hours to two decimal places
+    discovers problematic date when there is no leave beep
+    discovers problematic date when there is skip day beep
+    when getting summary with wrong request params
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+
+Beeps API
+  POST /beeps
+    when posting beep with wrong request params
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+      returns 400 status code
+
+Finished in 0.04657 seconds (files took 0.53198 seconds to load)
+14 examples, 0 failures
+</span></code></pre></div></figure></div>
+
+<p>We&rsquo;ll deal with the absence (or not?) of tests for the <code>POST /beeps</code> endpoint a bit later; for now, let&rsquo;s get rid of 
+the meaningless “returns 400 status code” repetition. The tests behind this sentence are useful; the issue is 
+with their naming, because it doesn&rsquo;t explain what “wrong” means in each case. But this is easy to change, and thanks 
+to the <code>#specify</code> alias for <code>#it</code>, the code can still read nicely, too:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Summaries API'</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'GET /summaries/{pokemon_id}/{from}/{to}'</span> <span class="k">do</span>  
+    <span class="c1"># …</span>
+    
+    <span class="n">describe</span> <span class="s1">'validations'</span> <span class="k">do</span>
+      <span class="n">specify</span> <span class="s1">'passing an invalid {from} parameter returns a 400 status code '</span> <span class="k">do</span>
+        <span class="c1"># …</span>
+      <span class="k">end</span>
+      
+      <span class="n">specify</span> <span class="s1">'passing an invalid {to} parameter returns a 400 status code'</span> <span class="k">do</span>
+        <span class="c1"># …</span>
+      <span class="k">end</span>
+      
+      <span class="n">specify</span> <span class="s1">'passing an invalid {pokemon_id} parameter returns a 400 status code'</span> <span class="k">do</span>
+        <span class="c1"># …</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/summaries_api_spec.rb
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec spec/requests/summaries_api_spec.rb <span class="nt">-fd</span> <span class="nt">--order</span><span class="o">=</span>random
+<span class="go">
+Randomized with seed 32383
+
+Summaries API
+  GET /summaries/{pokemon_id}/{from}/{to}
+    rounds presence hours to two decimal places
+    discovers problematic date when there is no leave beep
+    generates summary based on beeps
+    discovers problematic date when there is skip day beep
+    validations
+      passing an invalid {pokemon_id} parameter returns a 400 status code
+      passing an invalid {to} parameter returns a 400 status code
+      passing an invalid {from} parameter returns a 400 status code
+
+Finished in 0.04017 seconds (files took 0.52537 seconds to load)
+7 examples, 0 failures
+
+Randomized with seed 32383
+</span></code></pre></div></figure></div>
+
+<p>(Quick aside: note that I&rsquo;ve kept a common group for the tests about validation, aptly named “validations”, even if it 
+doesn&rsquo;t add much to the complete specification. That is because, otherwise, the validations specs could end up mixed up 
+with the other specs in the output when the suite is run in random order<sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>, and that wouldn&rsquo;t read well.)</p>
+
+<p>Always work from the outside to the inside: now that everything is well organized and well labeled, we can start improving the code itself.</p>
+
+<h3 id="3-danger-zone-code-here">3. Danger Zone (<a href="https://github.com/r3trofitted/pokebeep/tree/3_danger_zone"><code>code here</code></a>)</h3>
+
+<p>At its core, a test is made up of 4 phases: setup, execution, assertion and teardown. (The names may vary but the 
+idea is always the same.) The setup and/or teardown phases are often skipped or hidden away, but a test without clear 
+execution and assertion phases is a strong code smell. At best, it is probably a case of excessive abstraction; at 
+worst, it is a case of excessive abstraction which hides an error in the test.</p>
+
+<p>Looking at the specs for the Beeps API, this is exactly what we see: they have no setup, no teardown, but above all no 
+assertion phase. In code terms, there is no call to <code>#expect</code>:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Beeps API'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+
+  <span class="n">describe</span> <span class="s1">'POST /beeps'</span> <span class="k">do</span>
+    <span class="n">specify</span> <span class="s1">'posting without any parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({})</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :pokemon_id parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :kind parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :timestamp parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="kp">nil</span> <span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :pokemon_id parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="s1">'bad'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :kind parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: </span><span class="s1">'bad'</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :timestamp parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'bad'</span> <span class="p">})</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/requests/beeps_api_spec.rb
+</figcaption></figure></div>
+
+<p>At first, the specs may seem to work, because there is no action in the controller, which triggers an error, so the tests 
+are red. But even an rigged implementation of <code>BeepsController#save</code> would be enough to make the specs pass, when they 
+shouldn&rsquo;t:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">BeepsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+  <span class="k">def</span> <span class="nf">save</span> <span class="o">=</span> <span class="n">head</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span> <span class="c1"># SLIME</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/app/controllers/beeps_controller.rb
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec spec/requests/beeps_api_spec.rb
+<span class="c">.......
+</span><span class="go">
+Finished in 0.02176 seconds (files took 0.35128 seconds to load)
+7 examples, 0 failures
+</span></code></pre></div></figure></div>
+
+<p>We need to add proper assertions to ensure that we are actually testing what we claim to be testing:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Beeps API'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+
+  <span class="n">describe</span> <span class="s1">'POST /beeps'</span> <span class="k">do</span>
+    <span class="n">specify</span> <span class="s1">'posting without any parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :pokemon_id parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :kind parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :timestamp parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="kp">nil</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :pokemon_id parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="s1">'bad'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :kind parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: </span><span class="s1">'bad'</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :timestamp parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post_beep</span><span class="p">({</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'bad'</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/request/beeps_api_spec.rb
+</figcaption></figure></div>
+
+<p>Now the specs fail, and we can replace our slime with a proper implementation. (I won&rsquo;t show any here, since we&rsquo;re 
+focusing on the tests.)</p>
+
+<h3 id="4-i-swear-to-god-i-had-something-for-this-code-here">4. I swear to God, I had something for this. (<a href="https://github.com/r3trofitted/pokebeep/tree/4_i_had_something"><code>code here</code></a>)</h3>
+
+<p>At this point, we&rsquo;ve dealt with the strongest code smells or messiness. But I&rsquo;d like to see if we can <em>remove</em> 
+code, especially if we are to <em>add</em> some later. (After all, by tidying up, we&rsquo;ve apparently revealed missing specs 
+for the Beeps API). Helpers are good candidates for such trimming, because, as a codebase evolves, they can easily stop 
+being used, and yet they&rsquo;re rarely removed. Let&rsquo;s look at those we have.</p>
+
+<ul>
+  <li><code>#post_beep</code> makes a call to the <code>POST /beeps</code> endpoint.</li>
+  <li><code>#get_summary</code> makes a call to the <code>GET /summaries</code> endpoint.</li>
+  <li><code>#summary</code> makes a call to the <code>GET /summaries</code> endpoint, makes an assertion against the response, and parses the 
+received payload.</li>
+  <li><code>#given_beep</code> makes a call to the <code>POST /beeps</code> endpoint, and makes an assertion against the response.</li>
+</ul>
+
+<p>The single responsibility principle doesn&rsquo;t always apply to functions, but it&rsquo;s still a good rule of thumb. On this 
+account, <code>#summary</code> and <code>#given_beep</code> are suspicious; let&rsquo;s put them aside for later and consider the simpler <code>#post_beep</code> 
+and <code>#get_summary</code> helpers instead.</p>
+
+<p>Interestingly, these methods do very little; but at the same time, <em>what</em> they do is rather significant, since calling 
+the API is usually the heart of the “execution” phase of an API test. For these two reasons, I&rsquo;d like to get rid of 
+them: they don&rsquo;t bring anything, but add a layer of indirection to our tests, and they do it in the exception phase, 
+were clarity is the most important.</p>
+
+<p>Because these helpers do so little, removing them is very easy:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="n">specify</span> <span class="s1">'posting without any parameter returns a 400 status code'</span> <span class="k">do</span>
+  <span class="n">post_beep</span><span class="p">({})</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c1"># …</span>
+</code></pre></div><figcaption>/spec/requests/beeps_api_spec.rb (before)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="n">specify</span> <span class="s1">'posting without any parameter returns a 400 status code'</span> <span class="k">do</span>
+  <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{})</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c1"># …</span>
+</code></pre></div><figcaption>/spec/requests/beeps_api_spec.rb (after)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="n">specify</span> <span class="s1">'passing an invalid {from} parameter returns a 400 status code '</span> <span class="k">do</span>
+  <span class="n">get_summary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'bad'</span><span class="p">,</span> <span class="s1">'2019-01-01'</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">status</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c1"># …</span>
+</code></pre></div><figcaption>/spec/requests/summaries_api_spec.rb (before)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># …</span>
+<span class="n">specify</span> <span class="s1">'passing an invalid {from} parameter returns a 400 status code '</span> <span class="k">do</span>
+  <span class="n">get</span><span class="p">(</span><span class="s1">'/summaries/1/bad/2019-01-01'</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">status</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+<span class="k">end</span>
+<span class="c1"># …</span>
+</code></pre></div><figcaption>/spec/requests/summaries_api_spec.rb (after)
+</figcaption></figure></div>
+
+<p>To be fair, one could argue that the code that calls the Summaries API is a bit <em>less</em> legible than when going through 
+the <code>get_summary</code> helper, because the parameters stand out less when put inside the URL. It is a rather subjective 
+tradeoff, and I could understand how a team would prefer the indirection of helper. However, <em>I</em> prefer to get rid of it. 
+Less code, less indirection, less chance of a bug.</p>
+
+<h3 id="5-the-cumulative-hangover-will-kill-me-code-here">5. The cumulative hangover will kill me. (<a href="https://github.com/r3trofitted/pokebeep/tree/5_hangover"><code>code here</code></a>)</h3>
+
+<p>Now that we&rsquo;ve dealt with the easy helpers, let&rsquo;s look at the two suspicious ones – those that do more than one single 
+thing, <code>#summary</code> and <code>#given_beep</code>.</p>
+
+<p>The problem with both is that, among their multiple responsibilities, they do assertions. It&rsquo;s actually a double issue:</p>
+
+<ul>
+  <li>Like with the expectations in the preceding helpers, the assertions are so central to a test that they shouldn&rsquo;t be 
+hidden away in a helper.</li>
+  <li>These assertions are mixed with other things, are thus executed outside of the assertion phase.</li>
+</ul>
+
+<p>You could argue that the 4-phases structure is too rigid, or that adding <em>extra</em> assertions when doing something is like 
+a freebie, a bonus protection against regressions. I disagree, especially with the later. Having assertions outside of 
+the assertion phase, or unrelated to whatever the test is about, makes the test harder to understand. And because they 
+are so fundamental to the longevity of a system, tests need to be very easy to understand. That is true as soon as the 
+test is run; a failure message unrelated to the test case is perplexing and breaks the flow. Compare for example these 
+two failures on the same test:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec spec/requests/summaries_api_spec.rb:24 <span class="nt">-fd</span>
+<span class="gp">Run options: include {:locations=&gt;</span><span class="o">{</span><span class="s2">"./spec/requests/summaries_api_spec.rb"</span><span class="o">=&gt;[</span>24]<span class="o">}}</span>
+<span class="go">
+Summaries API
+  GET /summaries/{pokemon_id}/{from}/{to}
+    rounds presence hours to two decimal places (FAILED - 1)
+
+Failures:
+
+  1) Summaries API GET /summaries/{pokemon_id}/{from}/{to} rounds presence hours to two decimal places
+     Failure/Error: expect(summary[:presence_hours]).to eq(7.83)
+     
+       expected: 7.83
+            got: 7.833611111111111
+     
+       (compared using ==)
+</span><span class="gp">     #</span><span class="w"> </span>./spec/requests/summaries_api_spec.rb:30:in <span class="sb">`</span>block <span class="o">(</span>3 levels<span class="o">)</span> <span class="k">in</span> &lt;top <span class="o">(</span>required<span class="o">)&gt;</span><span class="s1">'
+</span><span class="go">
+Finished in 0.03138 seconds (files took 0.49168 seconds to load)
+1 example, 1 failure
+</span></code></pre></div></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec spec/requests/summaries_api_spec.rb:24 <span class="nt">-fd</span>
+<span class="gp">Run options: include {:locations=&gt;</span><span class="o">{</span><span class="s2">"./spec/requests/summaries_api_spec.rb"</span><span class="o">=&gt;[</span>24]<span class="o">}}</span>
+<span class="go">
+Summaries API
+  GET /summaries/{pokemon_id}/{from}/{to}
+    rounds presence hours to two decimal places (FAILED - 1)
+
+Failures:
+
+  1) Summaries API GET /summaries/{pokemon_id}/{from}/{to} rounds presence hours to two decimal places
+     Failure/Error: expect(response.status).to eq(200)
+     
+       expected: 200
+            got: 400
+     
+       (compared using ==)
+</span><span class="gp">     #</span><span class="w"> </span>./spec/support/api_helpers.rb:5:in <span class="sb">`</span>given_beep<span class="s1">'
+</span><span class="gp">     #</span><span class="w"> </span><span class="s1">./spec/requests/summaries_api_spec.rb:25:in `block (3 levels) in &lt;top (required)&gt;'</span>
+<span class="go">
+Finished in 0.03106 seconds (files took 0.48556 seconds to load)
+1 example, 1 failure
+</span></code></pre></div></figure></div>
+
+<p>In the first case, there is a direct relation between the expected result (“rounds presence hours”) and the error 
+(“expected 7.83, got 7.833611111111111”); in the second, the failure is at the HTTP response level, not the rounding 
+of a value.</p>
+
+<p>The <code>#given_beep</code> method is meant to be used to set up the test, preparing the necessary data in the setup phase. So 
+let&rsquo;s remove anything that is not related to this. In fact, since we <strong>don&rsquo;t</strong> want to test the API during this phase, 
+there is no need to even use it. We can create the data directly instead.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">ApiHelpers</span>
+  <span class="k">def</span> <span class="nf">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+    <span class="n">t</span> <span class="o">=</span> <span class="n">to_unix</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+    <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="n">pokemon_id</span><span class="p">:,</span> <span class="ss">timestamp: </span><span class="n">t</span><span class="p">,</span> <span class="ss">kind: </span><span class="p">})</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">status</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1"># …</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/support/api_helpers.rb (before)
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">ApiHelpers</span>
+  <span class="k">def</span> <span class="nf">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+    <span class="no">Beep</span><span class="p">.</span><span class="nf">create!</span> <span class="n">pokemon_id</span><span class="p">:,</span> <span class="n">kind</span><span class="p">:,</span> <span class="ss">timestamp: </span><span class="n">to_unix</span><span class="p">(</span><span class="n">timestamp</span><span class="p">)</span>
+  <span class="k">end</span>
+  <span class="c1"># …</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/support/api_helpers.rb (after)
+</figcaption></figure></div>
+
+<p>Following the same principle, the <code>#summary</code> helper can be stripped of its call to <code>#expect</code>. However, there is a 
+difference with <code>#given_beep</code>: <code>#summary</code> is used in the execution phase, and as we&rsquo;ve seen above, it can be better to 
+avoid hiding away the job done during this phase behind an indirection. Like with the <code>#get_summary</code> helper, it&rsquo;s hard 
+for me to be very categorical; both styles have advantages. However, one thing is certain: if my team opted to keep the 
+helper, I would require it to have a better name that explicitly conveys the idea that the endpoint is called and its 
+response parsed. So here would be the two options:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="n">it</span> <span class="s1">'rounds presence hours to two decimal places'</span> <span class="k">do</span>
+  <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="n">first_pokemon</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 08:10:00:050'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+  <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="n">first_pokemon</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 16:00:01:070'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+
+  <span class="n">get</span><span class="p">(</span><span class="s2">"/summaries/</span><span class="si">#{</span><span class="n">pokemon_id</span><span class="si">}</span><span class="s2">/2019-05-01/2019-05-01"</span><span class="p">)</span>
+  <span class="n">summary</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">symbolize_keys</span>
+
+  <span class="n">expect</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="ss">:presence_hours</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mf">7.83</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>removing the helper
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="n">it</span> <span class="s1">'rounds presence hours to two decimal places'</span> <span class="k">do</span>
+  <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="n">first_pokemon</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 08:10:00:050'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+  <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="n">first_pokemon</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 16:00:01:070'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+
+  <span class="n">summary</span> <span class="o">=</span> <span class="n">parsed_summary_from_api</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="n">first_pokemon</span><span class="p">,</span> <span class="ss">from: </span><span class="s1">'2019-05-01'</span><span class="p">,</span> <span class="ss">to: </span><span class="s1">'2019-05-01'</span><span class="p">)</span>
+
+  <span class="n">expect</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="ss">:presence_hours</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mf">7.83</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>keeping the helper
+</figcaption></figure></div>
+
+<p>Personally, I chose to go with the former. (In part because I couldn&rsquo;t find the helper&rsquo;s name clear enough.)</p>
+
+<h3 id="6-rampage-code-here">6. Rampage! (<a href="https://github.com/r3trofitted/pokebeep/tree/6_rampage"><code>code here</code></a>)</h3>
+
+<p>We&rsquo;ve reorganized the tests (files included), removed cruft and boilerplate, and fixed conceptual errors in some of 
+the tests. Before taking a step back and looking at our renovated suite, let&rsquo;s clean up a bit:</p>
+
+<ul>
+  <li>The <code>#to_unix</code> helper is only used once now, so it can be removed and it&rsquo;s relevant code used directly instead.</li>
+  <li>Since <code>#given_beep</code> is the only helper method left, and it only used in a single group, it can be moved there, and 
+the whole support file can be deleted. (To be honest, we could also get rid of the helper altogether.)</li>
+  <li>In the specs for the Summaries API, all the test use the same value for the <code>pokemon_id</code> parameter, so none of 
+the two <code>let</code> calls (<code>let(:first_pokemon</code> and <code>let(:second_pokemon</code>) are of any use and can be deleted, too.</li>
+  <li>Some of the specs for the Summaries API are about a portion only of the summary, so there is no need to 
+make assertions against the whole JSON object.</li>
+  <li>The canonical file structure of RSpec Rails allows the <code>/requests</code> directory to be named <code>/api</code> instead, which 
+is fitting here, so we&rsquo;ll rename it.</li>
+</ul>
+
+<p>In the end, we&rsquo;re back to a vanilla RSpec configuration and a suite composed of two files, one for each endpoint:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Beeps API'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+
+  <span class="n">describe</span> <span class="s1">'POST /beeps'</span> <span class="k">do</span>
+    <span class="n">specify</span> <span class="s1">'posting without any parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :pokemon_id parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :kind parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: </span><span class="kp">nil</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting without a :timestamp parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="kp">nil</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :pokemon_id parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="s1">'bad'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :kind parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: </span><span class="s1">'bad'</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+
+    <span class="n">specify</span> <span class="s1">'posting with an invalid :timestamp parameter returns a 400 status code'</span> <span class="k">do</span>
+      <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'bad'</span> <span class="p">})</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api/beeps_api_spec.rb
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Summaries API'</span> <span class="k">do</span>
+  <span class="k">def</span> <span class="nf">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="no">Time</span><span class="p">.</span><span class="nf">zone</span><span class="p">.</span><span class="nf">now</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+    <span class="no">Beep</span><span class="p">.</span><span class="nf">create!</span> <span class="n">pokemon_id</span><span class="p">:,</span> <span class="n">kind</span><span class="p">:,</span> <span class="ss">timestamp: </span><span class="no">Time</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">timestamp</span><span class="p">).</span><span class="nf">to_i</span>
+  <span class="k">end</span>
+  
+  <span class="n">describe</span> <span class="s1">'GET /summaries/{pokemon_id}/{from}/{to}'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'generates summary based on beeps'</span> <span class="k">do</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 08:00'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 16:00'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-02 08:00'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-02 16:00'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+  
+      <span class="n">get</span><span class="p">(</span><span class="s2">"/summaries/1/2019-05-01/2019-05-30"</span><span class="p">)</span>
+      <span class="n">summary</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">symbolize_keys</span>
+  
+      <span class="n">expect</span><span class="p">(</span><span class="n">summary</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">({</span>
+                                  <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span>
+                                  <span class="ss">from: </span><span class="s1">'2019-05-01'</span><span class="p">,</span> <span class="ss">to: </span><span class="s1">'2019-05-30'</span><span class="p">,</span>
+                                  <span class="ss">presence_hours: </span><span class="mf">16.0</span><span class="p">,</span>
+                                  <span class="ss">problematic_dates: </span><span class="p">[]</span>
+                                <span class="p">})</span>
+    <span class="k">end</span>
+  
+    <span class="n">it</span> <span class="s1">'rounds presence hours to two decimal places'</span> <span class="k">do</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 08:10:00:050'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 16:00:01:070'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+  
+      <span class="n">get</span><span class="p">(</span><span class="s2">"/summaries/1/2019-05-01/2019-05-01"</span><span class="p">)</span>
+      <span class="n">summary</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">symbolize_keys</span>
+  
+      <span class="n">expect</span><span class="p">(</span><span class="n">summary</span><span class="p">[</span><span class="ss">:presence_hours</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mf">7.83</span><span class="p">)</span>
+    <span class="k">end</span>
+  
+    <span class="n">it</span> <span class="s1">'discovers problematic date when there is no leave beep'</span> <span class="k">do</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 08:00'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-02 08:00'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-02 16:00'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+      
+      <span class="n">get</span><span class="p">(</span><span class="s2">"/summaries/1/2019-05-01/2019-05-30"</span><span class="p">)</span>
+      <span class="n">summary</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">symbolize_keys</span>
+  
+      <span class="n">expect</span><span class="p">(</span><span class="n">summary</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="ss">presence_hours: </span><span class="mf">8.0</span><span class="p">,</span> <span class="ss">problematic_dates: </span><span class="p">[</span><span class="s1">'2019-05-01'</span><span class="p">])</span>
+    <span class="k">end</span>
+  
+    <span class="n">it</span> <span class="s1">'discovers problematic date when there is skip day beep'</span> <span class="k">do</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-01 08:00'</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">)</span>
+      <span class="n">given_beep</span><span class="p">(</span><span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="s1">'2019-05-02 16:00'</span><span class="p">,</span> <span class="ss">kind: :out</span><span class="p">)</span>
+  
+      <span class="n">get</span><span class="p">(</span><span class="s2">"/summaries/1/2019-05-01/2019-05-30"</span><span class="p">)</span>
+      <span class="n">summary</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">symbolize_keys</span>
+  
+      <span class="n">expect</span><span class="p">(</span><span class="n">summary</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="ss">presence_hours: </span><span class="mf">0.0</span><span class="p">,</span> <span class="ss">problematic_dates: </span><span class="p">[</span><span class="s1">'2019-05-01'</span><span class="p">,</span> <span class="s1">'2019-05-02'</span><span class="p">])</span>
+    <span class="k">end</span>
+    
+    <span class="n">describe</span> <span class="s2">"validations"</span> <span class="k">do</span>
+      <span class="n">specify</span> <span class="s1">'passing an invalid {from} parameter returns a 400 status code '</span> <span class="k">do</span>
+        <span class="n">get</span><span class="p">(</span><span class="s1">'/summaries/1/bad/2019-01-01'</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">status</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+      <span class="k">end</span>
+    
+      <span class="n">specify</span> <span class="s1">'passing an invalid {to} parameter returns a 400 status code'</span> <span class="k">do</span>
+        <span class="n">get</span><span class="p">(</span><span class="s1">'/summaries/1/2019-01-01/bad'</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">status</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+      <span class="k">end</span>
+    
+      <span class="n">specify</span> <span class="s1">'passing an invalid {pokemon_id} parameter returns a 400 status code'</span> <span class="k">do</span>
+        <span class="n">get</span><span class="p">(</span><span class="s1">'/summaries/bad/2019-01-01/2019-02-02'</span><span class="p">)</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">status</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">400</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api/summaries_api_spec.rb
+</figcaption></figure></div>
+
+<p>Running the specs, we have a nice specification of the API:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">&gt;</span><span class="w"> </span>bin/rspec <span class="nt">-fd</span>
+<span class="go">
+Beeps API
+  POST /beeps
+    posting without any parameter returns a 400 status code
+    posting without a :pokemon_id parameter returns a 400 status code
+    posting without a :kind parameter returns a 400 status code
+    posting without a :timestamp parameter returns a 400 status code
+    posting with an invalid :pokemon_id parameter returns a 400 status code
+    posting with an invalid :kind parameter returns a 400 status code
+    posting with an invalid :timestamp parameter returns a 400 status code
+
+Summaries API
+  GET /summaries/{pokemon_id}/{from}/{to}
+    generates summary based on beeps
+    rounds presence hours to two decimal places
+    discovers problematic date when there is no leave beep
+    discovers problematic date when there is skip day beep
+    validations
+      passing an invalid {from} parameter returns a 400 status code
+      passing an invalid {to} parameter returns a 400 status code
+      passing an invalid {pokemon_id} parameter returns a 400 status code
+
+Finished in 0.04601 seconds (files took 0.53933 seconds to load)
+14 examples, 0 failures
+</span></code></pre></div></figure></div>
+
+<p>Overall, I&rsquo;d say that this we&rsquo;ve done a pretty good job at turning something that just worked into something that 
+is right. However, there is one last thing that we can do, and that is adding missing tests.</p>
+
+<h3 id="7-youre-not-my-supervisor-code-here">7. You&rsquo;re not my supervisor! (<a href="https://github.com/r3trofitted/pokebeep/tree/7_supervisor"><code>code here</code></a>)</h3>
+
+<p>The specs for the Summaries API cover both its correct use (including edge cases) and its incorrect use, under the 
+umbrella of “validations”. This is good. These specs are technically high-level integration tests, so I would advice 
+to stick to testing the happy path, but because there are no low-level unit tests for the other cases, doing a bit 
+more is fine. However, the specs for the Beeps API only cover the incorrect uses – no happy path, only the sad ones.</p>
+
+<p>It wasn&rsquo;t <em>that</em> bad so far because the happy path was sort of tested accidentally, through the misplaced assertion in 
+the <code>#given_beep</code> helper. Now that we&rsquo;ve remove this, there are no guardrails to prevent us from breaking the API 
+and not realizing it. But adding such a spec is very easy:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s1">'rails_helper'</span>
+
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="s1">'Beeps API'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:now</span><span class="p">)</span> <span class="p">{</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">.</span><span class="nf">to_i</span> <span class="p">}</span>
+
+  <span class="n">describe</span> <span class="s1">'POST /beeps'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'creates a Beep'</span> <span class="k">do</span>
+      <span class="n">expect</span> <span class="p">{</span>
+        <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{</span> <span class="ss">pokemon_id: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">kind: :in</span><span class="p">,</span> <span class="ss">timestamp: </span><span class="n">now</span> <span class="p">})</span>
+      <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span> <span class="p">{</span> <span class="no">Beep</span><span class="p">.</span><span class="nf">count</span> <span class="p">}.</span><span class="nf">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:ok</span><span class="p">)</span>
+    <span class="k">end</span>
+    
+    <span class="n">describe</span> <span class="s1">'validations'</span> <span class="k">do</span>
+      <span class="n">specify</span> <span class="s1">'posting without any parameter returns a 400 status code'</span> <span class="k">do</span>
+        <span class="n">post</span><span class="p">(</span><span class="s1">'/beeps'</span><span class="p">,</span> <span class="ss">params: </span><span class="p">{})</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_http_status</span><span class="p">(</span><span class="ss">:bad_request</span><span class="p">)</span>
+      <span class="k">end</span>
+      <span class="c1"># …</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>/spec/api/beeps_api_spec.rb
+</figcaption></figure></div>
+
+<p>Apart from wrapping the validation specs in a <code>describe</code> block for readability&rsquo;s sake when running the suite in random 
+order, we&rsquo;ve added a single test for the API&rsquo;s happy path. Note the unusual look of this test; because we&rsquo;re using 
+the <a href="http://rspec.info/features/3-12/rspec-expectations/built-in-matchers/change/"><code>#change</code> matcher</a>, the code for the 
+execution phase is somehow sandwiched between assertions, but there are still two distinct phases.</p>
+
+<p>This test is also notable for another thing: even though it is technically high-level, we&rsquo;re making a low-level 
+assertion, checking directly the database instead of going only through the API. I find this infringement of the 
+Orthodoxy of the Test Pyramid justified here, since we have no lower-level tests anyway. YMMV.</p>
+
+<p>And that&rsquo;s a wrap! Polishing is fun and we could keep doing it (for example by introducing unit tests to reduce the 
+surface area of the request specs), but good enough if fine, and in real life, our time would probably be best spent 
+somewhere else. So let&rsquo;s move on, and enjoy our descriptive, exhaustive and yet lean specs!</p>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>With one exception.&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Or kindly lead the PR author towards these fixes without directly <em>asking</em> for them.&nbsp;<a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p><em>&ldquo;RSpec Rails provides thoughtfully selected features to encourage good testing practices, but there’s no “right” 
+  way to do it. Ultimately, it’s up to you to decide how your test suite will be composed.&rdquo;</em><br />
+  (<a href="https://github.com/rspec/rspec-rails#what-tests-should-i-write">https://github.com/rspec/rspec-rails#what-tests-should-i-write</a>)&nbsp;<a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Well, <em>kinda</em>. No data will go through the network, but the application will behave exactly as if.&nbsp;<a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>Which should always be the case, by the way.&nbsp;<a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

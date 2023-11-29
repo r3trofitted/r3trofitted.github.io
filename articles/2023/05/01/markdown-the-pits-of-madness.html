@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/articles/2023/05/01/markdown-the-pits-of-madness.html" />
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/BlogPosting" 
+  class="post h-entry "
+  data-category="markdown"
+  style="--category-icon: url(/assets/icons/markdown.svg)"
+  >
+  <header class="post-header">
+    <h2 class="post-title p-name" itemprop="name headline">
+      Markdown the pits of madness
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-05-01T18:21:00+02:00" itemprop="datePublished">
+        May 1, 2023
+      </time>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><em>In the annals of human history, there are tales of journeys that have driven men to the brink 
+of madness, and beyond. Such is the one that I am about to recount, a voyage that took me to the 
+furthest corners of <code>bundle open</code>, and <code>binding.break</code>. It is a journey that defies explanation, 
+and yet I cannot deny its reality. The metaprogamming that I witnessed, the unspeakable layers of 
+abstraction that I encountered, have left me forever scarred, and driven me to the very brink of sanity. 
+And yet, I must tell this story, for the world must know of the darkness that lies beyond the veil of 
+our static site generators, waiting to consume us all.</em></p>
+
+<h3 id="a-nice-little-coding-project">A nice little coding project</h3>
+
+<p>So, here&rsquo;s the thing. I am currently writing a series of tutorials with a lot of code excerpts, taken 
+from several different files. To make the context of each code sample obvious, I&rsquo;ve been starting each 
+code block with a comment indicating the name of the relevant file, like so:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="c1"># locations/innsmouth.rb</span>
+<span class="k">module</span> <span class="nn">Locations</span>
+  <span class="k">class</span> <span class="nc">Innsmouth</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">visit</span>
+      <span class="k">raise</span> <span class="s2">"Don't!"</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></figure></div>
+
+<p>This works well, but frustrates my obsession with semantic HTML. The name of the file is not <em>really</em> 
+part of the code sample; it is rather its <em>caption</em>. And there are HTML elements for such things: <code>&lt;caption&gt;</code> 
+for adding captions to tables, and <code>&lt;figcaption&gt;</code> to add them to, well, any other content.</p>
+
+<p>By default, Jekyll renders <a href="https://www.markdownguide.org/extended-syntax#fenced-code-blocks">fenced code blocks</a> with 
+a <code>&lt;pre&gt;</code> and a <code>&lt;code&gt;</code> elements, wrapped in two <code>&lt;div&gt;</code>&rsquo;s:</p>
+
+<div class="language-html highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-ruby highlighter-rouge"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;pre</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;code&gt;</span>
+        …
+      <span class="nt">&lt;/code&gt;</span>
+    <span class="nt">&lt;/pre&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></figure></div>
+
+<p>The <code>&lt;div&gt;</code>’s are a bit redundant, but fine; what I wanted was for either them or the <code>&lt;pre&gt;</code> element to be wrapped in a 
+<code>&lt;figure&gt;</code>, alongside a <code>&lt;figcaption&gt;</code>. For example, having Jekyll generate this would have been great:</p>
+
+<div class="language-html highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-ruby highlighter-rouge"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;figure&gt;</span>
+      <span class="nt">&lt;pre&gt;</span>
+        <span class="nt">&lt;code&gt;</span>
+          …
+        <span class="nt">&lt;/code&gt;</span>
+      <span class="nt">&lt;/pre&gt;</span>
+      <span class="nt">&lt;figcaption&gt;</span>locations/innsmouth.rb<span class="nt">&lt;/figcaption&gt;</span>
+    <span class="nt">&lt;/figure&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></figure></div>
+
+<p>Jekyll is said to be easy to extend, so what could be hard in writing some kind of plugin to enhance the rendering of 
+fenced code blocks? On a fateful whim, I decided to embark on this journey…</p>
+
+<h3 id="preparations">Preparations</h3>
+
+<p><em>I gathered my supplies and made the necessary arrangements, all the while feeling an ominous dread lurking within my very soul.</em></p>
+
+<p>We experienced developers know better than to rush into a coding project without making sure that it has a valid goal, 
+and that this goal can only be reached by coding (more on that later). So, before anything, I used Safari&rsquo;s web inspector to 
+try out the HTML above, ensuring that it would be valid, and that it would look good with some CSS. I was pleased with 
+the results:<br />
+<img src="/assets/markdown-the-pits-of-madness/preparations.png" alt="Successful rendering using the web inspector to tinker with the HTML and CSS" /></p>
+
+<p>Next, not being a n00b, I made sure the markup I had set upon could not be obtained by simply adding the extra HTML tags 
+to the Markdown content. Unfortunately, the <a href="https://daringfireball.net/projects/markdown/syntax#html">Markdown specification</a> 
+is quite clear:</p>
+
+<blockquote>
+  <p>Note that Markdown formatting syntax is not processed within block-level HTML tags. 
+E.g., you can’t use Markdown-style <em>emphasis</em> inside an HTML block.</p>
+</blockquote>
+
+<p>To be sure, I tried it anyway:</p>
+
+<div class="language-html highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;figure&gt;</span>
+  ```ruby
+  module Locations
+    class Innsmouth
+      def self.visit
+        raise "Don't!"
+      end
+    end
+  end
+  ```
+  <span class="nt">&lt;figcaption&gt;</span>locations/innsmouth.rb<span class="nt">&lt;/figcaption&gt;</span>
+<span class="nt">&lt;/figure&gt;</span>
+</code></pre></div></figure></div>
+
+<p>And indeed, the resulting HTML was not what I wanted (and rendered poorly):<br />
+<img src="/assets/markdown-the-pits-of-madness/preparations-2.png" alt="Unsuccessful rendering mixing Markdown within an HTML block element" /></p>
+
+<p>Confident that <code>&lt;figure&gt;</code>‘s and <code>&lt;figcaption&gt;</code>‘s would indeed look good, but could not be generated without some 
+tinkering, I set sails to the high seas of Jekyll plugins, Markdown converters, and syntax highlighters.</p>
+
+<h3 id="syntax-highlighting-for-code-blocks-in-jekyll">Syntax highlighting for code blocks in Jekyll</h3>
+
+<p><em>The world of programming had long been my refuge from the terrors that lurked within the shadows. But as I delved 
+deeper into the secrets of my static site generator, I realized that the very laws of OOP were nothing but a fragile 
+veil, concealing horrors beyond human comprehension.</em></p>
+
+<p>Having <a href="https://github.com/rouge-ruby/rouge/pull/1943">nitpicked on it</a> recently, I knew that 
+<a href="https://rubygems.org/gems/rouge">Rouge</a> is what Jekyll uses to render syntax-highlighted code snippets. So I dived 
+straight into its source and quickly found out that, in Rouge, the rendering is handled by 
+<a href="https://github.com/rouge-ruby/rouge#formatters"><em>formatters</em></a>. Creating a custom formatter seemed easy enough, but 
+I had to make it available to Jekyll, which meant pluging it to the inner workings of Jekyll, by configuration if 
+possible, by hack otherwise.</p>
+
+<p>Out of the box, Jekyll has two ways to render a code block with syntax highlighting, both ending up calling up on Rouge. 
+The first one is through a <a href="https://jekyllrb.com/docs/liquid/tags/#code-snippet-highlighting">Jekyll-specific Liquid tag</a>. 
+With this approach, <a href="https://github.com/jekyll/jekyll/blob/bb954ff16e380d233821f57fde44fcbb8ae599ca/lib/jekyll/tags/highlight.rb#L83">Jekyll delegates to Rouge</a> 
+(that is, if you&rsquo;ve kept the <a href="https://github.com/jekyll/jekyll/blob/bb954ff16e380d233821f57fde44fcbb8ae599ca/lib/jekyll/configuration.rb#L40">default configuration</a>), 
+using the either the <code>Rouge::Formatters::HTML</code> or <code>Rouge::Formatters::HTMLTable</code> formatters. Unfortunately, both classes 
+are hardcoded in Jekyll; however, I did not really care about this approach, because I don&rsquo;t use Liquid in my Markdown posts. 
+(Among other reasons, I love Markdown for its portability; mixing a templating language to Markdown documents makes them 
+dependent on yet another processor.)</p>
+
+<p>Instead, for code blocks I use the aforementioned fenced code blocks. In this case, the syntax higlighting is 
+not handled by the Liquid converter, but by the Markdown converter. By default it is Kramdown, which happens 
+to <em>also</em> delegates to Rouge for the syntax highlighting. (But note that, like Jekyll, Kramdown allows the swapping of the 
+syntax highlighter for another.)</p>
+
+<p>Kramdown wraps Rouge in its <code>Kramdown::Converter::SyntaxHighlighter::Rouge</code> module. <a href="https://github.com/gettalong/kramdown/blob/bd678ecb59f70778fdb3b08bdcd39e2ab7379b45/lib/kramdown/converter/syntax_highlighter/rouge.rb#L68">Here</a>, 
+the default formatter is <code>Rouge::Formatters::HTMLLegacy</code>, but it too can be swapped for something else, as long as 
+the class or the name of this &ldquo;something else&rdquo; is passed as a converter option. This is in fact 
+<a href="https://kramdown.gettalong.org/syntax_highlighter/rouge.html">pretty well documented</a>, but of course I went through 
+the code before RTFMing, because why think when you can act?</p>
+
+<p>So, after some partially needless code spelunking, I figured out that I could write a custom formatter for Rouge, 
+and tell Kramdown to use it, so that Jekyll&rsquo;s conversion from Markdown would generate the HTML I was looking for. The 
+only missing ring in this chain of delegations was configuring Kramdown, but Jekyll makes this 
+<a href="https://jekyllrb.com/docs/configuration/markdown/#kramdown-processor">rather trivial</a>.</p>
+
+<h3 id="the-dive-starts">The dive starts</h3>
+
+<p><em>With trepidation, I began my experiments, seeking to unlock the mysteries of this nerdy CMS and uncover the dark truths that lay hidden within</em></p>
+
+<p>To put this plan to the test, I started with a dummy formatter:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"rouge"</span>
+
+<span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">module</span> <span class="nn">Formatters</span>
+    <span class="k">class</span> <span class="nc">NamelessCodex</span> <span class="o">&lt;</span> <span class="no">HTML</span>
+      <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+        <span class="nb">puts</span> <span class="s2">"Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn."</span>
+        <span class="k">super</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>_plugins/nameless_codex_formatter.rb
+</figcaption></figure></div>
+
+<p>I then adjusted the configuration so that this dummy formatter would be used:</p>
+
+<div class="language-yaml highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">syntax_highlighter_opts</span><span class="pi">:</span>
+    <span class="na">formatter</span><span class="pi">:</span> <span class="s">NamelessCodex</span>
+</code></pre></div><figcaption>_config.yml
+</figcaption></figure></div>
+
+<p>And, sure enough, everything seemed to work fine:</p>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>jekyll build <span class="nt">-q</span>
+<span class="go">Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+</span></code></pre></div></figure></div>
+
+<p>Gaining confidence, I went to add extra markup to the formatted output – and then realized that I 
+hadn&rsquo;t thought about <em>how to pass the caption to the formatter</em>.</p>
+
+<p>Well, it&rsquo;s not entirely true. From a writer&rsquo;s perspective, I had decided to use what GitHub calls 
+the <a href="https://github.github.com/gfm/#info-string">info string</a> – the part after the triple backtick 
+where the language is specified. I had seen it being used to pass extra options to some Rouge lexers 
+<a href="https://github.com/rouge-ruby/rouge/blob/aa1a1240e1dfcad633cb80c8ef67fba68c35ef87/lib/rouge/lexers/console.rb#L26">such as the console lexer</a>. 
+My plan was to use the same trick, with a <code>caption</code> option:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="sb">```ruby?caption=locations/innsmouth.rb
+module Locations
+ # …
+end
+```</span>
+</code></pre></div></figure></div>
+
+<p>However, only then did I realise that the info string was indeed passed to the lexers, but not to 
+the renderer! And yet, the base class for formatters <em>does</em> <a href="https://github.com/rouge-ruby/rouge/blob/aa1a1240e1dfcad633cb80c8ef67fba68c35ef87/lib/rouge/formatter.rb#L49">accept options</a>:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Rouge</span>
+  <span class="k">class</span> <span class="nc">Formatter</span>
+    <span class="k">def</span> <span class="nf">initiatize</span><span class="p">(</span><span class="n">opts</span><span class="o">=</span><span class="p">{})</span>
+      <span class="c1"># pass</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>rouge/formatter.rb
+</figcaption></figure></div>
+
+<p>And, indeed, Kramdown <em>does</em> pass options to the formatter, but unfortunately, they don&rsquo;t include 
+the target language, as I gathered by the arguments in this method:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">module</span> <span class="nn">Kramdown::Converter::SyntaxHighlighter</span>
+  <span class="k">module</span> <span class="nn">Rouge</span>
+    <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="n">converter</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="n">call_opts</span><span class="p">)</span>
+      <span class="n">opts</span> <span class="o">=</span> <span class="n">options</span><span class="p">(</span><span class="n">converter</span><span class="p">,</span> <span class="n">type</span><span class="p">)</span>
+      <span class="c1"># …</span>
+      <span class="n">formatter</span> <span class="o">=</span> <span class="n">formatter_class</span><span class="p">(</span><span class="n">opts</span><span class="p">).</span><span class="nf">new</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span> 
+</code></pre></div><figcaption>kramdown/converter/syntax_highlighter/rouge.rb
+</figcaption></figure></div>
+
+<p>As you can see, the <code>opts</code> object is derived from the <code>converter</code> and <code>type</code> arguments, but not <code>lang</code>.</p>
+
+<p>Through deeper explorations of Kramdown&rsquo;s code, I understood what the <code>converter</code>, <code>type</code>, and 
+other arguments passed to <code>.call</code> were, and confirmed my suspicions: the info string was indeed 
+fully available as the <code>lang</code> argument – but had to be passed along the other options to 
+the formatter. Which meant using a custom Kramdown syntax highlighter, on top of a custom Rouge 
+formatter.</p>
+
+<h3 id="going-further-down-one-layer-at-a-time">Going further down, one layer at a time</h3>
+
+<p><em>Despite the warnings of my runtime, I pressed on, driven by a maddening curiosity to control what lay beyond the threshold of Markdown parsing.</em></p>
+
+<p>Like with the Rouge formatter, I wanted to start with a dummy syntax highlighter, which would basically do everything 
+the basic highlighter does. Unfortunately, Kramdown highlighters are modules, not classes, so they cannot be inherited 
+from, but I could still limit my own module to the bare minimum.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"kramdown/converter/syntax_highlighter/rouge"</span>
+
+<span class="k">module</span> <span class="nn">RougeOutOfSpace</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">"Iä! Iä! Cthulhu fhtagn!"</span>
+    <span class="no">Kramdown</span><span class="o">::</span><span class="no">Converter</span><span class="o">::</span><span class="no">SyntaxHighlighter</span><span class="o">::</span><span class="no">Rouge</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>_plugins/rouge_out_of_space.rb
+</figcaption></figure></div>
+
+<p>Before I could try this out, though, I had to tell Jekyll to tell Kramdown to use this syntax highlighter instead of 
+Rouge (or rather, instead of Kramdown&rsquo;s wrapper around Rouge…) Unfortunately, even though Kramdown does have a 
+configuration option to swap the syntax highlighter, it wasn&rsquo;t enough to simply set it:</p>
+
+<div class="language-yaml highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">syntax_highligher</span><span class="pi">:</span> <span class="s">RougeOutOfSpace</span>
+  <span class="na">syntax_highlighter_opts</span><span class="pi">:</span>
+    <span class="na">formatter</span><span class="pi">:</span> <span class="s">NamelessCodex</span>
+</code></pre></div><figcaption>_config.yml
+</figcaption></figure></div>
+
+<p>That is because, unlike for the Rouge formatter, Kramdown doesn&rsquo;t look for the relevant object 
+by searching for a constant within a given module (for example, <code>Kramdown::Converter::SyntaxHighlighter</code>). 
+Instead, it keeps its own registry of &ldquo;configurable stuff&rdquo;, including a list of syntax highlighters, and &ldquo;new 
+stuff&rdquo;&rdquo; has to be added to this registry to be available later on. Understanding all this took me some time and 
+meanderings in the seaweeds of Kramdown&rsquo;s metaprogramming, but I eventually came up with something that worked:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"kramdown/converter/syntax_highlighter/rouge"</span>
+
+<span class="k">module</span> <span class="nn">RougeOutOfSpace</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+    <span class="nb">puts</span> <span class="s2">"Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn."</span>
+    <span class="no">Kramdown</span><span class="o">::</span><span class="no">Converter</span><span class="o">::</span><span class="no">SyntaxHighlighter</span><span class="o">::</span><span class="no">Rouge</span><span class="p">.</span><span class="nf">call</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="no">Kramdown</span><span class="o">::</span><span class="no">Converter</span><span class="p">.</span><span class="nf">add_syntax_highlighter</span> <span class="ss">:rouge_out_of_space</span><span class="p">,</span> <span class="no">RougeOutOfSpace</span>
+</code></pre></div><figcaption>_plugins/rouge_out_of_space.rb
+</figcaption></figure></div>
+
+<div class="language-yaml highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="na">kramdown</span><span class="pi">:</span>
+  <span class="na">syntax_highligher</span><span class="pi">:</span> <span class="s">rouge_out_of_space</span>
+  <span class="na">syntax_highlighter_opts</span><span class="pi">:</span>
+    <span class="na">formatter</span><span class="pi">:</span> <span class="s">NamelessCodex</span>
+</code></pre></div><figcaption>_config.yml
+</figcaption></figure></div>
+
+<div class="language-console highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="gp">𝄢</span><span class="w"> </span>jekyll build <span class="nt">-q</span>
+<span class="go">Iä! Iä! Cthulhu fhtagn!
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Iä! Iä! Cthulhu fhtagn!
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Iä! Iä! Cthulhu fhtagn!
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Iä! Iä! Cthulhu fhtagn!
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+Iä! Iä! Cthulhu fhtagn!
+Ph'nglui mglw'nafh Cthulhu R'lyeh wgah-nagl fhtagn.
+</span></code></pre></div></figure></div>
+
+<p>Finally, I could implement a syntax highlighter that would extract the caption from the info string, and pass it to the 
+formatter. Which, for the former, unfortunately meant some copy-pasting from the original module – but I was still pleased 
+with the end result.</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">NamelessCodex</span> <span class="o">&lt;</span> <span class="no">HTML</span>
+  <span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">opts</span> <span class="o">=</span> <span class="p">{})</span>
+    <span class="vi">@caption</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:caption</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="k">def</span> <span class="nf">stream</span><span class="p">(</span><span class="n">tokens</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">block</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="s2">"&lt;figure&gt;"</span>
+    <span class="k">super</span>
+    <span class="k">yield</span> <span class="s2">"&lt;figcaption&gt;</span><span class="si">#{</span><span class="n">escape_special_html_chars</span> <span class="vi">@caption</span><span class="si">}</span><span class="s2">&lt;/figcaption&gt;"</span> <span class="k">if</span> <span class="vi">@caption</span>
+    <span class="k">yield</span> <span class="s2">"&lt;/figure&gt;"</span>
+  <span class="k">end</span>
+</code></pre></div><figcaption>_plugins/nameless_codex_formatter.rb
+</figcaption></figure></div>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"kramdown/converter/syntax_highlighter/rouge"</span>
+
+<span class="k">module</span> <span class="nn">RougeOutOfSpace</span>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">call</span><span class="p">(</span><span class="n">converter</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="n">type</span><span class="p">,</span> <span class="n">call_opts</span><span class="p">)</span>
+    <span class="n">opts</span> <span class="o">=</span> <span class="no">Kramdown</span><span class="o">::</span><span class="no">Converter</span><span class="o">::</span><span class="no">SyntaxHighlighter</span><span class="o">::</span><span class="no">Rouge</span><span class="p">.</span><span class="nf">options</span><span class="p">(</span><span class="n">converter</span><span class="p">,</span> <span class="n">type</span><span class="p">)</span>
+
+    <span class="c1"># extracting the :caption option from the "lang" (actually the fence string) for the formatter</span>
+    <span class="n">opts</span><span class="p">[</span><span class="ss">:caption</span><span class="p">]</span> <span class="o">=</span> <span class="sr">/caption=([^&amp;]*)/</span><span class="p">.</span><span class="nf">match</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span> <span class="p">{</span> <span class="o">|</span><span class="n">md</span><span class="o">|</span> <span class="n">md</span><span class="p">.</span><span class="nf">captures</span><span class="p">.</span><span class="nf">first</span> <span class="p">}</span>
+  
+    <span class="n">call_opts</span><span class="p">[</span><span class="ss">:default_lang</span><span class="p">]</span> <span class="o">=</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:default_lang</span><span class="p">]</span>
+    <span class="k">return</span> <span class="kp">nil</span> <span class="k">unless</span> <span class="n">lang</span> <span class="o">||</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:default_lang</span><span class="p">]</span> <span class="o">||</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:guess_lang</span><span class="p">]</span>
+  
+    <span class="n">lexer</span> <span class="o">=</span> <span class="o">::</span><span class="no">Rouge</span><span class="o">::</span><span class="no">Lexer</span><span class="p">.</span><span class="nf">find_fancy</span><span class="p">(</span><span class="n">lang</span> <span class="o">||</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:default_lang</span><span class="p">],</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="kp">nil</span> <span class="k">if</span> <span class="n">opts</span><span class="p">[</span><span class="ss">:disable</span><span class="p">]</span> <span class="o">||</span> <span class="o">!</span><span class="n">lexer</span> <span class="o">||</span> <span class="p">(</span><span class="n">lexer</span><span class="p">.</span><span class="nf">tag</span> <span class="o">==</span> <span class="s2">"plaintext"</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">opts</span><span class="p">[</span><span class="ss">:guess_lang</span><span class="p">])</span>
+  
+    <span class="n">opts</span><span class="p">[</span><span class="ss">:css_class</span><span class="p">]</span> <span class="o">||=</span> <span class="s1">'highlight'</span> <span class="c1"># For backward compatibility when using Rouge 2.0</span>
+    <span class="n">formatter</span> <span class="o">=</span> <span class="no">Kramdown</span><span class="o">::</span><span class="no">Converter</span><span class="o">::</span><span class="no">SyntaxHighlighter</span><span class="o">::</span><span class="no">Rouge</span><span class="p">.</span><span class="nf">formatter_class</span><span class="p">(</span><span class="n">opts</span><span class="p">).</span><span class="nf">new</span><span class="p">(</span><span class="n">opts</span><span class="p">)</span>
+    <span class="n">formatter</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">lexer</span><span class="p">.</span><span class="nf">lex</span><span class="p">(</span><span class="n">text</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>_plugins/rouge_out_of_space.rb
+</figcaption></figure></div>
+
+<p>Now everything was in place – after hours of sorting through arcane code, I had a custom Rouge formatter, used by 
+a custom Kramdown syntax highlighter, both made available as Jekyll plugins. I only had to check the results:<br />
+<img src="/assets/markdown-the-pits-of-madness/going-further-down-one-layer-at-a-time.png" alt="Unsuccessful rendering using a custom Rouge formatter along a custom Kramdown syntax highlighter" /></p>
+
+<h3 id="dispair-madness-and-losing-ones-way">Dispair, madness and losing one&rsquo;s way</h3>
+
+<p><em>As I gazed upon the accursed web page, its blasphemously unformatted code sections seemed to writhe and twist before my eyes, 
+revealing truths that my mortal mind could never comprehend, and in that moment, my sanity was forever lost to the abyss…</em></p>
+
+<p>It didn&rsquo;t work! Though the caption was there, the code was not highlighted – it wasn&rsquo;t even formatted. Looking at the 
+source, I realized that some elements, most significantly the <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code>, were missing:</p>
+
+<div class="language-html highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-ruby highlighter-rouge_out_of_space"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;figure&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>module<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nn"</span><span class="nt">&gt;</span>Locations<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>class<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nc"</span><span class="nt">&gt;</span>Innsmouth<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>def<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nc"</span><span class="nt">&gt;</span>self<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"o"</span><span class="nt">&gt;</span>.<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nf"</span><span class="nt">&gt;</span>visit<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>raise<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s2"</span><span class="nt">&gt;</span>"Don't!"<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"k"</span><span class="nt">&gt;</span>end<span class="nt">&lt;/span&gt;</span>
+    <span class="nt">&lt;figcaption&gt;</span>locations/innsmouth.rb<span class="nt">&lt;/figcaption&gt;</span>
+  <span class="nt">&lt;/figure&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></figure></div>
+
+<p>And this is where, I confess, I lost my way. Re-reading Rouge&rsquo;s source code, and especially the <code>Formatters::HTML</code> class<br />
+which as far as I understood was the formatter normally used by Kramdown, and from which my custom formatter inherited, I 
+saw not mention of these missing <code>&lt;pre&gt;</code> and <code>&lt;span&gt;</code> elements. So I came to the conclusion that these were actually 
+added <em>by the Kramdown converter</em>, one level of delegation beyond (or is it before?) the syntax highlighter! This 
+meant that I also had to write a custom HTML converter for Kramdown; one which would correctly wrap the syntax highligher code 
+blocks in <code>&lt;pre&gt;</code> and <code>&lt;code&gt;</code> elements.</p>
+
+<p>To understand how to write such a converter, I dove deeper into Kramdown – and lost even more time and sanity 
+figuring out how the Markdown-to-HTML works there, and especially the treatment of code blocks. It was a 
+tortuous expedition, in part because Kramdown is not really meant for converting <em>Markdown</em> – it&rsquo;s originally built to 
+convert a Markdown-inspired format (also called Kramdown!), which uses a different marker for fenced code blocks (<code>~~~</code>). 
+But Jekyll adds a plug-in to Kramdown, so that it understands <em>another</em> Markdown variant, GFM, which is where the 
+fenced-code-blocks-with-backticks come from.</p>
+
+<p>At that point, I stopped and reconsidered my plan. From a custom Rouge formatter, I had come to coding said formatter, plus a 
+Kramdown syntax highlighter, had read through more metaprogramming-rich code that I could stay sane with, and was about to 
+code a third custom component, this time a custom GFM-to-HTML converter for Kramdown. Was it really necessary? Worth it?</p>
+
+<h3 id="back-on-the-bridge">Back on the bridge</h3>
+
+<p><em>As I delved deeper into the ancient tome, my eyes fell upon a cursed passage, that would lead me to a fate worse than death</em></p>
+
+<p>In my initial preparations, I had tried simply mixing HTML code with Markdown (or, rather, GFM) markup, to no avail. But 
+could it still be done? A bit of research on dubious websites led me to the conclusion that, yes, such mixing was allowed 
+<em>in CommonMark</em> – yet another Markdown variant, upon which GFM is based. But to use CommonMark, I would have to replace 
+Kramdown with another processor, <a href="https://github.com/jekyll/jekyll-commonmark"><code>jekyll-commonmark</code></a>.</p>
+
+<p>Once again, this is <a href="https://jekyllrb.com/docs/configuration/markdown/#commonmark">documented</a> and easy to do. 
+Unfortunately, a first try with my sample didn&rsquo;t seem to work:<br />
+<img src="/assets/markdown-the-pits-of-madness/back-on-the-bridge.png" alt="Unsuccessful rendering using CommonMark without a blank line after the HTML tag" /></p>
+
+<p>I understood why after reading closely the <a href="https://spec.commonmark.org/0.30/">CommonMark spec</a>:</p>
+
+<blockquote>
+  <ul>
+    <li>Start condition: line begins [with] the string [&lt;figure].</li>
+    <li>End condition: line is followed by a blank line.</li>
+  </ul>
+</blockquote>
+
+<p>For my HTML/CommonMark mix to be properly converted to HTML, I needed to add a blank line at the end of the HTML part, like 
+so:</p>
+
+<div class="language-html highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;figure&gt;</span>
+
+```ruby
+module Locations
+  …
+end
+```
+<span class="nt">&lt;figcaption&gt;</span>locations/innsmouth.rb<span class="nt">&lt;/figcaption&gt;</span>
+<span class="nt">&lt;/figure&gt;</span>
+
+</code></pre></div><figcaption>(notice the blank line)
+</figcaption></figure></div>
+
+<h3 id="the-call-of-the-depths">The call of the depths</h3>
+
+<p><em>Blinded by my own hubris, I ignored the signs of impending doom and continued my quest for forbidden rendering.</em></p>
+
+<p>This simple change was enough to make the content generation go perfectly, but it left me unsatisfied. I didn&rsquo;t like 
+this extra blank line that I was forced to add - it was unpleasant to my reddened but still delicate eye. And I resented 
+CommonMark for making this requirement so difficult to figure out. So, in my folly, I decided to go back to writing a custom 
+component that would leverage my previous work on Rouge and Kramdown. This time, it would have to be a <em>renderer</em>, 
+in the jargon of jekyll-commonmark.</p>
+
+<p>So I dove once again in a new code base and a new plugin, reading through the <a href="">HTML renderer</a> to better build upon 
+it. I put my sanity at risk by trying to come up with clever regexes, only to realize that I would also need to build 
+a custom <em>converter</em>, which would make use of my custom renderer. I felt caught in a time loop. Still, I persevered 
+and came up with something that worked:</p>
+
+<div class="language-ruby highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nb">require</span> <span class="s2">"commonmarker"</span>
+
+<span class="k">class</span> <span class="nc">Jekyll::Converters::Markdown::Necronomicon</span> <span class="o">&lt;</span> <span class="no">Jekyll</span><span class="o">::</span><span class="no">Converters</span><span class="o">::</span><span class="no">Markdown</span><span class="o">::</span><span class="no">CommonMark</span>
+  <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="n">content</span><span class="p">)</span>
+    <span class="no">CursedHtmlRenderer</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">options: </span><span class="vi">@render_options</span><span class="p">,</span> <span class="ss">extensions: </span><span class="vi">@extensions</span><span class="p">).</span><span class="nf">render</span><span class="p">(</span>
+      <span class="no">CommonMarker</span><span class="p">.</span><span class="nf">render_doc</span><span class="p">(</span><span class="n">content</span><span class="p">,</span> <span class="vi">@parse_options</span><span class="p">,</span> <span class="vi">@extensions</span><span class="p">)</span>
+    <span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">class</span> <span class="nc">CursedHtmlRenderer</span> <span class="o">&lt;</span> <span class="no">Jekyll</span><span class="o">::</span><span class="no">Converters</span><span class="o">::</span><span class="no">Markdown</span><span class="o">::</span><span class="no">CommonMark</span><span class="o">::</span><span class="no">HtmlRenderer</span>
+    <span class="k">def</span> <span class="nf">code_block</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+      <span class="n">block</span> <span class="k">do</span>
+        <span class="n">lang</span><span class="p">,</span> <span class="o">*</span><span class="n">options</span> <span class="o">=</span> <span class="n">node</span><span class="p">.</span><span class="nf">fence_info</span><span class="p">.</span><span class="nf">scan</span><span class="p">(</span><span class="sr">/(?:(\A\w+)\??)|(?:(\w+)=([^&amp;]+)&amp;?)/</span><span class="p">).</span><span class="nf">flatten</span><span class="p">.</span><span class="nf">compact</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="no">Hash</span><span class="p">[</span><span class="o">*</span><span class="n">options</span><span class="p">]</span>
+
+        <span class="n">out</span><span class="p">(</span><span class="s1">'&lt;div class="'</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"language-"</span><span class="p">,</span> <span class="n">lang</span><span class="p">,</span> <span class="s2">" "</span><span class="p">)</span> <span class="k">if</span> <span class="n">lang</span>
+        <span class="n">out</span><span class="p">(</span><span class="s1">'highlighter-rouge"&gt;&lt;div class="highlight"&gt;'</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"&lt;figure&gt;"</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"&lt;pre"</span><span class="p">,</span> <span class="n">sourcepos</span><span class="p">(</span><span class="n">node</span><span class="p">),</span> <span class="s1">' class="highlight"'</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">option_enabled?</span><span class="p">(</span><span class="ss">:GITHUB_PRE_LANG</span><span class="p">)</span>
+          <span class="n">out_data_attr</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span>
+          <span class="n">out</span><span class="p">(</span><span class="s2">"&gt;&lt;code&gt;"</span><span class="p">)</span>
+        <span class="k">else</span>
+          <span class="n">out</span><span class="p">(</span><span class="s2">"&gt;&lt;code"</span><span class="p">)</span>
+          <span class="n">out_data_attr</span><span class="p">(</span><span class="n">lang</span><span class="p">)</span>
+          <span class="n">out</span><span class="p">(</span><span class="s2">"&gt;"</span><span class="p">)</span>
+        <span class="k">end</span>
+        <span class="n">out</span><span class="p">(</span><span class="n">render_with_rouge</span><span class="p">(</span><span class="n">node</span><span class="p">.</span><span class="nf">string_content</span><span class="p">,</span> <span class="n">lang</span><span class="p">))</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"&lt;/code&gt;&lt;/pre&gt;"</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"&lt;figcaption&gt;</span><span class="si">#{</span><span class="n">options</span><span class="p">[</span><span class="s1">'caption'</span><span class="p">]</span><span class="si">}</span><span class="s2">&lt;/figcaption&gt;"</span><span class="p">)</span> <span class="k">if</span> <span class="n">options</span><span class="p">.</span><span class="nf">has_key?</span> <span class="s2">"caption"</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"&lt;/figure&gt;"</span><span class="p">)</span>
+        <span class="n">out</span><span class="p">(</span><span class="s2">"&lt;/div&gt;&lt;/div&gt;"</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><figcaption>_plugins/necronomicon.rb
+</figcaption></figure></div>
+
+<p>The custom converter (<code>Necronomicon</code>) is only there to ensure that the custom renderer (<code>Necronomicon::CursedHtmlRenderer</code>) 
+is used; it has to be placed in the <code>Jekyll::Converters::Markdown</code> namespace because 
+<a href="https://github.com/jekyll/jekyll/blob/bb954ff16e380d233821f57fde44fcbb8ae599ca/lib/jekyll/converters/markdown.rb#L98">that is where Jekyll looks for it</a></p>
+
+<p>And so, in exchange for a little more of my sanity, I now had a second way to render code blocks in an elegant and 
+semantically correct fashion:<br />
+<img src="/assets/markdown-the-pits-of-madness/call-of-the-depths.png" alt="Successful rendering using customized renderer and converter for jekyll-commonmark" /></p>
+
+<p>However, the cosmic forces that govern us are nothing but cruel masters, and on their whim I decided to look again, 
+more closely, at Kramdown&rsquo;s documentation.</p>
+
+<h3 id="back-home-forever-changed">Back home, forever changed</h3>
+
+<p><em>As I gazed upon the tangled mess of code before me, I realized with a sinking feeling that I had come full circle, 
+my cursed journey through the labyrinthine world of cyclopean programming having led me back to the very beginning.</em></p>
+
+<p>Here is what the Kramdown (the format, not the gem) documentation says about <a href="https://kramdown.gettalong.org/syntax.html#html-blocks">HTML blocks</a>:</p>
+
+<blockquote>
+  <p>Difference to Standard Markdown
+[…] the original syntax does not allow you to use Markdown syntax in HTML blocks which is allowed with kramdown</p>
+</blockquote>
+
+<p>So, just like CommonMark, Kramdown allows the mixing of raw HTML and Markdown. But did my initial test fail? Is 
+a blank line necessary in Kramdow, too? I found the answer further down the documentation:</p>
+
+<blockquote>
+  <p>If an HTML tag has an attribute markdown=&rdquo;1&rdquo;, then the default mechanism for parsing syntax in this tag is used.</p>
+</blockquote>
+
+<p>I wasn&rsquo;t sure what “the default mechanism” was, but I gave it a try:</p>
+
+<div class="language-html highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;figure</span> <span class="na">markdown=</span><span class="s">"1"</span><span class="nt">&gt;</span>
+  ```ruby
+  module Locations
+    class Innsmouth
+      def self.visit
+        raise "Don't!"
+      end
+    end
+  end
+  ```
+  <span class="nt">&lt;figcaption&gt;</span>locations/innsmouth.rb<span class="nt">&lt;/figcaption&gt;</span>
+<span class="nt">&lt;/figure&gt;</span>
+</code></pre></div></figure></div>
+
+<p>And, to my relief and despair, it worked perfectly:<br />
+<img src="/assets/markdown-the-pits-of-madness/back-home-forever-changed.png" alt="Success renderering using Kramdown's syntax for HTML blocks" /></p>
+
+<p>Now I could get rid of all my work – the custom Rouge formatter, Kramdown syntax highlighter, and jekyll-commonmark 
+converter and renderer. All these were useless, since what I wanted had been available from the start – all was needed was 
+an extra HTML attribute. As the documentation explained.</p>
+
+<h3 id="unspeakable-learnings">Unspeakable learnings</h3>
+
+<p><em>Through my journey into the abyss of four different gems, I learned that the arcane secrets of the universe are not 
+meant for mortal minds, and that the price of forbidden knowledge is a terrible and eternal damnation, not to mention 
+an ironic waste of time.</em></p>
+
+<p>This “nice little coding project” turned out to be more eventful than I was expecting – but I did gain some rolls for 
+skill increases in exchange for my SAN points.</p>
+
+<p>First, I came to realize <strong>how much of a mess the Markdown situation</strong> is. I knew about variants like Github 
+Flavored Markdown, CommonMark and a few others such as MultiMarkDown, but I naively thought that GFM had become a 
+de-facto standard, of which CommonMark was only the official spec, like ECMAScript is to JavaScript (it is not). More 
+importantly, I underestimated how much they differ, from the original Markdown and from one another. This led me to wrong 
+assumptions when I went looking for a codeless way to reach my goal.</p>
+
+<p>Second, I got to know the inner workings of <strong>Jekyll</strong>. I may disagree with some of its design choices, like using Liquid 
+or the way <a href="https://jekyllrb.com/docs/collections/">collections</a> work, but going through the code was a nice experience. 
+Everything is well-architectured, and easy to understand.</p>
+
+<p>On the contrary, I wasn&rsquo;t conviced by <strong>Kramdown, the gem</strong>. It is a big piece of software, it does a lot of things, 
+and it does them well. And I appreciate its overall architecture and care for extensibility (like Jekyll, and like Rouge for 
+that matter). However, I found the code itself tortuous, overly generous in metaprogramming and Ruby acrobatics, while 
+the test suite documents little (it&rsquo;s mostly a suite of abstracted integration tests.) The code reads like the solo project 
+of a clever programmer who&rsquo;s having fun pushing himself; I would have enjoyed writing it, but I disliked reading it. Somehow, 
+it fits with <strong>Kramdown, the format</strong>. It is very complete, well thought-out, and it answers actual needs, but I 
+simply don&rsquo;t enjoy it. It is too close to an actual templating language – I was half-expecting to see syntax elements 
+for loops and conditionals. (To be honest, the same could be said of CommonMark.)</p>
+
+<p>However, I have to admit that, as overly rich as Kramdown is, it is well documented. And this is probably the main 
+lesson of this adventure: <a href="http://www.catb.org/jargon/html/R/RTFM.html"><strong>read the fucking manual</strong></a>. All the pieces 
+I needed were documented: the Jekyll docs says that Kramdown is used (with a GFM variant), and the Kramdoc documentation 
+says how HTML blocks and Markdown can be mixed. Yes, everything is not <em>super</em> clear, but still: I could have saved 
+myself the whole trip down the code of 4 different gems if I had taken the time to read the docs first.</p>
+
+<p>But, on the other hand, it was a funny trip, and I brought back interesting souvenirs.</p>
+
+<h3 id="artefacts-on-the-librarys-shelves">Artefacts on the library&rsquo;s shelves</h3>
+
+<p><em>The eldritch relics I brought back from my journey now sit locked away, their very presence a reminder of the horrors that lie beyond the veil of our reality.</em></p>
+
+<p>I now have 4 different ways to wrap my code samples in a <code>&lt;figure&gt;</code> element, with an associated <code>&lt;figcaption&gt;</code>.</p>
+
+<ul>
+  <li>Mixing HTML and Markdown, following Kramdown&rsquo;s syntax (a <code>markdown</code> attribute added to the wrapping HTML element).</li>
+  <li>Mixing HTML and Markdown, following CommonMark&rsquo;s syntax (blank lines after the HTML elements).</li>
+  <li>Using the <em>info string</em>, thanks to a custom Rouge formatter and a custom Kramdown syntax highlighter. (After a good night sleep, I understood my 
+mistake and fixed this first attempt.)</li>
+  <li>Using the <em>info string</em>, thanks to a custom Markdown processor (derived from jekyll-commonmark).</li>
+</ul>
+
+<p>For the time being, I&rsquo;ve decided to go with the first one, as I&rsquo;ve narrated above. However, I&rsquo;m not <em>entirely</em> happy 
+with this solution. I like to stick to the defaults as much as possible, whether it&rsquo;s for my computer setup, my test 
+runner in Ruby, or my Markdown texts. I prefer to use the original Markdown as much as I can; I can go with GFM 
+because it&rsquo;s so ubiquituous in the programming world (and I like most of its additions to Markdown, to be honest). So using 
+the info string would make sense, but it confuses my text editor – so even if the final result looks fine, <em>using</em> 
+this syntax is unconfortable. On the contrary, the extra HTML markup doesn&rsquo;t look too bad, especially without 
+the extra blank line that CommonMark requires.</p>
+
+<p>So that&rsquo;s my trade-off for now: going with Kramdown&rsquo;s syntax instead of the simplest Markdown, in order to have 
+the benefits of a good rendering and a good writing experience. But the more I think about it, the more I&rsquo;d like 
+try moving the syntax-highlighting to the client side, so that I could get rid of the code fences altogether:</p>
+
+<div class="language-markdown highlighter-rouge_with_caption"><figure><div class="highlight"><pre class="highlight"><code>Lorem ipsum dolor sit amet.
+
+<span class="nt">&lt;figure&gt;&lt;pre&gt;&lt;code</span> <span class="na">lang=</span><span class="s">"ruby"</span><span class="nt">&gt;</span>
+class Consectetur
+  def adipisicing(elit)
+  end
+end
+<span class="nt">&lt;figcaption&gt;</span>sed do eiusmod tempor incididunt<span class="nt">&lt;/figcaption&gt;</span>
+<span class="nt">&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;</span>
+</code></pre></div></figure></div>
+
+<p>I&rsquo;m still on the (code) fence as to wether it makes the text less legible or not. We&rsquo;ll see.</p>
+
+  </div>
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

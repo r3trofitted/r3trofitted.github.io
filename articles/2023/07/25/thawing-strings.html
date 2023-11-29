@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/articles/2023/07/25/thawing-strings.html" />
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/BlogPosting" 
+  class="post h-entry "
+  data-category="miscellanea"
+  
+  >
+  <header class="post-header">
+    <h2 class="post-title p-name" itemprop="name headline">
+      Thawing strings
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-07-25T10:52:00+02:00" itemprop="datePublished">
+        Jul 25, 2023
+      </time>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>As a staunch atheist, I reject all cults (except maybe for Ian Astbury&rsquo;s). And yet, there&rsquo;s one I&rsquo;m always wary of, for 
+fear of inadvertently falling into: the <em>cargo</em> cult.</p>
+
+<p>Cargo cult programming is one of the worst things that can happen to a software person. It&rsquo;s the evil twin of experience, 
+when what I&rsquo;ve learned turns against you instead of helping you. Having strong opinions and hardcoded knowledge is fine, 
+until said opinions and knowledge turn out to be false, or even worse, out-of-date.</p>
+
+<p>Case in point: the <code>frozen-string-literal</code> feature in Ruby.</p>
+
+<p>Back in 2015, I learned that Ruby 3 would make <code>String</code> objects <em>frozen</em> by default, and as a transitional measure, 
+a new magic comment had been introduced: <code>#frozen_string_literal: true</code>. Add it to your Ruby 2.3 file, and its 
+(non-interpolated) strings would be frozen, as they should eventually be in Ruby 3.</p>
+
+<p>As a diligent rubyist trying to stay on the edge, I started adding this magic comment scrupulously at the top of all my 
+files, even though I really didn&rsquo;t like it (because it&rsquo;s noisy). Then Ruby 3 was relesead like a Christmas present 
+(litteraly), and I thought that I could stop using this magic comment.</p>
+
+<p>… Except that everybody was keeping it! Why was that? I was quick to blame Rubocop, my nemesis, but honestly I was more 
+confused than pissed. Still, I had other things to care about, so I forgot about this – and kept using the magic comment, 
+even in my own pet projects.</p>
+
+<h3 id="best-practices-as-smell-tests">Best practices as smell tests</h3>
+
+<p>However, there is something smelly in ubiquitous “best practices”, and now that I&rsquo;m back to coding (and coding for fun!), 
+my nose started twitching again.</p>
+
+<p>I trust my tools of choice, and the people who make them. Which means that I trust Ruby to be at its best by default. 
+Magic comments are file-specific configuration options; by definition, they are an exception to the defaults. So, if a 
+an option like <code>frozen-string-literal</code> is that important, why isn&rsquo;t it on by default?</p>
+
+<p>And, by the way, wasn&rsquo;t it supposed to be the case in Ruby 3 in the first place?</p>
+
+<h3 id="catching-up-with-the-language">Catching up with the language</h3>
+
+<p>So I went back to the <a href="https://bugs.ruby-lang.org/projects/ruby-master">Ruby bug tracker</a><sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> and read 
+<a href="https://bugs.ruby-lang.org/issues/11473#note-53">this</a>:</p>
+
+<blockquote>
+  <ul>
+    <li>Status changed from Assigned to Closed</li>
+  </ul>
+
+  <p>I consider this for years. I REALLY like the idea but I am sure introducing this could cause HUGE compatibility issue, 
+even bigger than Ruby 1.9. So I officially abandon making frozen-string-literals default (for Ruby3).</p>
+
+  <p>This does not mean we are going to remove the frozen-string-literal feature that can be specified by magic comments.</p>
+
+  <p>Matz.</p>
+</blockquote>
+
+<p>I had somehow missed the announcement that Ruby 3 had dropped the idea of freezing the strings by default! And for my 
+least favorite reason in computer science: retrocompatibility (the weight that drags progress down). So there was 
+a reason to systematically use this ugly magic comment, after all.</p>
+
+<h3 id="weighting-tradeoffs">Weighting tradeoffs</h3>
+
+<p>Or was it? I can understand that Matz would prefer avoiding compatibility issues over performance, but performance 
+was Ruby 3&rsquo;s major goal with “Ruby 3x3”. So, how much of a compromise was dropping the freeze-strings-by-default?</p>
+
+<p>I have no idea, and no benchmark, but I stumbled upon <a href="https://github.com/standardrb/standard/pull/181">this interesting thread</a> 
+on Standard&rsquo;s repo. Basically, Justin Sears was pushing back against adding a linter rule to enforce the presence 
+of this magic comment (as he should, because he&rsquo;s a smart and tasteful man), and asking for reasons do have it. And 
+no other than <a href="http://tenderlovemaking.com">Tenderlove</a> came to <a href="https://github.com/standardrb/standard/pull/181#issuecomment-635722698">defend this practice</a>:</p>
+
+<blockquote>
+  <p>I don’t have any good benchmarks, but I can tell you from experience that they really helped us at GitHub.</p>
+
+  <p>[…]</p>
+
+  <p>btw I used to be in the “I’ve never seen frozen stings help anything” camp until I actually saw them help.</p>
+</blockquote>
+
+<p>So, yeah, the <code>frozen-string-litteral</code> seems to have a positive effect, which would make the ridiculousness of 
+adding the same magic comment to every file worth it… Except that <strong>I don&rsquo;t work on GitHub</strong>.</p>
+
+<p>This is basically the conclusion that closed the PR: freezing the strings might be useful in some situations, but 
+this is the exception, not the rule. So Searls doesn&rsquo;t want it in Standard, and more importantly, I don&rsquo;t want it 
+in my code base.</p>
+
+<h3 id="back-from-the-edge">Back from the edge</h3>
+
+<p>So, I went from getting into a certain habit in preparation for a change that didn&rsquo;t come, to keeping this habit for no 
+good reason, even as had a (correct, if accidentally) hunch that I shouldn&rsquo;t. The good thing is that now, I know 
+what to do most of the time, when to do otherwise, and more importantly, why. I&rsquo;m back to following anchored reason, 
+and not blind faith.</p>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Every time I go there, I feel an unconfortable mix of nostalgia and discomfort because it&rsquo;s powered by Redmine…&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div>
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>

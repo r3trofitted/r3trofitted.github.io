@@ -1,0 +1,893 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  
+
+  <id>https://2-45.pm/blog/</id>
+  <title>Grainy Dinosaurs</title>
+  <updated>2023-11-24T11:27:00+01:00</updated>
+
+  <author>
+    <name>Ronan Limon Duparcmeur</name>
+    <email>ronan@2-45.pm</email>
+  </author>
+
+  <link href="https://2-45.pm/blog/feed.xml" rel="self" />
+  <link href="https://2-45.pm/blog" />
+
+  <rights> © Ronan Limon Duparcmeur - ronan@2-45.pm </rights>
+  
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/11/14/issue-8.html</id>
+      <title>A dash of milk #8</title>
+      <updated>2023-11-24T11:27:00+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/11/14/issue-8.html" />
+
+      <published>2023-11-24T11:27:00+01:00</published>
+      <content type="html">&lt;h3 id=&quot;http-303-redirects-with-anchor-not-respected&quot;&gt;&lt;a href=&quot;https://github.com/hotwired/turbo/issues/211&quot;&gt;HTTP 303 Redirects with anchor not respected&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;An unexpected issue with Turbo that I came across while working on a pet project. It&amp;rsquo;s all the more 
+a bummer that the problem is not really with Turbo, but &lt;a href=&quot;https://github.com/whatwg/fetch/issues/1167&quot;&gt;with &lt;code&gt;fetch()&lt;/code&gt;&lt;/a&gt;. 
+The silver lining is that I learned a couple of things through this, starting with the fact that there is 
+&lt;a href=&quot;https://fetch.spec.whatwg.org&quot;&gt;a whole spec for fetching&lt;/a&gt; (which goes beyond the JS function).&lt;/p&gt;
+
+&lt;h3 id=&quot;spicy-web&quot;&gt;&lt;a href=&quot;https://www.spicyweb.dev&quot;&gt;Spicy Web&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I may be late to the party here, since Jared White is a name that sounds familiar, but Spicy Web is yet 
+another heartwarming example of the Revenge of the Simple Web. I sense a backlash brewing against the over-engineering 
+of the web in the last decade, and every single week I stumble on another brilliant piece of advocacy for a return 
+to HTML and CSS by the book – which are very powerful now.&lt;/p&gt;
+
+&lt;h3 id=&quot;wait-is-cloud-bad&quot;&gt;&lt;a href=&quot;https://newsletter.goodtechthings.com/p/wait-is-cloud-bad&quot;&gt;Wait, is cloud bad?&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;An interesting counter-take on DHH&amp;rsquo;s recent advocacy for exiting the cloud. I don&amp;rsquo;t necessarily agree with the author 
+on everything, but I liked his tone. Being myself (moderately) excited at the prospect of being able to do go back to the 
+good old days, including when it comes to sysadmin stuff, I appreciate a different perspective.&lt;/p&gt;
+
+&lt;h3 id=&quot;posse&quot;&gt;&lt;a href=&quot;https://indieweb.org/POSSE&quot;&gt;POSSE&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Talking about the good old days, &lt;a href=&quot;https://justin.searls.co/takes/2023-10-30-13h57m54s/&quot;&gt;a toot by Justin Searls&lt;/a&gt; pointed 
+me towards this nice branding of a cool concept. I already have too many projects in progress, but redoing this 
+site to making it POSSE-compliant is now on top of the TODO pile. The 90&amp;rsquo;s are back, I&amp;rsquo;m telling you!&lt;/p&gt;
+
+&lt;h3 id=&quot;geist&quot;&gt;&lt;a href=&quot;https://vercel.com/font/mono&quot;&gt;Geist&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;As &lt;a href=&quot;https://2-45.pm/2023/06/26/no-milk-no-sugar-4.html&quot;&gt;I&amp;rsquo;ve written already&lt;/a&gt;, I&amp;rsquo;m a sucker for fonts. This one looked 
+nice, and its website really sells it well. But, for some reason, I didn&amp;rsquo;t like it in practice.&lt;/p&gt;
+
+&lt;h3 id=&quot;monaspace&quot;&gt;&lt;a href=&quot;https://monaspace.githubnext.com&quot;&gt;Monaspace&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;… And yet, I am going all-in on the Monaspace family – more precisely, on Monaspace Neon, semi-wide and ultra-light. 
+Probably because it looks a bit like &lt;a href=&quot;https://www.linotype.com/342843/eurostile-family.html&quot;&gt;Eurostile&lt;/a&gt;, my favorite fonts 
+of all time, as overused as it may be.&lt;/p&gt;
+
+&lt;p&gt;(So far, the transition to Monaspace Neon from my dead Monofur is going rather well, even it is less pleasing when writing 
+prose.)&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/11/05/humility-check.html</id>
+      <title>Humility check</title>
+      <updated>2023-11-05T21:12:00+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/11/05/humility-check.html" />
+
+      <published>2023-11-05T21:12:00+01:00</published>
+      <content type="html">&lt;p&gt;I consider myself a solid developer, especially with Ruby and Rails. After all, I&amp;rsquo;ve been writing code and 
+building systems for more than twenty years now. However, I&amp;rsquo;m weary of becoming complacent, or even worse, 
+overestimating abilities that would be declining without me realizing it. That is why I keep practicing and 
+always welcome a challenge or an assessment.&lt;/p&gt;
+
+&lt;p&gt;And such a test is exactly what I took a couple of days ago, partially to find new consulting opportunities, 
+but mostly to see how I measured. Well, let&amp;rsquo;s just say that it was a learning, and humbling, experience.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-test&quot;&gt;The test&lt;/h3&gt;
+
+&lt;p&gt;Frankly, it was a good test. Technical tests are not that easy to write. They must be realistic, and yet not require 
+knowledge of a specific business domain. They should cover high- and low-level stuff, and yet be focused. They should 
+look like actual application code, and yet keep the boilerplate to a minimum. It&amp;rsquo;s a tricky balance, and I found this 
+test well-balanced.&lt;/p&gt;
+
+&lt;p&gt;Sign of the times, the test&amp;rsquo;s setup was “Rails as a back-end for a REST API”. So, very realistic, but also a bit 
+sad, since it&amp;rsquo;s basically misusing my favorite framework. Still, the use case was very clear, coherent, and well laid 
+out. The test came with a skeleton app and some integration specs; the goal was mostly to fill in the blanks in the code 
+to make the specs pass.&lt;/p&gt;
+
+&lt;p&gt;I would love to complain about the non-RESTful nature of the app&amp;rsquo;s resources, its choice of RSpec over Minitest, or 
+the insistence on using some kind of service layer, and blame my poor performance on these, but that would be dishonest. 
+For better or worse, this structure is extremely common in 2023, and as I&amp;rsquo;ve said, good tests are realistic.&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;my-performance&quot;&gt;My performance&lt;/h3&gt;
+
+&lt;p&gt;I failed miserably. Or rather: I eventually came up with a solution that I find pretty good, but it took me way longer 
+than the allocated time. So what did I do wrong?&lt;/p&gt;
+
+&lt;p&gt;First of all, what I did &lt;em&gt;not&lt;/em&gt; do wrong: I didn&amp;rsquo;t waste time setting up my environment, and I didn&amp;rsquo;t waste time 
+looking stuff up online, basically filling in holes in my knowledge with Stack Overflow snippets. I mention these things 
+because they are among the obvious red flags that I look for when I am the one doing the evaluation. At least my basics 
+were covered. So what took me so long?&lt;/p&gt;
+
+&lt;p&gt;First of all, I &lt;strong&gt;didn&amp;rsquo;t study the code enough before diving in&lt;/strong&gt;. Now that I think about it, this is the kind of 
+common advice that I was given when I was a student – or that I could give my son now. Don&amp;rsquo;t rush, and read carefully 
+the wording of the problem. And the code you start with is part of this wording! But because I didn&amp;rsquo;t do that, I 
+stumbled upon stupid things that broke my flow – things like not looking at the &lt;code&gt;schema.rb&lt;/code&gt; file to see that a given 
+attribute that is passed as a string is actually stored as an integer, and therefore the model should declare an &lt;code&gt;enum&lt;/code&gt;. 
+To be honest, I cursed every time I lost 20 seconds on what felt like unfair traps, but in retrospect, these are part of 
+the game, and something you should always do in real life anyway. So, this recurring loss of footing is on me.&lt;/p&gt;
+
+&lt;p&gt;Secondly, I couldn&amp;rsquo;t help myself &lt;strong&gt;coding with my ego&lt;/strong&gt;, and obsessing too much and too early on &lt;em&gt;making it right&lt;/em&gt;, 
+instead of ensuring that I had &lt;em&gt;made it work&lt;/em&gt; everywhere first. It&amp;rsquo;s a weakness I know well, now, and yet once again 
+it was stronger than me. This was especially true on the algorithmic part of the test. I&amp;rsquo;m not very good when it comes to 
+core CS stuff, and I felt an extra impulse to &lt;strong&gt;show off&lt;/strong&gt; and try to do something clever, which took me a very 
+long time to come up with, instead of brute-forcing my way through the problem. Now, in my defense, one of my motivations 
+for taking this test was to have fun and try new things, and I had never had a good reason to use &lt;code&gt;Array#slice_when&lt;/code&gt; 
+before. I did have fun, and I did learn new things, but it was unwise and it is the main reason why I lost so much time.&lt;/p&gt;
+
+&lt;p&gt;But, in truth, I could still have pulled it off in time if I had been more familiar with the expected architecture. 
+The app was technically using Rails, but not following the Rails Ways™, and the seemingly incoherent requirements that 
+ensued from this architecture &lt;strong&gt;got me confused&lt;/strong&gt;. It became a puzzle I could not figure out – I got the objects 
+that the solution wanted, and the responsibilities they had to have, but couldn&amp;rsquo;t find a way to dispatch the latter 
+among the former as the test wanted me to. Or not in a way that made sense to me, anyway. I eventually came up with 
+something that worked, but it didn&amp;rsquo;t feel &lt;em&gt;right&lt;/em&gt;. And yet, coming up with it took me a very long time – in fact, I 
+had to start again from scratch, doing things “my way”, and then backtracking to something that would satisfy the 
+requirements of the test.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-was-revealed&quot;&gt;What was revealed?&lt;/h3&gt;
+
+&lt;p&gt;This mismatch between what I think was expected of the candidates, and the way I usually build a Rails app, gives 
+me pause. I certainly don&amp;rsquo;t want to put my failing on the test itself or look for excuses. I made mistakes because 
+of my own shortcomings, there&amp;rsquo;s no denying that. And yet, if indeed I reversed-engineered properly the test (which is 
+a big &lt;em&gt;if&lt;/em&gt;), I wonder if I should make a big deal out of this poor performance. I couldn&amp;rsquo;t come up with a solution 
+that I would advise against anyway, in a classic case of misusing a framework that I (supposedly) know how to use well. 
+Should I stick to my guns, ignore these perversions, and feel fine about my own lack of awareness, or should I step 
+down from my pedestal, go with the flow, and become familiar with these misguided but common approaches to “a Rails 
+backend”?&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Still, the more I thought about this test, the more issues I had with it, as an example of poor practices. I&amp;rsquo;ll 
+  certainly come back to this in future posts.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/10/31/the-fall-of-the-house-of-usher.html</id>
+      <title>The Fall of the House of Usher</title>
+      <updated>2023-10-31T11:59:00+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/10/31/the-fall-of-the-house-of-usher.html" />
+
+      <published>2023-10-31T11:59:00+01:00</published>
+      <content type="html">&lt;p&gt;I really, really liked &lt;a href=&quot;https://www.imdb.com/title/tt10574558/&quot;&gt;Midnight Mass&lt;/a&gt;. So much so that it got me to 
+catch up with Mike Flanagan&amp;rsquo;s &amp;ldquo;Haunting of&amp;rdquo; shows, which were, say, of uneven quality but still enjoyable. And 
+it got me rather excited for The Fall of the House of Usher.&lt;/p&gt;
+
+&lt;p&gt;Now that I&amp;rsquo;ve watched this latest show, the more I think about it, the more I see issues in its pacing, tone, text and 
+subtext, to the point that I honestly cannot be bothered to write a full post about it. Every pertinent opinion 
+I could give can be found in the &lt;a href=&quot;https://slate.com/culture/2023/10/the-fall-of-the-house-of-usher-netflix-mike-flanagan-edgar-allan-poe-adaptation.html&quot;&gt;Slate review&lt;/a&gt; that 
+I carefully refrained from reading before watching the show. Or, for a more personal touch, in the &lt;a href=&quot;https://ruby.social/@r3trofitted/111319120972931721&quot;&gt;three&lt;/a&gt; 
+&lt;a href=&quot;https://ruby.social/@r3trofitted/111323798762943647&quot;&gt;toots&lt;/a&gt; &lt;a href=&quot;https://ruby.social/@r3trofitted/111324521630572845&quot;&gt;I posted&lt;/a&gt; 
+during my quasi-binging:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;I like Mike Flanagan’s work, and I LOVED Midnight Mass, but I’m pretty disappointed by The Fall of the House of Usher 
+so far (meaning after 2 episodes).&lt;br /&gt;
+↳ Mark Hamill is pretty cool, though.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Almost done with the Fall of the House of Usher. Watching the Flanacast again is nice, but this series really suffers 
+from Netflixis: it had good material for a movie but it got diluted to make too many episodes, and then padded with 
+over-styling. And the references to Poe’s works and current events are as artificial as the sets.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Final thoughts on The Fall of the House of Usher: the poetry is really good (no shit, Sherlock) but the social 
+commentary is hollow (even if well-intended).&lt;/p&gt;
+&lt;/blockquote&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/10/30/issue-7.html</id>
+      <title>A dash of milk #7</title>
+      <updated>2023-10-24T09:03:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/10/30/issue-7.html" />
+
+      <published>2023-10-24T09:03:00+02:00</published>
+      <content type="html">&lt;h3 id=&quot;its-2023-here-is-why-your-web-design-sucks&quot;&gt;&lt;a href=&quot;https://heather-buchel.com/blog/2023/10/why-your-web-design-sucks/&quot;&gt;It&amp;rsquo;s 2023, here is why your web design sucks.&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Probably the best article I&amp;rsquo;ve stumbled upon in the past couple of weeks. Reading it go me so excited that I 
+couldn&amp;rsquo;t help but forwarding it around, especially to designers or managers I&amp;rsquo;ve worked with in the past. Heather 
+Buchel explains exactly what I&amp;rsquo;ve been trying to say for years, but way better than I ever could, and with 
+an extra dash of insights (especially regarding gender-based territoriality). And I love her tone.&lt;/p&gt;
+
+&lt;h3 id=&quot;whitespace-characters-to-copy-and-paste&quot;&gt;&lt;a href=&quot;https://qwerty.dev/whitespace/&quot;&gt;Whitespace Characters to Copy and Paste&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Or, more importantly, whitespace characters to learn about. I&amp;rsquo;m a rather lenient person, but when it comes to 
+typography, I gladly nitpick like the nerd I am (deep inside). I stumbled upon this great site when searching 
+for a design solution to a &lt;a href=&quot;&quot;&gt;spacing issue&lt;/a&gt; in my latest pet project. You can bet that it&amp;rsquo;s now in my bookmarks.&lt;/p&gt;
+
+&lt;h3 id=&quot;yaml-multiline&quot;&gt;&lt;a href=&quot;https://yaml-multiline.info&quot;&gt;YAML Multiline&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Another reference I&amp;rsquo;m happy to bookmark, now that I&amp;rsquo;m back to 1998 and actually browser features like bookmarks 
+again. (By the way, do you remember &lt;a href=&quot;https://pinboard.in/u:r3trofitted/&quot;&gt;Pinboard&lt;/a&gt;?) Anyway, YAML is confusing 
+and will occasionally trip you up, hopefully this will help.&lt;/p&gt;
+
+&lt;h3 id=&quot;super-color-palette&quot;&gt;&lt;a href=&quot;https://supercolorpalette.com&quot;&gt;Super Color Palette&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Another great tool, that I learned about through &lt;a href=&quot;https://www.youtube.com/@BJGpixel&quot;&gt;Brandon James Greers&lt;/a&gt; (who 
+makes pictures out of tiny squares). I&amp;rsquo;ve been building up several new things recently, and UI design can be 
+alien enough to stop me in my tracks, but this kind of tool helps a lot to push through.&lt;/p&gt;
+
+&lt;h3 id=&quot;constructing-subclasses-of-data-with-positional-arguments&quot;&gt;&lt;a href=&quot;https://bugs.ruby-lang.org/issues/19278&quot;&gt;Constructing subclasses of Data with positional arguments&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;My original notes for the link where: &lt;em&gt;What a thread. Talk about tone.&lt;/em&gt; In hindsight, they suffice.&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/10/23/issue-6.html</id>
+      <title>A dash of milk #6</title>
+      <updated>2023-10-23T09:38:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/10/23/issue-6.html" />
+
+      <published>2023-10-23T09:38:00+02:00</published>
+      <content type="html">&lt;h3 id=&quot;elmore-the-finest-one-of-all&quot;&gt;&lt;a href=&quot;https://youtu.be/mfNoPYChIqk&quot;&gt;Elmore: The Finest One of All&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;ve never been too fond of D&amp;amp;D, and especially not the 2nd edition, but a single illustration stuck me when 
+I first saw it, in the Player&amp;rsquo;s Handbook that I borrowed from a classmate back in high school. It&amp;rsquo;s been more 
+than 30 years now, and I still find this piece incredibly evocative. Well, obviously I&amp;rsquo;m not the only one, since 
+this colorful YouTuber has managed to make a 30-minute video on it, and keep it interesting, too!&lt;/p&gt;
+
+&lt;h3 id=&quot;the-little-told-story-about-the-bart-seat-slashing-gang-&quot;&gt;&lt;a href=&quot;https://www.sfgate.com/bayarea/article/bart-seat-slasher-hurwitz-service-systems-inc-14544785.php&quot;&gt;The little-told story about the BART seat-slashing gang […]&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I loved this story of unscrupulous people gaming a system they&amp;rsquo;re part of. I might reuse it in a Cyberpunk RED 
+scenario, or cite it as an example of wrong incentives when giving management advice. Or both.&lt;/p&gt;
+
+&lt;h3 id=&quot;why-im-in-the-tailwind-cult&quot;&gt;&lt;a href=&quot;https://phoenixonrails.com/blog/why-im-in-the-tailwind-cult&quot;&gt;Why I&amp;rsquo;m in the Tailwind cult&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m still trying to understand the appeal of Tailwind. Unfortunately, this article didn&amp;rsquo;t convince me; it only 
+reinforced my conviction that there are many web developers won&amp;rsquo;t don&amp;rsquo;t really care for the technical foundations, 
+limitations and superpowers of the Web, and would prefer it to be more like a desktop environment. Which was already 
+the case back in the days of ASP.NET 1.0. I&amp;rsquo;m not one of those people, but I still wonder if I&amp;rsquo;m missing out on 
+something. I guess I have no choice but to try it out myself…&lt;/p&gt;
+
+&lt;h3 id=&quot;writing-object-shape-friendly-code-in-ruby&quot;&gt;&lt;a href=&quot;https://island94.org/2023/10/writing-object-shape-friendly-code-in-ruby&quot;&gt;Writing Object Shape friendly code in Ruby&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;This is very interesting. At the same time, it is so counter-intuitive that I don&amp;rsquo;t ever see myself using it. And yet, 
+I find it really cool, and I&amp;rsquo;m glad that this kind of optimization exists, as costly as it may be, for the people 
+who need it.&lt;/p&gt;
+
+&lt;h3 id=&quot;that-useless-ruby-syntax-sugar-that-emerged-in-new-versions&quot;&gt;&lt;a href=&quot;https://zverok.space/blog/2023-10-02-syntax-sugar.html&quot;&gt;That useless Ruby syntax sugar that emerged in new versions&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I am definitely in the camp of the back-pushing people who don&amp;rsquo;t like, or at best don&amp;rsquo;t care for, the newest additions 
+to Ruby – things like the numbers block parameters or the pattern matching. This is why I appreciate this series 
+of articles, which could challenge my scepticism. (Like with the Tailwind article above, so far it hasn&amp;rsquo;t really 
+worked, but that&amp;rsquo;s not important.)&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/10/02/euruko-2023.html</id>
+      <title>Euruko 2023</title>
+      <updated>2023-10-02T15:39:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/10/02/euruko-2023.html" />
+
+      <published>2023-10-02T15:39:00+02:00</published>
+      <content type="html">&lt;p&gt;After a pandemic lockdown and two stints in companies oblivious to the benefits of tech conferences (no wonder I didn&amp;rsquo;t 
+stay), 2023 is the year where I&amp;rsquo;m finally attending confs again. I&amp;rsquo;ll be at Rails World in a few days, but last week, 
+it was &lt;a href=&quot;https://2023.euruko.org&quot;&gt;Euruko&lt;/a&gt;. TL;DR: in spite of a few organisational hiccups, it was great and I had a blast.&lt;/p&gt;
+
+&lt;h3 id=&quot;venue-and-organisation&quot;&gt;Venue and organisation&lt;/h3&gt;
+
+&lt;p&gt;Being a bit of a homebody, and even more a complete ignorant of geography, I had a slight hesitation upon seeing that 
+this year&amp;rsquo;s Euruko would be in Lithuania. It&amp;rsquo;s on the opposite side of Europe! But, bless be the EU, getting there was 
+as easy as going to, say, &lt;a href=&quot;https://rubyonrails.org/world&quot;&gt;Amsterdam&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;I was expecting Vilnius to be charming, with some discrete relics of its Soviet past, and this exactly how it was. It is 
+modern and yet history-rich, and very lively – I wasn&amp;rsquo;t expecting that many people on terrasses and paved streets. I went 
+for a run one evening, through the old town with &lt;a href=&quot;https://www.youtube.com/watch?v=7fDvxlK2FMc&quot;&gt;Carpenter Brut&lt;/a&gt; playing in 
+my Airpods, and between the Renaissance façades&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, the occasional brutalist artefacts, the busy crowd and the soft public 
+lighting, I felt like in the Prague hub of &lt;a href=&quot;https://www.eidosmontreal.com/games/deus-ex-mankind-divided/&quot;&gt;Deux Ex: Mankind Divided&lt;/a&gt;. 
+Which was great (it is a good game after all).&lt;/p&gt;
+
+&lt;p&gt;The conference took place in the main campus of VILNIUS TECH, a few minutes by car from the city center. I was initially 
+disappointed to see that the venue was not practically accessible by foot, but it turned out not to be an issue: the 
+organisers had put a perfectly fine transfer system and the ride was an extra opportunity for sightseeing. And the campus 
+was ideal for a conference: modern, well-equipped, with plenty of room to sit or chat. The catering was, let&amp;rsquo;s say, 
+canteen-level, which made sense in an university, I guess. Still, I don&amp;rsquo;t want to complain: these things are hard 
+to organise, and we didn&amp;rsquo;t come for a gastronomical experience anyway. So, overall: the venue was fine.&lt;/p&gt;
+
+&lt;p&gt;In fact, &lt;em&gt;fine&lt;/em&gt; could describe the whole of the organisation. Nothing was particularly astonishing, and since 2023 
+was Ruby&amp;rsquo;s 30th anniversary, Euruko&amp;rsquo;s 20th, and Vilnius 700th, and was kind of expecting something really special, but 
+this excessive hype is on me. There were a few unfortunate technical issues, but these things happen, and once again: 
+organising a conference is a lot of difficult work, so having almost everything run smoothly is already a great 
+success. My only serious complain is on the agenda – but I&amp;rsquo;ll come back to this later.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-conference-talks&quot;&gt;The conference talks&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m happy to say that the planned talks were exactly what I wanted from Euruko: varied&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;, sometimes technical and 
+sometimes aspirational, sometimes straightforward and sometimes weird, sometimes beginner-friendly and sometimes more 
+advanced. My personal highlights are &lt;a href=&quot;https://twitter.com/srbaker&quot;&gt;Steven Baker&lt;/a&gt;&amp;rsquo;s “Reflections on a Reluctant Revolution”, 
+&lt;a href=&quot;https://github.com/hasumikin&quot;&gt;Hitoshi Hasumi&lt;/a&gt;&amp;rsquo;s &amp;ldquo;A Beginner&amp;rsquo;s Complete Guide to Microcontroller Programming in Ruby&amp;rdquo; 
+and, unsurprisingly, &lt;a href=&quot;https://twitter.com/yukihiro_matz&quot;&gt;Matz&lt;/a&gt;&amp;rsquo;s keynote on a sensitive topic: the GVL.&lt;/p&gt;
+
+&lt;p&gt;A few talks stood out as not being especially Ruby-centric, such as &lt;a href=&quot;https://twitter.com/carlastabile&quot;&gt;Carla Urrea Stabile&lt;/a&gt;&amp;rsquo;s 
+(on passkeys), &lt;a href=&quot;https://twitter.com/chacon&quot;&gt;Scott Chacon&lt;/a&gt;&amp;rsquo;s (on version control), or &lt;a href=&quot;https://www.linkedin.com/in/hana-harencarova&quot;&gt;Hana Harencarova&lt;/a&gt;&amp;rsquo;s 
+(on feature flags). Those did smell like sponsor talks, but each time the speakers were really nice and entertaining, 
+and didn&amp;rsquo;t push for their respective companies&amp;rsquo; products. (And Carla, in particular, was very patient with the technical 
+difficulties she had to endure.)&lt;/p&gt;
+
+&lt;h3 id=&quot;the-unconference-talks&quot;&gt;The unconference talks&lt;/h3&gt;
+
+&lt;p&gt;These are the problematic ones. This year, Euruko&amp;rsquo;s organisers choose to dedicate half the agenda to ”unconference” talks 
+– talks pitched and then given by audience members, without oversight by the selection committee. I&amp;rsquo;m fine with opening 
+the stage to mere audience members, but 8 talks – that&amp;rsquo;s a bit much, to me at least, and it felt like padding.&lt;/p&gt;
+
+&lt;p&gt;To their credit, all the speakers where confortable with the exercice and knew their material; however, most of the topics 
+were not really interesting (IMHO once again; YMMV). Lots of talks about performance, for example, which is rarely a 
+concern of mine. Still, I really enjoyed 2 of these unconference talks: Chikahiro Tokoro&amp;rsquo;s, because of the pure joy of 
+programming that he radiated, and Johnny Shields&amp;rsquo;s, which was genuinely interesting from a technical point of view.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-people-and-the-hallway-track&quot;&gt;The people and the hallway track&lt;/h3&gt;
+
+&lt;p&gt;Even though you definitely &lt;a href=&quot;https://hynek.me/articles/hallway-track/&quot;&gt;shouldn&amp;rsquo;t focus on it&lt;/a&gt;, the “hallway track”, and 
+more generally the socialising, is the big appeal of conferences. And this is what made Euruko such a great experience 
+for me this year. Going by myself instead of with a bunch of colleagues definitely helped, since I &lt;em&gt;had&lt;/em&gt; to mingle and 
+join conversations. Socialising at conferences is a bit like TDD: it may seem like an extra burden at first, but once 
+you do it, it becomes obvious that it&amp;rsquo;s the most important thing you could do.&lt;/p&gt;
+
+&lt;p&gt;There is something special in spending time talking about what is both a common passion and a daily, professional concern 
+with people from a different-but-alike background. From a practical, pragmatic perspective, it is very enlightening – 
+you get to compare experiences, challenge opinions and have yours challenged, and in the end learn a lot. It is stepping 
+outside of one&amp;rsquo;s habits zone while being guaranteed to stay within one&amp;rsquo;s domain of expertise. A invaluable bowl of fresh 
+air.&lt;/p&gt;
+
+&lt;p&gt;But, more importantly, it recharges your passion batteries. I don&amp;rsquo;t envy, and don&amp;rsquo;t value a lot, developers who claim 
+not to care about the language or framework they use. ”It&amp;rsquo;s just a tool&amp;rdquo; is misguided at best, and symptomatic at worst. 
+I&amp;rsquo;m a firm believer in being passionate about one&amp;rsquo;s work – it is a luxury not everyone can afford, but because it is 
+affordable in programming, we should all strive for it. And passion is also fuelled by the feeling of belonging to a 
+community, to be among peers, and by sharing time and ideas with them. This is especially true in Ruby, the 
+friendliest and smartest language, with the friendliest and smartest community (MINASWAN FTW). The time I spent talking 
+with fellow rubyists of all walks of life was the most rewarding of the whole 3 days. It taught me a lot, energised me 
+a lot, and renewed my love for my work.&lt;/p&gt;
+
+&lt;h3 id=&quot;takeaways&quot;&gt;Takeaways&lt;/h3&gt;
+
+&lt;p&gt;But besides a full charge, did I bring back any souvenirs from my trip to Vilnius? Yes, a couple, in fact.&lt;/p&gt;
+
+&lt;p&gt;First of all, Ruby is &lt;em&gt;old&lt;/em&gt;. It is common to say that is it &lt;em&gt;mature&lt;/em&gt;, but this is an euphemism. Ruby has a long history, 
+and is showed throughout the conference – in Stephen Backer&amp;rsquo;s memories of the early days of the Agile Manifesto and 
+the famous names of this era, in Matz&amp;rsquo;s rationals for the GVL (a design choice made at a time when computers had only 
+one core), and in the number of participants with 15, 20 or 25 years of experience with Ruby. Ruby&amp;rsquo;s popularity came 
+late, but it doesn&amp;rsquo;t negate the fact that Ruby&amp;rsquo;s history is long, and covers several generations of developers.&lt;/p&gt;
+
+&lt;p&gt;And yet, Ruby ages gracefully. That is in part due, in think, to the core team&amp;rsquo;s excellent leadership, and ability to 
+accept change and new features, while having the courage to refuse proposals that wouldn&amp;rsquo;t be right. Once again, Matz&amp;rsquo;s 
+thoughts on the GVL embody this brave balance: just because nowadays everybody seem to want to get rid of it, doesn&amp;rsquo;t 
+mean that it should be done, but let&amp;rsquo;s keep an eye out and an open mind.&lt;/p&gt;
+
+&lt;p&gt;Another factor in Ruby&amp;rsquo;s excellent shape despite its age is certainly the new blood joining the community continuously. 
+Ruby may not be as trendy as it was 10 years ago, but it&amp;rsquo;s still a common first language, for very good reasons, and having 
+so many beginners in the community helps in a least two ways: it brings in new ideas, and forces us old-timers to stay 
+welcoming and keep our craft accessible – or even inclusive. Yet, after realising how important the history of Ruby 
+and its pioneers was for me, and seeing how many people were oblivious to it because they were not there then, I believe 
+that we should do more to share these 30 years of history. &lt;a href=&quot;http://poignant.guide&quot;&gt;_why&amp;rsquo;s poignant guide&lt;/a&gt; deserves an update.&lt;/p&gt;
+
+&lt;p&gt;Euruko was also a great reminder that Ruby is greater than the Web, and is not limited to Rails. Yes, both these things 
+have played a great role in Ruby&amp;rsquo;s popularity, and still do, and Rails in particular influences significantly Ruby, 
+but this overlap should not limit Ruby&amp;rsquo;s horizon. One of the best talks this years was a demonstration of Ruby running 
+on a computer so simple that it could only light up a LED. A very few talks even touched upon the Web, let alone Rails.&lt;/p&gt;
+
+&lt;p&gt;Finally, and unsurprisingly, I came back from Euruko with an exhilarating feeling of &lt;em&gt;belonging&lt;/em&gt;. Ruby was conceived 
+for developer&amp;rsquo;s happiness, and developer – or, more broadly, people – are still at its core. This showed through Steve 
+Backer&amp;rsquo;s personal talk, but also in Masafumi Okura sharing his delight of simply reading (abstruse) Ruby code, and 
+obviously in Matz&amp;rsquo;s friendly, caring personality.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Or maybe they were Gothic. Or Baroque. Or Neo-Classical. Vilnius&amp;rsquo; architecture is very rich, and I&amp;rsquo;m very ignorant.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Unfortunately, as often, there was no parity in the speakers line-up, though.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/09/07/brothers-up-in-arms.html</id>
+      <title>Brothers (up) in Arms</title>
+      <updated>2023-09-07T20:01:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/09/07/brothers-up-in-arms.html" />
+
+      <published>2023-09-07T20:01:00+02:00</published>
+      <content type="html">&lt;p&gt;For some reason, I&amp;rsquo;ve been binging on videos of Christopher Hitchens today and yesterday&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. Now, the man did not always 
+play fair, and was not above a cheap shot or two, but even if I don&amp;rsquo;t admire his oratory mastery as much as his fans 
+in the YouTube comments, I&amp;rsquo;m in awe of his patience and his courage. The people he had to deal (or debate) with! Such 
+ignorance, when not bigotry, under the guise of some righteous sense of being offended!&lt;/p&gt;
+
+&lt;p&gt;However, these old debates and interviews were probably not a strong enough distraction from the current flame war in 
+the Rails-adjacent community (the one that started with the &lt;a href=&quot;https://world.hey.com/dhh/turbo-8-is-dropping-typescript-70165c01&quot;&gt;removal of TypeScript from Turbo&lt;/a&gt;). 
+This is irrational, but all the drama that is currently unfolding pains me. It makes me sad. And, just like with a 
+train wreck, I cannot look away.&lt;/p&gt;
+
+&lt;p&gt;So I&amp;rsquo;ve spent a stupid amount of time reading threads on social media, discord servers, and pull requests, and all I get 
+from this is a feeling of alienation. I see people reacting passionately, or at least intensely, and I cannot understand 
+why. Putting aside the trolls would only like to sustain chaos for chaos&amp;rsquo;s sake (sometimes funnily, I must admit), there 
+must be a reason why sane people, some of whom I have a good opinion of, brandish their pitchforks and use them to stroke 
+the fires of online outrage – posting provocative manifestos, or encouraging the splitting of communities, for example.&lt;/p&gt;
+
+&lt;p&gt;I find these reactions absurd, mean, and childish. But I cannot believe that so many developers are stupid, mean, or 
+immature. Which means that these reactions must be logical and consistent &lt;em&gt;from their perspective&lt;/em&gt;. Which means that 
+there is a gap, somewhere, between the way I (and others, I hope) see the world, and how these people see the world[^2]. 
+And this pains me &lt;em&gt;a lot&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;It also echoes the recent kerfuffle over Justin Searl&amp;rsquo;s &lt;a href=&quot;https://blog.testdouble.com/posts/2023-07-12-the-looming-demise-of-the-10x-developer/&quot;&gt;blog post&lt;/a&gt; 
+on generational divides between programmers, or this funny piece in the NY Times about 
+&lt;a href=&quot;https://www.nytimes.com/2023/08/25/style/gen-x-generation-discourse.html&quot;&gt;the youngsters&amp;rsquo; scorn for Gen-Xers&lt;/a&gt;. So far, 
+I&amp;rsquo;ve never had any issue connecting with people 5 years, 10 years, or 15 years younger than me; but now it seems like 
+the people I&amp;rsquo;m sharing the world with just don&amp;rsquo;t see it the way I do, and vice versa. It worries me.&lt;/p&gt;
+
+&lt;p&gt;I will probably take a break from social media, and go re-read &lt;a href=&quot;https://www.hachettebookgroup.com/titles/christopher-hitchens/god-is-not-great/9780446697965/?lens=twelve&quot;&gt;God Is Not Great&lt;/a&gt; 
+instead.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;I did not realise that his passing was 12 years ago already. Where have all these years gone?&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/08/28/what-i-ve-been-reading-lately-august-2023.html</id>
+      <title>What I&#39;ve been reading lately (August 2023)</title>
+      <updated>2023-08-28T08:34:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/08/28/what-i-ve-been-reading-lately-august-2023.html" />
+
+      <published>2023-08-28T08:34:00+02:00</published>
+      <content type="html">&lt;h3 id=&quot;une-histoire-du-jeu-vidéo-en-france-1960-1991-des-labos-and-chambres-dados-alexis-blanchet--guillaume-montagnon-2020&quot;&gt;Une histoire du jeu vidéo en France, 1960-1991: des labos and chambres d&amp;rsquo;ados (Alexis Blanchet &amp;amp; Guillaume Montagnon, 2020)&lt;/h3&gt;
+
+&lt;p&gt;A book with a very long and exhaustive title (in English: &lt;em&gt;A history of video games in France, 1960-1991: from labs to 
+teenagers&amp;rsquo; bedrooms&lt;/em&gt;), that fits perfectly with its content: a long and exhaustive study of, well, the way video games 
+were made, distributed, and played from the early sixties to the start of the nineties. After 
+&lt;a href=&quot;{% post_url 2023-05-25-what-i-ve-been-reading-lately %}&quot;&gt;Un feu dans le ciel nordique&lt;/a&gt;, this is another book that reads 
+like a (friendly) PhD, with its analytical approach, its matter-of-fact tone devoid of any storytelling, and the very 
+impressive amount of research that its built upon.&lt;/p&gt;
+
+&lt;p&gt;Even if the first chapters (how video games were first disdained curiosities for researchers; how they eventually entered 
+the realms of pinball-adjacent games for &lt;em&gt;cafés&lt;/em&gt; and bars) were a bit of a slog, albeit an interesting one, once 
+we reached the 1970s and the home consoles, I got hooked; by the &amp;rsquo;80s, the time of the 8-bit home computers and my own 
+youth, I could not put the book down. Learning the history behind all the companies whose names I used to read in 
+magazines ads and game reviews – Infogrames, Ere Informatique, Ubi Soft… – was captivating. And, like with RPGs or 
+start-ups, the synopsis is always the same. First, passionate enthusiasts tinker in their basement, then the money pours in, 
+and finally consolidation kicks in, squeezing the fun to extract the dough. But as for the book, after a slow start, it 
+was a great read!&lt;/p&gt;
+
+&lt;h3 id=&quot;the-once-and-future-sex-going-medieval-on-womens-role-in-society-eleanor-janega-2023&quot;&gt;The Once And Future Sex: Going Medieval on Women&amp;rsquo;s Role in Society (Eleanor Janega, 2023)&lt;/h3&gt;
+
+&lt;p&gt;I believe that I heard about this one in an episode of Radio 4&amp;rsquo;s &lt;a href=&quot;https://www.bbc.co.uk/programmes/p07mdbhg&quot;&gt;You&amp;rsquo;re Dead To Me&lt;/a&gt;. 
+This would make sense, since like the podcast, this book is instructive, entertaining, friendly and witty. Unlike 
+&lt;em&gt;Une Histoire du jeu vidéo…&lt;/em&gt;, it doesn&amp;rsquo;t go into too much details, giving you just enough to keep the narration lively 
+and interesting. (Obviously, the author doesn&amp;rsquo;t need to assert her expertise, since it&amp;rsquo;s a given; this probably helps.) 
+Even if the book&amp;rsquo;s structure is a bit obvious and repetitive – first the upcoming points are announced, then broadly 
+introduced, then presented one by one, then summarised, and then we move on to the next topic – the author&amp;rsquo;s style 
+and humour keep you hooked.&lt;/p&gt;
+
+&lt;p&gt;And what about the women&amp;rsquo;s role in medieval society? Unsurprisingly, it was major and yet underestimated and 
+under-appreciated, and one of the author&amp;rsquo;s point is that it is still the case today – by which I mean that we fail to 
+give medieval women justice, but also that we fail to give &lt;em&gt;modern&lt;/em&gt; women justice. The book&amp;rsquo;s conclusion articulates this 
+point much better than me, but don&amp;rsquo;t expect the whole book to be a political manifesto: it is the work of an historian 
+first, and a feminist second. Getting the whole picture of the medieval society&amp;rsquo;s view of women is a bit disheartening, 
+because it&amp;rsquo;s both indisputably coherent and yet completely stupid – it makes perfect sense if your world view starts on 
+fallacious premises. Which means that we still aren&amp;rsquo;t immune to such misguided ways (and more than once, I felt like I 
+was reading something out of an incel manifesto.) All the more reason to enjoy this smart and witty book!&lt;/p&gt;
+
+&lt;h3 id=&quot;the-black-dahlia-james-ellroy-1987&quot;&gt;The Black Dahlia (James Ellroy, 1987)&lt;/h3&gt;
+
+&lt;p&gt;I hadn&amp;rsquo;t read this book in 15 years, or maybe more, but had a good memory of it. Reading it now, I was a bit disappointed. 
+From a stylistic point of view, it is a delight – Ellroy is as sharp and cold-blooded as Chandler, with a bit of extra 
+crudeness to punch harder. But the story itself lacks a bit of cohesiveness – some of the things that are set up aren&amp;rsquo;t 
+payed off, while some parts – especially towards the end – feel like fillers. The ending manages to tie everything up, 
+but to do so resorts to one of the easiest tricks: it&amp;rsquo;s because they&amp;rsquo;re insane that the bad people did what they did (and 
+a lot of characters turn out to be insane.) Still, I&amp;rsquo;m a sucker for stylish stories of hard-boiled detectives.&lt;/p&gt;
+
+&lt;h3 id=&quot;mountain-of-daggers-seth-skorkowsky-2015&quot;&gt;Mountain of Daggers (Seth Skorkowsky, 2015)&lt;/h3&gt;
+
+&lt;p&gt;I love &lt;a href=&quot;https://skorkowsky.com&quot;&gt;Seth Skorkowsky&lt;/a&gt;&amp;rsquo;s &lt;a href=&quot;https://www.youtube.com/channel/UCQs8-UJ7IHsrzhQ-OQOYBmg&quot;&gt;videos&lt;/a&gt; 
+on tabletop role-playing games. I indisputably deserves his &lt;a href=&quot;https://ennie-awards.com/2023-nominees/&quot;&gt;2023 ENNIE award&lt;/a&gt; 
+for best podcast. And, since I&amp;rsquo;m always on the lookout for good fantasy novels, I was eager to read his work as a writer.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, I found the adventures of the Black Raven, good, but not great. The writing is perfectly fine – in fact, 
+the action scenes grabbed me more than once – but I couldn&amp;rsquo;t care for the protagonist, nor the adventures themselves. 
+The characters and the stories are a bit lacklustre, except for the very last story, with its disturbing, almost 
+body-horror tone. I don&amp;rsquo;t know if the short stories in this book are adaptations of roleplaying sessions, but I wouldn&amp;rsquo;t 
+be surprised if it was the case, because this is usually how it ends up: way less interesting to read than it must have 
+been to play. Even the tales of the Black Company, which as far as I know are highly praised, eventually bored me. Still, 
+Skorkowsky definitely knows how to write, so I&amp;rsquo;ll probably give his works another chance.&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/09/07/tomorrow-people-tonight.html</id>
+      <title>Tomorrow people tonight</title>
+      <updated>2023-08-13T23:55:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/09/07/tomorrow-people-tonight.html" />
+
+      <published>2023-08-13T23:55:00+02:00</published>
+      <content type="html">&lt;p&gt;At the end of today, I was a few calories short of filling up my rings, and my dog didn&amp;rsquo;t feel like going out, so I went 
+for a walk by myself, at night, listening to good music, as I used to do when I was a teenager.&lt;/p&gt;
+
+&lt;p&gt;Now, Billy Idol&amp;rsquo;s &lt;a href=&quot;https://music.apple.com/fr/album/cyberpunk/1442990930?l=en-GB&quot;&gt;Cyberpunk&lt;/a&gt; (1993) is probably the best 
+record I know of. It is just incredible. The Paris suburbia I grew up in is not exactly The Sprawl, and yet, listening 
+to this record while striding empty rurban streets used to put me in a perfect Gibsonian mood.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, it didn&amp;rsquo;t work as well tonight. It could be because my bourgeois neighbourhood is impervious to
+Blade-Runnerization, no matter how good your soundtrack is; or maybe, after a few decades, the weight of the years 
+anchors your mind too deep for your imagination to carry it away that easily. Or maybe I was just distracted by my 
+uncomfortable socks.&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/08/04/2023-08-04-decaf-in-the-morning.html</id>
+      <title>Decaf in the morning</title>
+      <updated>2023-08-04T08:45:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/08/04/2023-08-04-decaf-in-the-morning.html" />
+
+      <published>2023-08-04T08:45:00+02:00</published>
+      <content type="html">&lt;p&gt;The trickiest part of going back to blogging, a few months ago, was probably to decide on an editorial line. I&amp;rsquo;m still 
+tinkering with it, but one thing is certain: I want this blog to be upbeat, and not over-sharing. In part because 
+of the image I want to project, in part because, as my mother used to say, &lt;em&gt;“Small sorrows speak; great ones are silent”&lt;/em&gt;, 
+but mostly because I believe that we should try to uplift the public discourse, and not add to the constant stream of 
+negativity online.&lt;/p&gt;
+
+&lt;p&gt;However, this may turn out to be a bit delicate as I write down my experience participating in the 
+&lt;a href=&quot;https://railshackathon.com&quot;&gt;Rails Hackathon&lt;/a&gt; last week.&lt;/p&gt;
+
+&lt;p&gt;For the whole month, I had been waiting for this hackathon like a kid waits for Christmas. My previous and only experience 
+participating in a Hackathon was in 2016, for the last Ruby Rampage, and it was great – we even ended up third! Needless 
+to say, I was very confident for this one.&lt;/p&gt;
+
+&lt;p&gt;I enlisted 2 great devs I had worked with previously, and we came up with a great idea. We had a plan, we felt ready, 
+I couldn&amp;rsquo;t wait for the hackathon to start – even if, unfortunately, the kick-off was at 2am here on the GMT +1 time zone. 
+And yet, in the end we didn&amp;rsquo;t even submit our entry, because in spite of our efforts, it wasn&amp;rsquo;t ready. In fact, it was 
+in the sorriest state a project can be, with all features started but none finished.&lt;/p&gt;
+
+&lt;p&gt;My disappointment after throwing the towel was proportional to my excitement starting the project, and to be honest I 
+felt depressed for a few days – to the point that I haven&amp;rsquo;t looked at the other entries, nor the winners, yet. And the 
+more disturbing thing is that, no matter how I try to post-mortem this experience, I cannot escape the conclusion that
+I&amp;rsquo;m responsible for this forfeiting.&lt;/p&gt;
+
+&lt;p&gt;We faced difficulties managing the project (our goal was not as clear as we thought, the dispatching of the tasks was 
+probably not optimal), and we lost a lot of time on the design, but these are normal hiccups in any project, and I 
+don&amp;rsquo;t think that they are the root cause. And, obviously, none of my teammate is to blame for their effort or work – 
+they both are really good developers and they did a great job.&lt;/p&gt;
+
+&lt;p&gt;However, in retrospect, I believe that our team lacked &lt;em&gt;cohesion&lt;/em&gt;. It is a leadership failure, and I was the one acting 
+as a leader. Which was doubly a mistake: first, I did a poor job of kind-of leading the team, but more importantly, I 
+shouldn&amp;rsquo;t have taken this role in the first place! In my excitement, I failed to see that instead of nurturing everyone&amp;rsquo;s 
+interest, involvement, and initiatives, I occupied all the space in our conversations, and certainly took the wind 
+from my teammate&amp;rsquo;s sails.&lt;/p&gt;
+
+&lt;p&gt;Considering my experience and the responsibilities I aspire to, this is very embarrassing. I&amp;rsquo;ll keep this lesson in mind 
+and, hopefully, will do better next year!&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/07/28/what-i-ve-been-reading-lately-july-2023.html</id>
+      <title>What I&#39;ve been reading lately (July 2023)</title>
+      <updated>2023-07-28T15:57:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/07/28/what-i-ve-been-reading-lately-july-2023.html" />
+
+      <published>2023-07-28T15:57:00+02:00</published>
+      <content type="html">&lt;h3 id=&quot;inside-the-skunkworks-machine-chris-dale-2022&quot;&gt;Inside the Skunkworks machine (Chris Dale, 2022)&lt;/h3&gt;
+
+&lt;p&gt;]Skunkworks](https://music.apple.com/fr/album/skunkworks-deluxe-edition/1146014243) is one of my favorite records, and 
+has been for almost 30 years now. A textured rock album, it&amp;rsquo;s neither heavy metal (as fans of Bruce Dickinson would have 
+hoped) nor grunge (as fans of Jack Endino would have guessed). It&amp;rsquo;s simply great, I love it, and it is a shame that what 
+was supposed to be a lasting band turned out to be a short-lived project, quickly shelved so that Dickinson could go 
+back to heavy metal (and subsequently Iron Maiden).&lt;/p&gt;
+
+&lt;p&gt;Because they were so good, I kept track of the musicians behind Skunkworks for a while, especially Chris Dale, the 
+bass player whose cool-looking instrument got me to cover my own bass with stickers. But I somehow missed a lot of 
+things, including the self-publication of this book, by Dale, which covers everything about Skunkworks, the band, from 
+the first auditions to the eventual disbanding.&lt;/p&gt;
+
+&lt;p&gt;In spite of its awful layout, Inside the Skunkworks machine is a great and riveting book – I couldn&amp;rsquo;t put it down and 
+read it almost in one go, stoppig only for a few hours of sleep. It is much more captivating than Dickinson&amp;rsquo;s own 
+autobiography, which turns to a slog of aeronautical anecdotes midway. Interestingly, Dickinson himself is 
+rather absent from this book; not because he didn&amp;rsquo;t contribute (that&amp;rsquo;s only fair, it&amp;rsquo;s Dale&amp;rsquo;s book after all), but because 
+he comes across as detached from the band&amp;rsquo;s life. Not taking part in the frequent jams between the 3 musicians, arriving 
+late to the sound checks and leaving early after the shows – often to go fly planes… And yet, he was the one repeating 
+than Skunkworks was a real band (including when I saw them in 1996 at the Elysée Montmartre), while neither the 
+management nor Dale seemed to really believe it…&lt;/p&gt;
+
+&lt;p&gt;In any case, Inside the Skunkworks machine is an exhaustive documentary on a great (albeit short-lived) musical project, 
+and more importantly on a slice of the British rock scene of the mid-nineties and a bunch of passionate musicians who 
+all, somehow, crossed the path of the ever-friendly Chris Dale.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-last-of-us-que-reste-t-il-de-lhumanité-nicolas-deneschau-2021&quot;&gt;The Last of Us: que reste-t-il de l&amp;rsquo;humanité (Nicolas Deneschau, 2021)&lt;/h3&gt;
+
+&lt;p&gt;My brother offered me this essay (in French) on the eponymous video games last Christmas; it tooks me 6 months to read it 
+for 3 reasons: my backlog of books is shamefuly long, this one seemed a bit dry, and more importantly, I hadn&amp;rsquo;t recovered 
+from the emotional Vietnam that &lt;em&gt;The Last of Us part II&lt;/em&gt; dragged me through.&lt;/p&gt;
+
+&lt;p&gt;Well, it turns out that this book was not as emotionnaly taxing as I feared, if still a bit dry. Furthermore, I don&amp;rsquo;t 
+really know what its point nor audience are.&lt;/p&gt;
+
+&lt;p&gt;Like the games alternate game and narrative sequences to unfold their stories, the book interlaces the retelling of said 
+stories with either behind-the-scenes anecdotes or superficial gameplay analysis. This makes for an entertaining read, 
+once you get used to its academic (and sometimes clumsly) voice, but not a very instructive one. Readers who have played 
+the games probably don&amp;rsquo;t need their recap, while total newcomers could benefit from a more immersive narration.&lt;/p&gt;
+
+&lt;p&gt;In the end, this book barely more than a love letter from a fan who has studied the game and all the making-of 
+documentaries. I may bring back some memories, and offer some trivia, but not much else.&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/07/12/issue-5.html</id>
+      <title>A dash of milk #5</title>
+      <updated>2023-07-12T16:23:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/07/12/issue-5.html" />
+
+      <published>2023-07-12T16:23:00+02:00</published>
+      <content type="html">&lt;h3 id=&quot;minitest-focus&quot;&gt;&lt;a href=&quot;https://github.com/minitest/minitest-focus&quot;&gt;minitest-focus&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;One of the only things I miss from RSpec when using Minitest is the &lt;a href=&quot;http://rspec.info/features/3-12/rspec-core/filtering/inclusion-filters&quot;&gt;&lt;code&gt;:focus&lt;/code&gt;&lt;/a&gt; 
+metadata. You get used to filtering tests through command-line arguments, but it&amp;rsquo;s still a bit cumbersome, and lacks 
+the elegance you can expect from such a Ruby-like tool as Minitest. So, of course there has to be a solution, and I 
+was simply unaware of it. But, more importantly, &lt;code&gt;minitest-focus&lt;/code&gt; is a example of clean, smart-but-not-too-smart 
+code. Just look at the way the “indirect approach” is implemented in the &lt;a href=&quot;https://github.com/minitest/minitest-focus/blob/02cbbc41519c04bf46b1bf14042e2a0ceddb7763/lib/minitest/focus.rb&quot;&gt;main file&lt;/a&gt;. 
+It&amp;rsquo;s chef&amp;rsquo;s-kiss-emoji-level.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-ai-help-button-is-very-good-but-it-links-to-a-feature-that-should-not-exist&quot;&gt;&lt;a href=&quot;https://github.com/mdn/yari/issues/9230&quot;&gt;The AI help button is very good but it links to a feature that should not exist&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;So, it looks like &lt;a href=&quot;https://developer.mozilla.org/en-US/&quot;&gt;MDN Web Docs&lt;/a&gt; is trying out leveraging LLMs to enrich what is 
+probably the best documentation site on the web. (And which will hopefully keep being so.) Well, color me surprised, 
+but it doesn&amp;rsquo;t seem to work out so well. In any case, this issue is a really fun and interesting read – and, I think, a 
+great way to raise and articulate concerns – and to circumvent overly zealous (or thickheaded) moderators.&lt;/p&gt;
+
+&lt;h3 id=&quot;garbage-collection-in-ruby&quot;&gt;&lt;a href=&quot;https://blog.peterzhu.ca/notes-on-ruby-gc/&quot;&gt;Garbage Collection in Ruby&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;The internals of Ruby used to scare me – the only things I know about C, I learned by 
+&lt;a href=&quot;https://youtube.com/playlist?list=PLPt8EM4KxGEVdozTFQ_taOdS6OFlNU7ki&quot;&gt;falling asleep to some German ASMR YouTuber&lt;/a&gt;. Not 
+so much nowadays, and this kind of blog post is exactly the reason why. It&amp;rsquo;s well written, friendly, and makes complex 
+topics seem simple.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-simple-hash-table-in-c&quot;&gt;&lt;a href=&quot;https://theleo.zone/posts/hashmap-in-c/&quot;&gt;a simple hash table in C&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Another nice article about complicated things, explained clearly. In a website with great “early web” vibes &amp;lt;3.&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/07/10/brighton-ruby-2023.html</id>
+      <title>Brighton Ruby 2023</title>
+      <updated>2023-07-10T11:31:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/07/10/brighton-ruby-2023.html" />
+
+      <published>2023-07-10T11:31:00+02:00</published>
+      <content type="html">&lt;p&gt;Last week was my first time attending &lt;a href=&quot;https://brightonruby.com&quot;&gt;Brighton Ruby&lt;/a&gt;. It was great. I&amp;rsquo;ve missed conferences 
+in general, and &lt;em&gt;Ruby&lt;/em&gt; conferences in particular, and Brighton Ruby was everything I was longing for: an energising mix 
+of technical considerations and humanist values, shared by smart and colourful people. Nerdy and yet friendly, like a 
+grown-up version of the role-playing games clubs of my youth. Beware: this post will be a test of how many synonyms I 
+know for “great”.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-venue-and-the-organisation&quot;&gt;The venue and the organisation&lt;/h3&gt;
+
+&lt;p&gt;The conference took place at the &lt;a href=&quot;https://brightondome.org&quot;&gt;Brighton Dome&lt;/a&gt;, which is more impressive than I was expecting. 
+The main hall is lovely, its seats confortable enough, and the stage, lighting and audio were perfect. I came in early, 
+and the welcome process was very smooth – no queue nor waiting of any kind. However, the small hall where everyone could 
+gather before and between the actual talks was a bit too small for the attendance, and quickly got crowded and 
+very noisy. That would be my only complain as far as the organisation goes: by all other accounts, everything was 
+&lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;excellent&lt;/a&gt;, from the coffee and pastries to Andy&amp;rsquo;s wholehearted MCing.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-talks&quot;&gt;The talks&lt;/h3&gt;
+
+&lt;p&gt;I bought my ticket without knowing anything of the conference&amp;rsquo;s program, and only discovered it once within the venue. 
+Reading it got me excited. Eileen Uchitelle! Librarians! Contrarian-sounding topics! The program promised and lot – and 
+delivered.&lt;/p&gt;
+
+&lt;p&gt;The highlights, for me, were probably &lt;a href=&quot;https://github.com/threedaymonk/back-in-my-day&quot;&gt;Paul Battley&amp;rsquo;s lightning talk about Ruby through the past 20 years&lt;/a&gt;, 
+&lt;a href=&quot;https://nadiaodunayo.com&quot;&gt;Nadia Odunayo&lt;/a&gt;&amp;rsquo;s talk on a “vanished variable”, and &lt;a href=&quot;https://www.joehartcomedian.com&quot;&gt;Joe Hart&lt;/a&gt;&amp;rsquo;s 
+comedy-and-live-debugging bit. But, honestly, all the talks – even the lightning ones – were &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;fantastic&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Apart from my personal favorites, three of the talks stood out, I think. First, even though I had already seen it, 
+&lt;a href=&quot;https://www.youtube.com/watch?v=MbqJzACF-54&quot;&gt;Eileen&amp;rsquo;s&lt;/a&gt; was both insightful and powerful – I highly recommend watching 
+it. Second, &lt;a href=&quot;https://timriley.info&quot;&gt;Tim Riley&lt;/a&gt;&amp;rsquo;s, for its &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;awesome&lt;/a&gt; performance 
+– even if I&amp;rsquo;m now 100% percent convinced that Hanami is &lt;em&gt;not&lt;/em&gt; for me (this project&amp;rsquo;s priorities are definitely not mine, 
+but YMMV and it&amp;rsquo;s nice to have something for everyone in the Ruby ecosystem). Third, &lt;a href=&quot;https://schwad.github.io&quot;&gt;Schwad&lt;/a&gt;&amp;rsquo;s 
+talk on &lt;a href=&quot;https://github.com/scarpe-team/scarpe&quot;&gt;Scarpe&lt;/a&gt;, which was an &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;admirable&lt;/a&gt; 
+hommage to _why (and I was glad to see how many people still know about him, even among the new generation of rubyists).&lt;/p&gt;
+
+&lt;p&gt;Finally, I must underscore the model of diversity that this line-up was. A broad mix of ages, genders, backgrounds, 
+ethnicities and topics was assembled, which was certainly not by accident – even if I dare hope that achieving this was 
+easier in 2023 than it would have been 10 years ago.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-people&quot;&gt;The people&lt;/h3&gt;
+
+&lt;p&gt;Talks are always nice, but the essence of a conference is the attendance, and the opportunity to meet new people. Now, 
+like many in this line of work, I&amp;rsquo;m more on the shy and solitary side of the social spectrum. Even though I really, really 
+enjoy having small talk or deep conversations with friendly strangers, it takes me some time and energy (possibly in the 
+form of drinks) to switch to extrovert mode. Which is fine, especially in the Ruby community where everyone MINASWANs. 
+Besides, I already knew a couple of attendants, including a true social hub, which helped quite a bit (thank you 
+&lt;a href=&quot;https://ruby.social/@benoit&quot;&gt;Benoît&lt;/a&gt;!)&lt;/p&gt;
+
+&lt;p&gt;Still, due to the people density and loudness in the rest area, I didn&amp;rsquo;t spend that much time socialising during the breaks, 
+unfortunately. But I enjoyed good drinks and &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;wonderful&lt;/a&gt; company after the 
+conference, when a bunch of us gathered in local pubs.&lt;/p&gt;
+
+&lt;p&gt;Now, here&amp;rsquo;s the thing. Fifteen years ago, I managed to convince my then boss to switch our stack to Ruby by promoting 
+the &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;exceptionality&lt;/a&gt; of the people in this community – yes, rubyists were hard 
+to find, but they were a humble elite among a sea of unfortunate code monkeys. Well, I may be biased here, but even after 
+all this time, a couple of years of fame (that&amp;rsquo;s 15 minutes in VC time) and hordes of bootcamp graduates, my assessment 
+still stands. The people I talked to at Brighton Ruby were all &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;terrific&lt;/a&gt;, and 
+I&amp;rsquo;m pretty sure that my sample was 100% representative of the attendance, and more broadly of the Ruby community.&lt;/p&gt;
+
+&lt;h3 id=&quot;generations&quot;&gt;Generations&lt;/h3&gt;
+
+&lt;p&gt;This general &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;marvellousness&lt;/a&gt; is all the better considering my personal worries 
+about the Balkanising of our societies, including code communities. It&amp;rsquo;s one of the things that keep me up at night – 
+expect a blog post on of these days. I see fracture lines creeping up everywhere, splitting every group into smaller and 
+smaller polarised (if not outright hostile!) tribes, and the Ruby community, and even more so the Rails community, are 
+not spared. And maybe it&amp;rsquo;s just me because I&amp;rsquo;m on my way to my fifties, but I tend to see one of these fractures lines 
+in the generational gaps in our craft&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; especially after two years recruiting outside of my usual 
+tech pool.&lt;/p&gt;
+
+&lt;p&gt;Well, it turns out that there were &lt;em&gt;a lot&lt;/em&gt; of youngsters[^2] in the attendance, and they impressed me 
+&lt;em&gt;a lot&lt;/em&gt;. Enthusiastic, (very) knowledgeable, smart… Exactly the kind of people I like to believe that my comrades and I 
+were back in the day.&lt;/p&gt;
+
+&lt;p&gt;In fact, I came out of Brighton Ruby feeling both happy, reassured, and also a bit like shit. That&amp;rsquo;s because so many people 
+were &lt;em&gt;so fucking impressive&lt;/em&gt;. Be they 15 years younger than me and already as experienced as I feel[^3], or people my age 
+with five times my list of achievements, I felt surrounded by raw talent across two or three generations of developers. 
+Which is a &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;tremendous&lt;/a&gt; thing for the community (and the future or programming), 
+but made me feel small. At the same time, it&amp;rsquo;s never too late catch up!&lt;/p&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+
+&lt;p&gt;Brighton Ruby was &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;super-duper&lt;/a&gt;. I&amp;rsquo;ll be back.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;&lt;strong&gt;Edit:&lt;/strong&gt; as &lt;a href=&quot;https://blog.testdouble.com/posts/2023-07-12-the-looming-demise-of-the-10x-developer/&quot;&gt;a viral blog post by Justin Searls&lt;/a&gt; 
+showed, it turns out that it isn&amp;rsquo;t just me at all. I always feel better when someone smarter than me thinks as I do.
+[^2]: I&amp;rsquo;m 46, I&amp;rsquo;m allowed to use this word. Now get off my lawn.
+[^3]: Time to quote &lt;a href=&quot;https://www.youtube.com/watch?v=pYGiDX9Luc8&quot;&gt;The Hellacopters&lt;/a&gt;: &lt;em&gt;And I&amp;rsquo;m older but sure ain&amp;rsquo;t as wise as I pretend to, it&amp;rsquo;s mostly a lie.&lt;/em&gt;&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/06/26/issue-4.html</id>
+      <title>A dash of milk #4</title>
+      <updated>2023-06-26T20:50:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/06/26/issue-4.html" />
+
+      <published>2023-06-26T20:50:00+02:00</published>
+      <content type="html">&lt;h3 id=&quot;attenborough-lore&quot;&gt;&lt;a href=&quot;https://www.youtube.com/@AttenboroughLore/about&quot;&gt;Attenborough Lore&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;&amp;ldquo;A foray into the Warhammer 40,000 lore, as narrated by an AI of the venerable Sir David Attenborough.&amp;rdquo; I&amp;rsquo;ve 
+been binging on these videos recently – the richness and horror of the 40K lore pairs really well, in an ironic way, with 
+Sir Attenborough&amp;rsquo;s simulated elocution. The results are really impressive – finally a good use of deep fake tech!&lt;/p&gt;
+
+&lt;h3 id=&quot;intel-one-mono&quot;&gt;&lt;a href=&quot;https://github.com/intel/intel-one-mono&quot;&gt;Intel One Mono&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m a sucker for fonts, especially so-called progamming fronts. This one looked really good… on the screenshots. I installed it 
+and immediately went back to my dear &lt;a href=&quot;https://www.fontspace.com/monofur-font-f39937&quot;&gt;Monofur&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;webxr&quot;&gt;&lt;a href=&quot;https://immersiveweb.dev&quot;&gt;WebXR&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;I&amp;rsquo;m really excited by visionOS and the idea of “spatial computing”. I&amp;rsquo;m usually suspicious of attempts to use web tech to 
+build desktop-like apps, but this may be an easy way in this new landscape. I&amp;rsquo;m willing go give it a try. (But I&amp;rsquo;m also downloading 
+XCode and dusting off my Swift reference book as I&amp;rsquo;m typing this…)&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/06/19/what-i-ve-been-reading-lately-june-2023.html</id>
+      <title>What I&#39;ve been reading lately (June 2023)</title>
+      <updated>2023-06-19T09:37:00+02:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/06/19/what-i-ve-been-reading-lately-june-2023.html" />
+
+      <published>2023-06-19T09:37:00+02:00</published>
+      <content type="html">&lt;p&gt;Not many books read recently, I admit. I could blame the engulfing bliss of coding again, or my time spent enjoying the 
+sunny outdoors, but let&amp;rsquo;s face it: it&amp;rsquo;s mostly Zelda&amp;rsquo;s fault. Still, I did enjoy some reading:&lt;/p&gt;
+
+&lt;h3 id=&quot;mustaine-a-life-in-metal-dave-mustaine-and-joe-layden-2010&quot;&gt;Mustaine: a life in metal (Dave Mustaine and Joe Layden, 2010)&lt;/h3&gt;
+
+&lt;p&gt;For some reason, I keep reading autobiographies of rock stars, even though after Billy Idol, Peter Hook, Bruce Dickinson 
+and Travis Barker, I know quite well what to expect: the account of a talented, hard-working, self-important artist spending 
+their time having drug orgies, sex orgies, and fighting with their band mates&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. About Mustaine&amp;rsquo;s, the 
+only peculiarity I was expecting was a constant grudge against Metallica.&lt;/p&gt;
+
+&lt;p&gt;Well, the backcover features the typical sex-and-drugs rock star checklist, while the two words that open the book are 
+“&lt;em&gt;James Hetfield&lt;/em&gt;”. (I kid you not. The guys starts his own biography with someone else&amp;rsquo;s name.)&lt;/p&gt;
+
+&lt;p&gt;However, this book is still an entertaining and very easy read. I went through it in a couple of evenings; it&amp;rsquo;s 
+well-written (I suspect thanks to Joe Layden), interesting, and strangely enough Mustaine really comes out as 
+a guy sincerely tring to be nice and amend. There are still a few cheap shots and several cases of self-justifications, 
+of course, but given Mustaine&amp;rsquo;s reputation, I was expecting a lot worse.&lt;/p&gt;
+
+&lt;h3 id=&quot;dice-men-the-origin-story-of-games-workshop-ian-livingstone-and-steve-jackson-2023&quot;&gt;Dice Men: the origin story of Games Workshop (Ian Livingstone and Steve Jackson, 2023)&lt;/h3&gt;
+
+&lt;p&gt;My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy books or 
+&lt;a href=&quot;http://www.harris-authors.com/talisman_history.html&quot;&gt;Talisman&lt;/a&gt;, for years my favorite board game[^2]. And I always say 
+that the success stories (and drama!) of the first RPG companies of the late seventies are scaled-down versions of those 
+in the tech industry. So, of course I had to read this account of the founding of Games Workshop.&lt;/p&gt;
+
+&lt;p&gt;My only issue with this book is its format: it&amp;rsquo;s too tall for my shelves. However, its size allows the inclusion of 
+numerous documents in high quality: flyers, fanzine covers, gorgeous illustrations, and &lt;em&gt;a lot&lt;/em&gt; of pictures. There is 
+relatively little text, but tons of material. It&amp;rsquo;s a trip in time, back to the late seventies and early eighties, and 
+it&amp;rsquo;s great.&lt;/p&gt;
+
+&lt;p&gt;The story of GW&amp;rsquo;s rise itself is rather typical: focused and organised people building a successful retail business. It 
+sounds common enough, and yet, constrasts strongly with the amateurism and lack of focus that transpires from TSR&amp;rsquo;story, 
+as told in &lt;a href=&quot;https://direct.mit.edu/books/book/5224/Game-WizardsThe-Epic-Battle-for-Dungeons-amp&quot;&gt;Game Wizards&lt;/a&gt; or 
+&lt;a href=&quot;https://www.goodreads.com/book/show/15803047-of-dice-and-men&quot;&gt;Of Dice and Men&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;sorayama-complete-masterworks-isabella-catalina-and-hajime-sorayama-2022&quot;&gt;Sorayama, complete masterworks (Isabella Catalina and Hajime Sorayama, 2022)&lt;/h3&gt;
+
+&lt;p&gt;I &lt;a href=&quot;{% post_url 2023-05-29-no-milk-no-sugar-3 %}&quot;&gt;only recently&lt;/a&gt; became aware of this artist, and I wanted to fill this 
+gap in my culture. I was expecting sexy robots with a retro sci-fi vibe; I wasn&amp;rsquo;t prepared for the photorealistic 
+fetishistic porn. In retrospect, going with the complete works was not a great idea: believe it or not, you can have too 
+much of close-ups of female genitalia.&lt;/p&gt;
+
+&lt;p&gt;And yet, it&amp;rsquo;s a shame because the excessive generosity of this book detracted me from the great things about Sorayama&amp;rsquo;s 
+work: the flawless execution, the occasional humour, and the slight unease that his juxtapositions bring, be they of chrome 
+and flesh, pleasure and pain, or pop culture and cultural heritage, among others. It&amp;rsquo;s a rich and thought-provoking 
+corpus; it&amp;rsquo;s doesn&amp;rsquo;t lend itself well to binging. I&amp;rsquo;m glad to have this book as a reference, but next time, I&amp;rsquo;ll go 
+see an exihibition instead.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;The exception being Bruce Dickinson, whose bio is the story of a talented, hard-working, 
+  self-important artist spending his time being a Renaissance man, flying planes, and politely disagreeing with Steve Harris.
+[^2]: I still own a first (French) edition, probably the most precious thing I&amp;rsquo;ll bequeath my son.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
+  
+</feed>
