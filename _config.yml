@@ -37,6 +37,7 @@ permalink: /:year/:month/:day/:title:output_ext
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
+  - jekyll-sitemap
 
 kramdown:
   header_offset: 1
