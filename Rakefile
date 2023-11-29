@@ -4,10 +4,13 @@ require "zenweb/tasks"
 
 task :extra_wirings do
   site = $website
+  html = site.pages.reject { |k,p| p.url_path !~ /\.html/ }
   
   # generate virtual index pages for the article series; they can be used to create links to articles in each series
   Zenweb::SeriesPage.generate_all(site, "articles", site.categories.articles)
   Zenweb::SeriesPage.generate_all(site, "blog", site.categories.blog)
+  
+  site.pages["sitemap.xml.erb"].depends_on html
   
   site.pages["articles/feed.xml.erb"].  depends_on site.categories.articles
   site.pages["articles/index.html.erb"].depends_on site.categories.articles

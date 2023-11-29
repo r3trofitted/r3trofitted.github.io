@@ -14,3 +14,9 @@ class Zenweb::Site
     categories.articles - Zenweb::SeriesPage.all.flat_map { _2.pages }
   end
 end
+
+class Zenweb::SeriesPage
+  def content
+    ""
+  end
+end
