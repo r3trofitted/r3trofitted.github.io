@@ -11,10 +11,11 @@ task :extra_wirings do
   Zenweb::SeriesPage.generate_all(site, "blog", site.categories.blog)
   
   site.pages["sitemap.xml.erb"].depends_on html
+  site.pages["feed.xml.erb"].depends_on site.categories.values_at("blog", "articles").flatten
   
-  site.pages["articles/feed.xml.erb"].  depends_on site.categories.articles
+  # site.pages["articles/feed.xml.erb"].  depends_on site.categories.articles
   site.pages["articles/index.html.erb"].depends_on site.categories.articles
 
-  site.pages["blog/feed.xml.erb"].  depends_on site.categories.blog
+  # site.pages["blog/feed.xml.erb"].  depends_on site.categories.blog
   site.pages["blog/index.html.erb"].depends_on site.categories.blog
 end

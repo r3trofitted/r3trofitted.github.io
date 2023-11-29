@@ -7,6 +7,7 @@ exclude:
 title: "2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire"
 description: "I'm Ronan; I help companies build great apps and great teams."
 author: "Ronan Limon Duparcmeur"
+contact_email: contact@2-45.pm
 root_url: "https://2-45.pm"
 kramdown:
   header_offset: 1
