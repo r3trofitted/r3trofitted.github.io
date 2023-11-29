@@ -354,6 +354,36 @@ footer {
   }
 }
 
+& :is(h3, h4, h5, h6):has(+ p) {
+  margin-block: 1.25em .25em;
+}
+
+& hr:has(+ div.footnotes) {
+  display: none;
+}
+
+& div.footnotes {
+  --margin: 2em;
+  --border: 1px solid var(--clr-neutral-300);
+  
+  margin-top: var(--margin);
+  
+  font-size: var(--fs-300);
+  color: var(--clr-neutral-700);
+  
+  border-top: var(--border);
+}
+
+& div.footnotes ol {
+  margin-block: 0;
+  padding-left: 3ch;
+}
+
+& div.footnotes li p {
+  margin-block: 0.25em;
+}
+
+
 #grainy-dinosaur {
   --ornement-margin: .3ch;
   
@@ -378,15 +408,7 @@ footer {
        text-align: left;
      }
   }
-  
-  & :is(h3, h4, h5, h6):has(+ p) {
-    margin-block: 1.25em .25em;
-  }
-  
-  /* & :is(h3, h4, h5, h6) + p {
-    margin-top: 0;
-  } */
-  
+    
   & :is(pre, code) {
     font-family: var(--ff-code);
     font-size: 90%; /* compensating for the large glyphs that fonts in the monospace stack tend to have */
@@ -672,8 +694,8 @@ footer {
       );
     }
     
+    /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
     @container main (width < 80ch) {
-      /* underscore-like variant when the margins are less than 5ch each (the content being 70ch max) */
       & h3::after {
         --base-width: 2ch;
         --height: 10%;
@@ -711,31 +733,6 @@ footer {
       );
     }
     
-    & hr:has(+ div.footnotes) {
-      display: none;
-    }
-    
-    & div.footnotes {
-      --margin: 2em;
-      --border: 1px solid var(--clr-neutral-300);
-      
-      margin-top: var(--margin);
-      
-      font-size: var(--fs-300);
-      color: var(--clr-neutral-700);
-      
-      border-top: var(--border);
-    }
-    
-    & div.footnotes ol {
-      margin-block: 0;
-      padding-left: 3ch;
-    }
-    
-    & div.footnotes li p {
-      margin-block: 0.25em;
-    }
-    
     & div.footnotes:has(+ .series-next) {
       margin-bottom: var(--margin);
       border-bottom: var(--border);
@@ -769,3 +766,43 @@ footer {
     color: var(--clr-primary-400);
   }
 }
+
+
+/* Table 15.1 */
+#table-15-1-people {
+  margin-block: 2em 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  justify-items: center;
+  
+  & figure {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+    & img {
+      border-radius: 50%;
+      border: .25em solid var(--clr-primary-400);
+      width: 100%;
+      max-width: 360px;
+      aspect-ratio: 1;
+      
+      margin-block: 1em;
+    }
+    
+    &:nth-of-type(2) img {
+      transform: scaleX(-1)
+    }
+    
+    & i {
+      font-size: var(--fs-300);
+    }
+  }
+  
+  & .contact {
+    grid-column: 1 / -1;
+    align-content: center;
+    font-size: var(--fs-500);
+  }
+}
+
