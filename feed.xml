@@ -4,7 +4,7 @@
 
   <id>https://2-45.pm/</id>
   <title>2-45.pm – main feed</title>
-  <updated>2023-11-24T11:27:00+01:00</updated>
+  <updated>2023-12-06T09:30:34+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -16,6 +16,226 @@
 
   <rights> © Ronan Limon Duparcmeur - contact@2-45.pm </rights>
 
+  
+    <entry>
+      <id>https://2-45.pm/blog/2023/12/06/i-wasn-t-meant-to-be-a-rock-star.html</id>
+      <title>I wasn&#39;t meant to be a /rock ?star/</title>
+      <updated>2023-12-06T09:30:34+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/2023/12/06/i-wasn-t-meant-to-be-a-rock-star.html" />
+
+      <published>2023-12-06T09:30:34+01:00</published>
+      <content type="html">
+        <![CDATA[<p>Even since I heard about it, I&rsquo;ve been fond of the <a href="https://codewithrockstar.com">Rockstar</a> programming language. 
+Or, more precisely, I&rsquo;ve been fond of the humor behind this langage, and the fact Rockstar it is basically a 
+joke <a href="https://www.youtube.com/watch?v=4xgx4k83zzc">pushed to eleven</a>, with actual implementations and potentially 
+actual programs to be written.</p>
+
+<p>Last year, I tried to do the Advent of Code using Rockstar, but immediately hit a roadblock. This year, I decided 
+to push through and accidentally committed to do so by <a href="https://ruby.social/@r3trofitted/111427212436421499">@ing by Jeff Atwood</a>. 
+Unfortunately, this proved to be a commitment I could not hold to, and I&rsquo;ve decided to quit after solving the first challenge (which took me several 
+days to do). However, this was a learning experience; let me share it with you.</p>
+
+<h3 id="down"><a href="https://music.apple.com/fr/album/down/1045519155">Down</a></h3>
+
+<p>As a long-time Ruby developer, I easily forget how good I have things. Ruby is a high-level language optimized 
+for developer happiness, after all. Rockstar is certainly Turing-complete, but also very bare-bones. No objects. 
+No regular expressions. No iterators. No data structure but arrays. If you want anything more than loops and 
+variables, you&rsquo;ll have to build it yourself. In a way, it felt like 
+<a href="https://2-45.pm/articles/z80asm/2023/08/31/jurassic-stack.html">programming in Assembly</a>, or playing survival 
+Minecraft. You want an enchanting table? Start punching trees.</p>
+
+<p>Of course, like with Minecraft, this is part of the game, but I wasn&rsquo;t prepared for the time it takes to do 
+anything. I eventually started writing a library of functions, and in retrospect I should have done that 
+from the start. Go over my strategy, identify the tools I&rsquo;ll need, and create them. Instead, I spent 
+too much time stumbling my way procedurally.</p>
+
+<h3 id="cryptic-writings"><a href="https://music.apple.com/fr/album/countdown-to-extinction-live/703019036">Cryptic Writings</a></h3>
+
+<p>What makes Rockstar great are the <a href="https://codewithrockstar.com/docs#:~:text=undefined%29-,Poetic%20Literals,-Rockstar%20also"><em>poetic literals</em></a>: 
+ways to assign constants, strings or integers to variables using plain English. <code>My love is true</code> assigns 
+the constant <code>true</code> to the variable <code>my love</code>; 
+<a href="https://music.apple.com/fr/album/made-the-same/1116637128?i=1116637291"><code>Your mind is thinking madness</code></a>
+ assign the value <code>87</code> to the variable <code>your mind</code>; 
+<a href="https://music.apple.com/fr/album/seventeen/1092723303?i=1092723307"><code>Daddy says she's too young but she's old enough for me</code></a> 
+assigns the value <code>she's too young but she's old enough for me</code> to the variable <code>Daddy</code>.</p>
+
+<p>This is clever and fun, and I was expecting to spend most of my time searching for thematic literals, instead 
+of finding my way through my own code. I failed to anticipate how quickly code can be obfuscated. This is 
+especially true when you need to assign values like 0 or 1, for which you need to use 10- and 11-letter words – 
+at a glance, it&rsquo;s hard to tell how many letters a long word has.</p>
+
+<p>Compounding this is the fact that poetic literals can only be used in variable assignments. So if you 
+need a scalar value in an operation – say, to evaluate the exit condition of a loop – you need to first 
+go through a variable, and then use it in the operation. All this boilerplate takes a lot of headspace very fast.</p>
+
+<p>Once again, this is completely fair given the purpose of Rockstar, but it makes for a harder challenge 
+than I was expecting. I eventually came up with techniques to make the code easier to decrypt, such as using 
+words starting in i, j or k for loop counters (<code>The idol is disharmony</code> for <code>i = 0</code>), or pre-assigning 
+“constants” for recurring values like 0. But even then, reading my own Rockstar was really hard. In the end, 
+I resorted to commenting every line with pseudo-code, which is not very rock&rsquo;n roll.</p>
+
+<h3 id="achtung-baby"><a href="https://music.apple.com/fr/album/achtung-baby/1443063058">Achtung Baby</a></h3>
+
+<p>Adding these comments led me to a bug in Rockstar, or at least in Sinatra&rsquo;s implementation (when 
+assigning a literal string, comments put at the end of the line are considered part of the string). 
+But, in truth, this was only one among many, though some are certainly more unfortunate consequences of 
+the language&rsquo;s design that actual implementation issues.</p>
+
+<p>For example, you cannot re-assign a new, empty array to a variable. Because the same keyword, <code>rock</code>, 
+is used to create a new array or wrap an exiting variable into a new array, using it several times 
+with the same variable name – in a loop, for example – only re-uses the array created the first time.</p>
+
+<p>By the same token, you can only get the length of an array by <a href="https://github.com/RockstarLang/rockstar/issues/300">evaluating it in a scalar context</a> – 
+like adding 0 to it. This probably counts more as boilerplate than a defect, but still, I tripped 
+more than once on this peculiarity.</p>
+
+<p>Basically, because Rockstar wasn&rsquo;t meant to be taken seriously, it is difficult to find a serious 
+interpreter for it. I eventually used <a href="https://github.com/RockstarLang/rockstar/tree/main/satriani">Satriani</a>, 
+a JS implementation that is also the reference for the language, but because of 
+<a href="https://github.com/RockstarLang/rockstar/issues/297">unsolved issues with piped input</a>, I only did so 
+after trying the Ruby implementation, and the Rust one – and none of them worked properly. I would be 
+unkind to list the bugs I encountered with any of these 3 implementations or complain about them, but if 
+you want to try out Rockstar, be prepared: its edges are still very rough.</p>
+
+<h3 id="good-humor-saint-etienne">Good Humor (Saint Etienne)</h3>
+
+<p>In the end, it took me 3 days to finish the first challenge. Granted, it was over a week-end, and I didn&rsquo;t 
+spend my whole days on it, but still – we&rsquo;re talking orders of magnitude what would have taken me in Ruby, 
+for example.</p>
+
+<p>Trying to write a simple program in an unreliable, confusing and low-level language really made me 
+feel like some very new developers I encountered in my career: quickly disoriented in the codebase, losing 
+track of their initial intent, and resorting to trying out anything in the hope that it works, without 
+understanding why. This is inefficient and unpleasant. It refilled my empathy for them.</p>
+
+<p>Yet, even if I&rsquo;m not entirely happy with my final result, I&rsquo;m glad to see that I did not give up when put 
+in this uncomfortable position. In fact, I could not let it go – like a Wordle from Hell, solving this 
+challenge in Rockstar became a personal brain-teaser that I eventually overcame. Even if it drained all 
+my desire to continue with the Advent of Code.</p>
+
+<p>Who knows, maybe I&rsquo;ll try again next year? But this time, I&rsquo;ll be even more prepared, with a library of 
+basic functions, and solid habits to keep track of the <em>logic</em> in the program before going over it and 
+thinking about the lexical fields, and the different synonyms available for sex, drugs, and party.</p>
+
+<p>Anyway, if you want to read my poetry, I&rsquo;ve <a href="https://gist.github.com/r3trofitted/24086d4bd9263ddee1679b5443c89f91">put it in a gist</a>, 
+and here is the uncommented version:</p>
+
+<pre><code>Mister Presents takes your wish, your sins and your prayers
+Let the ice be your prayers
+The judge is hypnotized
+Shatter your wish
+The heart is liveliness
+Let the love be lies
+Let the gift be your sins at the ice
+Let the coal be your wish at the judge
+Until the gift is nothing
+Let the coal be your wish at the judge
+If the gift is the coal
+Let the love be true
+Build the ice up
+Build the judge up
+Let the gift be your sins at the ice
+If the love is true and the judge is as high as the heart with your wish
+Let the truth be the ice without the judge
+Give it back
+
+Take it to the top
+
+If the gift is your wish at the heart
+The judge is perseverant
+Build the ice up
+Let the gift be your sins at the ice
+Take it to the top
+
+Let the love be lies
+The judge is deflowered
+Build the ice up
+Let the gift be your sins at the ice
+
+
+
+
+The Arbiter takes the sound
+While the sound ain't nothing
+Roll the sound into the vibe
+If the vibe ain't mysterious
+Rock the vibe into the wave
+
+
+The crest is amplitudes
+The rush is bewildering
+Let the glory be the wave at the crest
+Let the end be the wave without the rush
+Let the pride be the wave at the end
+Rock the glory
+Rock the glory with the pride
+Unite the glory into the dream
+Burn the dream
+Give it back
+
+
+
+
+The beat says YELL!
+Listen to the pulse
+Shatter the pulse into your soul with the beat
+
+The revelation is earthlight
+The start is crucifixion
+Your lover is joyfulness
+The fear is subjugation
+Let the dance be your lover without the fear
+Rock you like "one"
+Rock you like "two"
+Rock you like "three"
+Rock you like "four"
+Rock you like "five"
+Rock you like "six"
+Rock you like "seven"
+Rock you like "eight"
+Rock you like "nine"
+While your soul ain't gone
+The sound is lies
+Rock the sound
+Roll your soul into my words
+My sign is resilience
+Your name is consequence
+The idol is flamboyant
+The herald is disharmony
+Until the idol is my sign with you
+Let the joker be your name with the idol
+Let the drug be Mister Presents taking the joker, my words 'n' the herald
+If the drug is as high as your lover
+Let the sound at the drug be the joker
+Let the herald be your name with the drug
+Take it to the top
+
+Let the herald be my sign
+Build the idol up
+
+The idol is disharmony
+The herald is flamboyant
+Until the idol is my sign with you
+Let the joker be your name with the idol
+Let the killer be you at the idol
+Let the drug be Mister Presents taking the killer, my words 'n' the herald
+If the drug is as high as your lover
+Let the sound at the drug be the joker
+Let the herald be your name with the drug
+Take it to the top
+
+Let the herald be my sign
+Build the idol up
+
+Let the faith be the Arbiter taking the sound
+Let the revelation be the revelation with the faith
+
+Shout the revelation
+</code></pre>
+]]>
+      </content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/blog/a-dash-of-milk/2023/11/14/issue-8.html</id>
@@ -2579,61 +2799,6 @@ from my teammate&rsquo;s sails.</p>
 
 <p>Considering my experience and the responsibilities I aspire to, this is very embarrassing. I&rsquo;ll keep this lesson in mind 
 and, hopefully, will do better next year!</p>
-]]>
-      </content>
-    </entry>
-  
-    <entry>
-      <id>https://2-45.pm/blog/2023/07/28/what-i-ve-been-reading-lately-july-2023.html</id>
-      <title>What I&#39;ve been reading lately (July 2023)</title>
-      <updated>2023-07-28T15:57:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/blog/2023/07/28/what-i-ve-been-reading-lately-july-2023.html" />
-
-      <published>2023-07-28T15:57:00+02:00</published>
-      <content type="html">
-        <![CDATA[<h3 id="inside-the-skunkworks-machine-chris-dale-2022">Inside the Skunkworks machine (Chris Dale, 2022)</h3>
-
-<p>]Skunkworks](https://music.apple.com/fr/album/skunkworks-deluxe-edition/1146014243) is one of my favorite records, and 
-has been for almost 30 years now. A textured rock album, it&rsquo;s neither heavy metal (as fans of Bruce Dickinson would have 
-hoped) nor grunge (as fans of Jack Endino would have guessed). It&rsquo;s simply great, I love it, and it is a shame that what 
-was supposed to be a lasting band turned out to be a short-lived project, quickly shelved so that Dickinson could go 
-back to heavy metal (and subsequently Iron Maiden).</p>
-
-<p>Because they were so good, I kept track of the musicians behind Skunkworks for a while, especially Chris Dale, the 
-bass player whose cool-looking instrument got me to cover my own bass with stickers. But I somehow missed a lot of 
-things, including the self-publication of this book, by Dale, which covers everything about Skunkworks, the band, from 
-the first auditions to the eventual disbanding.</p>
-
-<p>In spite of its awful layout, Inside the Skunkworks machine is a great and riveting book – I couldn&rsquo;t put it down and 
-read it almost in one go, stoppig only for a few hours of sleep. It is much more captivating than Dickinson&rsquo;s own 
-autobiography, which turns to a slog of aeronautical anecdotes midway. Interestingly, Dickinson himself is 
-rather absent from this book; not because he didn&rsquo;t contribute (that&rsquo;s only fair, it&rsquo;s Dale&rsquo;s book after all), but because 
-he comes across as detached from the band&rsquo;s life. Not taking part in the frequent jams between the 3 musicians, arriving 
-late to the sound checks and leaving early after the shows – often to go fly planes… And yet, he was the one repeating 
-than Skunkworks was a real band (including when I saw them in 1996 at the Elysée Montmartre), while neither the 
-management nor Dale seemed to really believe it…</p>
-
-<p>In any case, Inside the Skunkworks machine is an exhaustive documentary on a great (albeit short-lived) musical project, 
-and more importantly on a slice of the British rock scene of the mid-nineties and a bunch of passionate musicians who 
-all, somehow, crossed the path of the ever-friendly Chris Dale.</p>
-
-<h3 id="the-last-of-us-que-reste-t-il-de-lhumanité-nicolas-deneschau-2021">The Last of Us: que reste-t-il de l&rsquo;humanité (Nicolas Deneschau, 2021)</h3>
-
-<p>My brother offered me this essay (in French) on the eponymous video games last Christmas; it tooks me 6 months to read it 
-for 3 reasons: my backlog of books is shamefuly long, this one seemed a bit dry, and more importantly, I hadn&rsquo;t recovered 
-from the emotional Vietnam that <em>The Last of Us part II</em> dragged me through.</p>
-
-<p>Well, it turns out that this book was not as emotionnaly taxing as I feared, if still a bit dry. Furthermore, I don&rsquo;t 
-really know what its point nor audience are.</p>
-
-<p>Like the games alternate game and narrative sequences to unfold their stories, the book interlaces the retelling of said 
-stories with either behind-the-scenes anecdotes or superficial gameplay analysis. This makes for an entertaining read, 
-once you get used to its academic (and sometimes clumsly) voice, but not a very instructive one. Readers who have played 
-the games probably don&rsquo;t need their recap, while total newcomers could benefit from a more immersive narration.</p>
-
-<p>In the end, this book barely more than a love letter from a fan who has studied the game and all the making-of 
-documentaries. I may bring back some memories, and offer some trivia, but not much else.</p>
 ]]>
       </content>
     </entry>

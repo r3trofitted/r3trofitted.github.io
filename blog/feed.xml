@@ -1,11 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2-45.pm • Ronan Limon Duparcmeur, fractional CTO and Renaissance developer for hire</title>
+<meta name="description" content="I'm Ronan; I help companies build great apps and great teams.">
+<meta name="author" content="Ronan Limon Duparcmeur">
+
+<link rel="canonical" href="https://2-45.pm/blog/feed.xml" />
+
+
+
+
+
+
+
+  <link rel="stylesheet" href="/css/2-45.css">
+  
+  
+  <link rel="me" href="https://ruby.social/@r3trofitted">
+  
+  <script defer data-domain="2-45.pm" src="https://plausible.io/js/script.js"></script>
+</head>
+<body id="grainy-dinosaur">
+  <header>
+  <nav id="primary-nav">
+    <ul class="inline-list">
+      <li><a href="/">2-45.pm</a></li>
+      <li><a href="/work-with-me.html">Work with me</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/articles/">Tech articles</a></li>
+    </ul>
+  </nav>
+</header>
+  <main>
+    <article
+  itemscope itemtype="http://schema.org/BlogPosting" 
+  class="post h-entry "
+  data-category="miscellanea"
+  
+  >
+  <header class="post-header">
+    <h2 class="post-title p-name" itemprop="name headline">
+      Grainy Dinosaurs
+    </h2>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2023-11-19T20:04:43+01:00" itemprop="datePublished">
+        Nov 19, 2023
+      </time>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   
 
   <id>https://2-45.pm/blog/</id>
   <title>Grainy Dinosaurs</title>
-  <updated>2023-11-24T11:27:00+01:00</updated>
+  <updated>2023-12-06T09:30:34+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -17,6 +71,225 @@
 
   <rights> © Ronan Limon Duparcmeur - ronan@2-45.pm </rights>
   
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/12/06/i-wasn-t-meant-to-be-a-rock-star.html</id>
+      <title>I wasn&#39;t meant to be a /rock ?star/</title>
+      <updated>2023-12-06T09:30:34+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/12/06/i-wasn-t-meant-to-be-a-rock-star.html" />
+
+      <published>2023-12-06T09:30:34+01:00</published>
+      <content type="html">&lt;p&gt;Even since I heard about it, I&amp;rsquo;ve been fond of the &lt;a href=&quot;https://codewithrockstar.com&quot;&gt;Rockstar&lt;/a&gt; programming language. 
+Or, more precisely, I&amp;rsquo;ve been fond of the humor behind this langage, and the fact Rockstar it is basically a 
+joke &lt;a href=&quot;https://www.youtube.com/watch?v=4xgx4k83zzc&quot;&gt;pushed to eleven&lt;/a&gt;, with actual implementations and potentially 
+actual programs to be written.&lt;/p&gt;
+
+&lt;p&gt;Last year, I tried to do the Advent of Code using Rockstar, but immediately hit a roadblock. This year, I decided 
+to push through and accidentally committed to do so by &lt;a href=&quot;https://ruby.social/@r3trofitted/111427212436421499&quot;&gt;@ing by Jeff Atwood&lt;/a&gt;. 
+Unfortunately, this proved to be a commitment I could not hold to, and I&amp;rsquo;ve decided to quit after solving the first challenge (which took me several 
+days to do). However, this was a learning experience; let me share it with you.&lt;/p&gt;
+
+&lt;h3 id=&quot;down&quot;&gt;&lt;a href=&quot;https://music.apple.com/fr/album/down/1045519155&quot;&gt;Down&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;As a long-time Ruby developer, I easily forget how good I have things. Ruby is a high-level language optimized 
+for developer happiness, after all. Rockstar is certainly Turing-complete, but is very bare-bones. No objects. 
+No regular expressions. No iterators. No data structure but arrays. If you want anymore more than loops and 
+variables, you&amp;rsquo;ll have to build it yourself. In a way, it felt like 
+&lt;a href=&quot;https://2-45.pm/articles/z80asm/2023/08/31/jurassic-stack.html&quot;&gt;programming in Assembly&lt;/a&gt;, or playing survival 
+Minecraft. You want an enchanting table? Start punching trees.&lt;/p&gt;
+
+&lt;p&gt;Of course, like with Minecraft, this is part of the game, but I wasn&amp;rsquo;t prepared for the time it takes to do 
+anything. I eventually started writing a library of functions, and in retrospect I should have done that 
+from the start. Go over my strategy, identify the tools I&amp;rsquo;ll need, and create them. Instead, I spent 
+too much time stumbling my way procedurally.&lt;/p&gt;
+
+&lt;h3 id=&quot;cryptic-writings&quot;&gt;&lt;a href=&quot;https://music.apple.com/fr/album/countdown-to-extinction-live/703019036&quot;&gt;Cryptic Writings&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;What makes Rockstar great are the &lt;a href=&quot;https://codewithrockstar.com/docs#:~:text=undefined&quot;&gt;&lt;em&gt;poetic literals&lt;/em&gt;&lt;/a&gt;-,Poetic%20Literals,-Rockstar%20also): 
+ways to assign constants, strings or integers to variables using plain English. &lt;code&gt;My love is true&lt;/code&gt; assigns 
+the constant &lt;code&gt;true&lt;/code&gt; to the variable &lt;code&gt;my love&lt;/code&gt;; 
+&lt;a href=&quot;https://music.apple.com/fr/album/made-the-same/1116637128?i=1116637291&quot;&gt;&lt;code&gt;Your mind is thinking madness&lt;/code&gt;&lt;/a&gt;
+ assign the value &lt;code&gt;87&lt;/code&gt; to the variable &lt;code&gt;your mind&lt;/code&gt;; 
+&lt;a href=&quot;https://music.apple.com/fr/album/seventeen/1092723303?i=1092723307&quot;&gt;&lt;code&gt;Daddy says she&#39;s too young but she&#39;s old enough for me&lt;/code&gt;&lt;/a&gt; 
+assigns the value &lt;code&gt;she&#39;s too young but she&#39;s old enough for me&lt;/code&gt; to the variable &lt;code&gt;Daddy&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;This is clever and fun, and I was expecting to spend most of my time searching for thematic literals, instead 
+of finding my way through my own code. I failed to anticipate how quickly code can be obfuscated. This is 
+especially true when you need to assign values like 0 or 1, for which you need to use 10- and 11-letter words – 
+at a glance, it&amp;rsquo;s hard to tell how many letters a long word has.&lt;/p&gt;
+
+&lt;p&gt;Compounding this is the fact that poetic literals can only be used in variable assignments. So if you 
+need a scalar value in an operation – say, to evaluate the exit condition of a loop – you need to first 
+go through a variable, and then use it in the operation. All this boilerplate takes a lot of headspace very fast.&lt;/p&gt;
+
+&lt;p&gt;Once again, this is completely fair given the purpose of Rockstar, but it makes for a harder challenge 
+than I was expecting. I eventually came up with techniques to make the code easier to decrypt, such as using 
+words starting in i, j or k for loop counters (&lt;code&gt;The idol is disharmony&lt;/code&gt; for &lt;code&gt;i = 0&lt;/code&gt;), or pre-assigning 
+“constants” for recurring values like 0. But even then, reading my Rockstar was really hard. Forget 
+“yourself in 6 months”, I had to care about myself in 6 minutes! In the end, I had to comment every line with 
+pseudo-code, which is not very rock&amp;rsquo;n roll.&lt;/p&gt;
+
+&lt;h3 id=&quot;achtung-baby&quot;&gt;&lt;a href=&quot;https://music.apple.com/fr/album/achtung-baby/1443063058&quot;&gt;Achtung Baby&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Adding these comments led me to a bug in Rockstar, or at least in Sinatra&amp;rsquo;s implementation (when 
+assigning a literal string, comments put at the end of the line are considered part of the string). 
+But, in truth, this was only one among many, though some are certainly more unfortunate consequences of 
+the language&amp;rsquo;s design that actual implementation issues.&lt;/p&gt;
+
+&lt;p&gt;For example, you cannot re-assign a new, empty array to a variable. Because the same keyword, &lt;code&gt;rock&lt;/code&gt;, 
+is used to create a new array or wrap an exiting variable into a new array, using it several times 
+with the same variable name – in a loop, for example – only re-uses the array created the first time.&lt;/p&gt;
+
+&lt;p&gt;By the same token, you can only get the length of an array by &lt;a href=&quot;https://github.com/RockstarLang/rockstar/issues/300&quot;&gt;evaluating it in a scalar context&lt;/a&gt; – 
+like adding 0 to it. This probably counts more as boilerplate than a defect, but still, I tripped 
+more than once on this peculiarity.&lt;/p&gt;
+
+&lt;p&gt;Basically, because Rockstar wasn&amp;rsquo;t meant to be taken seriously, it is difficult to find a serious 
+interpreter for it. I eventually used &lt;a href=&quot;https://github.com/RockstarLang/rockstar/tree/main/satriani&quot;&gt;Satriani&lt;/a&gt;, 
+a JS implementation that is also the reference for the language, but because of 
+&lt;a href=&quot;https://github.com/RockstarLang/rockstar/issues/297&quot;&gt;unsolved issues with piped input&lt;/a&gt;, I only did so 
+after trying the Ruby implementation, and the Rust one – and none of them worked properly. I would be 
+unkind to list the bugs I encountered with any of these 3 implementations or complain about them, but if 
+you want to try out Rockstar, be prepared: its edges are still very rough.&lt;/p&gt;
+
+&lt;h3 id=&quot;good-humor-saint-etienne&quot;&gt;Good Humor (Saint Etienne)&lt;/h3&gt;
+
+&lt;p&gt;In the end, it took me 3 days to finish the first challenge. Granted, it was over a week-end, and I didn&amp;rsquo;t 
+spend my whole days on it, but still – we&amp;rsquo;re talking orders of magnitude what would have taken me in Ruby, 
+for example.&lt;/p&gt;
+
+&lt;p&gt;Trying to write a simple program in an unreliable, confusing and low-level language really made me 
+feel like some very new developers I encountered in my career: quickly disoriented in the codebase, losing 
+track of their initial intent, and resorting to trying out anything in the hope that it works, without 
+understanding why. This is inefficient and unpleasant. It refilled my empathy for them.&lt;/p&gt;
+
+&lt;p&gt;Yet, even if I&amp;rsquo;m not entirely happy with my final result, I&amp;rsquo;m glad to see that I did not give up when put 
+in this uncomfortable position. In fact, I could not let it go – like a Wordle from Hell, solving this 
+challenge in Rockstar became a personal brain-teaser that I eventually overcame. Even if it drained all 
+my desire to continue with the Advent of Code.&lt;/p&gt;
+
+&lt;p&gt;Who knows, maybe I&amp;rsquo;ll try again next year? But this time, I&amp;rsquo;ll be even more prepared, with a library of 
+basic functions, and solid habits to keep track of the &lt;em&gt;logic&lt;/em&gt; in the program before going over it and 
+thinking about the lexical fields, and the different synonyms available for sex, drugs, and party.&lt;/p&gt;
+
+&lt;p&gt;Anyway, if you want to read my poetry, I&amp;rsquo;ve &lt;a href=&quot;https://gist.github.com/r3trofitted/24086d4bd9263ddee1679b5443c89f91&quot;&gt;put it in a gist&lt;/a&gt;, 
+and here is the uncommented version:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Mister Presents takes your wish, your sins and your prayers
+Let the ice be your prayers
+The judge is hypnotized
+Shatter your wish
+The heart is liveliness
+Let the love be lies
+Let the gift be your sins at the ice
+Let the coal be your wish at the judge
+Until the gift is nothing
+Let the coal be your wish at the judge
+If the gift is the coal
+Let the love be true
+Build the ice up
+Build the judge up
+Let the gift be your sins at the ice
+If the love is true and the judge is as high as the heart with your wish
+Let the truth be the ice without the judge
+Give it back
+
+Take it to the top
+
+If the gift is your wish at the heart
+The judge is perseverant
+Build the ice up
+Let the gift be your sins at the ice
+Take it to the top
+
+Let the love be lies
+The judge is deflowered
+Build the ice up
+Let the gift be your sins at the ice
+
+
+
+
+The Arbiter takes the sound
+While the sound ain&#39;t nothing
+Roll the sound into the vibe
+If the vibe ain&#39;t mysterious
+Rock the vibe into the wave
+
+
+The crest is amplitudes
+The rush is bewildering
+Let the glory be the wave at the crest
+Let the end be the wave without the rush
+Let the pride be the wave at the end
+Rock the glory
+Rock the glory with the pride
+Unite the glory into the dream
+Burn the dream
+Give it back
+
+
+
+
+The beat says YELL!
+Listen to the pulse
+Shatter the pulse into your soul with the beat
+
+The revelation is earthlight
+The start is crucifixion
+Your lover is joyfulness
+The fear is subjugation
+Let the dance be your lover without the fear
+Rock you like &quot;one&quot;
+Rock you like &quot;two&quot;
+Rock you like &quot;three&quot;
+Rock you like &quot;four&quot;
+Rock you like &quot;five&quot;
+Rock you like &quot;six&quot;
+Rock you like &quot;seven&quot;
+Rock you like &quot;eight&quot;
+Rock you like &quot;nine&quot;
+While your soul ain&#39;t gone
+The sound is lies
+Rock the sound
+Roll your soul into my words
+My sign is resilience
+Your name is consequence
+The idol is flamboyant
+The herald is disharmony
+Until the idol is my sign with you
+Let the joker be your name with the idol
+Let the drug be Mister Presents taking the joker, my words &#39;n&#39; the herald
+If the drug is as high as your lover
+Let the sound at the drug be the joker
+Let the herald be your name with the drug
+Take it to the top
+
+Let the herald be my sign
+Build the idol up
+
+The idol is disharmony
+The herald is flamboyant
+Until the idol is my sign with you
+Let the joker be your name with the idol
+Let the killer be you at the idol
+Let the drug be Mister Presents taking the killer, my words &#39;n&#39; the herald
+If the drug is as high as your lover
+Let the sound at the drug be the joker
+Let the herald be your name with the drug
+Take it to the top
+
+Let the herald be my sign
+Build the idol up
+
+Let the faith be the Arbiter taking the sound
+Let the revelation be the revelation with the faith
+
+Shout the revelation
+&lt;/code&gt;&lt;/pre&gt;
+</content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/11/14/issue-8.html</id>
@@ -821,73 +1094,65 @@ XCode and dusting off my Swift reference book as I&amp;rsquo;m typing this…)&l
 </content>
     </entry>
   
-    <entry>
-      <id>https://2-45.pm/blog/blog/2023/06/19/what-i-ve-been-reading-lately-june-2023.html</id>
-      <title>What I&#39;ve been reading lately (June 2023)</title>
-      <updated>2023-06-19T09:37:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/06/19/what-i-ve-been-reading-lately-june-2023.html" />
-
-      <published>2023-06-19T09:37:00+02:00</published>
-      <content type="html">&lt;p&gt;Not many books read recently, I admit. I could blame the engulfing bliss of coding again, or my time spent enjoying the 
-sunny outdoors, but let&amp;rsquo;s face it: it&amp;rsquo;s mostly Zelda&amp;rsquo;s fault. Still, I did enjoy some reading:&lt;/p&gt;
-
-&lt;h3 id=&quot;mustaine-a-life-in-metal-dave-mustaine-and-joe-layden-2010&quot;&gt;Mustaine: a life in metal (Dave Mustaine and Joe Layden, 2010)&lt;/h3&gt;
-
-&lt;p&gt;For some reason, I keep reading autobiographies of rock stars, even though after Billy Idol, Peter Hook, Bruce Dickinson 
-and Travis Barker, I know quite well what to expect: the account of a talented, hard-working, self-important artist spending 
-their time having drug orgies, sex orgies, and fighting with their band mates&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;. About Mustaine&amp;rsquo;s, the 
-only peculiarity I was expecting was a constant grudge against Metallica.&lt;/p&gt;
-
-&lt;p&gt;Well, the backcover features the typical sex-and-drugs rock star checklist, while the two words that open the book are 
-“&lt;em&gt;James Hetfield&lt;/em&gt;”. (I kid you not. The guys starts his own biography with someone else&amp;rsquo;s name.)&lt;/p&gt;
-
-&lt;p&gt;However, this book is still an entertaining and very easy read. I went through it in a couple of evenings; it&amp;rsquo;s 
-well-written (I suspect thanks to Joe Layden), interesting, and strangely enough Mustaine really comes out as 
-a guy sincerely tring to be nice and amend. There are still a few cheap shots and several cases of self-justifications, 
-of course, but given Mustaine&amp;rsquo;s reputation, I was expecting a lot worse.&lt;/p&gt;
-
-&lt;h3 id=&quot;dice-men-the-origin-story-of-games-workshop-ian-livingstone-and-steve-jackson-2023&quot;&gt;Dice Men: the origin story of Games Workshop (Ian Livingstone and Steve Jackson, 2023)&lt;/h3&gt;
-
-&lt;p&gt;My childhood owes a lot to Steve Jackson and Ian Livingstone, be it through their Fighting Fantasy books or 
-&lt;a href=&quot;http://www.harris-authors.com/talisman_history.html&quot;&gt;Talisman&lt;/a&gt;, for years my favorite board game[^2]. And I always say 
-that the success stories (and drama!) of the first RPG companies of the late seventies are scaled-down versions of those 
-in the tech industry. So, of course I had to read this account of the founding of Games Workshop.&lt;/p&gt;
-
-&lt;p&gt;My only issue with this book is its format: it&amp;rsquo;s too tall for my shelves. However, its size allows the inclusion of 
-numerous documents in high quality: flyers, fanzine covers, gorgeous illustrations, and &lt;em&gt;a lot&lt;/em&gt; of pictures. There is 
-relatively little text, but tons of material. It&amp;rsquo;s a trip in time, back to the late seventies and early eighties, and 
-it&amp;rsquo;s great.&lt;/p&gt;
-
-&lt;p&gt;The story of GW&amp;rsquo;s rise itself is rather typical: focused and organised people building a successful retail business. It 
-sounds common enough, and yet, constrasts strongly with the amateurism and lack of focus that transpires from TSR&amp;rsquo;story, 
-as told in &lt;a href=&quot;https://direct.mit.edu/books/book/5224/Game-WizardsThe-Epic-Battle-for-Dungeons-amp&quot;&gt;Game Wizards&lt;/a&gt; or 
-&lt;a href=&quot;https://www.goodreads.com/book/show/15803047-of-dice-and-men&quot;&gt;Of Dice and Men&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;sorayama-complete-masterworks-isabella-catalina-and-hajime-sorayama-2022&quot;&gt;Sorayama, complete masterworks (Isabella Catalina and Hajime Sorayama, 2022)&lt;/h3&gt;
-
-&lt;p&gt;I &lt;a href=&quot;{% post_url 2023-05-29-no-milk-no-sugar-3 %}&quot;&gt;only recently&lt;/a&gt; became aware of this artist, and I wanted to fill this 
-gap in my culture. I was expecting sexy robots with a retro sci-fi vibe; I wasn&amp;rsquo;t prepared for the photorealistic 
-fetishistic porn. In retrospect, going with the complete works was not a great idea: believe it or not, you can have too 
-much of close-ups of female genitalia.&lt;/p&gt;
-
-&lt;p&gt;And yet, it&amp;rsquo;s a shame because the excessive generosity of this book detracted me from the great things about Sorayama&amp;rsquo;s 
-work: the flawless execution, the occasional humour, and the slight unease that his juxtapositions bring, be they of chrome 
-and flesh, pleasure and pain, or pop culture and cultural heritage, among others. It&amp;rsquo;s a rich and thought-provoking 
-corpus; it&amp;rsquo;s doesn&amp;rsquo;t lend itself well to binging. I&amp;rsquo;m glad to have this book as a reference, but next time, I&amp;rsquo;ll go 
-see an exihibition instead.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;The exception being Bruce Dickinson, whose bio is the story of a talented, hard-working, 
-  self-important artist spending his time being a Renaissance man, flying planes, and politely disagreeing with Steve Harris.
-[^2]: I still own a first (French) edition, probably the most precious thing I&amp;rsquo;ll bequeath my son.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</content>
-    </entry>
-  
 </feed>
+  </div>
+</article>
+  </main>
+  <footer>
+    <p class="h-card">
+      <a href="/work-with-me.html#even-more-about-me">
+        <span class="p-given-name">Ronan</span> <span class="p-family-name">Limon Duparcmeur</span>
+      </a>
+    </p>
+    
+    <ul class="footer-links">
+      <li>
+        <a href="https:/ruby.social/@r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-mastodon" viewBox="0 0 16 16">
+            <path d="M11.19 12.195c2.016-.24 3.77-1.475 3.99-2.603.348-1.778.32-4.339.32-4.339 0-3.47-2.286-4.488-2.286-4.488C12.062.238 10.083.017 8.027 0h-.05C5.92.017 3.942.238 2.79.765c0 0-2.285 1.017-2.285 4.488l-.002.662c-.004.64-.007 1.35.011 2.091.083 3.394.626 6.74 3.78 7.57 1.454.383 2.703.463 3.709.408 1.823-.1 2.847-.647 2.847-.647l-.06-1.317s-1.303.41-2.767.36c-1.45-.05-2.98-.156-3.215-1.928a3.614 3.614 0 0 1-.033-.496s1.424.346 3.228.428c1.103.05 2.137-.064 3.188-.189zm1.613-2.47H11.13v-4.08c0-.859-.364-1.295-1.091-1.295-.804 0-1.207.517-1.207 1.541v2.233H7.168V5.89c0-1.024-.403-1.541-1.207-1.541-.727 0-1.091.436-1.091 1.296v4.079H3.197V5.522c0-.859.22-1.541.66-2.046.456-.505 1.052-.764 1.793-.764.856 0 1.504.328 1.933.983L8 4.39l.417-.695c.429-.655 1.077-.983 1.934-.983.74 0 1.336.259 1.791.764.442.505.661 1.187.661 2.046v4.203z"/>
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/r3trofitted">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-linkedin" viewBox="0 0 16 16">
+            <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
+          </svg>
+        </a>
+      </li>
+      <li>
+        <a href="/feed.xml">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-rss-fill" viewBox="0 0 16 16">
+            <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm1.5 2.5c5.523 0 10 4.477 10 10a1 1 0 1 1-2 0 8 8 0 0 0-8-8 1 1 0 0 1 0-2zm0 4a6 6 0 0 1 6 6 1 1 0 1 1-2 0 4 4 0 0 0-4-4 1 1 0 0 1 0-2zm.5 7a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
+          </svg>
+        </a>
+      </li>
+    </ul>
+    <!-- SVG gradient for the icons -->
+<svg aria-hidden="true" focusable="false" style="width:0;height:0;position:absolute;">
+  <defs>
+    <linearGradient x1="0.085" y1="0.085" x2="0.915" y2="0.915" id="rss-gradient">
+      <stop offset="0.0" stop-color="#E3702D" />
+      <stop offset="0.1071" stop-color="#EA7D31" />
+      <stop offset="0.3503" stop-color="#F69537" />
+      <stop offset="0.5" stop-color="#FB9E3A" />
+      <stop offset="0.7016" stop-color="#EA7C31" />
+      <stop offset="0.8866" stop-color="#DE642B" />
+      <stop offset="1.0" stop-color="#D95B29" />
+    </linearGradient>
+    <linearGradient x1="0.0" y1="0" x2="0.0" y2="1.0" id="mastodon-gradient">
+      <stop stop-color="#6364FF"/>
+      <stop offset="1" stop-color="#563ACC"/>
+    </linearGradient>
+  </defs>
+</svg>
+  </footer>
+</body>
+</html>
