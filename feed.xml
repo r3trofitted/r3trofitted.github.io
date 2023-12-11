@@ -4,7 +4,7 @@
 
   <id>https://2-45.pm/</id>
   <title>2-45.pm – main feed</title>
-  <updated>2023-12-06T09:30:34+01:00</updated>
+  <updated>2023-12-10T16:26:01+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -16,6 +16,20 @@
 
   <rights> © Ronan Limon Duparcmeur - contact@2-45.pm </rights>
 
+  
+    <entry>
+      <id>https://2-45.pm/blog/2023/12/10/chrome-shift.html</id>
+      <title>Chrome Shift</title>
+      <updated>2023-12-10T16:26:01+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/2023/12/10/chrome-shift.html" />
+
+      <published>2023-12-10T16:26:01+01:00</published>
+      <content type="html">
+        <![CDATA[
+]]>
+      </content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/blog/2023/12/06/i-wasn-t-meant-to-be-a-rock-star.html</id>
@@ -2750,55 +2764,6 @@ to this record while striding empty rurban streets used to put me in a perfect G
 Blade-Runnerization, no matter how good your soundtrack is; or maybe, after a few decades, the weight of the years 
 anchors your mind too deep for your imagination to carry it away that easily. Or maybe I was just distracted by my 
 uncomfortable socks.</p>
-]]>
-      </content>
-    </entry>
-  
-    <entry>
-      <id>https://2-45.pm/blog/2023/08/04/2023-08-04-decaf-in-the-morning.html</id>
-      <title>Decaf in the morning</title>
-      <updated>2023-08-04T08:45:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/blog/2023/08/04/2023-08-04-decaf-in-the-morning.html" />
-
-      <published>2023-08-04T08:45:00+02:00</published>
-      <content type="html">
-        <![CDATA[<p>The trickiest part of going back to blogging, a few months ago, was probably to decide on an editorial line. I&rsquo;m still 
-tinkering with it, but one thing is certain: I want this blog to be upbeat, and not over-sharing. In part because 
-of the image I want to project, in part because, as my mother used to say, <em>“Small sorrows speak; great ones are silent”</em>, 
-but mostly because I believe that we should try to uplift the public discourse, and not add to the constant stream of 
-negativity online.</p>
-
-<p>However, this may turn out to be a bit delicate as I write down my experience participating in the 
-<a href="https://railshackathon.com">Rails Hackathon</a> last week.</p>
-
-<p>For the whole month, I had been waiting for this hackathon like a kid waits for Christmas. My previous and only experience 
-participating in a Hackathon was in 2016, for the last Ruby Rampage, and it was great – we even ended up third! Needless 
-to say, I was very confident for this one.</p>
-
-<p>I enlisted 2 great devs I had worked with previously, and we came up with a great idea. We had a plan, we felt ready, 
-I couldn&rsquo;t wait for the hackathon to start – even if, unfortunately, the kick-off was at 2am here on the GMT +1 time zone. 
-And yet, in the end we didn&rsquo;t even submit our entry, because in spite of our efforts, it wasn&rsquo;t ready. In fact, it was 
-in the sorriest state a project can be, with all features started but none finished.</p>
-
-<p>My disappointment after throwing the towel was proportional to my excitement starting the project, and to be honest I 
-felt depressed for a few days – to the point that I haven&rsquo;t looked at the other entries, nor the winners, yet. And the 
-more disturbing thing is that, no matter how I try to post-mortem this experience, I cannot escape the conclusion that
-I&rsquo;m responsible for this forfeiting.</p>
-
-<p>We faced difficulties managing the project (our goal was not as clear as we thought, the dispatching of the tasks was 
-probably not optimal), and we lost a lot of time on the design, but these are normal hiccups in any project, and I 
-don&rsquo;t think that they are the root cause. And, obviously, none of my teammate is to blame for their effort or work – 
-they both are really good developers and they did a great job.</p>
-
-<p>However, in retrospect, I believe that our team lacked <em>cohesion</em>. It is a leadership failure, and I was the one acting 
-as a leader. Which was doubly a mistake: first, I did a poor job of kind-of leading the team, but more importantly, I 
-shouldn&rsquo;t have taken this role in the first place! In my excitement, I failed to see that instead of nurturing everyone&rsquo;s 
-interest, involvement, and initiatives, I occupied all the space in our conversations, and certainly took the wind 
-from my teammate&rsquo;s sails.</p>
-
-<p>Considering my experience and the responsibilities I aspire to, this is very embarrassing. I&rsquo;ll keep this lesson in mind 
-and, hopefully, will do better next year!</p>
 ]]>
       </content>
     </entry>
