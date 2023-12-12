@@ -59,7 +59,7 @@
 
   <id>https://2-45.pm/articles/</id>
   <title>2-45.pm: tech articles by Ronan Limon Duparcmeur</title>
-  <updated>2023-11-14T23:03:00+01:00</updated>
+  <updated>2023-12-11T20:40:55+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -71,6 +71,218 @@
 
   <rights> © Ronan Limon Duparcmeur - ronan@2-45.pm </rights>
   
+  
+    <entry>
+      <id>https://2-45.pm/articles/articles/2023/12/11/faxes-from-a-late-career-developer.html</id>
+      <title>Faxes from a late-career developer</title>
+      <updated>2023-12-11T20:40:55+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/articles/articles/2023/12/11/faxes-from-a-late-career-developer.html" />
+
+      <published>2023-12-11T20:40:55+01:00</published>
+      <content type="html">&lt;p&gt;Helvetic Ruby was a great conference. I missed the time window to write about how 
+much I enjoyed, but thankfully &lt;a href=&quot;https://dimiterpetrov.com/blog/helvetic-ruby-2023-personal-retrospective/&quot;&gt;other&lt;/a&gt; 
+&lt;a href=&quot;https://www.rorvswild.com/blog/2023/helvetic-ruby&quot;&gt;people&lt;/a&gt; 
+&lt;a href=&quot;https://karenjex.blogspot.com/2023/12/postgresql-meets-ruby-in-switzerland.html&quot;&gt;did&lt;/a&gt;. However, I did take 
+notes with the intent to share my thoughts, and there is 
+&lt;a href=&quot;https://helvetic-ruby.ch/talks/#harriet-oughton-postcards-from-an-early-career-developers-first-months&quot;&gt;one talk&lt;/a&gt;&lt;br /&gt;
+in particular for which I took a lot of notes (comparatively).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I relly enjoyed Harriet Oughton&amp;rsquo;s presentation, and I certainly don&amp;rsquo;t want to critizise her 
+work. Still, I couldn&amp;rsquo;t help but disagree with her on several points, and hopefully my 
+opinions will enrich the conversion and bring even more support to early-career developers 
+and more experienced ones.&lt;/p&gt;
+
+&lt;h3 id=&quot;til-ecd-the-term&quot;&gt;TIL: ECD (the term)&lt;/h3&gt;
+
+&lt;p&gt;First of all, I strongly encourage you to &lt;a href=&quot;https://www.youtube.com/watch?v=jNY4CViM76U&quot;&gt;watch Harriet&amp;rsquo;s talk&lt;/a&gt; 
+on &lt;a href=&quot;https://www.youtube.com/@HelveticRuby&quot;&gt;Helvetic Ruby&amp;rsquo;s YouTube channel&lt;/a&gt;. It is titled &lt;em&gt;“Postcards from 
+an Early-Career Developer&amp;rsquo;s First Months”&lt;/em&gt;, and aims to &lt;em&gt;“remind most of us of the common things 
+that new developers learn, grapple with and celebrate in the first few months on the job, and for the 
+juniors themselves, to expose how common these struggles are (and hopefully provide some pointers along 
+the way!)”&lt;/em&gt;. It is a delightful talk, carefully crafted, very well written, and filled with humor; I may disagree 
+with some of the advice given, but I cannot deny the relevance of the issues raised.&lt;/p&gt;
+
+&lt;p&gt;Harriet has more teaching experience than me, so I will not dare to go through her slides and add my comments 
+in red ink in the margin like a would-be professor. Instead, I would like to deconstruct her different points, 
+and from there send my own snail mail – “faxes from the old devs home”, maybe.&lt;/p&gt;
+
+&lt;h3 id=&quot;fax-1-youre-not-the-only-one&quot;&gt;Fax #1: you&amp;rsquo;re not the only one.&lt;/h3&gt;
+
+&lt;p&gt;The first thing that tingled me when watching Harriet&amp;rsquo;s talk is that most of the things that she talked about, 
+and for which she gavee sound advice, &lt;strong&gt;are not specific to early-career developers&lt;/strong&gt;. Maybe that was the point, 
+since one of her stated goals was to reassure Padawans on the commonality of their difficulties. Still, &lt;em&gt;everyone&lt;/em&gt; 
+who joins a new company can find it difficult to set up a working environment, get familiar with the team&amp;rsquo;s workflow, 
+or grasp the codebase, and the tips given – be patient, communicate clearly, document what you 
+can and keep the documentation up-to-date – apply to/for developers of all level. Maybe I would have like these parts 
+better if this had been stated upfront?&lt;/p&gt;
+
+&lt;p&gt;I do need to point out that, even though I subscribe to most of the pointers given to make onboardings easier, I 
+was very uncomfortable seeing &lt;em&gt;“Use ChatGPT to explain code”&lt;/em&gt; among them. My advice for inexperienced devs is the 
+opposite: &lt;strong&gt;stay away from generative AIs&lt;/strong&gt; until you are able to distinguish the random bullshit from the relevant 
+responses, and see obscure code as an opportunity to learn by yourselves, with or without a mentor – but a 
+&lt;strong&gt;human&lt;/strong&gt; one. No shortcuts allowed here, especially dangerous ones.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“re: Everything is new and there is a lot of it; I&amp;rsquo;m feeling lost and lose my self-confidence.”&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;If you&amp;rsquo;re the ECD or the newcomer&lt;/strong&gt;: that&amp;rsquo;s normal and happens to everyone. Be honest about everything you don&amp;rsquo;t understand yet, and ask 
+around for the difficulties that old-timers faced when they joined, this should boost both your ego 
+and your acclimatization. Be patient and stay focused!&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;If you&amp;rsquo;re the old folk&lt;/strong&gt;: prepare the onboarding beforehand, decide what should be learned in priority, 
+and communicate it clearly. Be patient and help them stay focused!&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;fax-2-its-fine-to-have-a-small-toolbox&quot;&gt;Fax #2: it&amp;rsquo;s fine to have a small toolbox&lt;/h3&gt;
+
+&lt;p&gt;Beyond ChatGPT, several of the pieces of advice given were about tooling, and encouraged leveraging lots of them, 
+but rather blindly: installing VSCode extensions, copy-pasting Git aliases, etc.&lt;/p&gt;
+
+&lt;p&gt;I have issues with this approach. In fact, I would encourage people with little experience to do the opposite: 
+focus on a small set of tools, and be confortable with not using them to their full potential at first. Yes, 
+Git aliases are a good way to work faster – but only if you understand what they do, and how they work. And the 
+best way to learn that is to take the long road at first, typing the full commands until you understand them well, 
+in all their hair-pulling madness. Start simple. The same goes for all your tools. Eventually, I&amp;rsquo;ll need to know 
+your text editor by heart, but it will be easier to get there if you learn features gradually, instead of rushing 
+to have the badassest setup faster than your peers. Stick to the defaults. Go through the menus instead of 
+reusing the keyboard macros of someone else. It&amp;rsquo;s like learning an instrument: if you want to be as fast 
+a shredder as a &lt;a href=&quot;&quot;&gt;Japanese bedroom guitarist&lt;/a&gt;, you must first practice slowly.&lt;/p&gt;
+
+&lt;p&gt;However, going slow doesn&amp;rsquo;t mean that you should not try out a lot of different things. This is my second issue 
+with these tips: by pointing towards specific tools (VSCode, GitHub, etc.) they contribute to the creation of a 
+monoculture. When it comes to tooling, my advice to beginners is: don&amp;rsquo;t settle on anything yet. Start with VSCode, 
+learn its basic, then try out Vim, while your mind is still malleable and you haven&amp;rsquo;t settled on any habits. And 
+then try out a big IDE like RubyMine. Standard-issue equipment is fine for cannon fodder, but experts have their 
+own bespoke stuff, and to understand your own preferences, you&amp;rsquo;ll have to try different things.&lt;/p&gt;
+
+&lt;p&gt;Plus, I would hate to see everyone use the same tools and techniques, and I would hate even more to live in a 
+world where a single company provides them all.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“re: I feel the need to be as well-equiped as my senior peers, and clone their setup all the time.&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;To the ECD:&lt;/strong&gt; Don&amp;rsquo;t. What you need is not to build a killer setup, it is to discover yourself and what you 
+like and dislike in a setup, so that you can &lt;em&gt;then&lt;/em&gt; build a killer one. Change your IDE every 6 months, 
+and refrain from customizing any until you&amp;rsquo;ve circled back to it. Focus on simple things, and don&amp;rsquo;t let 
+you ego drive you – it&amp;rsquo;s OK not to be a power user.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;To the old folks:&lt;/strong&gt; Don&amp;rsquo;t show off too much with your Vim-fu. It&amp;rsquo;s cool to keep the beginners curious 
+and tease them with the glorious productivity gains that await them once they&amp;rsquo;ve mastered the basics, 
+but don&amp;rsquo;t pressure them into skipping steps, or following in &lt;em&gt;your&lt;/em&gt; footsteps.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;fax-3-its-all-about-the-pons-anisorum-but-you-can-cross-it&quot;&gt;Fax #3: it&amp;rsquo;s all about the pons anisorum, but you can cross it&lt;/h3&gt;
+
+&lt;p&gt;I keep saying that the best thing about Ruby is its community and my dear MINASWAN. However, there is such a 
+thing as too much kindness, and besides, it&amp;rsquo;s easy to mistake kindness for weakness when you&amp;rsquo;re obsessed with 
+being kind enough.&lt;/p&gt;
+
+&lt;p&gt;In “Postcards from an ECD”, a lot of the tips for the experienced devs boil down to being kind, preparing things 
+in advance for the ECDs, and giving generous praise. Things I one-hundred percent agree with… within reason. 
+Of course team members should be kind to one another, but I see no reason why this should be more the case with 
+beginners – they may be less experienced but they&amp;rsquo;re not more brittle than anyone else. The same goes for support 
+or praise. It&amp;rsquo;s important to build trust, confidence and self-confidence; but it&amp;rsquo;s even more important to put 
+in place the conditions for all this to build itself, and that is with clear expectations and achievable, but 
+not negligible, goals.&lt;/p&gt;
+
+&lt;p&gt;What beginners need most of all, and especially if they are out of a bootcamp, is their own 
+&lt;a href=&quot;https://www.oxfordreference.com/display/10.1093/oi/authority.20110803100336488&quot;&gt;bridge of asses&lt;/a&gt; to cross. 
+Something that poses a challenge, and will reward them with extra confidence once they&amp;rsquo;ve crossed it. This trick 
+is to find the right bridge for each ECD. &lt;a href=&quot;https://blog.codinghorror.com/the-two-types-of-programmers/&quot;&gt;Not all programmers are driven and talented&lt;/a&gt;, 
+but “alphas” and “vocationals” alike deserve to be given the right opportunities to grow, and that takes some 
+effort, which must be tailored to the challenger, and their team; something that is not easy, but achievable, 
+and has real value. The bridge of asses has to lead somewhere for its crossing to be worth anything! Everyone 
+deserves kindness and praise help, but these things are means, not an end – the end is getting better by 
+successfully doing difficult things.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“re: I feel like an idiot at best, a fraud at worst.”&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;To the ECD:&lt;/strong&gt; That&amp;rsquo;s because you haven&amp;rsquo;t earned your first laurels yet. Look for a difficult, but not 
+too difficult, task in the backlog and stick with it until you&amp;rsquo;ve completed it well. You know you&amp;rsquo;re doing 
+well if you have to push through. Then look behind you a see how far you&amp;rsquo;ve already progressed.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;To the old folks:&lt;/strong&gt; Give the ECDs actual responsibilities, but scoped to a specific field you need them to 
+get better at. Support them as much as they need, but only from the sidelines.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;fax-4-the-important-work-is-in-the-tests&quot;&gt;Fax #4: the important work is in the tests&lt;/h3&gt;
+
+&lt;p&gt;This last bit is more specific than the others, and may be a complete rebuttal of the final postcard in 
+the presentation: “This is testing my code and my patience”. This part of the talk starts with “Lots of early-
+career developers finds testing a new and unknown frontier. As chances are, they will have been concentrating more 
+on the basics of making working, nice-looking software when starting out, instead of protecting it against the 
+ninety-third obscure edge case that some product manager dreamed up over the cereal that morning.” I disagree with 
+a lot of things in this statement, so if you&amp;rsquo;ll excuse me I&amp;rsquo;m climb on my soapbox and go preaching a bit.&lt;/p&gt;
+
+&lt;p&gt;It may very well be that, indeed, bootcamp graduates aren&amp;rsquo;t being taught how and why they should test, but that 
+would be a very big mistake on the bootcamp&amp;rsquo;s part. Testing is not an add-on to the writing software, it is not 
+an extra assignment for bonus points, and it is certainly not for the benefits of product managers. &lt;strong&gt;Tests are 
+what drives the design of the software.&lt;/strong&gt; “Nice-looking” is meaningless; what matters is &lt;em&gt;well-designed&lt;/em&gt;, and 
+tests help tremendously the design. (And as it happens, well-designed code also looks nice – tests included.)&lt;/p&gt;
+
+&lt;p&gt;This is one of the others things that the Ruby community does unusually well: care for the tests. I would hate to 
+see this crucial part of our culture go because of misguided bootcamps, if they are indeed responsible.&lt;/p&gt;
+
+&lt;p&gt;Tests should be cared for as much, if not more, than the rest of the code base. Therefore, the same good practices 
+should &lt;em&gt;usually&lt;/em&gt; be followed: don&amp;rsquo;t copy-and-paste, never write anything you don&amp;rsquo;t understand, do not over-DRY, 
+optimize for human happiness through legibility and simplicity, etc. If TDD is not a hard requirement, do it 
+anyway – if the others aren&amp;rsquo;t doing it, it&amp;rsquo;s them who are wrong. Granted, the tests in question may be large 
+integration tests&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;, but that&amp;rsquo;s not important. What matters is to get into the habit of writing the tests 
+first, as a way to conceptualize your understanding of the problem to solve, and drive yourself towards a sound 
+solution.&lt;/p&gt;
+
+&lt;p&gt;And if you don&amp;rsquo;t know how to write tests, well, you have probably found your pons anisorum. Good for you!&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“re: Tests are pointless, I want to do real work”&lt;/p&gt;
+
+  &lt;ul&gt;
+    &lt;li&gt;&lt;strong&gt;The the ECD:&lt;/strong&gt; Tests are real work. Learn to love them, and never skip them. Never. Only when you are 
+more experienced will you know when to do without tests, but until then: write your tests, and write 
+them first.&lt;/li&gt;
+    &lt;li&gt;&lt;strong&gt;To the old folks:&lt;/strong&gt; Mentor the shit out of this. Teach the culture of testing. The test pyramid, the 
+difference between integration and unit tests, the phases of a test, everything. Pair with the beginners 
+on the writing of the tests, and then leave them alone, if you want, for the actual implementation.&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;error-out-of-paper&quot;&gt;Error: out of paper&lt;/h3&gt;
+
+&lt;p&gt;It&amp;rsquo;s easy to give advice, especially from the comfort of my old-timer rocking chair, and I may very well have 
+forgotten how it is to begin. I hope that my addendum, sometimes contrarian, to Harriet Oughton&amp;rsquo;s talk, will 
+not sound &lt;em&gt;too&lt;/em&gt; arrogant or judgmental. It is a really nice talk, and giving it required a lot more thoughts 
+and courage than writing a blog post about it afterwards. Besides, it is an important topic, about which I do 
+care. Hopefully, I can help a bit, too.&lt;/p&gt;
+
+&lt;p&gt;To conclude, there is one thing I think we should focus on, too, when talking about newcomers on the scene, 
+especially people with very little experience and education (i.e. bootcampees), and that is: the value they 
+can bring.&lt;/p&gt;
+
+&lt;p&gt;It is very common to hear calls to hire early-career developers, and injuctions to help them, invest time and 
+energy in them, etc. But I wouldn&amp;rsquo;t be surprised if, hearing all this, companies paused before hiring these 
+newcomers. If ECDs require so much investment, if there is so much extra training to give them, why not hire 
+more experienced people instead? Why bother?&lt;/p&gt;
+
+&lt;p&gt;Harriet does touch a little bit on this at the end of her talk, and I have several arguments to give in favor 
+of bootcampees and other beginners, but I believe that there is room for more discussions and presentation 
+about that. Let&amp;rsquo;s try to focus more on what these youngsters can give, and less on what they need.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Or &lt;em&gt;system tests&lt;/em&gt;, in Rails jargon.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/articles/articles/2023/11/14/better-practices-by-example-rspec.html</id>
