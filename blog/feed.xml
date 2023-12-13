@@ -93,8 +93,8 @@ days to do). However, this was a learning experience; let me share it with you.&
 &lt;h3 id=&quot;down&quot;&gt;&lt;a href=&quot;https://music.apple.com/fr/album/down/1045519155&quot;&gt;Down&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;As a long-time Ruby developer, I easily forget how good I have things. Ruby is a high-level language optimized 
-for developer happiness, after all. Rockstar is certainly Turing-complete, but is very bare-bones. No objects. 
-No regular expressions. No iterators. No data structure but arrays. If you want anymore more than loops and 
+for developer happiness, after all. Rockstar is certainly Turing-complete, but also very bare-bones. No objects. 
+No regular expressions. No iterators. No data structure but arrays. If you want anything more than loops and 
 variables, you&amp;rsquo;ll have to build it yourself. In a way, it felt like 
 &lt;a href=&quot;https://2-45.pm/articles/z80asm/2023/08/31/jurassic-stack.html&quot;&gt;programming in Assembly&lt;/a&gt;, or playing survival 
 Minecraft. You want an enchanting table? Start punching trees.&lt;/p&gt;
@@ -106,7 +106,7 @@ too much time stumbling my way procedurally.&lt;/p&gt;
 
 &lt;h3 id=&quot;cryptic-writings&quot;&gt;&lt;a href=&quot;https://music.apple.com/fr/album/countdown-to-extinction-live/703019036&quot;&gt;Cryptic Writings&lt;/a&gt;&lt;/h3&gt;
 
-&lt;p&gt;What makes Rockstar great are the &lt;a href=&quot;https://codewithrockstar.com/docs#:~:text=undefined&quot;&gt;&lt;em&gt;poetic literals&lt;/em&gt;&lt;/a&gt;-,Poetic%20Literals,-Rockstar%20also): 
+&lt;p&gt;What makes Rockstar great are the &lt;a href=&quot;https://codewithrockstar.com/docs#:~:text=undefined%29-,Poetic%20Literals,-Rockstar%20also&quot;&gt;&lt;em&gt;poetic literals&lt;/em&gt;&lt;/a&gt;: 
 ways to assign constants, strings or integers to variables using plain English. &lt;code&gt;My love is true&lt;/code&gt; assigns 
 the constant &lt;code&gt;true&lt;/code&gt; to the variable &lt;code&gt;my love&lt;/code&gt;; 
 &lt;a href=&quot;https://music.apple.com/fr/album/made-the-same/1116637128?i=1116637291&quot;&gt;&lt;code&gt;Your mind is thinking madness&lt;/code&gt;&lt;/a&gt;
@@ -126,9 +126,8 @@ go through a variable, and then use it in the operation. All this boilerplate ta
 &lt;p&gt;Once again, this is completely fair given the purpose of Rockstar, but it makes for a harder challenge 
 than I was expecting. I eventually came up with techniques to make the code easier to decrypt, such as using 
 words starting in i, j or k for loop counters (&lt;code&gt;The idol is disharmony&lt;/code&gt; for &lt;code&gt;i = 0&lt;/code&gt;), or pre-assigning 
-“constants” for recurring values like 0. But even then, reading my Rockstar was really hard. Forget 
-“yourself in 6 months”, I had to care about myself in 6 minutes! In the end, I had to comment every line with 
-pseudo-code, which is not very rock&amp;rsquo;n roll.&lt;/p&gt;
+“constants” for recurring values like 0. But even then, reading my own Rockstar was really hard. In the end, 
+I resorted to commenting every line with pseudo-code, which is not very rock&amp;rsquo;n roll.&lt;/p&gt;
 
 &lt;h3 id=&quot;achtung-baby&quot;&gt;&lt;a href=&quot;https://music.apple.com/fr/album/achtung-baby/1443063058&quot;&gt;Achtung Baby&lt;/a&gt;&lt;/h3&gt;
 

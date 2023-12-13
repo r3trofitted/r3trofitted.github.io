@@ -470,6 +470,20 @@ footer {
     text-overflow: ellipsis;
     padding-left: 3ch;
   }
+  
+  & figure.captioned-picture {
+    & img {
+      margin-inline: auto;
+      box-shadow: 0 .5em 1em rgba(0,0,0,.15)
+    }
+    
+    & figcaption {
+      /* screen readers only */
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+  }
 
   & .posts-list {
     list-style: none;
@@ -688,8 +702,10 @@ footer {
     & h3:nth-last-of-type(10) { --n: 10 }
     
     & h3::after {
-      --gap: 0.2ch;
-      --base-width: 0.3ch;
+      --gap: 0.2ch; /* Chrome & Edge */
+      --gap: round(nearest, 0.2ch, 2px);
+      --base-width: 0.3ch; /* Chrome & Edge */
+      --base-width: round(nearest, 0.3ch, 5px);
       --width: calc(var(--n, 0) * (var(--base-width) + var(--gap)));
       
       display: block;
@@ -697,6 +713,7 @@ footer {
       position: absolute;
       
       width: var(--width);
+      
       height: calc(1.1em * 0.4); /* FF */
       height: calc(1lh * 0.4);
       
