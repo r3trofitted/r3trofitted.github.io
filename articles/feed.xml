@@ -85,11 +85,11 @@ much I enjoyed, but thankfully &lt;a href=&quot;https://dimiterpetrov.com/blog/h
 &lt;a href=&quot;https://www.rorvswild.com/blog/2023/helvetic-ruby&quot;&gt;people&lt;/a&gt; 
 &lt;a href=&quot;https://karenjex.blogspot.com/2023/12/postgresql-meets-ruby-in-switzerland.html&quot;&gt;did&lt;/a&gt;. However, I did take 
 notes with the intent to share my thoughts, and there is 
-&lt;a href=&quot;https://helvetic-ruby.ch/talks/#harriet-oughton-postcards-from-an-early-career-developers-first-months&quot;&gt;one talk&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://helvetic-ruby.ch/talks/#harriet-oughton-postcards-from-an-early-career-developers-first-months&quot;&gt;one talk&lt;/a&gt; 
 in particular for which I took a lot of notes (comparatively).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I relly enjoyed Harriet Oughton&amp;rsquo;s presentation, and I certainly don&amp;rsquo;t want to critizise her 
-work. Still, I couldn&amp;rsquo;t help but disagree with her on several points, and hopefully my 
+&lt;p&gt;&lt;strong&gt;Disclaimer:&lt;/strong&gt; I really enjoyed Harriet Oughton&amp;rsquo;s presentation, and I certainly don&amp;rsquo;t want to critizise her 
+work. Still, I couldn&amp;rsquo;t help but disagree on several points, and hopefully my 
 opinions will enrich the conversion and bring even more support to early-career developers 
 and more experienced ones.&lt;/p&gt;
 
@@ -104,36 +104,46 @@ the way!)”&lt;/em&gt;. It is a delightful talk, carefully crafted, very well w
 with some of the advice given, but I cannot deny the relevance of the issues raised.&lt;/p&gt;
 
 &lt;p&gt;Harriet has more teaching experience than me, so I will not dare to go through her slides and add my comments 
-in red ink in the margin like a would-be professor. Instead, I would like to deconstruct her different points, 
+in red ink in the margin like a would-be professor. Instead, I&amp;rsquo;d like to deconstruct her different points, 
 and from there send my own snail mail – “faxes from the old devs home”, maybe.&lt;/p&gt;
 
 &lt;h3 id=&quot;fax-1-youre-not-the-only-one&quot;&gt;Fax #1: you&amp;rsquo;re not the only one.&lt;/h3&gt;
 
 &lt;p&gt;The first thing that tingled me when watching Harriet&amp;rsquo;s talk is that most of the things that she talked about, 
-and for which she gavee sound advice, &lt;strong&gt;are not specific to early-career developers&lt;/strong&gt;. Maybe that was the point, 
+and for which she gave sound advice, &lt;strong&gt;are not specific to early-career developers&lt;/strong&gt;. Maybe that was the point, 
 since one of her stated goals was to reassure Padawans on the commonality of their difficulties. Still, &lt;em&gt;everyone&lt;/em&gt; 
 who joins a new company can find it difficult to set up a working environment, get familiar with the team&amp;rsquo;s workflow, 
-or grasp the codebase, and the tips given – be patient, communicate clearly, document what you 
-can and keep the documentation up-to-date – apply to/for developers of all level. Maybe I would have like these parts 
+or grasp the codebase, and the tips given – be patient, communicate clearly, document what you 
+can and keep the documentation up-to-date – apply to/for developers of all level. Maybe I would have like these parts 
 better if this had been stated upfront?&lt;/p&gt;
 
-&lt;p&gt;I do need to point out that, even though I subscribe to most of the pointers given to make onboardings easier, I 
-was very uncomfortable seeing &lt;em&gt;“Use ChatGPT to explain code”&lt;/em&gt; among them. My advice for inexperienced devs is the 
+&lt;p&gt;However, even though I subscribe to most of the pointers given to make onboardings easier, there was one piece of 
+advice that I was very uncomfortable seeing, and it is: _“Use ChatGPT to explain code”. My advice for inexperienced devs is the 
 opposite: &lt;strong&gt;stay away from generative AIs&lt;/strong&gt; until you are able to distinguish the random bullshit from the relevant 
 responses, and see obscure code as an opportunity to learn by yourselves, with or without a mentor – but a 
 &lt;strong&gt;human&lt;/strong&gt; one. No shortcuts allowed here, especially dangerous ones.&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;“re: Everything is new and there is a lot of it; I&amp;rsquo;m feeling lost and lose my self-confidence.”&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;&lt;strong&gt;If you&amp;rsquo;re the ECD or the newcomer&lt;/strong&gt;: that&amp;rsquo;s normal and happens to everyone. Be honest about everything you don&amp;rsquo;t understand yet, and ask 
-around for the difficulties that old-timers faced when they joined, this should boost both your ego 
-and your acclimatization. Be patient and stay focused!&lt;/li&gt;
-    &lt;li&gt;&lt;strong&gt;If you&amp;rsquo;re the old folk&lt;/strong&gt;: prepare the onboarding beforehand, decide what should be learned in priority, 
-and communicate it clearly. Be patient and help them stay focused!&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;figure class=&quot;captioned-picture&quot; role=&quot;group&quot;&gt;
+  &lt;picture&gt;
+    &lt;source type=&quot;image/webp&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-1-300.webp 300w, /assets/faxes-from-a-late-career-developer/fax-1-600.webp 600w&quot; /&gt;
+    &lt;source type=&quot;image/jpeg&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-1-300.jpeg 300w, /assets/faxes-from-a-late-career-developer/fax-1-600.jpeg 600w&quot; /&gt;
+    &lt;img src=&quot;/assets/faxes-from-a-late-career-developer/fax-1-600.jpeg&quot; alt=&quot;Picture of a fake fax from Arasaka; content below.&quot; width=&quot;600&quot; /&gt;
+  &lt;/picture&gt;
+  &lt;figcaption&gt;
+    &lt;p&gt;re: “Everything is new and there is a lot of it; I&#39;m feeling lost and lose my self-confidence.”&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;strong&gt;If you&#39;re the ECD or the newcomer:&lt;/strong&gt; that&#39;s normal and happens to everyone. Be honest 
+        about everything you don&#39;t understand yet, and ask around for the difficulties that old-timers faced 
+        when they joined, this should boost both your ego and your acclimatization. Be patient and stay focused!
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;If you&#39;re the old folk:&lt;/strong&gt; prepare the onboarding beforehand, decide what should be learned in priority, 
+        and communicate it clearly. Be patient and help them stay focused!
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h3 id=&quot;fax-2-its-fine-to-have-a-small-toolbox&quot;&gt;Fax #2: it&amp;rsquo;s fine to have a small toolbox&lt;/h3&gt;
 
@@ -148,7 +158,8 @@ in all their hair-pulling madness. Start simple. The same goes for all your tool
 your text editor by heart, but it will be easier to get there if you learn features gradually, instead of rushing 
 to have the badassest setup faster than your peers. Stick to the defaults. Go through the menus instead of 
 reusing the keyboard macros of someone else. It&amp;rsquo;s like learning an instrument: if you want to be as fast 
-a shredder as a &lt;a href=&quot;&quot;&gt;Japanese bedroom guitarist&lt;/a&gt;, you must first practice slowly.&lt;/p&gt;
+a shredder as a &lt;a href=&quot;https://www.youtube.com/@ichika_nito/videos&quot;&gt;Japanese bedroom guitarist&lt;/a&gt;, you must first 
+practice slowly.&lt;/p&gt;
 
 &lt;p&gt;However, going slow doesn&amp;rsquo;t mean that you should not try out a lot of different things. This is my second issue 
 with these tips: by pointing towards specific tools (VSCode, GitHub, etc.) they contribute to the creation of a 
@@ -160,19 +171,29 @@ own bespoke stuff, and to understand your own preferences, you&amp;rsquo;ll have
 &lt;p&gt;Plus, I would hate to see everyone use the same tools and techniques, and I would hate even more to live in a 
 world where a single company provides them all.&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;“re: I feel the need to be as well-equiped as my senior peers, and clone their setup all the time.&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;&lt;strong&gt;To the ECD:&lt;/strong&gt; Don&amp;rsquo;t. What you need is not to build a killer setup, it is to discover yourself and what you 
-like and dislike in a setup, so that you can &lt;em&gt;then&lt;/em&gt; build a killer one. Change your IDE every 6 months, 
-and refrain from customizing any until you&amp;rsquo;ve circled back to it. Focus on simple things, and don&amp;rsquo;t let 
-you ego drive you – it&amp;rsquo;s OK not to be a power user.&lt;/li&gt;
-    &lt;li&gt;&lt;strong&gt;To the old folks:&lt;/strong&gt; Don&amp;rsquo;t show off too much with your Vim-fu. It&amp;rsquo;s cool to keep the beginners curious 
-and tease them with the glorious productivity gains that await them once they&amp;rsquo;ve mastered the basics, 
-but don&amp;rsquo;t pressure them into skipping steps, or following in &lt;em&gt;your&lt;/em&gt; footsteps.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;figure class=&quot;captioned-picture&quot; role=&quot;group&quot;&gt;
+  &lt;picture&gt;
+    &lt;source type=&quot;image/webp&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-2-300.webp 300w, /assets/faxes-from-a-late-career-developer/fax-2-600.webp 600w&quot; /&gt;
+    &lt;source type=&quot;image/jpeg&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-2-300.jpeg 300w, /assets/faxes-from-a-late-career-developer/fax-2-600.jpeg 600w&quot; /&gt;
+    &lt;img src=&quot;/assets/faxes-from-a-late-career-developer/fax-2-600.jpeg&quot; alt=&quot;Picture of a fake fax from Biotechnica; content below.&quot; width=&quot;600&quot; /&gt;
+  &lt;/picture&gt;
+  &lt;figcaption&gt;
+    &lt;p&gt;re: “I feel the need to be as well-equiped as my senior peers, and clone their setup all the time.”&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;strong&gt;To the ECD:&lt;/strong&gt; What you need is not to build a killer setup, it is to discover yourself and 
+        what you like and dislike in a setup, so that you can _then_ build a killer one. Change your IDE every 6 
+        months, and refrain from customizing any until you&#39;ve circled back to it. Focus on simple things, and 
+        don&#39;t let you ego drive you – it&#39;s OK not to be a power user.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;To the old folks:&lt;/strong&gt; Don&#39;t show off too much with your Vim-fu. It&#39;s cool to keep the 
+        beginners curious and tease them with the glorious productivity gains that await them once they&#39;ve 
+        mastered the basics, but don&#39;t pressure them into skipping steps, or following in _your_ footsteps.
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h3 id=&quot;fax-3-its-all-about-the-pons-anisorum-but-you-can-cross-it&quot;&gt;Fax #3: it&amp;rsquo;s all about the pons anisorum, but you can cross it&lt;/h3&gt;
 
@@ -198,17 +219,28 @@ and has real value. The bridge of asses has to lead somewhere for its crossing t
 deserves kindness and praise help, but these things are means, not an end – the end is getting better by 
 successfully doing difficult things.&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;“re: I feel like an idiot at best, a fraud at worst.”&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;&lt;strong&gt;To the ECD:&lt;/strong&gt; That&amp;rsquo;s because you haven&amp;rsquo;t earned your first laurels yet. Look for a difficult, but not 
-too difficult, task in the backlog and stick with it until you&amp;rsquo;ve completed it well. You know you&amp;rsquo;re doing 
-well if you have to push through. Then look behind you a see how far you&amp;rsquo;ve already progressed.&lt;/li&gt;
-    &lt;li&gt;&lt;strong&gt;To the old folks:&lt;/strong&gt; Give the ECDs actual responsibilities, but scoped to a specific field you need them to 
-get better at. Support them as much as they need, but only from the sidelines.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;figure class=&quot;captioned-picture&quot; role=&quot;group&quot;&gt;
+  &lt;picture&gt;
+    &lt;source type=&quot;image/webp&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-3-300.webp 300w, /assets/faxes-from-a-late-career-developer/fax-3-600.webp 600w&quot; /&gt;
+    &lt;source type=&quot;image/jpeg&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-3-300.jpeg 300w, /assets/faxes-from-a-late-career-developer/fax-3-600.jpeg 600w&quot; /&gt;
+    &lt;img src=&quot;/assets/faxes-from-a-late-career-developer/fax-3-600.jpeg&quot; alt=&quot;Picture of a fake fax from Zhirafa; content below.&quot; width=&quot;600&quot; /&gt;
+  &lt;/picture&gt;
+  &lt;figcaption&gt;
+    &lt;p&gt;re: “I feel like an idiot at best, a fraud at worst.”&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;strong&gt;To the ECD:&lt;/strong&gt; That&#39;s because you haven&#39;t earned your first laurels yet. Look for a 
+        difficult, but not too difficult, task in the backlog and stick with it until you&#39;ve completed it 
+        well. You know you&#39;re doing well if you have to push through. Then look behind you a see how far 
+        you&#39;ve already progressed.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;To the old folks:&lt;/strong&gt; Give the ECDs actual responsibilities, but scoped to a specific 
+        field you need them to get better at. Support them as much as they need, but only from the sidelines.
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h3 id=&quot;fax-4-the-important-work-is-in-the-tests&quot;&gt;Fax #4: the important work is in the tests&lt;/h3&gt;
 
@@ -238,18 +270,29 @@ solution.&lt;/p&gt;
 
 &lt;p&gt;And if you don&amp;rsquo;t know how to write tests, well, you have probably found your pons anisorum. Good for you!&lt;/p&gt;
 
-&lt;blockquote&gt;
-  &lt;p&gt;“re: Tests are pointless, I want to do real work”&lt;/p&gt;
-
-  &lt;ul&gt;
-    &lt;li&gt;&lt;strong&gt;The the ECD:&lt;/strong&gt; Tests are real work. Learn to love them, and never skip them. Never. Only when you are 
-more experienced will you know when to do without tests, but until then: write your tests, and write 
-them first.&lt;/li&gt;
-    &lt;li&gt;&lt;strong&gt;To the old folks:&lt;/strong&gt; Mentor the shit out of this. Teach the culture of testing. The test pyramid, the 
-difference between integration and unit tests, the phases of a test, everything. Pair with the beginners 
-on the writing of the tests, and then leave them alone, if you want, for the actual implementation.&lt;/li&gt;
-  &lt;/ul&gt;
-&lt;/blockquote&gt;
+&lt;figure class=&quot;captioned-picture&quot; role=&quot;group&quot;&gt;
+  &lt;picture&gt;
+    &lt;source type=&quot;image/webp&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-4-300.webp 300w, /assets/faxes-from-a-late-career-developer/fax-4-600.webp 600w&quot; /&gt;
+    &lt;source type=&quot;image/jpeg&quot; srcset=&quot;/assets/faxes-from-a-late-career-developer/fax-4-300.jpeg 300w, /assets/faxes-from-a-late-career-developer/fax-4-600.jpeg 600w&quot; /&gt;
+    &lt;img src=&quot;/assets/faxes-from-a-late-career-developer/fax-4-600.jpeg&quot; alt=&quot;Picture of a fake fax from Militech; content below.&quot; width=&quot;600&quot; /&gt;
+  &lt;/picture&gt;
+  &lt;figcaption&gt;
+    &lt;p&gt;re: “Tests are pointless, I want to do real work”&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;
+        &lt;strong&gt;To the ECD:&lt;/strong&gt; Tests are real work. Learn to love them, and never skip them. Never. Only 
+        when you are more experienced will you know when to do without tests, but until then: write your tests, 
+        and write them first.
+      &lt;/li&gt;
+      &lt;li&gt;
+        &lt;strong&gt;To the old folks:&lt;/strong&gt; Mentor the shit out of this. Teach the culture of testing. The test 
+        pyramid, the difference between integration and unit tests, the phases of a test, everything. Pair with 
+        the beginners on the writing of the tests, and then leave them alone, if you want, for the actual 
+        implementation.
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/figcaption&gt;
+&lt;/figure&gt;
 
 &lt;h3 id=&quot;error-out-of-paper&quot;&gt;Error: out of paper&lt;/h3&gt;
 

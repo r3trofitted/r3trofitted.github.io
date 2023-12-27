@@ -59,7 +59,7 @@
 
   <id>https://2-45.pm/blog/</id>
   <title>Grainy Dinosaurs</title>
-  <updated>2023-12-06T09:30:34+01:00</updated>
+  <updated>2023-12-27T11:45:00+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -71,6 +71,195 @@
 
   <rights> © Ronan Limon Duparcmeur - ronan@2-45.pm </rights>
   
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/12/27/issue-9.html</id>
+      <title>A dash of milk #9</title>
+      <updated>2023-12-27T11:45:00+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/12/27/issue-9.html" />
+
+      <published>2023-12-27T11:45:00+01:00</published>
+      <content type="html">&lt;p&gt;December was rather busy for me, but as often, the last week of the year is rather quiet, and I&amp;rsquo;m 
+finally able to pop and shift from my overflowing reading list.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-three-body-problem-the-imperative-of-survival-and-the-misogyny-of-reactionary-rhetoric&quot;&gt;&lt;a href=&quot;https://madeinchinajournal.com/2023/12/11/the-three-body-problem-the-imperative-of-survival-and-the-misogyny-of-reactionary-rhetoric&quot;&gt;The ‘Three-Body Problem’, the Imperative of Survival, and the Misogyny of Reactionary Rhetoric&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Fascinating take of the &lt;em&gt;Three-Body Problem&lt;/em&gt; trilogy and its underlying ideology. I haven&amp;rsquo;t read the whole trilogy, 
+since I found the first novel a drag – quite frankly, I still don&amp;rsquo;t understand its appeal. I remember feeling a bit 
+unsettled by the overall atmosphere of the book, without being able to pinpoint why. Maybe it has something to do 
+with the issues raised by Chenchen Zhang in this essay?&lt;/p&gt;
+
+&lt;h3 id=&quot;apparently-the-thing-i-call-tdd-might-not-be-quite-tdd&quot;&gt;&lt;a href=&quot;https://ronjeffries.com/articles/-y023/python/-9w290/292/&quot;&gt;Apparently the thing I call TDD might not be quite TDD&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;Well, my practice of TDD is closer to Ron Jeffries&amp;rsquo; than Kent Beck&amp;rsquo;s, so I guess that I am not doing TDD either. 
+Or &lt;em&gt;Canon TDD&lt;/em&gt;, at least.&lt;/p&gt;
+
+&lt;h3 id=&quot;web-components&quot;&gt;&lt;a href=&quot;https://12daysofweb.dev/2023/web-components/&quot;&gt;Web Components&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;“Component” is probably my most loathed word of 2023: it is everywhere and doesn&amp;rsquo;t mean anything anymore. Yet, this 
+article lays down a great explanation of what &lt;em&gt;web&lt;/em&gt; components are (spoiler: many different but related things at 
+once), nicely illustrated by actual working code.&lt;/p&gt;
+
+&lt;h3 id=&quot;goodbye-clean-code&quot;&gt;&lt;a href=&quot;https://overreacted.io/goodbye-clean-code/&quot;&gt;Goodbye, Clean Code&lt;/a&gt;&lt;/h3&gt;
+
+&lt;p&gt;A good lesson on the difference between &lt;em&gt;looking good&lt;/em&gt; and &lt;em&gt;good-looking&lt;/em&gt;. “Style over substance” is great when 
+playing &lt;a href=&quot;https://2-45.pm/blog/2023/12/10/chrome-shift.html&quot;&gt;Cyberpunk RED&lt;/a&gt;; not to much when writing real-life software.&lt;/p&gt;
+</content>
+    </entry>
+  
+    <entry>
+      <id>https://2-45.pm/blog/blog/2023/12/10/chrome-shift.html</id>
+      <title>Chrome Shift</title>
+      <updated>2023-12-10T16:26:01+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/12/10/chrome-shift.html" />
+
+      <published>2023-12-10T16:26:01+01:00</published>
+      <content type="html">&lt;p&gt;I am now four sessions deep into my &lt;a href=&quot;https://rtalsoriangames.com/cyberpunk/#:~:text=Cyberpunk%20Red&quot;&gt;Cyberpunk RED&lt;/a&gt; 
+campaign, codenamed &lt;em&gt;Chrome Shift&lt;/em&gt;, and it seems like the group has found its rhythm, which is great. As we&amp;rsquo;re 
+reaching the end of the first scenario, here is a summary of the story so far, and my GM commentary track.&lt;/p&gt;
+
+&lt;h3 id=&quot;saving-customers-with-extreme-prejudice&quot;&gt;Saving customers with extreme prejudice&lt;/h3&gt;
+
+&lt;p&gt;The dystopian future of Cyberpunk RED is a dangerous place. In Night City, in 2045, violence is everywhere, from 
+the combat zones to the executive enclaves, from the crater left by the nuke that blew up the corporate center to 
+the rooftops of the skyscrapers erected during the reconstruction. Therefore, those who can afford it subscribe to 
+privatized emergency services: teams of medics and paramilitary agents, half paramedics and half SWAT teams, who 
+will rush to their wounded customers in their flying ambulance and carry them to a hospital, dealing with opposing 
+resistance without restraint nor discrimination.&lt;/p&gt;
+
+&lt;p&gt;The best in this field are &lt;strong&gt;Trauma Team&lt;/strong&gt; – they have the means, the gear, the reputation, the glamour of 
+modern paladins, and they charge accordingly. The protagonists of &lt;em&gt;Chrome Shift&lt;/em&gt; do &lt;strong&gt;not&lt;/strong&gt; work for Trauma Team. 
+Instead, they are contractors for &lt;strong&gt;REO MeatWagon&lt;/strong&gt;, the under-staffed, unscrupulous, and a bit shady rival of 
+Trauma Team.&lt;/p&gt;
+
+&lt;p&gt;The story started when the party, after an bad day, took on a last and unexpected intervention: MeatWagon&amp;rsquo;s 
+dispatch AI had intercepted an emergency call to Trauma Team, and there was a window of opportunity to steal 
+this customer from them. After a brief firefight in an abandoned metro station&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; to get rid of two gangs 
+exchanging fire, the &lt;a href=&quot;https://cyberpunk.fandom.com/wiki/Brainiacs&quot;&gt;Brainiacs&lt;/a&gt; and the 
+&lt;a href=&quot;https://cyberpunk.fandom.com/wiki/Inquisitors&quot;&gt;Inquisitors&lt;/a&gt;, the party successfully extracted the unfortunate 
+customer caught in the crossfire, as well as his husband, and then evaded a very pissed off Trauma Team squad. 
+Even more importantly, the party&amp;rsquo;s solo&lt;sup id=&quot;fnref:2&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:2&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt; managed to get hold of an unknown device left on the scene – some 
+kind of unmarked black box.&lt;/p&gt;
+
+&lt;p&gt;Once back to the MeatWagon HQ and medical center, the party was welcomed by their manager, &lt;strong&gt;Inglès&lt;/strong&gt;, something as 
+infrequent as him not slotting in his Cary Grant personality chip. The party then disbanded, only to be contacted 
+by menacing members of the Brainiacs; the gang demanded the return of the device, which they claimed to have 
+fairly bought from their still unidentified customer.&lt;/p&gt;
+
+&lt;p&gt;Unfortunately, the party soon discovered that Inglès had stolen the device from the locker where it had been left, 
+and then precipitously vanished. Leveraging the resources at their disposal at MeatWagon HQ, the party eventually 
+localized their manager on the territory of a local posergang&lt;sup id=&quot;fnref:3&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:3&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;, the &lt;strong&gt;Tomb Raiders&lt;/strong&gt;. Clever negociations 
+granted them access an altered Inglès, detained in a state of primitive rage and seemingly unable to recoginize 
+anyone. Unfortunately, it was quickly obvious that the Tomb Raiders had taken possession of the device, and 
+would not let it go for free.&lt;/p&gt;
+
+&lt;p&gt;The party then moved their attention to the presumed seller of the device. His identity was soon revealed: nicknamed 
+&lt;strong&gt;&lt;a href=&quot;https://cyberpunk.fandom.com/wiki/3-Piece&quot;&gt;3-Piece&lt;/a&gt;&lt;/strong&gt;, this fixer had a certain renown, and a specialty in 
+tech-related ventures. Tactfully approached, 3-Piece proved to be friendly and accomodating, and warned the party 
+that being in possession of the device could attract dangerous attention, and especially that of a rival named 
+&lt;strong&gt;Armalite&lt;/strong&gt;, from whom 3-piece initially acquired it.&lt;/p&gt;
+
+&lt;p&gt;Intrigued but steadfast, the party worked on broking a meeting between the Tomb Raiders and one of their most 
+dangerous rivals, the &lt;strong&gt;&lt;a href=&quot;https://cyberpunk.fandom.com/wiki/Slaughterhouse&quot;&gt;Slaughterhouse&lt;/a&gt;&lt;/strong&gt;. The deal granted 
+them the ownership of the mysterious device, but as the party was leaving the abandonned skyscraper where it took 
+place, shrieks and gunshots made clear that something had gone sideways in the negociations…&lt;/p&gt;
+
+&lt;h3 id=&quot;gms-notes&quot;&gt;GM&amp;rsquo;s notes&lt;/h3&gt;
+
+&lt;p&gt;Overall, I&amp;rsquo;m pretty happy with this introductory scenario so far. Except for a Kult one-shot a couple of months 
+ago and two sessions of old-school Rolemaster dungeon dwelling the year before, I hadn&amp;rsquo;t GM&amp;rsquo;ed anything in 
+years. And our group is still not very well-organized for remote play – we haven&amp;rsquo;t found a VTT we all like, 
+there is always a problem with someone&amp;rsquo;s audio setup, and most players aren&amp;rsquo;t confortable showing their faces 
+on camera.&lt;/p&gt;
+
+&lt;p&gt;For this reason, and because Cyberpunk RED is a new game for everyone, and even a whole new genre for one of the 
+players, I went for a very simple scenario. It is a McGuffin hunt, but it offers several hooks for mysteries, 
+politics and intrigue (something the players said they were looking for). It also leans in on the backgrounds of 
+the characters, at least some of them. (The lifepath system of Cyberpunk RED is really great for building rich 
+backgrounds, and our session 0 was very inspiring.)&lt;/p&gt;
+
+&lt;p&gt;I used to play with this guys&lt;sup id=&quot;fnref:4&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:4&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;4&lt;/a&gt;&lt;/sup&gt; 20 years ago, but then life dragged me away from the gaming table. However, 
+most of them managed to keeping playing, and it showed! I was positively surprised by their quick-thinking during 
+the &lt;em&gt;development&lt;/em&gt; beats, and their tactical sense during the &lt;em&gt;cliffhanger&lt;/em&gt; beats, to reuse the game&amp;rsquo;s terminology. 
+Still, I had a hard time keeping everyone invested, even though the feedback I&amp;rsquo;ve gathered is positive 
+(&lt;a href=&quot;https://cybernationuncensored.com&quot;&gt;Rob Mulligan&lt;/a&gt;&amp;rsquo;s GM report card in 
+&lt;a href=&quot;https://rtalsoriangames.com/downloadable-content#:~:text=Listen%20%21%20to%20Rob&quot;&gt;his DLC&lt;/a&gt; is pretty great for 
+that). I hope that with a better setup, and more familiarity with the rules and the setting, everyone will get 
+into the flow of the game.&lt;/p&gt;
+
+&lt;h3 id=&quot;house-rules-and-changes-to-the-setting&quot;&gt;House rules and changes to the setting&lt;/h3&gt;
+
+&lt;p&gt;Like many GMs, I like to create my own campaign settings and imaginary worlds. Yet, I also like to stick to 
+whatever a game offers: it is usually what the rules are tailored for, professional game designers are better 
+at this than me, and it is easier for the players to be on the level with me if they have access to the same 
+material. Cyberpunk RED is great, in that it lays down the groundwork, but leaves room for the GM to add their 
+own spin on things. So &lt;em&gt;my&lt;/em&gt; Cyberpunk RED is basically what you read in the core rulebook, plus stuff 
+taken from Willian Gibson, George Alec Effinger or Walter Jon Williams. And I adjust some details as I see fit, 
+like giving REO MeatWagon its own, modest-ish medical center on top of their ambulance service (making it easier 
+to slot in the medtech character).&lt;/p&gt;
+
+&lt;p&gt;However, there is one thing I have issues with in the original setting, and that is the timeline. In order to 
+maintain continuity with stuff written 30 years ago, and also with the video game, you need to somehow conceive 
+a world that is very different from ours, where technology accelerated exponentially in the last decades of the 
+20th century, but then somehow stalled from 2020 to 2077. It&amp;rsquo;s a detail, but it irks me. So I&amp;rsquo;ve blurred the 
+timeline and keep the dates very ellusive. The campaign takes place in 2045. Some time ago, a tactical nuke 
+blew up the center of Night City and this marked the end of the 4th corporate war. Was it in 2023? 2033? 2043? 
+It doesn&amp;rsquo;t matter. Let&amp;rsquo;s move on.&lt;/p&gt;
+
+&lt;p&gt;Rules-wise, I&amp;rsquo;ve always liked the simplicity of the Interlock system, and even more of its successor, 
+&lt;a href=&quot;https://rpggeek.com/rpgsystem/478/fuzion&quot;&gt;Fuzion&lt;/a&gt;. I was a bit disappointed to see that CP-RED had moved back 
+to a revised Interlock, but it&amp;rsquo;s still a solid, simple if a bit old-school system, and I see no reason to house 
+rule anything. So far, the new stuff, like the critical injuries replacing the hits location, worked fine.&lt;/p&gt;
+
+&lt;p&gt;I did import the time table for skills from Fuzion: I find it easier to have a set list of possible durations 
+for a given task, especially when “taking more time” is often the only way for the players to try again a 
+failed attempt. But the most significant change I&amp;rsquo;ve made so far relates to the Trauma Team (or MeatWagon) 
+intervention time, and the consequences of dying.&lt;/p&gt;
+
+&lt;p&gt;In the rules as written, when called for help, Trauma Team arrives in less than 20 seconds. That is stretching 
+the versimilitude a bit, but it makes sense from a game perspective, since the time window to save a dying 
+character is rarely larger than that. To keep things a bit more realistic, while preventing constant character 
+deaths, I have introduced the following changes:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Trauma Team, when called, arrives in 1d6 &lt;em&gt;minutes&lt;/em&gt;, not &lt;em&gt;rounds&lt;/em&gt;.&lt;/li&gt;
+  &lt;li&gt;But, as in Cyberpunk 2020, &lt;em&gt;death can be reverted&lt;/em&gt;. This requireds a successful &lt;strong&gt;Surgery&lt;/strong&gt; roll, whose 
+difficulty is &lt;strong&gt;13 + the number of minutes elapsed since the character&amp;rsquo;s death&lt;/strong&gt; (rounded up). I like the idea 
+that, in 2045, even death can be cured by technology.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;tomorrow-people&quot;&gt;Tomorrow people&lt;/h3&gt;
+
+&lt;p&gt;I have a stable(-ish) gaming group, a game with a rich setting and a lean system, experienced players with a 
+taste for both narrative and tactical play, and strong characters to write scenarios around. Now all I need 
+is better tooling for online play. I can&amp;rsquo;t wait to see where the campaign goes!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Night City used to have a very simple metro system named NCART, but in 2045 it is abandoned, its tunnels 
+  and underground stations flooded and irremediably damaged by the aftershock of the nuke.&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:2&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;“Solo” is the generic name given to professional combatants: mercenaries, bodyguards, hit-men, etc. Think 
+  &lt;a href=&quot;https://williamgibson.fandom.com/wiki/Molly_Millions&quot;&gt;Molly Millions&lt;/a&gt; or Sarah in 
+  &lt;a href=&quot;http://speculiction.blogspot.com/2015/09/review-of-hardwired-by-walter-jon.html&quot;&gt;Hardwired&lt;/a&gt;.&amp;nbsp;&lt;a href=&quot;#fnref:2&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:3&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;In Cyberpunk RED, posergangs are gangs whose members impersonate a specific personality or character, 
+  often to the point of being biosculpted in order to resemble them physically and in persona.&amp;nbsp;&lt;a href=&quot;#fnref:3&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:4&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Yes, we&amp;rsquo;re not a diverse group, unfortunately. The new generation is better at this than us grognards.&amp;nbsp;&lt;a href=&quot;#fnref:4&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/blog/blog/2023/12/06/i-wasn-t-meant-to-be-a-rock-star.html</id>
@@ -960,136 +1149,6 @@ topics seem simple.&lt;/p&gt;
 &lt;h3 id=&quot;a-simple-hash-table-in-c&quot;&gt;&lt;a href=&quot;https://theleo.zone/posts/hashmap-in-c/&quot;&gt;a simple hash table in C&lt;/a&gt;&lt;/h3&gt;
 
 &lt;p&gt;Another nice article about complicated things, explained clearly. In a website with great “early web” vibes &amp;lt;3.&lt;/p&gt;
-</content>
-    </entry>
-  
-    <entry>
-      <id>https://2-45.pm/blog/blog/2023/07/10/brighton-ruby-2023.html</id>
-      <title>Brighton Ruby 2023</title>
-      <updated>2023-07-10T11:31:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/blog/blog/2023/07/10/brighton-ruby-2023.html" />
-
-      <published>2023-07-10T11:31:00+02:00</published>
-      <content type="html">&lt;p&gt;Last week was my first time attending &lt;a href=&quot;https://brightonruby.com&quot;&gt;Brighton Ruby&lt;/a&gt;. It was great. I&amp;rsquo;ve missed conferences 
-in general, and &lt;em&gt;Ruby&lt;/em&gt; conferences in particular, and Brighton Ruby was everything I was longing for: an energising mix 
-of technical considerations and humanist values, shared by smart and colourful people. Nerdy and yet friendly, like a 
-grown-up version of the role-playing games clubs of my youth. Beware: this post will be a test of how many synonyms I 
-know for “great”.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-venue-and-the-organisation&quot;&gt;The venue and the organisation&lt;/h3&gt;
-
-&lt;p&gt;The conference took place at the &lt;a href=&quot;https://brightondome.org&quot;&gt;Brighton Dome&lt;/a&gt;, which is more impressive than I was expecting. 
-The main hall is lovely, its seats confortable enough, and the stage, lighting and audio were perfect. I came in early, 
-and the welcome process was very smooth – no queue nor waiting of any kind. However, the small hall where everyone could 
-gather before and between the actual talks was a bit too small for the attendance, and quickly got crowded and 
-very noisy. That would be my only complain as far as the organisation goes: by all other accounts, everything was 
-&lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;excellent&lt;/a&gt;, from the coffee and pastries to Andy&amp;rsquo;s wholehearted MCing.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-talks&quot;&gt;The talks&lt;/h3&gt;
-
-&lt;p&gt;I bought my ticket without knowing anything of the conference&amp;rsquo;s program, and only discovered it once within the venue. 
-Reading it got me excited. Eileen Uchitelle! Librarians! Contrarian-sounding topics! The program promised and lot – and 
-delivered.&lt;/p&gt;
-
-&lt;p&gt;The highlights, for me, were probably &lt;a href=&quot;https://github.com/threedaymonk/back-in-my-day&quot;&gt;Paul Battley&amp;rsquo;s lightning talk about Ruby through the past 20 years&lt;/a&gt;, 
-&lt;a href=&quot;https://nadiaodunayo.com&quot;&gt;Nadia Odunayo&lt;/a&gt;&amp;rsquo;s talk on a “vanished variable”, and &lt;a href=&quot;https://www.joehartcomedian.com&quot;&gt;Joe Hart&lt;/a&gt;&amp;rsquo;s 
-comedy-and-live-debugging bit. But, honestly, all the talks – even the lightning ones – were &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;fantastic&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Apart from my personal favorites, three of the talks stood out, I think. First, even though I had already seen it, 
-&lt;a href=&quot;https://www.youtube.com/watch?v=MbqJzACF-54&quot;&gt;Eileen&amp;rsquo;s&lt;/a&gt; was both insightful and powerful – I highly recommend watching 
-it. Second, &lt;a href=&quot;https://timriley.info&quot;&gt;Tim Riley&lt;/a&gt;&amp;rsquo;s, for its &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;awesome&lt;/a&gt; performance 
-– even if I&amp;rsquo;m now 100% percent convinced that Hanami is &lt;em&gt;not&lt;/em&gt; for me (this project&amp;rsquo;s priorities are definitely not mine, 
-but YMMV and it&amp;rsquo;s nice to have something for everyone in the Ruby ecosystem). Third, &lt;a href=&quot;https://schwad.github.io&quot;&gt;Schwad&lt;/a&gt;&amp;rsquo;s 
-talk on &lt;a href=&quot;https://github.com/scarpe-team/scarpe&quot;&gt;Scarpe&lt;/a&gt;, which was an &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;admirable&lt;/a&gt; 
-hommage to _why (and I was glad to see how many people still know about him, even among the new generation of rubyists).&lt;/p&gt;
-
-&lt;p&gt;Finally, I must underscore the model of diversity that this line-up was. A broad mix of ages, genders, backgrounds, 
-ethnicities and topics was assembled, which was certainly not by accident – even if I dare hope that achieving this was 
-easier in 2023 than it would have been 10 years ago.&lt;/p&gt;
-
-&lt;h3 id=&quot;the-people&quot;&gt;The people&lt;/h3&gt;
-
-&lt;p&gt;Talks are always nice, but the essence of a conference is the attendance, and the opportunity to meet new people. Now, 
-like many in this line of work, I&amp;rsquo;m more on the shy and solitary side of the social spectrum. Even though I really, really 
-enjoy having small talk or deep conversations with friendly strangers, it takes me some time and energy (possibly in the 
-form of drinks) to switch to extrovert mode. Which is fine, especially in the Ruby community where everyone MINASWANs. 
-Besides, I already knew a couple of attendants, including a true social hub, which helped quite a bit (thank you 
-&lt;a href=&quot;https://ruby.social/@benoit&quot;&gt;Benoît&lt;/a&gt;!)&lt;/p&gt;
-
-&lt;p&gt;Still, due to the people density and loudness in the rest area, I didn&amp;rsquo;t spend that much time socialising during the breaks, 
-unfortunately. But I enjoyed good drinks and &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;wonderful&lt;/a&gt; company after the 
-conference, when a bunch of us gathered in local pubs.&lt;/p&gt;
-
-&lt;p&gt;Now, here&amp;rsquo;s the thing. Fifteen years ago, I managed to convince my then boss to switch our stack to Ruby by promoting 
-the &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;exceptionality&lt;/a&gt; of the people in this community – yes, rubyists were hard 
-to find, but they were a humble elite among a sea of unfortunate code monkeys. Well, I may be biased here, but even after 
-all this time, a couple of years of fame (that&amp;rsquo;s 15 minutes in VC time) and hordes of bootcamp graduates, my assessment 
-still stands. The people I talked to at Brighton Ruby were all &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;terrific&lt;/a&gt;, and 
-I&amp;rsquo;m pretty sure that my sample was 100% representative of the attendance, and more broadly of the Ruby community.&lt;/p&gt;
-
-&lt;h3 id=&quot;generations&quot;&gt;Generations&lt;/h3&gt;
-
-&lt;p&gt;This general &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;marvellousness&lt;/a&gt; is all the better considering my personal worries 
-about the Balkanising of our societies, including code communities. It&amp;rsquo;s one of the things that keep me up at night – 
-expect a blog post on of these days. I see fracture lines creeping up everywhere, splitting every group into smaller and 
-smaller polarised (if not outright hostile!) tribes, and the Ruby community, and even more so the Rails community, are 
-not spared. And maybe it&amp;rsquo;s just me because I&amp;rsquo;m on my way to my fifties, but I tend to see one of these fractures lines 
-in the generational gaps in our craft&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; especially after two years recruiting outside of my usual 
-tech pool.&lt;/p&gt;
-
-&lt;p&gt;Well, it turns out that there were &lt;em&gt;a lot&lt;/em&gt; of youngsters[^2] in the attendance, and they impressed me 
-&lt;em&gt;a lot&lt;/em&gt;. Enthusiastic, (very) knowledgeable, smart… Exactly the kind of people I like to believe that my comrades and I 
-were back in the day.&lt;/p&gt;
-
-&lt;p&gt;In fact, I came out of Brighton Ruby feeling both happy, reassured, and also a bit like shit. That&amp;rsquo;s because so many people 
-were &lt;em&gt;so fucking impressive&lt;/em&gt;. Be they 15 years younger than me and already as experienced as I feel[^3], or people my age 
-with five times my list of achievements, I felt surrounded by raw talent across two or three generations of developers. 
-Which is a &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;tremendous&lt;/a&gt; thing for the community (and the future or programming), 
-but made me feel small. At the same time, it&amp;rsquo;s never too late catch up!&lt;/p&gt;
-
-&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
-
-&lt;p&gt;Brighton Ruby was &lt;a href=&quot;https://www.thesaurus.com/browse/great&quot;&gt;super-duper&lt;/a&gt;. I&amp;rsquo;ll be back.&lt;/p&gt;
-
-&lt;hr /&gt;
-&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
-  &lt;ol&gt;
-    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
-      &lt;p&gt;&lt;strong&gt;Edit:&lt;/strong&gt; as &lt;a href=&quot;https://blog.testdouble.com/posts/2023-07-12-the-looming-demise-of-the-10x-developer/&quot;&gt;a viral blog post by Justin Searls&lt;/a&gt; 
-showed, it turns out that it isn&amp;rsquo;t just me at all. I always feel better when someone smarter than me thinks as I do.
-[^2]: I&amp;rsquo;m 46, I&amp;rsquo;m allowed to use this word. Now get off my lawn.
-[^3]: Time to quote &lt;a href=&quot;https://www.youtube.com/watch?v=pYGiDX9Luc8&quot;&gt;The Hellacopters&lt;/a&gt;: &lt;em&gt;And I&amp;rsquo;m older but sure ain&amp;rsquo;t as wise as I pretend to, it&amp;rsquo;s mostly a lie.&lt;/em&gt;&amp;nbsp;&lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
-    &lt;/li&gt;
-  &lt;/ol&gt;
-&lt;/div&gt;
-</content>
-    </entry>
-  
-    <entry>
-      <id>https://2-45.pm/blog/blog/a-dash-of-milk/2023/06/26/issue-4.html</id>
-      <title>A dash of milk #4</title>
-      <updated>2023-06-26T20:50:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/blog/blog/a-dash-of-milk/2023/06/26/issue-4.html" />
-
-      <published>2023-06-26T20:50:00+02:00</published>
-      <content type="html">&lt;h3 id=&quot;attenborough-lore&quot;&gt;&lt;a href=&quot;https://www.youtube.com/@AttenboroughLore/about&quot;&gt;Attenborough Lore&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;&amp;ldquo;A foray into the Warhammer 40,000 lore, as narrated by an AI of the venerable Sir David Attenborough.&amp;rdquo; I&amp;rsquo;ve 
-been binging on these videos recently – the richness and horror of the 40K lore pairs really well, in an ironic way, with 
-Sir Attenborough&amp;rsquo;s simulated elocution. The results are really impressive – finally a good use of deep fake tech!&lt;/p&gt;
-
-&lt;h3 id=&quot;intel-one-mono&quot;&gt;&lt;a href=&quot;https://github.com/intel/intel-one-mono&quot;&gt;Intel One Mono&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;I&amp;rsquo;m a sucker for fonts, especially so-called progamming fronts. This one looked really good… on the screenshots. I installed it 
-and immediately went back to my dear &lt;a href=&quot;https://www.fontspace.com/monofur-font-f39937&quot;&gt;Monofur&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h3 id=&quot;webxr&quot;&gt;&lt;a href=&quot;https://immersiveweb.dev&quot;&gt;WebXR&lt;/a&gt;&lt;/h3&gt;
-
-&lt;p&gt;I&amp;rsquo;m really excited by visionOS and the idea of “spatial computing”. I&amp;rsquo;m usually suspicious of attempts to use web tech to 
-build desktop-like apps, but this may be an easy way in this new landscape. I&amp;rsquo;m willing go give it a try. (But I&amp;rsquo;m also downloading 
-XCode and dusting off my Swift reference book as I&amp;rsquo;m typing this…)&lt;/p&gt;
 </content>
     </entry>
   

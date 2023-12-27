@@ -4,7 +4,7 @@
 
   <id>https://2-45.pm/</id>
   <title>2-45.pm – main feed</title>
-  <updated>2023-12-11T20:40:55+01:00</updated>
+  <updated>2023-12-27T11:45:00+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -16,6 +16,44 @@
 
   <rights> © Ronan Limon Duparcmeur - contact@2-45.pm </rights>
 
+  
+    <entry>
+      <id>https://2-45.pm/blog/a-dash-of-milk/2023/12/27/issue-9.html</id>
+      <title>A dash of milk #9</title>
+      <updated>2023-12-27T11:45:00+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/a-dash-of-milk/2023/12/27/issue-9.html" />
+
+      <published>2023-12-27T11:45:00+01:00</published>
+      <content type="html">
+        <![CDATA[<p>December was rather busy for me, but as often, the last week of the year is rather quiet, and I&rsquo;m 
+finally able to pop and shift from my overflowing reading list.</p>
+
+<h3 id="the-three-body-problem-the-imperative-of-survival-and-the-misogyny-of-reactionary-rhetoric"><a href="https://madeinchinajournal.com/2023/12/11/the-three-body-problem-the-imperative-of-survival-and-the-misogyny-of-reactionary-rhetoric">The ‘Three-Body Problem’, the Imperative of Survival, and the Misogyny of Reactionary Rhetoric</a></h3>
+
+<p>Fascinating take of the <em>Three-Body Problem</em> trilogy and its underlying ideology. I haven&rsquo;t read the whole trilogy, 
+since I found the first novel a drag – quite frankly, I still don&rsquo;t understand its appeal. I remember feeling a bit 
+unsettled by the overall atmosphere of the book, without being able to pinpoint why. Maybe it has something to do 
+with the issues raised by Chenchen Zhang in this essay?</p>
+
+<h3 id="apparently-the-thing-i-call-tdd-might-not-be-quite-tdd"><a href="https://ronjeffries.com/articles/-y023/python/-9w290/292/">Apparently the thing I call TDD might not be quite TDD</a></h3>
+
+<p>Well, my practice of TDD is closer to Ron Jeffries&rsquo; than Kent Beck&rsquo;s, so I guess that I am not doing TDD either. 
+Or <em>Canon TDD</em>, at least.</p>
+
+<h3 id="web-components"><a href="https://12daysofweb.dev/2023/web-components/">Web Components</a></h3>
+
+<p>“Component” is probably my most loathed word of 2023: it is everywhere and doesn&rsquo;t mean anything anymore. Yet, this 
+article lays down a great explanation of what <em>web</em> components are (spoiler: many different but related things at 
+once), nicely illustrated by actual working code.</p>
+
+<h3 id="goodbye-clean-code"><a href="https://overreacted.io/goodbye-clean-code/">Goodbye, Clean Code</a></h3>
+
+<p>A good lesson on the difference between <em>looking good</em> and <em>good-looking</em>. “Style over substance” is great when 
+playing <a href="https://2-45.pm/blog/2023/12/10/chrome-shift.html">Cyberpunk RED</a>; not to much when writing real-life software.</p>
+]]>
+      </content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/articles/2023/12/11/faxes-from-a-late-career-developer.html</id>
@@ -323,7 +361,7 @@ anyone. Unfortunately, it was quickly obvious that the Tomb Raiders had taken po
 would not let it go for free.</p>
 
 <p>The party then moved their attention to the presumed seller of the device. His identity was soon revealed: nicknamed 
-<strong>[3-Piece[(https://cyberpunk.fandom.com/wiki/3-Piece)</strong>, this fixer had a certain renown, and a specialty in 
+<strong><a href="https://cyberpunk.fandom.com/wiki/3-Piece">3-Piece</a></strong>, this fixer had a certain renown, and a specialty in 
 tech-related ventures. Tactfully approached, 3-Piece proved to be friendly and accomodating, and warned the party 
 that being in possession of the device could attract dangerous attention, and especially that of a rival named 
 <strong>Armalite</strong>, from whom 3-piece initially acquired it.</p>
@@ -3066,78 +3104,6 @@ but rarely used now, such as hex notation; hopefully they will not deter you as 
     </li>
   </ol>
 </div>
-]]>
-      </content>
-    </entry>
-  
-    <entry>
-      <id>https://2-45.pm/blog/2023/08/28/what-i-ve-been-reading-lately-august-2023.html</id>
-      <title>What I&#39;ve been reading lately (August 2023)</title>
-      <updated>2023-08-28T08:34:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/blog/2023/08/28/what-i-ve-been-reading-lately-august-2023.html" />
-
-      <published>2023-08-28T08:34:00+02:00</published>
-      <content type="html">
-        <![CDATA[<h3 id="une-histoire-du-jeu-vidéo-en-france-1960-1991-des-labos-and-chambres-dados-alexis-blanchet--guillaume-montagnon-2020">Une histoire du jeu vidéo en France, 1960-1991: des labos and chambres d&rsquo;ados (Alexis Blanchet &amp; Guillaume Montagnon, 2020)</h3>
-
-<p>A book with a very long and exhaustive title (in English: <em>A history of video games in France, 1960-1991: from labs to 
-teenagers&rsquo; bedrooms</em>), that fits perfectly with its content: a long and exhaustive study of, well, the way video games 
-were made, distributed, and played from the early sixties to the start of the nineties. After 
-<a href="{% post_url 2023-05-25-what-i-ve-been-reading-lately %}">Un feu dans le ciel nordique</a>, this is another book that reads 
-like a (friendly) PhD, with its analytical approach, its matter-of-fact tone devoid of any storytelling, and the very 
-impressive amount of research that its built upon.</p>
-
-<p>Even if the first chapters (how video games were first disdained curiosities for researchers; how they eventually entered 
-the realms of pinball-adjacent games for <em>cafés</em> and bars) were a bit of a slog, albeit an interesting one, once 
-we reached the 1970s and the home consoles, I got hooked; by the &rsquo;80s, the time of the 8-bit home computers and my own 
-youth, I could not put the book down. Learning the history behind all the companies whose names I used to read in 
-magazines ads and game reviews – Infogrames, Ere Informatique, Ubi Soft… – was captivating. And, like with RPGs or 
-start-ups, the synopsis is always the same. First, passionate enthusiasts tinker in their basement, then the money pours in, 
-and finally consolidation kicks in, squeezing the fun to extract the dough. But as for the book, after a slow start, it 
-was a great read!</p>
-
-<h3 id="the-once-and-future-sex-going-medieval-on-womens-role-in-society-eleanor-janega-2023">The Once And Future Sex: Going Medieval on Women&rsquo;s Role in Society (Eleanor Janega, 2023)</h3>
-
-<p>I believe that I heard about this one in an episode of Radio 4&rsquo;s <a href="https://www.bbc.co.uk/programmes/p07mdbhg">You&rsquo;re Dead To Me</a>. 
-This would make sense, since like the podcast, this book is instructive, entertaining, friendly and witty. Unlike 
-<em>Une Histoire du jeu vidéo…</em>, it doesn&rsquo;t go into too much details, giving you just enough to keep the narration lively 
-and interesting. (Obviously, the author doesn&rsquo;t need to assert her expertise, since it&rsquo;s a given; this probably helps.) 
-Even if the book&rsquo;s structure is a bit obvious and repetitive – first the upcoming points are announced, then broadly 
-introduced, then presented one by one, then summarised, and then we move on to the next topic – the author&rsquo;s style 
-and humour keep you hooked.</p>
-
-<p>And what about the women&rsquo;s role in medieval society? Unsurprisingly, it was major and yet underestimated and 
-under-appreciated, and one of the author&rsquo;s point is that it is still the case today – by which I mean that we fail to 
-give medieval women justice, but also that we fail to give <em>modern</em> women justice. The book&rsquo;s conclusion articulates this 
-point much better than me, but don&rsquo;t expect the whole book to be a political manifesto: it is the work of an historian 
-first, and a feminist second. Getting the whole picture of the medieval society&rsquo;s view of women is a bit disheartening, 
-because it&rsquo;s both indisputably coherent and yet completely stupid – it makes perfect sense if your world view starts on 
-fallacious premises. Which means that we still aren&rsquo;t immune to such misguided ways (and more than once, I felt like I 
-was reading something out of an incel manifesto.) All the more reason to enjoy this smart and witty book!</p>
-
-<h3 id="the-black-dahlia-james-ellroy-1987">The Black Dahlia (James Ellroy, 1987)</h3>
-
-<p>I hadn&rsquo;t read this book in 15 years, or maybe more, but had a good memory of it. Reading it now, I was a bit disappointed. 
-From a stylistic point of view, it is a delight – Ellroy is as sharp and cold-blooded as Chandler, with a bit of extra 
-crudeness to punch harder. But the story itself lacks a bit of cohesiveness – some of the things that are set up aren&rsquo;t 
-payed off, while some parts – especially towards the end – feel like fillers. The ending manages to tie everything up, 
-but to do so resorts to one of the easiest tricks: it&rsquo;s because they&rsquo;re insane that the bad people did what they did (and 
-a lot of characters turn out to be insane.) Still, I&rsquo;m a sucker for stylish stories of hard-boiled detectives.</p>
-
-<h3 id="mountain-of-daggers-seth-skorkowsky-2015">Mountain of Daggers (Seth Skorkowsky, 2015)</h3>
-
-<p>I love <a href="https://skorkowsky.com">Seth Skorkowsky</a>&rsquo;s <a href="https://www.youtube.com/channel/UCQs8-UJ7IHsrzhQ-OQOYBmg">videos</a> 
-on tabletop role-playing games. I indisputably deserves his <a href="https://ennie-awards.com/2023-nominees/">2023 ENNIE award</a> 
-for best podcast. And, since I&rsquo;m always on the lookout for good fantasy novels, I was eager to read his work as a writer.</p>
-
-<p>Unfortunately, I found the adventures of the Black Raven, good, but not great. The writing is perfectly fine – in fact, 
-the action scenes grabbed me more than once – but I couldn&rsquo;t care for the protagonist, nor the adventures themselves. 
-The characters and the stories are a bit lacklustre, except for the very last story, with its disturbing, almost 
-body-horror tone. I don&rsquo;t know if the short stories in this book are adaptations of roleplaying sessions, but I wouldn&rsquo;t 
-be surprised if it was the case, because this is usually how it ends up: way less interesting to read than it must have 
-been to play. Even the tales of the Black Company, which as far as I know are highly praised, eventually bored me. Still, 
-Skorkowsky definitely knows how to write, so I&rsquo;ll probably give his works another chance.</p>
 ]]>
       </content>
     </entry>
