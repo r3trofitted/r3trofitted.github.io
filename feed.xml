@@ -4,7 +4,7 @@
 
   <id>https://2-45.pm/</id>
   <title>2-45.pm – main feed</title>
-  <updated>2023-12-27T11:45:00+01:00</updated>
+  <updated>2024-01-08T10:15:00+01:00</updated>
 
   <author>
     <name>Ronan Limon Duparcmeur</name>
@@ -16,6 +16,49 @@
 
   <rights> © Ronan Limon Duparcmeur - contact@2-45.pm </rights>
 
+  
+    <entry>
+      <id>https://2-45.pm/blog/a-dash-of-milk/2024/01/03/issue-10.html</id>
+      <title>A dash of milk #10</title>
+      <updated>2024-01-08T10:15:00+01:00</updated>
+
+      <link rel="alternate" href="https://2-45.pm/blog/a-dash-of-milk/2024/01/03/issue-10.html" />
+
+      <published>2024-01-08T10:15:00+01:00</published>
+      <content type="html">
+        <![CDATA[<h3 id="bruce-sterling-and-jon-lebkowsky-state-of-the-world-2024"><a href="https://people.well.com/conf/inkwell.vue/topics/540/Bruce-Sterling-and-Jon-Lebkowsky-page01.html">Bruce Sterling and Jon Lebkowsky: State of the World 2024</a></h3>
+
+<p>A yearly ritual by people used to thinking about the future, in a virtual space that is also a time capsule of the 
+early web. The Well&rsquo;s UI is clunky like old mailing lists archives, but the ideas are rich, the analysis sharp, 
+if also bleak.</p>
+
+<h3 id="stop-saying-technical-debt"><a href="https://stackoverflow.blog/2023/12/27/stop-saying-technical-debt">Stop saying “technical debt”</a></h3>
+
+<p>I used to love the “technical debt” metaphor. Now I&rsquo;m very suspicious whenever someone uses it. At the very least, 
+I ask them if they really mean technical <em>debt</em>, or rather <a href="https://avdi.codes/the-coding-wasteland/">technical <em>waste</em></a>. 
+(I&rsquo;ve shared this blog post <em>a lot</em> in the recent years – once more thing to thank Avdi Grimm for.) For now on, 
+I&rsquo;ll probably share this article, too.</p>
+
+<h3 id="alchemy"><a href="https://alchemyrpg.com">Alchemy</a></h3>
+
+<p>“Component” is probably my most loathed word of 2023: it is everywhere and doesn&rsquo;t mean anything anymore. Yet, this 
+article lays down a great explanation of what <em>web</em> components are (spoiler: many different but related things at 
+once), nicely illustrated by actual working code.</p>
+
+<h3 id="goodbye-clean-code"><a href="https://overreacted.io/goodbye-clean-code/">Goodbye, Clean Code</a></h3>
+
+<p>A good lesson on the difference between <em>looking good</em> and <em>good-looking</em>. “Style over substance” is great when 
+playing <a href="https://2-45.pm/blog/2023/12/10/chrome-shift.html">Cyberpunk RED</a>; not to much when writing real-life software.</p>
+
+<h3 id="semantic-versioning-is-a-terrible-mistake"><a href="https://reprog.wordpress.com/2023/12/27/semantic-versioning-is-a-terrible-mistake/">Semantic Versioning is a terrible mistake</a></h3>
+
+<p>I agree with the feeling that some ecosystems have a careless YOLO attitude towards breaking changes. I&rsquo;m really 
+happy with the way Rails handle things in this regard; the major upgrades can be significant (ask any grognard of 
+about their war stories of Rails 2-to-Rails 3 upgrade), and you do not want to stay behind, but they are released 
+once a year at worst.</p>
+]]>
+      </content>
+    </entry>
   
     <entry>
       <id>https://2-45.pm/blog/a-dash-of-milk/2023/12/27/issue-9.html</id>
@@ -2987,120 +3030,6 @@ instead.</p>
   <ol>
     <li id="fn:1" role="doc-endnote">
       <p>I did not realise that his passing was 12 years ago already. Where have all these years gone?&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-  </ol>
-</div>
-]]>
-      </content>
-    </entry>
-  
-    <entry>
-      <id>https://2-45.pm/articles/z80asm/2023/08/31/jurassic-stack.html</id>
-      <title>Jurassic Stack</title>
-      <updated>2023-08-31T14:02:00+02:00</updated>
-
-      <link rel="alternate" href="https://2-45.pm/articles/z80asm/2023/08/31/jurassic-stack.html" />
-
-      <published>2023-08-31T14:02:00+02:00</published>
-      <content type="html">
-        <![CDATA[<h3 id="coding-high-and-low">Coding high and low</h3>
-
-<p>Ruby is a great language. It is my favorite. It is also considered a <em>high-level</em> language which, if you&rsquo;re curious, 
-may beg the question: what is a <em>low-level</em> language? How different would it be to code in such a thing?</p>
-
-<p>To compare Ruby with a low-level language, we first need to pick one. This is not as easy as it sounds, because programming 
-languages are not like, say, <a href="">cliffs from which Norwegian singers can jump</a>: their elevation is not absolute, but relative. 
-The debate as to wether C is a high- or low-level language is <a href="">still occasionally reignited</a>. Yet, one thing is certain: you 
-cannot go lower than machine language. Here is an extract of a program in machine code:</p>
-
-<pre><code>3E 48 CD 5A BB 3E 65 CD 5A BB 3E 6C CD 5A BB 3E 6C CD 5A BB 3E 6F CD 5A BB
-</code></pre>
-
-<p>Even though people did write programs like this, this is a bit too low-level for me (and my sanity). One level of abstraction 
-above is the <strong>assembly</strong> (and <em>abstraction</em> is a big word here). Here is the same piece of program, in assembly:</p>
-
-<pre><code>LD    A,&amp;48
-CALL  &amp;BB5A
-LD    A,&amp;65
-CALL  &amp;BB5A
-LD    A,&amp;6C
-CALL  &amp;BB5A
-LD    A,&amp;6C
-CALL  &amp;BB5A
-LD    A,&amp;6F
-CALL  &amp;BB5A
-</code></pre>
-
-<p>With a bit of formatting, you can see how similar to the machine language it is:</p>
-
-<pre><code>3E    48
-CD    5A BB
-3E    65
-CD    5A BB
-3E    6C
-CD    5A BB
-3E    6C
-CD    5A BB
-3E    6F
-CD    5A BB
-</code></pre>
-
-<p>Sure, the <code>&amp;</code>&rsquo;s have been removed, and some character pairs have been switched, but you can see how the word-like stuff 
-in the assembly version maps to specific numbers in the machine language version. That&rsquo;s because assembly is basically 
-the transposition of the machine code <em>instructions</em> in character sequences (called <em>mnemonics</em>). That&rsquo;s indisputably 
-low-level.</p>
-
-<p>In fact, assembly is so low-level that there is no single, uniform assembly language. Instead, each microprocessor 
-architecture has its own assembly language, because each microprocessor architecture has its own set of code instructions. 
-So if we are to write a program in assembly, we must first chose &ldquo;an&rdquo; assembly – or rather, a target microprocessor.</p>
-
-<p>Modern processors are insanely sophisticated, so much that I don&rsquo;t even want to imagine how difficult writing assembly 
-for them must be. Besides, I have a score to settle with a much older processor: the Z80.</p>
-
-<p>The Z80 was an 8-bit microprocessor, made by the US company Zylog and introduced in 1976. From the late 1970s 
-to the mid-1980s, it was ubiquitous, powering arcade games, game consoles, calculators, and more importantly for me, 
-home computers.</p>
-
-<p>This variety of devices is important because, even though an assembly program is technically compatible with anything 
-that uses the relevant processor, in reality, it also depends on the general architecture of the system, which can 
-greatly vary. For example, a Sega MasterSystem and a Pac-Man arcade have different amount of memory, with different 
-layouts, etc. So for our experiment with assembly, we&rsquo;ll need to target a specific machine, and it will be the 
-Amstrad CPC.</p>
-
-<h3 id="load-1987">LOAD 1987</h3>
-
-<p>Amstrad was a British electronics company; its first computer, the Amstrad CPC 464, was introduced in 1984 and was a 
-great success in Europe (especially in France), as was its successors, the CPC 6128<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, the later being 
-released in 1985.</p>
-
-<p>As it happens, the Amstrad CPC 6128 was also my first computer, and the best Christmas gift of 1987, as you can see:</p>
-
-<p>[photo]</p>
-
-<p>(If you&rsquo;re not too distracted by the swag of my velvet pants, you&rsquo;ll notice that mother, always mindful of the important 
-things in life, had sneaked in the presents an educational game for me to practice my German.)</p>
-
-<p>This is the computer on which I learned to program<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup>; but back then, once you had mastered BASIC, assembly was the 
-only next step available, and the gap between the two was too large for me – especially when there were all those 
-cool games I could play instead. But nothing is ever too late!</p>
-
-<p>One of the things that made assembly so hard to grasp for me in 1987, I think, is how depend on the hardware it is. To 
-program in assembly you need to learn how the computer works – what memory actually is, how a processor works, what 
-buses and interrupts are, etc. This is probably why so many learning resources, even today, start with theoretical 
-exposes on registers, binary arithmetics, or addressing techniques. In this series, I&rsquo;ll try to dive into the code 
-as soon as possible, and take technical detours when necessary. But I will also skip over things that were ubiquitous then 
-but rarely used now, such as hex notation; hopefully they will not deter you as they deterred me when I was a kid.</p>
-
-<hr />
-
-<div class="footnotes" role="doc-endnotes">
-  <ol>
-    <li id="fn:1" role="doc-endnote">
-      <p>I&rsquo;m skipping over the CPC 664, which was only on the market for a few months.&nbsp;<a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
-    </li>
-    <li id="fn:2" role="doc-endnote">
-      <p><em>Technically</em>, I had previously dabbled in programming on <a href="">TO7</a> computers at my town&rsquo;s computer club, if you 
-  consider Logo a real programming language.&nbsp;<a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
   </ol>
 </div>

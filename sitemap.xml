@@ -5,7 +5,7 @@
 
     <url>
       <loc>https://2-45.pm/</loc>
-      <lastmod>2023-12-27</lastmod>
+      <lastmod>2024-01-08</lastmod>
       <changefreq>daily</changefreq>
       <priority>1.0</priority>
     </url>
@@ -299,6 +299,13 @@
     </url>
     
     <url>
+      <loc>https://2-45.pm/blog/a-dash-of-milk/2024/01/03/issue-10.html</loc>
+      <lastmod>2024-01-08</lastmod>
+      <changefreq>monthly</changefreq>
+      <priority>0.8</priority>
+    </url>
+    
+    <url>
       <loc>https://2-45.pm/blog/</loc>
       <lastmod>2023-11-27</lastmod>
       <changefreq>monthly</changefreq>
@@ -314,14 +321,14 @@
     
     <url>
       <loc>https://2-45.pm/articles/steel-vellum.html</loc>
-      <lastmod>2023-12-27</lastmod>
+      <lastmod>2024-01-08</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
     </url>
     
     <url>
       <loc>https://2-45.pm/articles/z80-asm.html</loc>
-      <lastmod>2023-12-27</lastmod>
+      <lastmod>2024-01-08</lastmod>
       <changefreq>monthly</changefreq>
       <priority>0.8</priority>
     </url>
